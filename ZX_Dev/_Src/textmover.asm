@@ -1,4 +1,4 @@
-;
+;Keyboard ports:
 ;INPUT PORTS:
 ;32766 B, N, M, Symbol Shift, Space
 ;49150 H, J, K, L, Enter
@@ -9,10 +9,12 @@
 ;65022 G, F, D, S, A
 ;65278 V, C, X, Z, Caps Shift
 ;
+; 
+;
 ENTRY_POINT equ 32768
 
     org ENTRY_POINT
-    
+
     call 0xdaf ;ROM routine of Spectrum clears screen and opens channel 2
     ld hl,udg ;HL=pointer at our first UDG
     ld (23675),hl ;change pointer in 23675 to point to our first UDG
@@ -20,6 +22,7 @@ ENTRY_POINT equ 32768
     ld a, ATTR_BLUE_INK_YELLOW_PAPER
     ld (23693),a ;poke that value into the screen colour attributes memory address
     call 0xdaf ;cls
+
     call makesound_gsharp_0_25
 
     ld b, 50 ;50 frames = 1 sec for delay
@@ -156,7 +159,21 @@ waitloop:
     djnz waitloop
     ret
 
+;returns with random number betweem 0-255 in A
+getrandom:
+    ld hl,(seed)
+    ld a,h 
+    and %00011111 ;and 31
+    ld h,a
+    ld a,(hl)
+    inc hl
+    ld (seed),hl
+    ret
+
+
 ;;;;;;;;; DATA /VARIABLES (maybe) ;;;;;;;;;;;;;;;;;;
+
+seed dw 0
 
 score dw 1234
 score_xpos db 0
