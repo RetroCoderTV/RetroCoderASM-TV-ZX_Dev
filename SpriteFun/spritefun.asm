@@ -4,6 +4,25 @@ ENTRY_POINT equ 32768
 
     call 0xDAF ;cls + open ch2
 
+    ;paint the bg a random colour each cell. Note the colour memory can be treated
+    ;as a 1D array since we dont care about how the colours are laid out
+    ld hl,ATTR_MEM_START
+crazybg:    
+    push hl
+    call getrand ;A=rand
+    and %00011000 ;mask out all but paper bits (also mask upper paper bit to avoid yellow paper)
+    pop hl
+    ld (hl),a
+    inc hl
+    ld a,ATTR_MEM_END_UPPER_BYTE
+    cp h 
+    halt
+    halt
+    halt
+    halt ;add lots halts so we can see each square drawn in order
+    jp nz, crazybg ;jump back if H not equal to ATTRIBUTE MEM END
+    
+
 main:
     halt 
     ld hl,bitmap1
@@ -516,14 +535,31 @@ calculate_cells_xy:
 	ld (playercelly), a
     ret
 
+; Simple pseudo-random number generator.
+; Steps a pointer through the ROM (held in seed), returning
+; the contents of the byte at that location.
+getrand: 
+    ld hl,(seed) ; Pointer
+    ld a,h
+    and 31 ; keep it within first 8k of ROM.
+    ld h,a
+    ld a,(hl) ; Get "random" number from location.
+    inc hl ; Increment pointer.
+    ld (seed),hl
+    ret
+
 ;
 ;
 ;;;; DATA STARTS ;;;;;;;;;;;;;;;;
     include "util\screentools.asm"
     include "bitmaps.asm"
 
-playerx db 5
-playery db 5
+seed dw 0
+
+painter_currentcell dw 0
+
+playerx db 8 ;lock his start pos in characters, else the colours won't fill fully the sprite
+playery db 8
 playercellx db 0
 playercelly db 0
 
@@ -531,7 +567,9 @@ MAXIMUM_X equ (32*8)-17
 MAXIMUM_Y equ (24*8)-17
 
 ;Useful constants:
-ATTR_MEMORY_START equ 0x5800
+ATTR_MEM_START equ 0x5800
+ATTR_MEM_END_UPPER_BYTE equ 0x5B
+ATTR_MEM_SIZE equ 32 * 24
 SCREEN_WIDTH_CHARS equ 32
 SCREEN_HEIGHT_CHARS equ 24
 SCREEN_WIDTH equ SCREEN_WIDTH_CHARS * 8
