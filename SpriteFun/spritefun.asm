@@ -11,6 +11,7 @@ main:
     call moveplayer
     ld hl,bitmap1
     call drawplayer
+    call paintplayer
     jp main
 
 deleteplayer:
@@ -228,6 +229,8 @@ moveplayer:
     ;push af
     ;call nc, T Pressed
     ;pop af
+
+    call calculate_cells_xy
     ret 
 
 moveleft:
@@ -437,12 +440,81 @@ drawplayer:
 
 
 ;
+
+;NO INPUTS - paints player yellow, doesnt handle 'paper' correctly
 ;again specific to the 16x16 player
 ;0x5800 = start of attributes memory
 ;formula is straight forward as you would expect a 2d array to be...
-;attr address = 0x5800 + ((y*32)+x)
+;attr address = 0x5800 + ((y*32)+x) --note: x and y are in CHARACTERS not pixels!
 paintplayer:
-    ld hl,0x5800
+    ld h,0 
+    ld a,(playercelly)
+    ld l,a ;HL=player y
+    add hl,hl ;x2
+    add hl,hl ;x4
+    add hl,hl ;x8
+    add hl,hl ;x16
+    add hl,hl ;x32
+    ld a,(playercellx)
+    ld d,0   
+    ld e,a
+    add hl,de ;HL = ((y*32)+x)
+    ld de,0x5800
+    add hl, de ;HL = 0x5800 + ((y*32)+x)
+    ld a,YELLOW_INK
+    ld e,(hl) ;E=current cell attribute value
+    or e ;combine A with E (so that paper bits are kept)
+    ld (hl),a
+    inc hl
+    ld a,YELLOW_INK
+    ld e,(hl) ;E=current cell attribute value
+    or e ;combine A with E (so that paper bits are kept)
+    ld (hl),a
+    dec hl
+    ld de,32
+    add hl,de
+    ld a,YELLOW_INK
+    ld e,(hl) ;E=current cell attribute value
+    or e ;combine A with E (so that paper bits are kept)
+    ld (hl),a
+    inc hl
+    ld a,YELLOW_INK
+    ld e,(hl) ;E=current cell attribute value
+    or e ;combine A with E (so that paper bits are kept)
+    ld (hl),a
+    ret
+
+calculate_cells_xy:
+	ld a,(playerx)
+	ld c,a
+	ld d,8
+	ld b,8
+     xor a
+       sla c
+       rla
+       cp d
+       jr c,$+4
+         inc c
+         sub d
+       djnz $-8
+	ld a,c
+	ld (playercellx),a
+	ld a,(playery)
+	ld c,a
+	ld a,8
+	ld d,a
+	ld b,8
+     xor a
+       sla c
+       rla
+       cp d
+       jr c,$+4
+         inc c
+         sub d
+       djnz $-8
+	ld a,c
+	ld (playercelly), a
+    ret
 
 ;
 ;
@@ -452,12 +524,18 @@ paintplayer:
 
 playerx db 5
 playery db 5
+playercellx db 0
+playercelly db 0
 
 MAXIMUM_X equ (32*8)-17
 MAXIMUM_Y equ (24*8)-17
 
-;Useful addresses:
+;Useful constants:
 ATTR_MEMORY_START equ 0x5800
+SCREEN_WIDTH_CHARS equ 32
+SCREEN_HEIGHT_CHARS equ 24
+SCREEN_WIDTH equ SCREEN_WIDTH_CHARS * 8
+SCREEN_HEIGHT equ SCREEN_HEIGHT_CHARS * 8
 
 ;ink masks, would need to be masked with BG attribute paper bits 
 ;otherwise will always result in black paper
