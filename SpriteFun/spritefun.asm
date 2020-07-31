@@ -16,7 +16,6 @@ crazybg:
     cp b 
     halt
     halt
-    halt
     halt ;add lots halts so we can see each square drawn in order
     jp nz, crazybg ;jump back if H not equal to ATTRIBUTE MEM END
     
