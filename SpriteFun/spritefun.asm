@@ -6,16 +6,14 @@ ENTRY_POINT equ 32768
 
     ;paint the bg a random colour each cell. Note the colour memory can be treated
     ;as a 1D array since we dont care about how the colours are laid out
-    ld hl,ATTR_MEM_START
+    ld bc,ATTR_MEM_START
 crazybg:    
-    push hl
     call getrand ;A=rand
     and %00011000 ;mask out all but paper bits (also mask upper paper bit to avoid yellow paper)
-    pop hl
-    ld (hl),a
-    inc hl
+    ld (bc),a
+    inc bc
     ld a,ATTR_MEM_END_UPPER_BYTE
-    cp h 
+    cp b 
     halt
     halt
     halt
