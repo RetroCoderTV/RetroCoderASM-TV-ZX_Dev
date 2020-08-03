@@ -30,20 +30,23 @@ ENTRY_POINT equ 32768
 
     ; call makesound_csharp_0_25
     ; call makesound_gsharp_0_5
-
-    ld ix,ninjastarsdata
-    ld a,(b_stars_initialized)
-    cp 0
-    call z,spawnstars
     
 main:
-    halt ;locks us at 50fps, waits for interrupt      
+    halt ;locks us at 50fps, waits for interrupt    
+    halt
+    halt
+    halt
 
-    ld de,(xpos) ;DE=xpos,ypos
+    
+    ld ix,ninjastarsdata
+    ld a,(starspawncomplete)
+    cp 0
+    call z,spawnstars
+
+    ld de,(xpos) ;DE=ypos,xpos
     call setposition
     call deletesprite
 
-    halt
     ld bc,65022 ;ASDFG port
     in a,(c) ;reads port in (c)
     rra ;rotate right, bit0 into carry
@@ -90,115 +93,28 @@ main:
     ;call nc, T Pressed
     ;pop af
 
+
+    ld de,(score_xpos)
+    call setposition
+    ld bc,(score) ;BC = score value
+    call 0x1a1b ;built in routine, prints integer <= 9999
+
+
+    ld ix,ninjastarsdata
+    call updatestars
+
     ld ix,ninjastarsdata
     call deletestars
 
     ld ix,ninjastarsdata
-    call updatestars
-  
-    halt
-    ld de,(xpos) ;DE=xpos,ypos
+    call drawstars
+      
+    ld de,(xpos) 
     call setposition
     call displaysprite
-   
-    
-    
-  
 
-    ld ix,ninjastarsdata
-    call drawstars
-
-    ; ld de,(score_xpos)
-    ; call setposition
-    ; ld bc,(score) ;BC = score value
-    ; call 0x1a1b ;built in routine, prints integer <= 9999
 
     jp main ;loop forever
-
-;IX=stars data pointer
-spawnstars:
-    ld a,(ix)
-    cp 255
-    jp z,end_spawnstars
-    call getrandom
-    and %00011111 ;0-31 screen width
-    ld (ix+2),a
-    call getrandom
-    and %00001111 ;0-15 of screen height (udg only allowed 0-21 max)
-    ld (ix+1),a
-    ld de,NINJA_STARS_DATA_LENGTH
-    add ix,de
-    jp spawnstars
-end_spawnstars:
-    ld a,1
-    ld (b_stars_initialized),a
-    ret
-
-
-;
-
-;IX=stars data pointer
-deletestars:
-    ld a,(ix)
-    cp 255 ;check for end of array signal 255
-    ret z ;return if end of array
-    ld d,(ix+1)
-    ld e,(ix+2)
-    call setposition
-    call deletesprite
-    ld de,NINJA_STARS_DATA_LENGTH
-    add ix,de ;increment pointer by data length
-    jp deletestars
-
-;IX=stars data pointer
-updatestars:
-    ld a,(ix)
-    cp 255
-    ret z
-    ld a,(ix)
-    cp 0
-    jp z,gonext_updatestars
-    ;this star is alive...
-    call checkcollision_star_player
-gonext_updatestars:
-    ld de,NINJA_STARS_DATA_LENGTH
-    add ix,de
-    jp updatestars
-
-checkcollision_star_player:
-    ld a,(xpos)
-    cp (ix+2)
-    ret nz
-    ld a,(ypos)
-    cp (ix+1)
-    ret nz
-    ;if here, we have collision...
-    ld (ix),0
-    ld de,(xpos)
-    call setposition
-    call deletesprite
-    ret
-
-;IX=stars data pointer
-drawstars:
-    ld a,(ix)
-    cp 255
-    ret z
-    ld a,(ix)
-    cp 0
-    jp z,drawstars_gonext
-    ld a,(ix+1)
-    ld d,a
-    ld a,(ix+2)
-    ld e,a
-    call setposition
-    ld a,(ninjastarsprite)
-    rst 16
-drawstars_gonext:
-    ld de,NINJA_STARS_DATA_LENGTH
-    add ix,de
-    jp drawstars
-
 
 displaysprite:
     ld a,(playersprite)
@@ -211,7 +127,7 @@ deletesprite:
     ret
 
 ;INPUTS
-;DE=desired xy
+;DE=desired yx
 setposition:
     ld a,ASCII_AT
     rst 16
@@ -254,6 +170,93 @@ movedown:
     ld (ypos),a
     ret
 
+;INPUTS:
+;IX=stars data pointer
+spawnstars:
+    ld a,(ix)
+    cp 255
+    jp z,endspawn ;jump to end of array
+    call getrandom
+    and %00011111 ;0-31 width
+    ld (ix+1),a ;xy is backwards in setpos!
+    call getrandom
+    and %00001111 ;0-15 height (limited to 22 characters, must be the channel 2 thing)
+    ld (ix+2),a
+    ld de,NINJA_STARS_DATA_LENGTH
+    add ix,de
+    jp spawnstars
+endspawn:
+    ld a,1
+    ld (starspawncomplete),a
+    ret
+
+
+;INPUTS
+;ix=starsdata
+deletestars:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld d,(ix+2)
+    ld e,(ix+1)
+    call setposition
+    call deletesprite
+    ld de,NINJA_STARS_DATA_LENGTH
+    add ix,de
+    jp deletestars
+    
+
+;INPUTS:
+;IX=starsdata
+updatestars:
+    ;check for end of array signal
+    ld a,(ix)
+    cp 255 
+    ret z ;return if end
+    ;check is star alive
+    ld a,(ix)
+    cp 0
+    jp z,gonextstar_update ;jump to next if not alive
+    ;update alive stars...
+    call checkcollision_star_player
+gonextstar_update:
+    ld de,NINJA_STARS_DATA_LENGTH
+    add ix,de
+    jp updatestars
+
+checkcollision_star_player:
+    ld a,(ypos)
+    cp (ix+2)
+    ret nz
+    ld a,(xpos)
+    cp (ix+1)
+    ret nz
+    ; if here, then collided
+    ld (ix),0  
+    ld de,(xpos)
+    call setposition
+    call deletesprite
+    ret
+
+drawstars:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld a,(ix) ; todo needed?
+    cp 0
+    jp z, gonextstar_draw
+    ld a,(ix+2)
+    ld d,a
+    ld a,(ix+1)
+    ld e,a ;put x and y into DE
+    call setposition
+    ld a,(ninjastarsprite)
+    rst 16
+gonextstar_draw:
+    ld de,NINJA_STARS_DATA_LENGTH
+    add ix,de
+    jp drawstars
+    
 
 ;creates a pause. B=frames delayed
 ;INPUTS:
@@ -275,16 +278,13 @@ getrandom:
     ret
 
 
-
-
-
 ;;;;;;;;; DATA /VARIABLES (maybe) ;;;;;;;;;;;;;;;;;;
 
 seed dw 0
 
 score dw 1234
-score_ypos db 0
 score_xpos db 0
+score_ypos db 0
 
 xpos db 0
 ypos db 0
@@ -294,22 +294,35 @@ ypos db 0
 playersprite db 0x91
 ninjastarsprite db 0x92
 
+
 ;data format:
-;byte0=0=not alive, 1=alive
+;byte0= 255=end or array, 0=not alive (ie. collected), 1=alive
 ;byte1=ypos
 ;byte2=xpos
 ninjastarsdata:
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
+    ; db 1,0,0
     db 1,0,0
+    db 0,0,0
+    db 0,0,0
     db 1,0,0
-    db 1,0,0
-    db 1,0,0
-    db 1,0,0
+    db 0,0,0
+    db 0,0,0
     db 255
-NINJA_STARS_DATA_LENGTH equ 3
-b_stars_initialized db 0
 
-include "constants.asm"
-include "sprites\udgs.asm"
-include "soundmaker.asm"
+starspawncomplete db 0
+NINJA_STARS_DATA_LENGTH equ 3
+
+include 'constants.asm'
+include 'sprites/udgs.asm'
+include 'soundmaker.asm'
 
     end ENTRY_POINT
