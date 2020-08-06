@@ -71,5 +71,23 @@ fire:
     ld (bullet_timer),a ;reset timer to 0
     ret
 
-
+spawnbullet:
+    ld a,(iy)
+    cp 255
+    ret z
+    cp 1
+    jp z, spawnbullet_gonext
+    ;spawn it...
+    ld a,1
+    ld (iy),a
+    ld a,(ix+1)
+    ld (iy+1),a
+    ld a,(ix+2)
+    sub 8 ;move bullet up 8 pixels
+    ld (iy+2),a
+    ret
+spawnbullet_gonext:
+    ld bc,BULLET_DATA_LENGTH
+    add iy,bc
+    jp spawnbullet
 

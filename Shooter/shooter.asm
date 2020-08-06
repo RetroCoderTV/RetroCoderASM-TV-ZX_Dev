@@ -1,6 +1,11 @@
+;0x4000=pixel memory
+;0x5800=colour memory
+
 ENTRY_POINT equ 32768
 
     org ENTRY_POINT
+
+
 
     call 0xDAF
     ld a,0
@@ -10,7 +15,18 @@ maingame:
     halt
     halt
     halt
-    
+
+;     ld de,PIXEL_MEM_START
+; clearpixels:
+;     xor a
+;     ld (de),a
+;     inc de
+;     ld a,d
+;     cp ATTRIBUTE_MEM_START_UPPER_BYTE
+;     jp nz, clearpixels
+
+
+
 
     ld a,(bullet_timer)
     inc a
@@ -22,11 +38,13 @@ maingame:
     ld ix,playerdata
     call deletesprite
 
+    ld ix,playerdata
+    call checkkeys
+
     ld ix,enemydata
     call updateenemies
 
-    ld ix,playerdata
-    call checkkeys
+
 
     ld ix,enemydata
     ld hl,enemy1
@@ -47,25 +65,21 @@ maingame:
 
     jp maingame
 
-spawnbullet:
-    ld a,(iy)
+; all enemies 'isAlive' should be set to 0 before calling
+spawnenemywave:
+    ld a,(ix)
     cp 255
-    ret z
-    cp 1
-    jp z, spawnbullet_gonext
-    ;spawn it...
+    jp z,endspawn
+    ld (ix),1
+    ld bc,ENEMY_DATA_LENGTH
+    add ix,bc
+    jp spawnenemywave
+endspawn:
     ld a,1
-    ld (iy),a
-    ld a,(ix+1)
-    ld (iy+1),a
-    ld a,(ix+2)
-    sub 8 ;move bullet up 8 pixels
-    ld (iy+2),a
+    ld (b_enemyspawncomplete),a
     ret
-spawnbullet_gonext:
-    ld bc,BULLET_DATA_LENGTH
-    add iy,bc
-    jp spawnbullet
+
+
 
 updatebullets:
     ld a,(ix)
@@ -106,19 +120,7 @@ drawbullets_gonext:
     jp drawbullets
 ;
 
-; all enemies 'isAlive' should be set to 0 before calling
-spawnenemywave:
-    ld a,(ix)
-    cp 255
-    jp z,endspawn
-    ld (ix),1
-    ld bc,ENEMY_DATA_LENGTH
-    add ix,bc
-    jp spawnenemywave
-endspawn:
-    ld a,1
-    ld (b_enemyspawncomplete),a
-    ret
+
 
 updateenemies:
     ld a,(ix)
@@ -155,7 +157,7 @@ drawenemies_gonext:
 ;isAlive,x,y,sizex (cells),sizey (lines)
 
 playerdata:
-    db 1,(255/2)-7,180-8,2,16
+    db 1,(255/2)-7,170-8,2,16
 
 bulletdata:
     db 0,0,0,1,8
@@ -172,10 +174,10 @@ enemydata:
     db 255
 ENEMY_DATA_LENGTH equ 5
 
-SCREEN_WIDTH equ 255
+
 
 PLAYER_WIDTH_PX equ 16
-PLAYER_SPEED_X equ 12
+PLAYER_SPEED_X equ 16
 
 BULLET_SPEED equ 16
 BULLET_MIN_Y equ 13
@@ -195,6 +197,7 @@ b_enemyspawncomplete db 0
     include 'util\screentools.asm'
     include 'util\soundtools.asm'
     include 'util\spritetools.asm'
+    include 'util\constants.asm'
 
 
     end ENTRY_POINT
