@@ -79,13 +79,23 @@ main
 
 moveleft:
     xor a
-    ld (directionx),a
+    ld (directionx),a ;set correct direction value
+
+    ld a,(ix+1)
+    sub PLAYER_SPEED
+    ld (ix+1),a
+
     ret
 
 
 moveright:
     ld a,1
-    ld (directionx),a 
+    ld (directionx),a ;set correct direction value
+
+    ld a,(ix+1)
+    add a,PLAYER_SPEED
+    ld (ix+1),a
+
     ret
 
 
@@ -156,11 +166,12 @@ resetframe_left:
 playerdata:
     db 1,(255/2)-8,170,2,16
 
+PLAYER_SPEED equ 2
 
 directionx db 1 ;0=left 1=right
 currentframe db 0
 animtimer db 0
-ANIM_FRAME_LENGTH equ 5
+ANIM_FRAME_LENGTH equ 8
 FRAMES_PER_STATE equ 2
 LEFT_FRAMES_BEGIN equ 3
 
