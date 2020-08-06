@@ -16,6 +16,8 @@ maingame:
     cp 0
     call z,spawnenemywave
 
+    ld ix,bulletdata
+    call deletebullets
 
     ld a,(bullet_timer)
     inc a
@@ -23,9 +25,6 @@ maingame:
  
     ld ix,playerdata
     call deletesprite
-
-    ld ix,bulletdata
-    call deletebullets
 
     ld ix,enemydata
     call deleteenemies
@@ -190,11 +189,11 @@ ENEMY_DATA_LENGTH equ 5
 SCREEN_WIDTH equ 255
 
 PLAYER_WIDTH_PX equ 16
-PLAYER_SPEED_X equ 16
+PLAYER_SPEED_X equ 12
 
 BULLET_SPEED equ 16
 BULLET_MIN_Y equ 13
-BULLET_INTERVAL equ 16
+BULLET_INTERVAL equ 8
 
 ENEMY_DEFAULT_Y equ 24
 ENEMY_DEFAULT_SPEED equ 4

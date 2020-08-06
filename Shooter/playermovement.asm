@@ -62,7 +62,6 @@ moveright:
     ret
 
 fire:
-    ;TODO: check timer here
     ld a,(bullet_timer)
     cp BULLET_INTERVAL
     ret c
