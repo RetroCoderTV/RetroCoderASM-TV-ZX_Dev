@@ -3,37 +3,30 @@ ENTRY_POINT equ 32768
     org ENTRY_POINT
 
     call 0xDAF
-    ld a,2
+    ld a,0
     call 0x229B
 
 maingame:
     halt
     halt
     halt
-
-    ld ix,enemydata
-    ld a,(b_enemyspawncomplete)
-    cp 0
-    call z,spawnenemywave
-
-    ld ix,bulletdata
-    call deletebullets
+    
 
     ld a,(bullet_timer)
     inc a
     ld (bullet_timer),a
- 
+
+    ld ix,bulletdata
+    call updatebullets
+
     ld ix,playerdata
     call deletesprite
 
     ld ix,enemydata
-    call deleteenemies
+    call updateenemies
 
     ld ix,playerdata
     call checkkeys
-
-    ld ix,bulletdata
-    call movebullets
 
     ld ix,enemydata
     ld hl,enemy1
@@ -46,6 +39,11 @@ maingame:
     ld ix,bulletdata
     ld hl,bullet1
     call drawbullets
+
+    ld ix,enemydata
+    ld a,(b_enemyspawncomplete)
+    cp 0
+    call z,spawnenemywave
 
     jp maingame
 
@@ -69,42 +67,28 @@ spawnbullet_gonext:
     add iy,bc
     jp spawnbullet
 
-
-deletebullets:
+updatebullets:
     ld a,(ix)
     cp 255
     ret z
     cp 0
-    jp z, deletebullets_gonext
+    jp z, updatebullets_gonext
     call deletesprite
-deletebullets_gonext:
-    ld bc,BULLET_DATA_LENGTH
-    add ix,bc
-    jp deletebullets
-
-movebullets:
-    ld a,(ix)
-    cp 255
-    ret z
-    cp 0
-    jp z, movebullets_gonext
     ;move bullets...
     ld a,(ix+2)
     cp BULLET_MIN_Y
     call c, killbullet
-    jp c, movebullets_gonext
+    jp c, updatebullets_gonext
     sub BULLET_SPEED
     ld (ix+2),a
-movebullets_gonext:
+updatebullets_gonext:
     ld bc,BULLET_DATA_LENGTH
     add ix,bc
-    jp movebullets
-
+    jp updatebullets
 
 killbullet:
     ld (ix),0
     ret
-
 
 drawbullets:
     ld a,(ix)
@@ -113,7 +97,9 @@ drawbullets:
     cp 0
     jp z, drawbullets_gonext
     ;if here, bullet alive..
+    push hl
     call drawsprite
+    pop hl
 drawbullets_gonext:
     ld bc,BULLET_DATA_LENGTH
     add ix,bc
@@ -134,19 +120,19 @@ endspawn:
     ld (b_enemyspawncomplete),a
     ret
 
-
-
-deleteenemies:
+updateenemies:
     ld a,(ix)
     cp 255
     ret z
     cp 0
-    jp z, deleteenemies_gonext
+    jp z, updateenemies_gonext
     call deletesprite
-deleteenemies_gonext:
+    ;move enemies here...
+    ;...
+updateenemies_gonext:
     ld bc,ENEMY_DATA_LENGTH
     add ix,bc
-    jp deleteenemies
+    jp updateenemies
 
 drawenemies:
     ld a,(ix)
