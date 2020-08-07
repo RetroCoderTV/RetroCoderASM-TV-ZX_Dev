@@ -5,32 +5,23 @@ ENTRY_POINT equ 32768
 
     org ENTRY_POINT
 
-
-
     call 0xDAF
     ld a,0
     call 0x229B
 
 maingame:
-    halt
-    halt
-    halt
+    ; halt ;50fps
+    ; halt ;25fps
+    ; halt ;17fps
 
-;     ld de,PIXEL_MEM_START
-; clearpixels:
-;     xor a
-;     ld (de),a
-;     inc de
-;     ld a,d
-;     cp ATTRIBUTE_MEM_START_UPPER_BYTE
-;     jp nz, clearpixels
-
-
-
+    call fixfps
 
     ld a,(bullet_timer)
     inc a
     ld (bullet_timer),a
+
+    ld ix,playerdata
+    call checkkey_O
 
     ld ix,bulletdata
     call updatebullets
@@ -39,12 +30,13 @@ maingame:
     call deletesprite
 
     ld ix,playerdata
-    call checkkeys
+    call checkkey_A
+
+    ld ix,playerdata
+    call checkkey_D
 
     ld ix,enemydata
     call updateenemies
-
-
 
     ld ix,enemydata
     ld hl,enemy1
@@ -58,12 +50,31 @@ maingame:
     ld hl,bullet1
     call drawbullets
 
+
     ld ix,enemydata
     ld a,(b_enemyspawncomplete)
     cp 0
     call z,spawnenemywave
 
     jp maingame
+
+;requires:
+;db "previousFrameCount"
+;constant: number of frames to wait for
+fixfps:
+    ld hl,previousframecount
+    ld a,(0x5C78) ;0x5C78=Spectrums current frame count (24-bit)
+    sub (hl)
+    cp VSYNC_NUM_FRAMES_WAIT
+    jp nc,fixfps_end
+    ;if difference is < 3, loop back/wait here
+    ;...
+    jp fixfps
+fixfps_end:
+    ld a,(0x5C78)
+    ld (hl),a
+    ret
+
 
 ; all enemies 'isAlive' should be set to 0 before calling
 spawnenemywave:
@@ -78,8 +89,6 @@ endspawn:
     ld a,1
     ld (b_enemyspawncomplete),a
     ret
-
-
 
 updatebullets:
     ld a,(ix)
@@ -156,10 +165,15 @@ drawenemies_gonext:
 ;sprite data format:
 ;isAlive,x,y,sizex (cells),sizey (lines)
 
+previousframecount db 0
+
 playerdata:
-    db 1,(255/2)-7,170-8,2,16
+    db 1,120,150,2,16
+
 
 bulletdata:
+    db 0,0,0,1,8
+    db 0,0,0,1,8
     db 0,0,0,1,8
     db 0,0,0,1,8
     db 255
@@ -177,11 +191,11 @@ ENEMY_DATA_LENGTH equ 5
 
 
 PLAYER_WIDTH_PX equ 16
-PLAYER_SPEED_X equ 16
+PLAYER_SPEED_X equ 8
 
 BULLET_SPEED equ 16
-BULLET_MIN_Y equ 13
-BULLET_INTERVAL equ 8
+BULLET_MIN_Y equ 17
+BULLET_INTERVAL equ 2
 
 ENEMY_DEFAULT_Y equ 24
 ENEMY_DEFAULT_SPEED equ 4

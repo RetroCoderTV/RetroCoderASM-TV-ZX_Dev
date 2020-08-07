@@ -9,56 +9,31 @@
 ;65022 G, F, D, S, A
 ;65278 V, C, X, Z, Caps Shift
 
-;INPUTS:
-;IX=playerdata pointer
-checkkeys:
-    ld bc,65022 ;ASDFG port
-    in a,(c) ;reads port in (c)
-    rra ;rotate right, bit0 into carry
-    push af
-    call nc, moveleft ;A Pressed
-    pop af
-    rra 
-    push af
-    call nc, fire ;S Pressed
-    pop af
-    rra 
-    push af
-    call nc, moveright ;D Pressed
-    pop af
-    ;rra 
-    ;push af
-    ;call nc, F Pressed
-    ;pop af
-    ;rra 
-    ;push af
-    ;call nc, G Pressed
-    ;pop af
+;INPUT
+;IX=player data
+;DESTROYS: BC,A
+checkkey_A:
+    ld bc,65022
+    in a,(c)
+    rra
+    call nc, moveleft
     ret
 
-
-; Here are some general rules on using CP
-; Unsigned
-
-; If A == N, then Z flag is set.
-; If A != N, then Z flag is reset.
-; If A < N, then C flag is set.
-; If A >= N, then C flag is reset.
-
-moveleft:  
-    ld a,(ix+1)
-    cp PLAYER_SPEED_X
-    ret c
-    sub PLAYER_SPEED_X
-    ld (ix+1),a
+checkkey_D:
+    ld bc,65022
+    in a,(c)
+    rra
+    rra
+    rra
+    call nc, moveright
     ret
 
-moveright:  
-    ld a,(ix+1)
-    cp SCREEN_WIDTH-PLAYER_SPEED_X-PLAYER_WIDTH_PX
-    ret nc
-    add a,PLAYER_SPEED_X
-    ld (ix+1),a
+checkkey_O:
+    ld bc,57342
+    in a,(c)
+    rra
+    rra
+    call nc, fire
     ret
 
 fire:
@@ -83,11 +58,35 @@ spawnbullet:
     ld a,(ix+1)
     ld (iy+1),a
     ld a,(ix+2)
-    sub 8 ;move bullet up 8 pixels
+    sub 8
     ld (iy+2),a
     ret
 spawnbullet_gonext:
     ld bc,BULLET_DATA_LENGTH
     add iy,bc
     jp spawnbullet
+
+; Here are some general rules on using CP
+; Unsigned
+
+; If A == N, then Z flag is set.
+; If A != N, then Z flag is reset.
+; If A < N, then C flag is set.
+; If A >= N, then C flag is reset.
+
+moveleft:  
+    ld a,(ix+1)
+    cp PLAYER_SPEED_X
+    ret c
+    sub PLAYER_SPEED_X
+    ld (ix+1),a
+    ret
+
+moveright:  
+    ld a,(ix+1)
+    cp SCREEN_WIDTH-PLAYER_SPEED_X-PLAYER_WIDTH_PX
+    ret nc
+    add a,PLAYER_SPEED_X
+    ld (ix+1),a
+    ret
 
