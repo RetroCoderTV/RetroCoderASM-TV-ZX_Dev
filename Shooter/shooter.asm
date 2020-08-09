@@ -10,10 +10,6 @@ ENTRY_POINT equ 32768
     call 0x229B
 
 maingame:
-    ; halt ;50fps
-    ; halt ;25fps
-    ; halt ;17fps
-
     call fixfps
 
     ld a,(bullet_timer)

@@ -1,0 +1,6 @@
+Use Zeus to assemble main.asm, it'll load all the other files automatically.
+
+You need a moderately recent version of Zeus, I added support for the hexadecimal format these sources use on the 26/8/2010
+
+It can be downloaded from http://www.desdes.com/products/oldfiles/zeus.exe
+
