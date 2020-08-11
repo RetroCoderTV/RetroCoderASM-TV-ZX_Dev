@@ -15,36 +15,32 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16 ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14 ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16
+    ld sp,SCREEN_BUFFER_START+14
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
@@ -52,294 +48,266 @@ movebuffertoscreen:
     push af
 
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48
+    ld sp,SCREEN_BUFFER_START+42
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80
+    ld sp,SCREEN_BUFFER_START+70
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112
+    ld sp,SCREEN_BUFFER_START+98
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144
+    ld sp,SCREEN_BUFFER_START+126
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176
+    ld sp,SCREEN_BUFFER_START+154
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208
+    ld sp,SCREEN_BUFFER_START+182
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224 ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240
+    ld sp,SCREEN_BUFFER_START+210
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
@@ -354,221 +322,201 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+14+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+42+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+70+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+98+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+126+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
@@ -579,105 +527,105 @@ movebuffertoscreen:
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+154+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+182+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SCREEN_BUFFER_START+210+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -693,330 +641,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -1032,330 +980,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -1371,330 +1319,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -1709,330 +1657,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -2047,330 +1995,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -2385,330 +2333,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG1+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG1+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG1+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG1+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -2763,330 +2711,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16 ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14 ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224 ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196 ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16 ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14 ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32 ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28 ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -3101,330 +3049,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+BUFFER_MOVE_CHAR_DOWN ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+BUFFER_MOVE_CHAR_DOWN
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+BUFFER_MOVE_CHAR_DOWN
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+SPECTRUM_MOVE_CHAR_DOWN ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -3440,330 +3388,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*2) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*2)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*2)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*2) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -3779,330 +3727,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*3) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*3)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*3)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*3) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -4118,330 +4066,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*4) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*4)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*4)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*4) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -4456,330 +4404,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*5) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*5)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*5)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*5) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -4794,330 +4742,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*6) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*6)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*6)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*6) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
@@ -5132,330 +5080,330 @@ movebuffertoscreen:
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
+    ld sp,PLAYAREA_SEG2+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)(sp is decrement by 2 for each 2byte pushed)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 0 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+16+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+14+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+32+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+28+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P1+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 1 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+48+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+42+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P1+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P1+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+64+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+56+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P2+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 2 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+80+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+70+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P2+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P2+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+96+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+84+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P3+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 3 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+98+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P3+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P3+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+128+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+112+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P4+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 4 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+144+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+126+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P4+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P4+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+160+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+140+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P5+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 5 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+176+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+154+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P5+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P5+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+192+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+168+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P6+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 6 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+208+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+182+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P6+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P6+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /a
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+224+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+196+(BUFFER_MOVE_CHAR_DOWN*7) ; start of buffer line.
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+16+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
+    ld sp,PLAYAREA_SEG2+P7+14+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line. (it works backwards from stacking order)
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
     push bc
     push af
     ;line 7 /b
-    ld sp,SEGSIZE+SCREEN_BUFFER_START+240+(BUFFER_MOVE_CHAR_DOWN*7)
+    ld sp,SEGSIZE+SCREEN_BUFFER_START+210+(BUFFER_MOVE_CHAR_DOWN*7)
     pop af
     pop bc
     pop de
     pop hl
     exx
-    pop af
+    ;pop af
     pop bc
     pop de
     pop hl
-    ld sp,PLAYAREA_SEG2+P7+32+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
+    ld sp,PLAYAREA_SEG2+P7+28+(SPECTRUM_MOVE_CHAR_DOWN*7) ; end of screen line.
     push hl
     push de
     push bc
-    push af
+    ;push af
     exx
     push hl
     push de
