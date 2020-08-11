@@ -4,40 +4,25 @@ ENTRY_POINT equ 0x9000
 
     
     call 0xDAF ;cls
+    
 
-    ;11111111,00000000,00000000,00000000,00000000,00000000,00000000,11111111
     ;draw background into buffer
     ld h,SCREEN_BUFFER_START_UB
 drawnextpixel:
     ld a,h
     cp SCREEN_BUFFER_END_UB
-    jp z, changeborder
-    ld (hl), %11111111
-    inc hl
-    ld (hl), %00000000
-    inc hl
-    ld (hl), %00000000
-    inc hl
-    ld (hl), %00000000
-    inc hl
-    ld (hl), %00000000
-    inc hl
-    ld (hl), %00000000
-    inc hl
-    ld (hl), %00000000
-    inc hl
+    jp z, init
     ld (hl), %11111111
     inc hl
     jp drawnextpixel
     
-
-changeborder:    
-    ld a,3
-    call 8859
+init:
+    call changeborder
+    jp main
 
     
 main: 
-    
+
     halt
 
     ld de,sprite
@@ -47,6 +32,10 @@ main:
 
     jp main
 
+changeborder:    
+    ld a,3
+    call 8859
+    ret
 
 ;INPUTS:
 ;DE=sprite pointer
@@ -149,40 +138,14 @@ drawsprite:
     
 
 
-;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
 ;; DATA ;;;;;;;;;;;;;;;;;;;;;
 
 stack_ptr dw 0
-spritex db 30
-spritey db 8
+spritex db 0
+spritey db 0
 
 sprite:
-    db %11111111, %11111111
+    db %10000001, %10000001
     db %10000001, %10000001
     db %10000001, %10000001
     db %11111111, %11111111

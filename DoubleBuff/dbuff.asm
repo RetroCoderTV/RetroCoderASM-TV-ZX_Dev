@@ -50,6 +50,7 @@ movebuffertoscreen:
     push de
     push bc
     push af
+
     ;line 1 /a
     ld sp,SCREEN_BUFFER_START+32 ; start of buffer line.
     pop af
