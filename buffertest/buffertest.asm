@@ -12,7 +12,8 @@ init:
 
 
 main    
-    call sync
+    halt
+    
 
     ld hl,0
     ld h,PLAY_WINDOW_START_UB
@@ -23,6 +24,8 @@ main
 
     call playwindow_draw
 
+
+    call sync
     jp main
 
 ;H=UB Window start
@@ -102,7 +105,7 @@ drawsprite:
     ld (hl),a 
     ret
 
-background db %11001100
+background db %00001100
 
 
     

@@ -9,7 +9,7 @@ COLOUR_YELLOW equ 6
 COLOUR_WHITE equ 7
 
 ;vsync frame delay num
-FRAME_DELAY equ 2
+FRAME_DELAY equ 1
 
 ;screen buffer values:
 ;game area is to be: 16x8 character cells

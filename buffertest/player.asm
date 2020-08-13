@@ -1,4 +1,4 @@
-playerx db 15
+playerx db 14
 playery db 60
 playersprite:
     db %11111111
