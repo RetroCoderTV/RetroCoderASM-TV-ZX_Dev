@@ -1,3 +1,8 @@
+;TODO:
+;playerx 0 or 1 doesnt show player on screen
+;add movement proper (inertia)
+
+
 ENTRY_POINT equ 0x9000
 
     org ENTRY_POINT
@@ -8,13 +13,10 @@ init:
     ld a,COLOUR_BLACK
     call setbordercolour
 
-    
 
-
-main    
+main:    
     halt
     
-
     ld hl,0
     ld h,PLAY_WINDOW_START_UB
     call drawbackground
@@ -39,6 +41,7 @@ drawbackground:
     jp drawbackground
 drawbackground_end:
     ld a,(background)
+    rlc a
     rlc a
     ld (background),a
     ret

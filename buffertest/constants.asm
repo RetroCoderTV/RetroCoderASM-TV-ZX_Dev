@@ -18,13 +18,13 @@ PLAY_WINDOW_END equ 0x8400
 PLAY_WINDOW_START_UB equ 0x80
 PLAY_WINDOW_END_UB equ 0x84
 PLAY_WINDOW_SIZE equ 0x400
-MARGIN_SIZE equ 2
+MARGIN_SIZE equ 0
 PLAY_WINDOW_WIDTH equ 16 ;width is in character cells
 ;PLAY_WINDOW_HEIGHT equ 8*8 ;height is in pixels
 
-VMEM_SEG_0 equ 0x4002
-VMEM_SEG_1 equ 0x4802
-VMEM_SEG_2 equ 0x5002
+VMEM_SEG_0 equ 0x4000
+VMEM_SEG_1 equ 0x4800
+VMEM_SEG_2 equ 0x5000
 
 ;line down offsets:
 L1 equ 256

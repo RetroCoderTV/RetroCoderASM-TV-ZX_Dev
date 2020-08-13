@@ -27,7 +27,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 1
-    ld sp,PLAY_WINDOW_START+WINDOW_WIDTH
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*1)
     pop af
     pop bc
     pop de
@@ -837,7 +837,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 7
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*40)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*39)
     pop af
     pop bc
     pop de
@@ -861,7 +861,7 @@ playwindow_draw:
     ;Char Row 5
 
     ;Line 0
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*41)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*40)
     pop af
     pop bc
     pop de
@@ -882,7 +882,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 1
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*42)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*41)
     pop af
     pop bc
     pop de
@@ -903,7 +903,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 2
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*43)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*42)
     pop af
     pop bc
     pop de
@@ -924,7 +924,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 3
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*44)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*43)
     pop af
     pop bc
     pop de
@@ -945,7 +945,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 4
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*45)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*44)
     pop af
     pop bc
     pop de
@@ -966,7 +966,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 5
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*46)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*45)
     pop af
     pop bc
     pop de
@@ -987,7 +987,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 6
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*47)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*46)
     pop af
     pop bc
     pop de
@@ -1008,7 +1008,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 7
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*48)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*47)
     pop af
     pop bc
     pop de
@@ -1032,7 +1032,7 @@ playwindow_draw:
     ;Char Row 6
 
     ;Line 0
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*49)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*48)
     pop af
     pop bc
     pop de
@@ -1053,7 +1053,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 1
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*50)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*49)
     pop af
     pop bc
     pop de
@@ -1074,7 +1074,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 2
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*51)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*50)
     pop af
     pop bc
     pop de
@@ -1095,7 +1095,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 3
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*52)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*51)
     pop af
     pop bc
     pop de
@@ -1116,7 +1116,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 4
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*53)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*52)
     pop af
     pop bc
     pop de
@@ -1137,7 +1137,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 5
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*54)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*53)
     pop af
     pop bc
     pop de
@@ -1158,7 +1158,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 6
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*55)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*54)
     pop af
     pop bc
     pop de
@@ -1179,7 +1179,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 7
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*56)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*55)
     pop af
     pop bc
     pop de
@@ -1204,7 +1204,7 @@ playwindow_draw:
     ;Char Row 7
 
     ;Line 0
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*57)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*56)
     pop af
     pop bc
     pop de
@@ -1225,7 +1225,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 1
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*58)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*57)
     pop af
     pop bc
     pop de
@@ -1246,7 +1246,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 2
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*59)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*58)
     pop af
     pop bc
     pop de
@@ -1267,7 +1267,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 3
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*60)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*59)
     pop af
     pop bc
     pop de
@@ -1288,7 +1288,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 4
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*61)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*60)
     pop af
     pop bc
     pop de
@@ -1309,7 +1309,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 5
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*62)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*61)
     pop af
     pop bc
     pop de
@@ -1330,7 +1330,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 6
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*63)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*62)
     pop af
     pop bc
     pop de
@@ -1351,7 +1351,7 @@ playwindow_draw:
     push bc
     push af
     ;Line 7
-    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*64)
+    ld sp,PLAY_WINDOW_START+(WINDOW_WIDTH*63)
     pop af
     pop bc
     pop de

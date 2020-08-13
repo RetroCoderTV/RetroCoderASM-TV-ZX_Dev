@@ -17,18 +17,14 @@ PLAY_WINDOW_START equ 0x8000
 PLAY_WINDOW_END equ 0x8400
 PLAY_WINDOW_START_UB equ 0x80
 PLAY_WINDOW_END_UB equ 0x84
-PLAY_WINDOW_SIZE equ 0x400 
+PLAY_WINDOW_SIZE equ 1024 
 MARGIN_SIZE equ 0
 
+VMEM_SEG_0 equ 16384
+VMEM_SEG_1 equ 18432
+VMEM_SEG_2 equ 20480
 
-VMEM_SEG_0 equ 0x4002
-VMEM_SEG_1 equ 0x4802
-VMEM_SEG_2 equ 0x5002
-
-; HALF_LINE equ 16
-; FULL_LINE equ 32
-
-WINDOW_WIDTH equ 16 ;width is measured in bytes (or full character cells)
+WINDOW_WIDTH equ 0x10 ;width is measured in bytes (or full character cells)
 WINDOW_HEIGHT equ 8*8 ;height is measure in pixels (or scan lines)
 
 ;line down offsets
