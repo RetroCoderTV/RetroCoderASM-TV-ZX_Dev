@@ -12,11 +12,7 @@ sync:
     sub (hl) ;A=current-prev count
     cp FRAME_DELAY
     jp nc,sync_end
-    ;waiting for sync
-    ld l,0
-    ld h,PLAY_WINDOW_START_UB
-    call scrollbackground
-    
+    ;waiting for sync    
     jp sync
 sync_end:
     ld a,(0x5C78) ;get current framecount

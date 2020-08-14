@@ -1,4 +1,4 @@
-ENTRY_POINT equ 36864
+ENTRY_POINT equ 0x9300
 
     org ENTRY_POINT
 
@@ -14,7 +14,11 @@ init:
     
 main:
     halt
-    
+        
+    ld l,0
+    ld h,PLAY_WINDOW_START_UB
+    call scrollbackground
+
     ld bc,playersprite
     ld a,(playerx)
     ld d,a
