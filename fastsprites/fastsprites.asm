@@ -16,10 +16,14 @@ main:
     halt
     
     ld bc,playersprite
-    call drawplayer
+    ld a,(playerx)
+    ld d,a
+    ld a,(playery)
+    ld e,a
+    call drawsprite8
+
 
     call playwindow_draw
-
     call sync
 
     jp main
@@ -54,20 +58,22 @@ scrollbackground_end:
 
 
 ;BC=sprite pointer
-drawplayer:
+;DE=xy
+drawsprite8:
     ld hl,0
-    ld a,(playery)
+    ld a,e
     ld l,a
     add hl,hl ;x2
     add hl,hl ;x4
     add hl,hl ;x8
     add hl,hl ;16 (wwidth is 16)
+    ld e,d
+    ld d,0
+    add hl,de 
     ld de,PLAY_WINDOW_START
     add hl,de
     ld de,0
-    ld a,(playerx)
-    ld e,a
-    add hl,de ;HL=(windowstart + (y*wwidth) + x)
+
     ;start drawing bytes...
     ;0
     ld a,(bc)
@@ -162,7 +168,7 @@ background db %11001100
 
 ;     ld hl,0
 ;     ld bc,playersprite
-;     call drawplayer
+;     call drawsprite8
 
 ;     call playwindow_draw
 ;     call sync
@@ -196,7 +202,7 @@ background db %11001100
 ;     ret
 
 ; ;BC=sprite pointer
-; drawplayer:
+; drawsprite8:
 ;     ld hl,0
 ;     ld a,(playery)
 ;     ld l,a
