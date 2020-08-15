@@ -8,13 +8,13 @@ ENTRY_POINT equ 36864
     ld a,COLOUR_BLACK
     call setbordercolour
 
-    ld hl,PLAY_WINDOW_START
-    call drawbackground
+    
     
 main:
     halt
 
     call check_keys
+    
 
     ld a,(keypressed_A)
     cp 1
@@ -34,8 +34,15 @@ main:
 
     call reset_keys
 
+    ld hl,PLAY_WINDOW_START
+    call drawbackground
 
+    ld ix,tiles
+    ld iy,tiles+2
+    ld b,TILE_COUNT
+    call drawtiles
 
+    
     ld bc,playersprite
     ld a,(playerx)
     ld d,a
@@ -43,14 +50,7 @@ main:
     ld e,a
     call drawsprite8
 
-
-    ld ix,tiles
-    ld iy,tiles+2
-    ld b,TILE_COUNT
-    call drawtiles
     
-
-
     call playwindow_draw
     call sync
 
@@ -81,20 +81,17 @@ drawbackground:
     inc hl
     jp drawbackground
 drawbackground_end:
-    ld a,(background)
-    rlc a
-    ld (background),a
     ret
 
 scrollbackground:   
-    ; ld a,h
-    ; cp PLAY_WINDOW_END_UB
-    ; jp z,scrollbackground_end
-    ; ld a,(hl)
-    ; rlc a
-    ; ld (hl),a
-    ; inc hl
-    ; jp scrollbackground
+    ld a,h
+    cp PLAY_WINDOW_END_UB
+    jp z,scrollbackground_end
+    ld a,(hl)
+    rlc a
+    ld (hl),a
+    inc hl
+    jp scrollbackground
 scrollbackground_end:
     ret
 
@@ -108,12 +105,11 @@ drawsprite8:
     ld l,a
     add hl,hl ;HL= y*2
     add hl,hl ;HL= y*4
-    add hl,hl ;HL= y*8
     push bc
-    ld b,h
-    ld c,l ;BC= y*8
-    add hl,hl ;HL=y*16
-    add hl,bc ;HL=y*24
+    push hl
+    pop bc ;BC=4
+    add hl,hl ;HL= y*8
+    add hl,bc ;HL=y*12
     pop bc
     ld e,d
     ld d,0
@@ -181,12 +177,11 @@ drawsprite16:
     ld l,a
     add hl,hl ;HL= y*2
     add hl,hl ;HL= y*4
-    add hl,hl ;HL= y*8
     push bc
-    ld b,h
-    ld c,l ;BC= y*8
-    add hl,hl ;HL=y*16
-    add hl,bc ;HL=y*24
+    push hl
+    pop bc ;BC=4
+    add hl,hl ;HL= y*8
+    add hl,bc ;HL=y*12
     pop bc
     ld e,d
     ld d,0

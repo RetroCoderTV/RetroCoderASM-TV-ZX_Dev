@@ -16,21 +16,8 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -45,21 +32,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -74,21 +49,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -103,21 +66,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -132,21 +83,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -161,21 +100,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -190,21 +117,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -219,21 +134,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -251,21 +154,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -280,21 +171,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -309,21 +188,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -338,21 +205,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -367,21 +222,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -396,21 +239,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -425,21 +256,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -454,21 +273,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -486,21 +293,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -515,21 +310,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -544,21 +327,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -573,21 +344,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -602,21 +361,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -631,21 +378,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -660,21 +395,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -689,21 +412,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -721,21 +432,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -750,21 +449,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -779,21 +466,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -808,21 +483,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -837,21 +500,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -866,21 +517,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -895,21 +534,9 @@ playwindow_draw:
     pop hl
     pop ix
     pop iy
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl
-    pop ix
-    pop iy
+
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -924,21 +551,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -956,21 +571,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -985,21 +588,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1014,21 +605,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1043,21 +622,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1072,21 +639,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1101,21 +656,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1130,21 +673,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1159,21 +690,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1191,21 +710,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1220,21 +727,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1249,21 +744,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1278,21 +761,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1307,21 +778,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1336,21 +795,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1365,21 +812,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1394,21 +829,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1426,21 +849,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1455,21 +866,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1484,21 +883,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1513,21 +900,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1542,21 +917,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1571,21 +934,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1600,21 +951,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1629,21 +968,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1662,21 +989,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1691,21 +1006,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1720,21 +1023,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1749,21 +1040,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1778,21 +1057,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1807,21 +1074,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1836,21 +1091,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1865,21 +1108,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_1+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1922,21 +1153,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1951,21 +1170,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -1980,21 +1187,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2009,21 +1204,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2038,21 +1221,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2067,21 +1238,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2096,21 +1255,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2125,21 +1272,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2157,21 +1292,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2186,21 +1309,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2215,21 +1326,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2244,21 +1343,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2273,21 +1360,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2302,21 +1377,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2331,21 +1394,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2360,21 +1411,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C1+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2392,21 +1431,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2421,21 +1448,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2450,21 +1465,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2479,21 +1482,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2508,21 +1499,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2537,21 +1516,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2566,21 +1533,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2595,21 +1550,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C2+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2627,21 +1570,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2656,21 +1587,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2685,21 +1604,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2714,21 +1621,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2743,21 +1638,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2772,21 +1655,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2801,21 +1672,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2830,21 +1689,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C3+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2862,21 +1709,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2891,21 +1726,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2920,21 +1743,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2949,21 +1760,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -2978,21 +1777,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3007,21 +1794,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3036,21 +1811,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3065,21 +1828,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C4+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3097,21 +1848,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3126,21 +1865,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3155,21 +1882,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3184,21 +1899,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3213,21 +1916,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3242,21 +1933,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3271,21 +1950,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3300,21 +1967,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C5+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3332,21 +1987,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3361,21 +2004,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3390,21 +2021,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3419,21 +2038,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3448,21 +2055,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3477,21 +2072,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3506,21 +2089,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3535,21 +2106,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C6+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3568,21 +2127,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3597,21 +2144,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L1
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3626,21 +2161,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L2
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3655,21 +2178,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L3
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3684,21 +2195,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L4
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3713,21 +2212,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L5
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3742,21 +2229,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L6
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl
@@ -3771,21 +2246,9 @@ playwindow_draw:
     pop hl 
     pop ix
     pop iy 
-    exx
-    pop af
-    pop bc
-    pop de
-    pop hl 
-    pop ix
-    pop iy 
+ 
     ld sp,C7+MARGIN_SIZE+VMEM_SEG_2+WINDOW_WIDTH+L7
-    push iy
-    push ix
-    push hl
-    push de
-    push bc
-    push af
-    exx
+
     push iy
     push ix
     push hl

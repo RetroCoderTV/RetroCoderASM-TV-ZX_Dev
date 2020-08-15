@@ -1,8 +1,8 @@
 playerx db 6
-playery db 100
+playery db 0
 PLAYER_SPEED equ 1
 MIN_X equ 0
-MAX_X equ 22
+MAX_X equ 10
 MIN_Y equ 0
 MAX_Y equ 119
 playersprite:

@@ -16,16 +16,14 @@ FRAME_DELAY equ 2
 ;game area is to be: 16x8 characters only
 PLAY_WINDOW_START equ 0x8000
 PLAY_WINDOW_START_UB equ 0x80
-PLAY_WINDOW_END_UB equ 0x8c
-PLAY_WINDOW_SIZE equ 1536*2
+PLAY_WINDOW_END_UB equ 0x86
 MARGIN_SIZE equ 0
 
-VMEM_SEG_0 equ 16384
-VMEM_SEG_1 equ 18432
-VMEM_SEG_2 equ 20480
+VMEM_SEG_0 equ 0x4000
+VMEM_SEG_1 equ 0x4800
+VMEM_SEG_2 equ 0x5000
 
-WINDOW_WIDTH equ 24 ;width is measured in bytes (or full character cells)
-;WINDOW_HEIGHT equ 8*8 ;height is measure in pixels (or scan lines)
+WINDOW_WIDTH equ 12 ;width is measured in bytes (or full character cells)
 
 ;line down offsets
 L1 equ 256
