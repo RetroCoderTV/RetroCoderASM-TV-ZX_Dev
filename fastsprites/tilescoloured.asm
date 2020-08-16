@@ -1,12 +1,26 @@
-TILE_LENGTH equ 34
+TILE_LENGTH equ 38
 TILE_COUNT equ 48
-TILE_PROPERTIES_OFFSET equ 2
+TILE_PROPERTIES_OFFSET equ 6
+
+;6,0 = yellow ink
+;0,16
+;2,16
+;4,16
+
+;Attribute Byte
+;76543210
+;FBPPPIII
 
 ;data format
 ;bytes0,1=x,y
-;bytes2-34=tile bitmap data
-tiles_beach:
+;bytes2,3,4,5=attributes
+;bytes5-38=tile bitmap data
+tiles:
     db 0,0
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -25,6 +39,10 @@ tiles_beach:
     db %00000001, %11000000
     ;
     db 2,0
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -43,6 +61,10 @@ tiles_beach:
     db %00000000, %00000001
     ;
     db 4,0
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -61,6 +83,10 @@ tiles_beach:
     db %00000001, %00000100
     ;
     db 6,0
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -79,10 +105,10 @@ tiles_beach:
     db %00000001, %11011100
     ;
     db 8,0
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -101,10 +127,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 10,0
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -123,10 +149,10 @@ tiles_beach:
     db %00011000, %00000000
     ;
     db 0,16
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110 
     db %00000000, %01111111
     db %00000000, %00000000
     db %00000000, %00000000
@@ -145,10 +171,10 @@ tiles_beach:
     db %00011110, %00000000
     ;
     db 2,16
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110  
     db %11111111, %11111111
     db %00000000, %00000000
     db %00000000, %00000000
@@ -167,10 +193,10 @@ tiles_beach:
     db %00000001, %10000000
     ;
     db 4,16
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110  
     db %00000001, %00000100
     db %00000001, %00000100
     db %00000001, %00000100
@@ -189,10 +215,10 @@ tiles_beach:
     db %00000000, %00000001
     ;
     db 6,16
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %01110000
     db %00000000, %00100000
     db %00000000, %00000000
@@ -211,10 +237,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 8,16
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -233,10 +259,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 10,16
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00001000, %00000000
     db %00001000, %00000000
     db %00001000, %00000000
@@ -255,10 +281,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 0,32
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110  
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -277,10 +303,10 @@ tiles_beach:
     db %00000000, %00001100
     ;
     db 2,32
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110  
     db %00000000, %10000000
     db %00000000, %11000000
     db %00000000, %01100000
@@ -299,10 +325,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 4,32
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110  
     db %00000000, %00000001
     db %00000000, %00000011
     db %00000000, %00000110
@@ -321,10 +347,10 @@ tiles_beach:
     db %01000000, %00000000
     ;
     db 6,32
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -343,10 +369,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 8,32
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -365,10 +391,10 @@ tiles_beach:
     db %00000000, %00100000
     ;
     db 10,32
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001110 
+    db %00001110 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -387,10 +413,10 @@ tiles_beach:
     db %00011100, %00000000
     ;
     db 0,48
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001100 
+    db %00001100 
     db %00000000, %00011000
     db %00000000, %01110000
     db %00000000, %11000000
@@ -409,10 +435,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 2,48
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001110 
+    db %00001110 
+    db %00001100 
+    db %00001100  
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -431,10 +457,10 @@ tiles_beach:
     db %00000001, %00111111
     ;
     db 4,48
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100  
     db %01000000, %00000000
     db %01000000, %00000000
     db %11000000, %00000000
@@ -453,10 +479,10 @@ tiles_beach:
     db %10000000, %00000000
     ;
     db 6,48
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100  
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -475,10 +501,10 @@ tiles_beach:
     db %00000000, %00010011
     ;
     db 8,48
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100  
     db %00000000, %00100000
     db %00000000, %00110011
     db %00000000, %00010001
@@ -497,10 +523,10 @@ tiles_beach:
     db %00001000, %11111100
     ;
     db 10,48
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100 
     db %00000111, %00000000
     db %00000001, %10000000
     db %10000000, %11000000
@@ -519,10 +545,10 @@ tiles_beach:
     db %11000001, %11000000
     ;
     db 0,64
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100 
     db %00000000, %00000000
     db %00000000, %00000001
     db %00000000, %00000001
@@ -541,10 +567,10 @@ tiles_beach:
     db %00000000, %10010010
     ;
     db 2,64
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-    
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100 
     db %00000001, %01100111
     db %11111111, %01000010
     db %00000011, %01000110
@@ -563,10 +589,10 @@ tiles_beach:
     db %00010011, %11111000
     ;
     db 4,64
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100
     db %01000000, %00000000
     db %00111000, %00000000
     db %10001100, %00000000
@@ -585,10 +611,10 @@ tiles_beach:
     db %01110000, %00000000
     ;
     db 6,64
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001100
     db %00000000, %00010110
     db %00000000, %00011100
     db %00000000, %00011000
@@ -607,10 +633,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 8,64
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100 
+    db %00001100 
+    db %00001110
     db %00011001, %10011111
     db %00010011, %01111111
     db %00010110, %01000000
@@ -629,10 +655,10 @@ tiles_beach:
     db %00010011, %00000000
     ;
     db 10,64
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00110010 
     db %10000011, %01000000
     db %11000110, %01000001
     db %01111100, %01111111
@@ -651,10 +677,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 0,80
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100
+    db %00001100 
+    db %00001100 
     db %00000000, %10010010
     db %00000000, %10110010
     db %00000001, %10100010
@@ -673,10 +699,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 2,80
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001100 
+    db %00001100
+    db %00001100 
+    db %00001100 
     db %00010110, %01001000
     db %00010100, %01001000
     db %00010100, %01001000
@@ -695,10 +721,10 @@ tiles_beach:
     db %00000001, %11000000
     ;
     db 4,80
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00001111 
+    db %00001111 
+    db %00001111 
+    db %00001111 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -717,10 +743,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 6,80
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -739,10 +765,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 8,80
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000110, %00000000
     db %00011100, %00000000
     db %00010000, %00000000
@@ -761,10 +787,10 @@ tiles_beach:
     db %00110000, %00000000
     ;
     db 10,80
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -783,10 +809,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 0,96
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000111
@@ -805,10 +831,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 2,96
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00001111, %00000000
     db %01111000, %00000000
     db %11000000, %00000000
@@ -827,10 +853,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 4,96
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000  
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -849,10 +875,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 6,96
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -871,10 +897,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 8,96
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00011000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -893,10 +919,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 10,96
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000  
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -915,10 +941,10 @@ tiles_beach:
     db %00000000, %00000000
     ;
     db 0,112
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -937,10 +963,10 @@ tiles_beach:
     db %00000000, %00000000
      ;
     db 2,112
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -959,10 +985,10 @@ tiles_beach:
     db %00000000, %00000000
      ;
     db 4,112
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -981,10 +1007,10 @@ tiles_beach:
     db %00000000, %00000000
      ;
     db 6,112
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -1003,10 +1029,10 @@ tiles_beach:
     db %00000000, %00000000
      ;
     db 8,112
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000
@@ -1025,10 +1051,10 @@ tiles_beach:
     db %00000000, %00000000
      ;
     db 10,112
-    ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-
-; line based output of pixel data:
-
+    db %00110000 
+    db %00110000
+    db %00110000 
+    db %00110000 
     db %00000000, %00000000
     db %00000000, %00000000
     db %00000000, %00000000

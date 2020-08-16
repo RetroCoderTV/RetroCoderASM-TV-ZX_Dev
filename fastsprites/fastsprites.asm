@@ -32,8 +32,8 @@ main:
 
     call reset_keys
 
-    ld ix,tiles_beach
-    ld iy,tiles_beach+2
+    ld ix,tiles
+    ld iy,tiles+TILE_PROPERTIES_OFFSET
     ld b,TILE_COUNT
     call drawtiles
 
@@ -44,6 +44,12 @@ main:
     ld a,(playery)
     ld e,a
     call drawsprite8
+
+
+    ld ix,tiles
+    ld b,TILE_COUNT
+    call paintbackground
+
 
     
     call playwindow_draw
@@ -376,7 +382,45 @@ drawsprite16:
     ret
 
 
+;REM: TILEMEM = (MEMSTART + (ypos * windowwidth) + xpos)
+;IX=tiles data
+;B=TILES COUNT
+paintbackground:
+    ld hl,0
+    ld a,(ix+1) ;A=tile y
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    ld e,(ix+0) ;A=file x
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,VIEWPORT_ATTRIBUTE_MEM_START
+    add hl,de ;HL+=memstart ;HL=correct mem address for first tile
+    ;paint...
+    ld a,(ix+2)
+    ld (hl),a
+    inc hl
+    ld a,(ix+3)
+    ld (hl),a
+    ld de,SCREEN_WIDTH-1
+    add hl,de
+    ld a,(ix+4)
+    ld (hl),a
+    inc hl
+    ld a,(ix+5)
+    ld (hl),a
+    ld de,TILE_LENGTH
+    add ix,de
+    djnz paintbackground
+    ret
 
+
+
+painttile1:
+    ld de,COLOUR_MEMORY_START
+    ld a,%00011110
+    ld (de),a
+    ret
 
 
 background db %11001100
@@ -388,7 +432,8 @@ background db %11001100
     include 'playwindow.asm'
     include 'player.asm'
     include "tools.asm"
-    include 'tilemapsbeach.asm'
+    include 'tilescoloured.asm'
+    ; include 'tilemapsbeach.asm'
     
 
     end ENTRY_POINT
