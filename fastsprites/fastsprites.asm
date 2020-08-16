@@ -26,19 +26,14 @@ main:
 
     ld a,(keypressed_W)
     cp 1
-    call z,move_up
+    call z,move_jump
 
-    ld a,(keypressed_S)
-    cp 1
-    call z,move_down
+    call jump_update
 
     call reset_keys
 
-    ld hl,PLAY_WINDOW_START
-    call drawbackground
-
-    ld ix,tiles
-    ld iy,tiles+2
+    ld ix,tiles_beach
+    ld iy,tiles_beach+2
     ld b,TILE_COUNT
     call drawtiles
 
@@ -393,7 +388,7 @@ background db %11001100
     include 'playwindow.asm'
     include 'player.asm'
     include "tools.asm"
-    include 'textures.asm'
+    include 'tilemapsbeach.asm'
     
 
     end ENTRY_POINT
