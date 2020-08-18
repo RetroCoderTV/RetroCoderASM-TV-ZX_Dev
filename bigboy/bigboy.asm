@@ -1,4 +1,4 @@
-ENTRY_POINT equ 0x8c1f
+ENTRY_POINT equ 0x9500
 
     org ENTRY_POINT
 
@@ -6,11 +6,18 @@ ENTRY_POINT equ 0x8c1f
     call 0x229B ;Border = A
     call 0xDAF ;cls
 
+   
+
 main:
     halt
 
-    ld ix,annoyingtestcard
-    ld iy,annoyingtestcard+TILE_PROPERTIES_LENGTH
+    
+    ld hl,ATTRIBUTE_MEMORY_START
+    call paintcellsrandom
+ 
+
+    ld ix,bg
+    ld iy,bg+TILE_PROPERTIES_LENGTH
     ld b,TILE_COUNT
     call drawtiles
 
@@ -251,9 +258,12 @@ drawsprite16:
 ;;;;; INCLUDES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-    include 'testcards.asm'
+    ; include 'bgballs.asm'
+    include 'bgretro.asm'
+    ;include 'bgprodigy.asm'
     include 'doublebuffering.asm'
     include 'vsync.asm'
-
+    include 'tools.asm'
+    include 'attributemanager.asm'
 
     end ENTRY_POINT

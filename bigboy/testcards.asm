@@ -1,6 +1,6 @@
 
 TILE_LENGTH equ 34 ;ie. how many bytes is a tile
-TILE_COUNT equ 96
+TILE_COUNT equ 144
 TILE_PROPERTIES_LENGTH equ 2
 
 ; ASM data file from a ZX-Paintbrush picture with 192 x 128 pixels (= 24 x 16 characters)
@@ -1831,5 +1831,5 @@ annoyingtestcard:
     db %00000000, %00000000
     db %00000000, %00000000
 
-
+;;;;;; 96 .
     
