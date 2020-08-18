@@ -9,9 +9,9 @@ ENTRY_POINT equ 0x9500
    
 
 main:
-    halt
-
     
+
+    halt
     ld hl,ATTRIBUTE_MEMORY_START
     call paintcellsrandom
  
@@ -21,8 +21,15 @@ main:
     ld b,TILE_COUNT
     call drawtiles
 
+    ld bc,playersprite
+    ld de,(playery)
+    call drawsprite16
+    halt
+
     call drawgamewindow
     call sync
+
+
 
     jp main
 
@@ -265,5 +272,6 @@ drawsprite16:
     include 'vsync.asm'
     include 'tools.asm'
     include 'attributemanager.asm'
+    include 'player.asm'
 
     end ENTRY_POINT
