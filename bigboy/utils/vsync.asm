@@ -11,7 +11,8 @@ sync:
     ;waiting for next frame
     ;
     ;
-    ;
+
+    ;;
     jp sync
 sync_end:
     ld a,(0x5C78) ;get framecount

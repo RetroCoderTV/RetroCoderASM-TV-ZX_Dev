@@ -7,6 +7,7 @@ SEG_SIZE equ 0x600
 VMEM_SEG_0 equ 0x4000
 VMEM_SEG_1 equ 0x4800
 VMEM_SEG_2 equ 0x5000
+SCREEN_WIDTH equ 32
 
 ;line down offsets
 L1 equ 0x100
