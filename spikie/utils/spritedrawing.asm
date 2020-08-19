@@ -38,8 +38,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer by wwidth
     ;0,1
     ld a,(bc)
@@ -50,8 +50,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,2
     ld a,(bc)
@@ -62,8 +62,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,3
     ld a,(bc)
@@ -74,8 +74,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,4
     ld a,(bc)
@@ -86,8 +86,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,5
     ld a,(bc)
@@ -98,8 +98,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,6
     ld a,(bc)
@@ -110,8 +110,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,7
     ld a,(bc)
@@ -122,8 +122,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,8
     ld a,(bc)
@@ -134,8 +134,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,9
     ld a,(bc)
@@ -146,8 +146,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,10
     ld a,(bc)
@@ -158,8 +158,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,11
     ld a,(bc)
@@ -170,8 +170,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,12
     ld a,(bc)
@@ -182,8 +182,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,13
     ld a,(bc)
@@ -194,8 +194,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,14
     ld a,(bc)
@@ -206,8 +206,8 @@ drawsprite16_16:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,15
     ld a,(bc)
@@ -257,8 +257,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer by wwidth
     ;0,1
     ld a,(bc)
@@ -269,8 +269,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,2
     ld a,(bc)
@@ -281,8 +281,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,3
     ld a,(bc)
@@ -293,8 +293,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,4
     ld a,(bc)
@@ -305,8 +305,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,5
     ld a,(bc)
@@ -317,8 +317,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,6
     ld a,(bc)
@@ -329,8 +329,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,7
     ld a,(bc)
@@ -341,8 +341,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,8
     ld a,(bc)
@@ -353,8 +353,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,9
     ld a,(bc)
@@ -365,8 +365,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,10
     ld a,(bc)
@@ -377,8 +377,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,11
     ld a,(bc)
@@ -389,8 +389,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,12
     ld a,(bc)
@@ -401,8 +401,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,13
     ld a,(bc)
@@ -413,8 +413,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,14
     ld a,(bc)
@@ -425,8 +425,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,15
     ld a,(bc)
@@ -437,8 +437,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,16
     ld a,(bc)
@@ -449,8 +449,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,17
     ld a,(bc)
@@ -461,8 +461,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,18
     ld a,(bc)
@@ -473,8 +473,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,19
     ld a,(bc)
@@ -485,8 +485,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,20
     ld a,(bc)
@@ -497,8 +497,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,21
     ld a,(bc)
@@ -509,8 +509,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,22
     ld a,(bc)
@@ -521,8 +521,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,23
     ld a,(bc)
@@ -533,8 +533,8 @@ drawsprite16_24:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ret
 
@@ -580,8 +580,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer by wwidth
     ;0,1
     ld a,(bc)
@@ -592,8 +592,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,2
     ld a,(bc)
@@ -604,8 +604,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,3
     ld a,(bc)
@@ -616,8 +616,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,4
     ld a,(bc)
@@ -628,8 +628,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,5
     ld a,(bc)
@@ -640,8 +640,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,6
     ld a,(bc)
@@ -652,8 +652,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,7
     ld a,(bc)
@@ -664,8 +664,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,8
     ld a,(bc)
@@ -676,8 +676,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,9
     ld a,(bc)
@@ -688,8 +688,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,10
     ld a,(bc)
@@ -700,8 +700,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,11
     ld a,(bc)
@@ -712,8 +712,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,12
     ld a,(bc)
@@ -724,8 +724,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,13
     ld a,(bc)
@@ -736,8 +736,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,14
     ld a,(bc)
@@ -748,8 +748,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,15
     ld a,(bc)
@@ -760,8 +760,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,16
     ld a,(bc)
@@ -772,8 +772,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,17
     ld a,(bc)
@@ -784,8 +784,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,18
     ld a,(bc)
@@ -796,8 +796,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,19
     ld a,(bc)
@@ -808,8 +808,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,20
     ld a,(bc)
@@ -820,8 +820,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,21
     ld a,(bc)
@@ -832,8 +832,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,22
     ld a,(bc)
@@ -844,8 +844,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,23
     ld a,(bc)
@@ -856,8 +856,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,24
     ld a,(bc)
@@ -868,8 +868,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,25
     ld a,(bc)
@@ -880,8 +880,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,26
     ld a,(bc)
@@ -892,8 +892,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,27
     ld a,(bc)
@@ -904,8 +904,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,28
     ld a,(bc)
@@ -916,8 +916,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,29
     ld a,(bc)
@@ -928,8 +928,8 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,30
     ld a,(bc)
@@ -940,8 +940,7 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ;0,31
     ld a,(bc)
@@ -952,7 +951,6 @@ drawsprite16_32:
     ld a,(bc)
     ld (hl),a
     inc bc
-    dec hl
-    ld de,GAME_WINDOW_WIDTH
+    ld de,GAME_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ret

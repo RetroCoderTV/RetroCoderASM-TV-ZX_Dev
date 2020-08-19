@@ -1,5 +1,9 @@
-playery db 160
+playery db 172
 playerx db 11
+
+targetpos_x db 0
+targetpos_y db 0 
+
 PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 8
 
@@ -53,7 +57,7 @@ move_right:
 move_up:
     ld a,(playery)
     cp MIN_Y
-    ret z
+    ret c
     ld a,(playery)
     sub PLAYER_SPEED_Y
     ld (playery),a
