@@ -1,16 +1,21 @@
 DESK_COLOUR equ %01110000 ;yellow paper /  black ink
 
+DESK_DATA_LENGTH equ 5
+
+;format:
+;isalive,x,y,w,h
 desksdata:
-    db 1,5,96
-    db 1,11,96
-    db 1,17,96
-    db 1,5,144
-    db 1,11,144
-    db 1,17,144
+    db 1,4,96,4,16
+    db 1,10,96,4,16
+    db 1,16,96,4,16
+    db 1,4,144,4,16
+    db 1,10,144,4,16
+    db 1,16,144,4,16
+    db 255
 
 ; ASM data file from a ZX-Paintbrush picture with 32 x 16 pixels (= 4 x 2 characters)
 ; line based output of pixel data:
-desk:
+desksprite:
     db %11111111, %11111111, %11111111, %11111111
     db %11000000, %00000000, %00000000, %00000011
     db %10000000, %00000000, %00000000, %00000001

@@ -1,4 +1,4 @@
-FRAME_DELAY equ 2
+FRAME_DELAY equ 3
 
 previousframecount db 0
 
