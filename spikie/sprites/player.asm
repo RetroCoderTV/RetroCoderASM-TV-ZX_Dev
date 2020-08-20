@@ -1,21 +1,22 @@
 PLAYER_WIDTH equ 2 ;in bytes
 PLAYER_HEIGHT equ 24 ;in lines
+PLAYER_BOUNDING_BOX_OFFSET_Y equ 10
+PLAYER_BOUNDING_BOX_HEIGHT equ 10
 
-playery db 172
+playery db 168
 playerx db 11
 
 targetpos_x db 0
-targetpos_y db 0 
+targetpos_y db 0
 
 PLAYER_SPEED_X equ 1
-PLAYER_SPEED_Y equ 8
+PLAYER_SPEED_Y equ 4
 
 collision_detected db 0
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
 ; line based output of pixel data:
 playersprite:
-    db 0,0
     db %00000101, %01010000
     db %00001111, %11110000
     db %00001111, %11110000
@@ -49,17 +50,18 @@ playersprite:
 ;if bool false, move player to target
 
 ;sets targetpos back to player pos
-init_collisions_check:
+reset_collisions_check:
     ;reset targetpos
-    ld hl,targetpos_x
     ld a,(playerx)
-    ld (hl),a
-    ld hl,targetpos_y
+    ld (targetpos_x),a
     ld a,(playery)
-    ld (hl),a
+    ld (targetpos_y),a
+
     ;reset collision bool
     xor a
-    ld (collision_detected),a
+    call 0x229B ;Border = A
+    xor a
+    ld (collision_detected),a ;collision bool = 0
     ret
 
 ; If A == N, then Z flag is set.
@@ -71,39 +73,33 @@ init_collisions_check:
 ;IX=objectdata
 ;DE=object data length
 check_collisions:
-    ;if tx+tw<dx -skip to next desk
-    ;if tx>dx+dw -skip
-    ;if ty+th<dy -skip
-    ;if ty>dy+dh -skip
-    ;else -set bool true and ret
+    ;if ix=255, return
     ld a,(ix)
     cp 255 
-    ret z ;if ix=255
+    ret z 
 
-    ld a,targetpos_x
-    add a,PLAYER_WIDTH
-    ld b,(ix+1)
-    cp b 
-    jp c, gonextobject ;if tx+tw<dx -skip 
+    
+    ld a,(targetpos_x)
+    add a,PLAYER_WIDTH ;player right edge
+    cp (ix+1) ;compare with desk left edge
+    jp c, gonextobject ;skip if right edge < desk left
 
-    ld a,(ix+1)
-    add a,(ix+3)
-    ld b,targetpos_x
-    cp b
-    jp c, gonextobject ;if dx+dw<tx -skip 
+    ld a,(targetpos_x)
+    sub (ix+3) ;
+    cp (ix+1)
+    jp nc, gonextobject 
 
-
-    ld a,targetpos_y
+    ;if ty+th<dy -skip
+    ld a,(targetpos_y)
     add a,PLAYER_HEIGHT
-    ld b,(ix+2)
-    cp b
-    jp c, gonextobject ;if ty+th<dy -skip
+    cp (ix+2)
+    jp c, gonextobject 
 
-    ld a,(ix+2)
-    add a,(ix+4)
-    ld b,targetpos_y
-    cp b
-    jp c, gonextobject ;if dy+dh<ty -skip
+    ;if dy+dh<ty -skip
+    ld a,(targetpos_y)
+    sub (ix+4)
+    cp (ix+2)
+    jp nc, gonextobject 
 
     ;else, we have collided...
     ld a,3
@@ -111,7 +107,7 @@ check_collisions:
 
     ld a,TRUE
     ld (collision_detected),a
-    ; ret
+    ret
 gonextobject:
     ld de,DESK_DATA_LENGTH
     add ix,de
@@ -119,16 +115,14 @@ gonextobject:
 
 
 ;sets player pos to targetpos (as long as collision not detected)
-movetotargetpos:
+safemovetotargetpos:
     ld a,(collision_detected)
     cp TRUE
     ret z ;if collision was detected dont move to target
-    ld hl,playerx
     ld a,(targetpos_x)
-    ld (hl),a 
-    ld hl,playery
+    ld (playerx),a
     ld a,(targetpos_y)
-    ld (hl),a 
+    ld (playery),a
     ret
 
 
@@ -136,39 +130,51 @@ movetotargetpos:
 
 ;these move the targetpos. call them on keypress for example
 try_move_left:
-    ld a,(targetpos_x)
+    ld a,(playerx)
     cp MIN_X
     ret c
     ld a,(targetpos_x)
     sub PLAYER_SPEED_X
     ld (targetpos_x),a
+    ld ix,desksdata
+    call check_collisions
+    call safemovetotargetpos
     ret
 
 try_move_right:
-    ld a,(targetpos_x)
+    ld a,(playerx)
     cp MAX_X
     ret nc
     ld a,(targetpos_x)
     add a,PLAYER_SPEED_X
     ld (targetpos_x),a
+    ld ix,desksdata
+    call check_collisions
+    call safemovetotargetpos
     ret
 
 try_move_up:
-    ld a,(targetpos_y)
+    ld a,(playery)
     cp MIN_Y
     ret c
     ld a,(targetpos_y)
     sub PLAYER_SPEED_Y
     ld (targetpos_y),a
+    ld ix,desksdata
+    call check_collisions
+    call safemovetotargetpos
     ret
 
 try_move_down:
-    ld a,(targetpos_y)
+    ld a,(playery)
     cp MAX_Y
-    ret z
+    ret nc
     ld a,(targetpos_y)
     add a,PLAYER_SPEED_Y
     ld (targetpos_y),a
+    ld ix,desksdata
+    call check_collisions
+    call safemovetotargetpos
     ret
 
 

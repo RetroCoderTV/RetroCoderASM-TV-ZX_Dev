@@ -1,24 +1,23 @@
 ENTRY_POINT equ 0x9900
 
-    org ENTRY_POINT
+    org ENTRY_POINT 
 
     ld a,0
     call 0x229B ;Border = A
     call 0xDAF ;cls
-
     
     ld ix,bg
     ld b,TILE_COUNT
     call paintbgtiles
    
     halt 
-    halt
 
 main:
     call sync 
 
-    call init_collisions_check
+    call reset_keys
     call check_keys
+    call reset_collisions_check
 
     ld a,(keypressed_W)
     cp 1
@@ -36,52 +35,30 @@ main:
     cp 1
     call z,try_move_right
 
-    call reset_keys
-
-    ld ix,desksdata
-    ld de,DESK_DATA_LENGTH
-    call check_collisions
-
-    call movetotargetpos
-    
     call paintplayer_16_24
 
     ld bc,(doory)
     ld iyl,DOOR_COLOUR
     call paintsprite_16_32
 
-
     ld ix,bg
     ld iy,bg+TILE_PROPERTIES_LENGTH
     ld b,TILE_COUNT
     call drawtiles16_16
 
-    
     ld ix,desksdata
     call drawdesks
-
 
     ld bc,doorsprite
     ld de,(doory)
     call drawsprite16_32
 
-    
-
-
-
     ld bc,playersprite
     ld de,(playery)
     call drawsprite16_24
 
-
-
-
-
     halt
     call drawgamewindow
-
- 
-
 
     jp main
 
