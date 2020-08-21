@@ -4,8 +4,12 @@ PLAYER_BOUNDING_BOX_OFFSET_X equ 1
 PLAYER_BOUNDING_BOX_OFFSET_Y equ 15
 PLAYER_BOUNDING_BOX_HEIGHT equ 5
 
-
-player_direction db UP;
+player_direction db UP
+player_state db WALK
+player_anim_frame db 0
+PLAYER_FRAME_SIZE equ 48
+player_anim_timer db 0
+PLAYER_ANIM_DELAY equ 5
 
 playery db 168
 playerx db 11
@@ -120,8 +124,32 @@ playersprite_right:
     db %00010000, %00000000
     db %00011110, %00000000
     db %00011110, %00000000
+    ;
+    db %00000101, %00000000
+    db %00000101, %00100000
+    db %00010111, %11000000
+    db %00001111, %11000000
+    db %00111111, %01100000
+    db %00001111, %11100000
+    db %00111111, %11100000
+    db %00001111, %11000000
+    db %00000111, %11000000
+    db %00001111, %11100000
+    db %00001111, %11000000
+    db %00011111, %11110000
+    db %00001111, %11110000
+    db %00001111, %11111000
+    db %00001111, %11111000
+    db %00001111, %11111000
+    db %00000111, %11111000
+    db %00001111, %11110000
+    db %00001000, %01000000
+    db %00011000, %01110000
+    db %00010000, %00110000
+    db %00010000, %00000000
+    db %00011110, %00000000
+    db %00011110, %00000000
 
-   ;will use this mask later for better sprite masking. (maybe) 
 ; playersprite_mask:
 ;     db %11111010, %10101111
 ;     db %11110000, %00001111
@@ -147,7 +175,6 @@ playersprite_right:
 ;     db %11110011, %11001111
 ;     db %11000011, %11000011
 ;     db %10000011, %11000001
-
 
 
 ;reset target to playerpos, reset bool

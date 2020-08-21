@@ -19,6 +19,8 @@ main:
     call check_keys
     call reset_collisions_check
 
+    call anim_timer
+
     ld a,(keypressed_W)
     cp 1
     call z,try_move_up
@@ -65,7 +67,6 @@ main:
     jp main
 
 
-
 drawplayer:
     ld a,(player_direction)
     cp UP
@@ -92,12 +93,55 @@ drawplayer_left:
     call drawplayer16_24
     jp drawplayer_end
 drawplayer_right:
+    ld a,(player_anim_frame)
+    cp 0
+    jp z,dpr0
+    jp nz,dpr1
+dpr0:
     ld bc,playersprite_right
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+dpr1:
+    ld bc,playersprite_right+PLAYER_FRAME_SIZE
     ld de,(playery)
     call drawplayer16_24
     jp drawplayer_end
 drawplayer_end:
     ret
+
+
+
+
+anim_timer:
+    ld a,(player_anim_timer)
+    inc a
+    ld (player_anim_timer),a
+    cp PLAYER_ANIM_DELAY
+    jp nc, skip_to_next_frame
+    ret
+skip_to_next_frame:
+    ld a,(player_anim_frame)
+    cp 0
+    call z, setframe48
+    call nz, setframe0
+    xor a
+    ld (player_anim_timer),a
+    ret
+
+setframe0:
+    xor a
+    ld (player_anim_frame),a
+    ret
+
+setframe48:
+    ld a,PLAYER_FRAME_SIZE
+    ld (player_anim_frame),a
+    ret
+
+
+
+
 
 drawtiles16_16:
     push bc
@@ -122,10 +166,8 @@ drawdesks:
     ld d,(ix+1)
     ld e,(ix+2)
     call drawsprite32_16
-    push de
     ld de,DESK_DATA_LENGTH
     add ix,de
-    pop de
     jp drawdesks
 
 ;IX=desks

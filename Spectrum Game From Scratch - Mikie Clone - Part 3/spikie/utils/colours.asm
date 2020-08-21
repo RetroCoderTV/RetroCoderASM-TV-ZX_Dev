@@ -76,47 +76,6 @@ paintbgtiles:
     djnz paintbgtiles
     ret
 
-
-
-
-; ;0x5800=Start of colour attri memory
-; ;attribute_address=0x5800 + ((y*32)+x)
-; paintplayer_16_16:
-;     ld h,0
-;     ld a,(playery)
-;     ld l,a ;HL=player cell y
-;     add hl,hl ;x2
-;     add hl,hl ;x4
-;     ld a,(playerx)
-;     ld d,0
-;     ld e,a
-;     add hl,de ;HL=((y*32)+x)
-;     ld de,ATTRIBUTE_MEMORY_START
-;     add hl,de ;HL = 0x5800 + ((y*32)+x)
-;     ld a,YELLOW_INK
-;     ld e,(hl) ;E=current cell attribute value
-;     or e ;combine A with E (so that paper bits are kept)
-;     ld (hl),a ;0,0
-;     inc hl
-;     ld a,YELLOW_INK
-;     ld e,(hl)
-;     or e
-;     ld (hl),a ;1,0
-;     dec hl
-;     ld de,32
-;     add hl,de
-;     ld a,YELLOW_INK
-;     ld e,(hl)
-;     or e
-;     ld (hl),a ;0,1
-;     inc hl
-;     ld a,YELLOW_INK
-;     ld e,(hl)
-;     or e
-;     ld (hl),a ;1,1
-;     ret
-
-
 ;0x5800=Start of colour attri memory
 ;attribute_address=0x5800 + ((y*32)+x)
 paintplayer_16_24:
@@ -235,7 +194,6 @@ paintsprite_16_32:
     
     ld (hl),a ;1,3
     ret
-
 
 
     
