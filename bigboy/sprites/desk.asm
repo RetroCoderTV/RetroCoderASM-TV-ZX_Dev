@@ -1,4 +1,4 @@
-DESK_COLOUR equ %01110000 ;yellow paper /  black ink
+DESK_COLOUR equ %01110000 ;Bright , yellow paper , black ink
 
 DESK_DATA_LENGTH equ 5
 
@@ -13,8 +13,6 @@ desksdata:
     db 1,14,152,4,16
     db 255
 
-; ASM data file from a ZX-Paintbrush picture with 32 x 16 pixels (= 4 x 2 characters)
-; line based output of pixel data:
 desksprite:
     db %11111111, %11111111, %11111111, %11111111
     db %11000000, %00000000, %00000000, %00000011

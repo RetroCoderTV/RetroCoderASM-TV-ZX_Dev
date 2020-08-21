@@ -1,7 +1,8 @@
 PLAYER_WIDTH equ 2 ;in bytes
 PLAYER_HEIGHT equ 24 ;in lines
-PLAYER_BOUNDING_BOX_OFFSET_Y equ 10
-PLAYER_BOUNDING_BOX_HEIGHT equ 10
+PLAYER_BOUNDING_BOX_OFFSET_X equ 1
+PLAYER_BOUNDING_BOX_OFFSET_Y equ 15
+PLAYER_BOUNDING_BOX_HEIGHT equ 5
 
 playery db 168
 playerx db 11
@@ -73,45 +74,59 @@ reset_collisions_check:
 ;IX=objectdata
 ;DE=object data length
 check_collisions:
-    ;if ix=255, return
+    ;if tx+tw<dx -skip to next desk
+    ;if tx>dx+dw -skip
+    ;if ty+th<dy -skip
+    ;if ty>dy+dh -skip
+    ;else -set bool true and ret
     ld a,(ix)
     cp 255 
-    ret z 
-
-    
-    ld a,(targetpos_x)
-    add a,PLAYER_WIDTH ;player right edge
-    cp (ix+1) ;compare with desk left edge
-    jp c, gonextobject ;skip if right edge < desk left
+    ret z ;if ix=255
 
     ld a,(targetpos_x)
-    sub (ix+3) ;
-    cp (ix+1)
-    jp nc, gonextobject 
+    add a,PLAYER_WIDTH
+    sub PLAYER_BOUNDING_BOX_OFFSET_X
+    ld b,(ix+1)
+    cp b 
+    jp c, gonextobject ;if tx+tw<dx -skip 
 
-    ;if ty+th<dy -skip
-    ld a,(targetpos_y)
-    add a,PLAYER_HEIGHT
-    cp (ix+2)
-    jp c, gonextobject 
+    ld a,(targetpos_x)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_X
+    ld b,a
+    ld a,(ix+1)
+    add a,(ix+3)
+    cp b
+    jp c, gonextobject ;if dx+dw<tx -skip 
 
-    ;if dy+dh<ty -skip
+
     ld a,(targetpos_y)
-    sub (ix+4)
-    cp (ix+2)
-    jp nc, gonextobject 
+    add a,PLAYER_BOUNDING_BOX_HEIGHT
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    ld b,(ix+2)
+    cp b
+    jp c, gonextobject ;if ty+th<dy -skip
+
+
+    ld a,(targetpos_y)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    ld b,a
+    ld a,(ix+2)
+    add a,(ix+4)
+    cp b
+    jp c, gonextobject ;if dy+dh<ty -skip
 
     ;else, we have collided...
-    ld a,3
-    call 0x229B ;Border = A
+    ; ld a,3
+    ; call 0x229B ;Border = A
 
     ld a,TRUE
     ld (collision_detected),a
-    ret
+    ; ret
 gonextobject:
     ld de,DESK_DATA_LENGTH
     add ix,de
     jp check_collisions
+
 
 
 ;sets player pos to targetpos (as long as collision not detected)

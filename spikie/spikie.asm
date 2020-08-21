@@ -41,6 +41,11 @@ main:
     ld iyl,DOOR_COLOUR
     call paintsprite_16_32
 
+    ld ix,desksdata
+    ld iyl,DESK_COLOUR
+    call paintdesks
+    
+
     ld ix,bg
     ld iy,bg+TILE_PROPERTIES_LENGTH
     ld b,TILE_COUNT
@@ -85,9 +90,23 @@ drawdesks:
     ld d,(ix+1)
     ld e,(ix+2)
     call drawsprite32_16
+    push de
     ld de,DESK_DATA_LENGTH
     add ix,de
+    pop de
     jp drawdesks
+
+;IX=desks
+paintdesks:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld b,(ix+1)
+    ld c,(ix+2)
+    call paintsprite_32_16
+    ld de,DESK_DATA_LENGTH
+    add ix,de
+    jp paintdesks
 
 ;;;;; INCLUDES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
