@@ -57,14 +57,47 @@ main:
     ld de,(doory)
     call drawsprite16_32
 
-    ld bc,playersprite
-    ld de,(playery)
-    call drawsprite16_24
+    call drawplayer
 
     halt
     call drawgamewindow
 
     jp main
+
+
+
+drawplayer:
+    ld a,(player_direction)
+    cp UP
+    jp z, drawplayer_up
+    cp DOWN
+    jp z, drawplayer_down
+    cp LEFT
+    jp z, drawplayer_left
+    cp RIGHT
+    jp z, drawplayer_right
+drawplayer_up:
+    ld bc,playersprite_up
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+drawplayer_down:
+    ld bc,playersprite_down
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+drawplayer_left:
+    ld bc,playersprite_left
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+drawplayer_right:
+    ld bc,playersprite_right
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+drawplayer_end:
+    ret
 
 drawtiles16_16:
     push bc
