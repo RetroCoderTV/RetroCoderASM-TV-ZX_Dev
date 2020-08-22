@@ -2,162 +2,40 @@ ENTRY_POINT equ 0x9900
 
     org ENTRY_POINT 
 
+game_init:
     ld a,0
     call 0x229B ;Border = A
     call 0xDAF ;cls
-    
-    ld ix,bg
-    ld b,TILE_COUNT
-    call paintbgtiles
-   
+
+    call mainmenu_init
     halt 
-
-main:
-    call sync 
-
-    call reset_keys
-    call check_keys
-    call reset_collisions_check
-
-    call anim_timer
-
-    ld a,(keypressed_W)
-    cp 1
-    call z,try_move_up
-
-    ld a,(keypressed_S)
-    cp 1
-    call z,try_move_down
-
-    ld a,(keypressed_A)
-    cp 1
-    call z,try_move_left
-
-    ld a,(keypressed_D)
-    cp 1
-    call z,try_move_right
-
-    call paintplayer_16_24
-
-    ld bc,(doory)
-    ld iyl,DOOR_COLOUR
-    call paintsprite_16_32
-
-    ld ix,desksdata
-    ld iyl,DESK_COLOUR
-    call paintdesks
-    
-    ld ix,bg
-    ld iy,bg+TILE_PROPERTIES_LENGTH
-    ld b,TILE_COUNT
-    call drawtiles16_16
-
-    ld ix,desksdata
-    call drawdesks
-
-    ld bc,doorsprite
-    ld de,(doory)
-    call drawsprite16_32
-
-    call drawplayer
-
-    halt
-    call drawgamewindow
-
     jp main
 
 
-drawplayer:
-    ld a,(player_direction)
-    cp UP
-    jp z, drawplayer_up
-    cp DOWN
-    jp z, drawplayer_down
-    cp LEFT
-    jp z, drawplayer_left
-    cp RIGHT
-    jp z, drawplayer_right
-drawplayer_up:
-    ld bc,playersprite_up
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_down:
-    ld bc,playersprite_down
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_left:
-    ld bc,playersprite_left
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_right:
-    ld a,(player_current_frame)
-    cp 0
-    jp z,dpr0
-    cp 1
-    jp z,dpr1
-    cp 2
-    jp z,dpr2
-dpr0:
-    ld bc,playersprite_right
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpr1:
-    ld bc,playersprite_right+48
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpr2:
-    ld bc,playersprite_right+96
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_end:
+begin_level01:
+    ld a,LEVEL_01_CLASS
+    ld (currentgamestate),a
+    call 0xDAF ;cls
+    call level_01_init
+    jp main
+
+main:
+    call check_keys
+
+    ld a,(currentgamestate)
+    cp MAIN_MENU
+    jp z,mainmenu_update
+    cp LEVEL_01_CLASS
+    jp z,level_01_update
+    
+    jp main
+
+
+
+setborderpink:
+    ld a,3
+    call 0x229B
     ret
-
-
-
-
-anim_timer:
-    ld a,(player_anim_timer)
-    inc a
-    ld (player_anim_timer),a
-    cp PLAYER_ANIM_DELAY
-    jp nc, skip_to_next_frame
-    ret
-skip_to_next_frame:
-    ld a,(player_current_frame)
-    cp 0
-    jp z, setframe1
-    cp 1
-    jp z,setframe2
-    cp 2
-    jp z,setframe0
-    xor a
-    ld (player_anim_timer),a
-    ret
-
-setframe0:
-    xor a
-    ld (player_current_frame),a
-    ret
-
-setframe1:
-    ld a,1
-    ld (player_current_frame),a
-    ret
-
-setframe2:
-    ld a,2
-    ld (player_current_frame),a
-    ret
-
-
-
-
 
 drawtiles16_16:
     push bc
@@ -186,7 +64,8 @@ drawdesks:
     add ix,de
     jp drawdesks
 
-;IX=desks
+;IX=object array pointer
+;;;;;TODO: DE=object data length;;
 paintdesks:
     ld a,(ix)
     cp 255
@@ -200,9 +79,14 @@ paintdesks:
 
 ;;;;; INCLUDES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+currentgamestate db MAIN_MENU
+
     include 'gamevalues.asm'
 
     include 'bg\bg1.asm'
+    include 'levels\mainmenu.asm'
+    include 'levels\level01.asm'
     include 'sprites\player.asm'
     include 'sprites\door.asm'
     include 'sprites\desk.asm'
@@ -211,6 +95,7 @@ paintdesks:
     include 'utils\keycacher.asm'
     include 'utils\randomnumbers.asm'
     include 'utils\spritedrawing.asm'
+    include 'utils\texttools.asm'
     include 'utils\vsync.asm'
 
     end ENTRY_POINT

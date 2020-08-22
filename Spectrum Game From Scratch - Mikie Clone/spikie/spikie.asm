@@ -2,59 +2,40 @@ ENTRY_POINT equ 0x9900
 
     org ENTRY_POINT 
 
+game_init:
     ld a,0
     call 0x229B ;Border = A
     call 0xDAF ;cls
-    
-    ld ix,bg
-    ld b,TILE_COUNT
-    call paintbgtiles
-   
+
+    call mainmenu_init
     halt 
-
-
-main:
-    call sync 
-
-    call reset_keys
-    call check_keys
-    call reset_collisions_check
-
-    ld a,(keypressed_F)
-    cp 0
-    call z, set_state_walk
-    call nz, set_state_attack
-    
-
-    call paintplayer_16_24
-
-    ld bc,(doory)
-    ld iyl,DOOR_COLOUR
-    call paintsprite_16_32
-
-    ld ix,desksdata
-    ld iyl,DESK_COLOUR
-    call paintdesks
-    
-    ld ix,bg
-    ld iy,bg+TILE_PROPERTIES_LENGTH
-    ld b,TILE_COUNT
-    call drawtiles16_16
-
-    ld ix,desksdata
-    call drawdesks
-
-    ld bc,doorsprite
-    ld de,(doory)
-    call drawsprite16_32
-
-    call drawplayer
-
-    halt
-    call drawgamewindow
-
     jp main
 
+
+begin_level01:
+    ld a,LEVEL_01_CLASS
+    ld (currentgamestate),a
+    call 0xDAF ;cls
+    call level_01_init
+    jp main
+
+main:
+    call check_keys
+
+    ld a,(currentgamestate)
+    cp MAIN_MENU
+    jp z,mainmenu_update
+    cp LEVEL_01_CLASS
+    jp z,level_01_update
+    
+    jp main
+
+
+
+setborderpink:
+    ld a,3
+    call 0x229B
+    ret
 
 drawtiles16_16:
     push bc
@@ -83,7 +64,8 @@ drawdesks:
     add ix,de
     jp drawdesks
 
-;IX=desks
+;IX=object array pointer
+;;;;;TODO: DE=object data length;;
 paintdesks:
     ld a,(ix)
     cp 255
@@ -97,9 +79,14 @@ paintdesks:
 
 ;;;;; INCLUDES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+currentgamestate db MAIN_MENU
+
     include 'gamevalues.asm'
 
     include 'bg\bg1.asm'
+    include 'levels\mainmenu.asm'
+    include 'levels\level01.asm'
     include 'sprites\player.asm'
     include 'sprites\door.asm'
     include 'sprites\desk.asm'
@@ -108,6 +95,7 @@ paintdesks:
     include 'utils\keycacher.asm'
     include 'utils\randomnumbers.asm'
     include 'utils\spritedrawing.asm'
+    include 'utils\texttools.asm'
     include 'utils\vsync.asm'
 
     end ENTRY_POINT

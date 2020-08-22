@@ -4,12 +4,16 @@ PLAYER_BOUNDING_BOX_OFFSET_X equ 1
 PLAYER_BOUNDING_BOX_OFFSET_Y equ 15
 PLAYER_BOUNDING_BOX_HEIGHT equ 5
 
-player_direction db UP
-player_state db WALK
-player_current_frame db 0
 PLAYER_FRAME_SIZE equ 48
+PLAYER_ANIM_DELAY equ 3
+PLAYER_ATTACK_DURATION equ 25
+
+player_direction db UP
+player_state db STANDARD
+player_current_frame db 0
+
 player_anim_timer db 0
-PLAYER_ANIM_DELAY equ 25
+player_attack_timer db 0
 
 playery db 168
 playerx db 11
@@ -21,9 +25,6 @@ PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 4
 
 collision_detected db 0
-
-attacking_left db 0
-attacking_right db 0
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
 ; line based output of pixel data:
@@ -384,11 +385,57 @@ playersprite_attack_right:
     db %00000101, %00000000
     db %00000010, %00000000
     db %00000000, %00000000
+;
 
-;reset target to playerpos, reset bool
-;move the target
-;check collisions, set bool true if found
-;if bool false, move player to target
+
+
+player_update:
+    call reset_collisions_check
+
+    
+    ld a,(keypressed_F)
+    cp 0
+    call z, set_state_standard
+    call nz, set_state_attack
+
+    ld a,(player_state)
+    cp STANDARD
+    call z, plyr_update_standard
+    cp ATTACK
+    call z, plyr_update_attack
+
+    ret
+
+plyr_update_standard:
+    ld a,(keypressed_W)
+    cp 1
+    call z,try_move_up
+
+    ld a,(keypressed_S)
+    cp 1
+    call z,try_move_down
+
+    ld a,(keypressed_A)
+    cp 1
+    call z,try_move_left
+
+    ld a,(keypressed_D)
+    cp 1
+    call z,try_move_right
+    ret
+
+plyr_update_attack:
+
+    ret
+
+
+
+
+player_draw:
+
+    call paintplayer_16_24
+    call drawplayer
+    ret
 
 ;sets targetpos back to player pos
 reset_collisions_check:
@@ -404,11 +451,7 @@ reset_collisions_check:
     xor a
     ld (collision_detected),a ;collision bool = 0
     ret
-
-; If A == N, then Z flag is set.
-; If A != N, then Z flag is reset.
-; If A < N, then C flag is set.
-; If A >= N, then C flag is reset.
+;
 
 
 ;IX=objectdata
@@ -428,7 +471,7 @@ check_collisions:
     sub PLAYER_BOUNDING_BOX_OFFSET_X
     ld b,(ix+1)
     cp b 
-    jp c, gonextobject ;if tx+tw<dx -skip 
+    jp c, checkcoll_gonextobject ;if tx+tw<dx -skip 
 
     ld a,(targetpos_x)
     add a,PLAYER_BOUNDING_BOX_OFFSET_X
@@ -436,7 +479,7 @@ check_collisions:
     ld a,(ix+1)
     add a,(ix+3)
     cp b
-    jp c, gonextobject ;if dx+dw<tx -skip 
+    jp c, checkcoll_gonextobject ;if dx+dw<tx -skip 
 
 
     ld a,(targetpos_y)
@@ -444,7 +487,7 @@ check_collisions:
     add a,PLAYER_BOUNDING_BOX_OFFSET_Y
     ld b,(ix+2)
     cp b
-    jp c, gonextobject ;if ty+th<dy -skip
+    jp c, checkcoll_gonextobject ;if ty+th<dy -skip
 
 
     ld a,(targetpos_y)
@@ -453,7 +496,7 @@ check_collisions:
     ld a,(ix+2)
     add a,(ix+4)
     cp b
-    jp c, gonextobject ;if dy+dh<ty -skip
+    jp c, checkcoll_gonextobject ;if dy+dh<ty -skip
 
     ;else, we have collided...
     ; ld a,3
@@ -461,12 +504,12 @@ check_collisions:
 
     ld a,TRUE
     ld (collision_detected),a
-    ; ret
-gonextobject:
+    ret
+checkcoll_gonextobject:
     ld de,DESK_DATA_LENGTH
     add ix,de
     jp check_collisions
-
+;
 
 
 ;sets player pos to targetpos (as long as collision not detected)
@@ -479,15 +522,12 @@ safemovetotargetpos:
     ld a,(targetpos_y)
     ld (playery),a
     ret
-
+;
 
 
 
 ;these move the targetpos. call them on keypress for example
 try_move_left:
-    ld a,(player_state)
-    cp WALK
-    ret nz
     ld a,LEFT
     ld (player_direction),a
     ld a,(playerx)
@@ -503,9 +543,6 @@ try_move_left:
     ret
 
 try_move_right:
-    ld a,(player_state)
-    cp WALK
-    ret nz
     ld a,RIGHT
     ld (player_direction),a
     ld a,(playerx)
@@ -521,9 +558,6 @@ try_move_right:
     ret
 
 try_move_up:
-    ld a,(player_state)
-    cp WALK
-    ret nz
     ld a,UP
     ld (player_direction),a
     ld a,(playery)
@@ -539,9 +573,6 @@ try_move_up:
     ret
 
 try_move_down:
-    ld a,(player_state)
-    cp WALK
-    ret nz
     ld a,DOWN
     ld (player_direction),a
     ld a,(playery)
@@ -555,10 +586,7 @@ try_move_down:
     call safemovetotargetpos
     call anim_timer
     ret
-
-
-
-
+;
 
 
 
@@ -633,8 +661,8 @@ dpd3:
     call drawplayer16_24
     jp drawplayer_end
 drawplayer_left:
-    ld a,(attacking_left)
-    cp 1
+    ld a,(player_state)
+    cp ATTACK
     jp z,dpla
     ld a,(player_current_frame)
     cp 0
@@ -671,8 +699,8 @@ dpl3:
     call drawplayer16_24
     jp drawplayer_end
 drawplayer_right:
-    ld a,(attacking_right)
-    cp 1
+    ld a,(player_state)
+    cp ATTACK
     jp z,dpra
     ld a,(player_current_frame)
     cp 0
@@ -755,53 +783,12 @@ setframe3:
     ld (player_current_frame),a
     ret
 
-
-
-
-check_attack_inputs:
-    ld a,(keypressed_A)
-    cp 1
-    call z,set_anim_attack_left
-    ld a,(keypressed_D)
-    cp 1
-    call z,set_anim_attack_right
-    ret
-
-check_standard_inputs:
-    ld a,(keypressed_W)
-    cp 1
-    call z,try_move_up
-
-    ld a,(keypressed_S)
-    cp 1
-    call z,try_move_down
-
-    ld a,(keypressed_A)
-    cp 1
-    call z,try_move_left
-
-    ld a,(keypressed_D)
-    cp 1
-    call z,try_move_right
-    ret
-
-
-set_anim_attack_left:
-    ld a,TRUE
-    ld (attacking_left),a
-    ret
-
-set_anim_attack_right:
-    ld a,TRUE
-    ld (attacking_right),a
-    ret
-
-set_state_walk
-    ld a,WALK
+set_state_standard:
+    ld a,STANDARD
     ld (player_state),a
     ret
 
-set_state_attack
+set_state_attack:
     ld a,ATTACK
     ld (player_state),a
     ret

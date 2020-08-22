@@ -22,6 +22,13 @@ keypressed_D db 0
 keypressed_F db 0
 
 check_keys:
+    xor a
+    ld (keypressed_W),a
+    ld (keypressed_A),a
+    ld (keypressed_S),a
+    ld (keypressed_D),a
+    ld (keypressed_F),a
+
     ld bc,65022 ;ASDFG
     in a,(c)
     rra 
@@ -47,6 +54,9 @@ check_keys:
     push af
     call nc, set_W
     pop af
+
+
+
     ret
 
 set_W:
@@ -74,13 +84,4 @@ set_F:
     ld (keypressed_F),a
     ret
 
-
-reset_keys:
-    xor a
-    ld (keypressed_W),a
-    ld (keypressed_A),a
-    ld (keypressed_S),a
-    ld (keypressed_D),a
-    ld (keypressed_F),a
-    ret
     

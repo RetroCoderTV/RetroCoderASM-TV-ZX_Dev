@@ -7,10 +7,17 @@ DOWN equ 1
 LEFT equ 2
 RIGHT equ 3
 
-;state
-WALK equ 0
+;player state
+STANDARD equ 0
 ATTACK equ 1
 SHOUT equ 2
+
+
+;game state
+MAIN_MENU equ 0
+LEVEL_01_CLASS equ 1
+LEVEL_02_HALL equ 2
+
 
 
 ;16 is players width, also 16 is margin so the screen colours at edges 
