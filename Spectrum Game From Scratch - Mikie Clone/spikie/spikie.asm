@@ -12,6 +12,7 @@ ENTRY_POINT equ 0x9900
    
     halt 
 
+
 main:
     call sync 
 
@@ -19,23 +20,11 @@ main:
     call check_keys
     call reset_collisions_check
 
-    call anim_timer
-
-    ld a,(keypressed_W)
-    cp 1
-    call z,try_move_up
-
-    ld a,(keypressed_S)
-    cp 1
-    call z,try_move_down
-
-    ld a,(keypressed_A)
-    cp 1
-    call z,try_move_left
-
-    ld a,(keypressed_D)
-    cp 1
-    call z,try_move_right
+    ld a,(keypressed_F)
+    cp 0
+    call z, set_state_walk
+    call nz, set_state_attack
+    
 
     call paintplayer_16_24
 
@@ -65,82 +54,6 @@ main:
     call drawgamewindow
 
     jp main
-
-
-drawplayer:
-    ld a,(player_direction)
-    cp UP
-    jp z, drawplayer_up
-    cp DOWN
-    jp z, drawplayer_down
-    cp LEFT
-    jp z, drawplayer_left
-    cp RIGHT
-    jp z, drawplayer_right
-drawplayer_up:
-    ld bc,playersprite_up
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_down:
-    ld bc,playersprite_down
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_left:
-    ld bc,playersprite_left
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_right:
-    ld a,(player_anim_frame)
-    cp 0
-    jp z,dpr0
-    jp nz,dpr1
-dpr0:
-    ld bc,playersprite_right
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpr1:
-    ld bc,playersprite_right+PLAYER_FRAME_SIZE
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_end:
-    ret
-
-
-
-
-anim_timer:
-    ld a,(player_anim_timer)
-    inc a
-    ld (player_anim_timer),a
-    cp PLAYER_ANIM_DELAY
-    jp nc, skip_to_next_frame
-    ret
-skip_to_next_frame:
-    ld a,(player_anim_frame)
-    cp 0
-    call z, setframe48
-    call nz, setframe0
-    xor a
-    ld (player_anim_timer),a
-    ret
-
-setframe0:
-    xor a
-    ld (player_anim_frame),a
-    ret
-
-setframe48:
-    ld a,PLAYER_FRAME_SIZE
-    ld (player_anim_frame),a
-    ret
-
-
-
 
 
 drawtiles16_16:

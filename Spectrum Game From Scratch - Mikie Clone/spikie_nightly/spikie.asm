@@ -93,17 +93,25 @@ drawplayer_left:
     call drawplayer16_24
     jp drawplayer_end
 drawplayer_right:
-    ld a,(player_anim_frame)
+    ld a,(player_current_frame)
     cp 0
     jp z,dpr0
-    jp nz,dpr1
+    cp 1
+    jp z,dpr1
+    cp 2
+    jp z,dpr2
 dpr0:
     ld bc,playersprite_right
     ld de,(playery)
     call drawplayer16_24
     jp drawplayer_end
 dpr1:
-    ld bc,playersprite_right+PLAYER_FRAME_SIZE
+    ld bc,playersprite_right+48
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+dpr2:
+    ld bc,playersprite_right+96
     ld de,(playery)
     call drawplayer16_24
     jp drawplayer_end
@@ -121,22 +129,30 @@ anim_timer:
     jp nc, skip_to_next_frame
     ret
 skip_to_next_frame:
-    ld a,(player_anim_frame)
+    ld a,(player_current_frame)
     cp 0
-    call z, setframe48
-    call nz, setframe0
+    jp z, setframe1
+    cp 1
+    jp z,setframe2
+    cp 2
+    jp z,setframe0
     xor a
     ld (player_anim_timer),a
     ret
 
 setframe0:
     xor a
-    ld (player_anim_frame),a
+    ld (player_current_frame),a
     ret
 
-setframe48:
-    ld a,PLAYER_FRAME_SIZE
-    ld (player_anim_frame),a
+setframe1:
+    ld a,1
+    ld (player_current_frame),a
+    ret
+
+setframe2:
+    ld a,2
+    ld (player_current_frame),a
     ret
 
 

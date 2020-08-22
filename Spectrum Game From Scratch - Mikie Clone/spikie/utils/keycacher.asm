@@ -19,6 +19,8 @@ keypressed_A db 0
 keypressed_S db 0
 keypressed_D db 0
 
+keypressed_F db 0
+
 check_keys:
     ld bc,65022 ;ASDFG
     in a,(c)
@@ -34,6 +36,10 @@ check_keys:
     push af
     call nc, set_D
     pop af  
+    rra
+    push af
+    call nc, set_F
+    pop af
     ld bc,64510 ;QWERT
     in a,(c)
     rra ;Q
@@ -63,6 +69,10 @@ set_D:
     ld (keypressed_D),a
     ret
 
+set_F:
+    ld a,1
+    ld (keypressed_F),a
+    ret
 
 
 reset_keys:
@@ -71,5 +81,6 @@ reset_keys:
     ld (keypressed_A),a
     ld (keypressed_S),a
     ld (keypressed_D),a
+    ld (keypressed_F),a
     ret
     
