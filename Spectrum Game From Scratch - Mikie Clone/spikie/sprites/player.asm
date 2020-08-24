@@ -9,14 +9,14 @@ PLAYER_ANIM_DELAY equ 3
 PLAYER_ATTACK_DURATION equ 25
 
 player_direction db UP
-player_state db STANDARD
+player_state db SIT
 player_current_frame db 0
 
 player_anim_timer db 0
 player_attack_timer db 0
 
-playery db 168
-playerx db 11
+playery db 0
+playerx db 0
 
 targetpos_x db 0
 targetpos_y db 0
@@ -25,6 +25,40 @@ PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 4
 
 collision_detected db 0
+collision_detected_door db 0
+collision_detected_stool db 0
+
+hearts_collected db 0
+
+
+check_victory_level01:
+    ;if hearts collected != TOTAL HEARTS
+    ;if collision door == false
+    ;if key_F != pressed
+
+    ld a,EXIT_SIGN_TEXT_COLOUR
+    ld (exit_text_current_colour),a
+
+    ld a,(hearts_collected)
+    cp L1_TOTAL_HEARTS
+    ret nz
+
+    ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
+    ld (exit_text_current_colour),a
+
+    ld a,(collision_detected_door)
+    cp FALSE
+    ret z
+
+    ;if we reach here, level is ready to complete:
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, begin_level02
+
+    ret
+
+
+
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
 ; line based output of pixel data:
@@ -385,24 +419,86 @@ playersprite_attack_right:
     db %00000101, %00000000
     db %00000010, %00000000
     db %00000000, %00000000
+playersprite_sit:
+    ;sit0
+    db %00000000, %00000000
+    db %00000000, %00000000
+    db %00000000, %00000000
+    db %00000111, %11010000
+    db %00001000, %00101000
+    db %00010001, %00010000
+    db %00010010, %01100000
+    db %00010010, %10100000
+    db %00010000, %10100000
+    db %00001000, %10100000
+    db %00000111, %11000000
+    db %00011111, %11110000
+    db %00111111, %11111000
+    db %01111000, %00111000
+    db %01001111, %11100100
+    db %01111111, %11111100
+    db %01001111, %11100100
+    db %01000111, %11000100
+    db %01000111, %11000100
+    db %00111111, %11111000
+    db %00000000, %00000000
+    db %00000000, %00000000
+    db %00000000, %00000000
+    db %00000000, %00000000
+    db %00000000, %00000000
 ;
 
 
 
 player_update:
+    call setborderblue
     call reset_collisions_check
-
+    ld ix,desksdata
+    call check_collisions_player_stool
+    call check_collision_player_door
     
-    ld a,(keypressed_F)
-    cp 0
-    call z, set_state_standard
-    call nz, set_state_attack
+    ld a,(collision_detected_stool)
+    cp TRUE
+    call z,check_sit_keypress
+
+
+    ld a,(player_state)
+    cp STANDARD
+    call z, check_attack_keypress
+    ld a,(player_state)
+    cp ATTACK
+    call z, check_attack_keypress
 
     ld a,(player_state)
     cp STANDARD
     call z, plyr_update_standard
     cp ATTACK
     call z, plyr_update_attack
+    cp SIT
+    call z,plyr_update_sit
+
+    ret
+
+
+check_sit_keypress:
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, set_state_sit
+
+    ld a,(keypressed_W)
+    cp TRUE
+    call z, set_state_standard
+    ret
+
+check_attack_keypress:
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, set_state_attack
+    call nz, set_state_standard
+    ret
+
+
+plyr_update_sit:
 
     ret
 
@@ -447,8 +543,6 @@ reset_collisions_check:
 
     ;reset collision bool
     xor a
-    call 0x229B ;Border = A
-    xor a
     ld (collision_detected),a ;collision bool = 0
     ret
 ;
@@ -457,10 +551,10 @@ reset_collisions_check:
 ;IX=objectdata
 ;DE=object data length
 check_collisions:
-    ;if tx+tw<dx -skip to next desk
-    ;if tx>dx+dw -skip
+    ;if tx+tw<dx -skip 
+    ;if dx+dw<tx -skip
     ;if ty+th<dy -skip
-    ;if ty>dy+dh -skip
+    ;if dy+dh<ty -skip
     ;else -set bool true and ret
     ld a,(ix)
     cp 255 
@@ -499,9 +593,6 @@ check_collisions:
     jp c, checkcoll_gonextobject ;if dy+dh<ty -skip
 
     ;else, we have collided...
-    ; ld a,3
-    ; call 0x229B ;Border = A
-
     ld a,TRUE
     ld (collision_detected),a
     ret
@@ -510,6 +601,160 @@ checkcoll_gonextobject:
     add ix,de
     jp check_collisions
 ;
+
+
+; If A == N, then Z flag is set.
+; If A != N, then Z flag is reset.
+; If A < N, then C flag is set.
+; If A >= N, then C flag is reset.
+
+
+check_collision_player_door:
+    ld a,FALSE
+    ld (collision_detected_door),a
+    ;px+pw<dx
+    ;dx+dw<px
+    ;if py+ph<dy -skip
+    ;if dy+dh<py -skip
+    ld a,(doorx)
+    ld b,a
+    ld a,(playerx)
+    cp b
+    ret c
+
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    ld b,a
+    ld a,(doorx)
+    add a,DOOR_WIDTH
+    cp b
+    ret c
+    
+    ld a,(doory)
+    ld b,a
+    ld a,(playery)
+    add a,PLAYER_HEIGHT
+    cp b
+    ret c
+
+    ld a,(doory)
+    add a,DOOR_HEIGHT
+    ld b,a
+    ld a,(playery)
+    add a,PLAYER_HEIGHT/2
+    cp b
+    ret nc
+
+    ;else, we collided....
+    ld a,TRUE
+    ld (collision_detected_door),a
+    call setborderpink
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;IX=desks pointer
+check_collisions_player_stool:
+    ;no collision if...
+    ;px+pw<dx
+    ;dx+dw<px
+    ;py+ph<dy 
+    ;dy+dh<py
+
+    ld a,(ix)
+    cp 255 
+    ret z ;if ix=255
+    
+    ld a,FALSE
+    ld (collision_detected_stool),a
+
+
+    ld a,(playerx)
+    ; add a,PLAYER_BOUNDING_BOX_OFFSET_X
+    push af
+    ld a,(ix+1)
+    add a,DESK_STOOL_OFFSET_X
+    ld b,a
+    pop af    
+    cp b ;is A < B ?
+    jp c, checkcollstool_gonextobject ;if tx+tw<dx -skip 
+
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    ld b,a
+    ld a,(ix+1)
+    add a,(ix+3)
+    sub DESK_STOOL_OFFSET_X
+    cp b
+    jp c, checkcollstool_gonextobject ;if dx+dw<tx -skip 
+
+
+    ld a,(playery)
+    add a,PLAYER_BOUNDING_BOX_HEIGHT
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    push af
+    ld a,(ix+2)
+    add a,DESK_STOOL_OFFSET_Y
+    ld b,a
+    pop af
+    cp b
+    jp c, checkcollstool_gonextobject ;if ty+th<dy -skip
+
+
+    ld a,(playery)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y+8
+    ld b,a
+    ld a,(ix+2)
+    add a,(ix+4)
+    add a,DESK_STOOL_OFFSET_Y
+    cp b
+    jp c, checkcollstool_gonextobject ;if dy+dh<ty -skip
+
+    ;else, we have collided...
+    ld a,TRUE
+    ld (collision_detected_stool),a
+
+    call setbordergreen
+    ret
+checkcollstool_gonextobject:
+    ld de,DESK_DATA_LENGTH
+    add ix,de
+    jp check_collisions_player_stool
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;sets player pos to targetpos (as long as collision not detected)
@@ -590,7 +835,20 @@ try_move_down:
 
 
 
+
+
+
+
 drawplayer:
+    ;if sitting, set sprite to seated, and return
+    ld a,(player_state)
+    cp SIT
+    jp nz,not_sitting
+    ld bc,playersprite_sit
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_end
+not_sitting:
     ld a,(player_direction)
     cp UP
     jp z, drawplayer_up
@@ -742,6 +1000,11 @@ drawplayer_end:
 
 
 
+
+
+
+
+
 anim_timer:
     ld a,(player_anim_timer)
     inc a
@@ -792,6 +1055,15 @@ set_state_attack:
     ld a,ATTACK
     ld (player_state),a
     ret
+
+set_state_sit:
+    ld a,SIT
+    ld (player_state),a
+    ret
+
+
+
+
 
 
 

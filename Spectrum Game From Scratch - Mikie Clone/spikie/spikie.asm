@@ -3,20 +3,26 @@ ENTRY_POINT equ 0x9900
     org ENTRY_POINT 
 
 game_init:
-    ld a,0
-    call 0x229B ;Border = A
+    call setborderpink
     call 0xDAF ;cls
 
     call mainmenu_init
     halt 
     jp main
 
-
 begin_level01:
     ld a,LEVEL_01_CLASS
     ld (currentgamestate),a
     call 0xDAF ;cls
     call level_01_init
+    jp main
+
+
+begin_level02:
+    ld a,LEVEL_02_DINER
+    ld (currentgamestate),a
+    call 0xDAF ;cls
+    call level_02_init
     jp main
 
 main:
@@ -27,16 +33,14 @@ main:
     jp z,mainmenu_update
     cp LEVEL_01_CLASS
     jp z,level_01_update
+    cp LEVEL_02_DINER
+    jp z,level_02_update
     
     jp main
 
 
-
-setborderpink:
-    ld a,3
-    call 0x229B
-    ret
-
+;B=tile count
+;IX=tiles
 drawtiles16_16:
     push bc
     push iy
@@ -59,7 +63,7 @@ drawdesks:
     ld bc,desksprite
     ld d,(ix+1)
     ld e,(ix+2)
-    call drawsprite32_16
+    call drawspritedesks
     ld de,DESK_DATA_LENGTH
     add ix,de
     jp drawdesks
@@ -87,9 +91,11 @@ currentgamestate db MAIN_MENU
     include 'bg\bg1.asm'
     include 'levels\mainmenu.asm'
     include 'levels\level01.asm'
+    include 'levels\level02.asm'
     include 'sprites\player.asm'
     include 'sprites\door.asm'
     include 'sprites\desk.asm'
+    include 'sprites\exitsign.asm'
     include 'utils\colours.asm'
     include 'utils\doublebuffering.asm'
     include 'utils\keycacher.asm'

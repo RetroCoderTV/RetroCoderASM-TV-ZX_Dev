@@ -11,12 +11,13 @@ RIGHT equ 3
 STANDARD equ 0
 ATTACK equ 1
 SHOUT equ 2
+SIT equ 3
 
 
 ;game state
 MAIN_MENU equ 0
 LEVEL_01_CLASS equ 1
-LEVEL_02_HALL equ 2
+LEVEL_02_DINER equ 2
 
 
 
@@ -27,3 +28,4 @@ MAX_X equ 24-2-2
 
 MIN_Y equ 45
 MAX_Y equ 192-20 ;24 is players height, we allow him to go a little bit off screen at bottom
+

@@ -1,5 +1,6 @@
 GAME_WINDOW_START equ 0x8000
 GAME_WINDOW_LENGTH equ 0x1200
+GAME_WINDOW_END_UB equ 0x92
 GAME_WINDOW_WIDTH equ 24
 BUFFER_CHUNK_LENGTH equ 12
 SEG_SIZE equ 0x600
@@ -8,6 +9,10 @@ VMEM_SEG_0 equ 0x4000
 VMEM_SEG_1 equ 0x4800
 VMEM_SEG_2 equ 0x5000
 SCREEN_WIDTH equ 32
+
+
+VMEM_START equ 0x4000
+VMEM_END_UB equ 0x58
 
 ;line down offsets
 L1 equ 0x100
@@ -27,6 +32,31 @@ C6 equ 0xC0
 C7 equ 0xE0
 
 stack_ptr dw 0
+
+
+
+
+;HL=GAME WINDOW START
+cleargamewindow:
+    ld a,h
+    cp GAME_WINDOW_END_UB
+    ret z
+    xor a
+    ld (hl),a
+    inc hl
+    jp cleargamewindow
+    ret
+
+
+
+
+
+
+
+
+
+
+
 
 ;written for window 24x24 cells.
 ;each scanline is drawn in two 'chunks' starting at left of screen.
