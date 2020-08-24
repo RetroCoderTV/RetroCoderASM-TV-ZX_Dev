@@ -32,11 +32,6 @@ collision_detected_heart db 0
 hearts_collected db 0
 current_heart_seat db 0
 
-showheartscollected:
-    ld bc,(hearts_collected)
-    call 6683
-    ret
-
 check_victory_level01:
     ;if hearts collected != TOTAL HEARTS
     ;if collision door == false
@@ -57,6 +52,7 @@ check_victory_level01:
 
     ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
     ld (exit_text_current_colour),a
+
 
     ld a,(collision_detected_door)
     cp FALSE
@@ -735,8 +731,6 @@ check_collisions_player_stool:
     ld a,TRUE
     ld (collision_detected_stool),a
 
-    
-
     ; if we are sitting, collect heart
     ld a,(player_state)
     cp SIT
@@ -753,9 +747,6 @@ checkcollstool_gonextstool:
     jp check_collisions_player_stool
 ;
 
-
-
-
 collect_heart:
     ld a,(iy)
     cp 255
@@ -769,6 +760,10 @@ collect_heart:
     ;we sat down next to a heart...
     xor a
     ld (iy),a
+
+    ld ix,hearticons
+    call ui_add_heart
+
     ld a,(hearts_collected)
     inc a
     ld (hearts_collected),a  

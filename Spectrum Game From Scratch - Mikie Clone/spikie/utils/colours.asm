@@ -83,7 +83,7 @@ paintexitsign_text:
     ld de,SCREEN_WIDTH
     add hl,de ;go forward 1 line
     inc hl ;go forward 1 byte
-    ld a,EXIT_SIGN_TEXT_COLOUR
+    ld a,iyl
     ld (hl),a ;0,0
     inc hl
     ld (hl),a ;0,1

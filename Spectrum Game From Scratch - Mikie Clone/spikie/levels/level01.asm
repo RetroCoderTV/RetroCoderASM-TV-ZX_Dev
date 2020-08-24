@@ -14,7 +14,7 @@ l1_hearts:
     db 1,7,88+24,4,16
     db 2,15,88+24,4,16
     db 3,7,120+24,4,16
-    db 4,15,120+24,4,16
+    db 6,15,120+24,4,16
     db 5,15,152+24,4,16
     db 255
 
@@ -42,6 +42,8 @@ level_01_init:
 level_01_update:    
     ld hl,GAME_WINDOW_START
     call cleargamewindow 
+
+    call ui_update
 
     call exitsign_paint
 

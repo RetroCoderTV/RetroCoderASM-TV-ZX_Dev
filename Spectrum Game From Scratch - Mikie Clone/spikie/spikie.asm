@@ -5,7 +5,6 @@ ENTRY_POINT equ 0x9900
 game_init:
     call setborderblue
     call 0xDAF ;cls
-
     call mainmenu_init
     halt 
     jp main
@@ -121,7 +120,7 @@ currentgamestate db MAIN_MENU
     include 'sprites\desk.asm'
     include 'sprites\exitsign.asm'
     include 'sprites\heart.asm'
-    ; include 'ui\ui.asm'    
+    include 'ui\ui.asm'    
     include 'utils\colours.asm'
     include 'utils\doublebuffering.asm'
     include 'utils\keycacher.asm'
