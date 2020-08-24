@@ -27,21 +27,33 @@ PLAYER_SPEED_Y equ 4
 collision_detected db 0
 collision_detected_door db 0
 collision_detected_stool db 0
+collision_detected_heart db 0
 
 hearts_collected db 0
+current_heart_seat db 0
 
+showheartscollected:
+    ld bc,(hearts_collected)
+    call 6683
+    ret
 
 check_victory_level01:
     ;if hearts collected != TOTAL HEARTS
     ;if collision door == false
     ;if key_F != pressed
+    
+    
+
 
     ld a,EXIT_SIGN_TEXT_COLOUR
     ld (exit_text_current_colour),a
 
     ld a,(hearts_collected)
     cp L1_TOTAL_HEARTS
-    ret nz
+    ret c
+
+    
+    call setborderpink
 
     ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
     ld (exit_text_current_colour),a
@@ -456,11 +468,12 @@ player_update:
     ld ix,desksdata
     call check_collisions_player_stool
     call check_collision_player_door
+
+    
     
     ld a,(collision_detected_stool)
     cp TRUE
     call z,check_sit_keypress
-
 
     ld a,(player_state)
     cp STANDARD
@@ -648,14 +661,8 @@ check_collision_player_door:
     ;else, we collided....
     ld a,TRUE
     ld (collision_detected_door),a
-    call setborderpink
+
     ret
-
-
-
-
-
-
 
 
 
@@ -691,7 +698,7 @@ check_collisions_player_stool:
     ld b,a
     pop af    
     cp b ;is A < B ?
-    jp c, checkcollstool_gonextobject ;if tx+tw<dx -skip 
+    jp c, checkcollstool_gonextstool ;if tx+tw<dx -skip 
 
     ld a,(playerx)
     add a,PLAYER_WIDTH
@@ -700,7 +707,7 @@ check_collisions_player_stool:
     add a,(ix+3)
     sub DESK_STOOL_OFFSET_X
     cp b
-    jp c, checkcollstool_gonextobject ;if dx+dw<tx -skip 
+    jp c, checkcollstool_gonextstool ;if dx+dw<tx -skip 
 
 
     ld a,(playery)
@@ -712,7 +719,7 @@ check_collisions_player_stool:
     ld b,a
     pop af
     cp b
-    jp c, checkcollstool_gonextobject ;if ty+th<dy -skip
+    jp c, checkcollstool_gonextstool ;if ty+th<dy -skip
 
 
     ld a,(playery)
@@ -722,15 +729,25 @@ check_collisions_player_stool:
     add a,(ix+4)
     add a,DESK_STOOL_OFFSET_Y
     cp b
-    jp c, checkcollstool_gonextobject ;if dy+dh<ty -skip
+    jp c, checkcollstool_gonextstool ;if dy+dh<ty -skip
 
     ;else, we have collided...
     ld a,TRUE
     ld (collision_detected_stool),a
 
-    call setbordergreen
+    
+
+    ; if we are sitting, collect heart
+    ld a,(player_state)
+    cp SIT
+    ret nz
+    ld a,(ix)
+    ld (current_heart_seat),a
+    ld iy,l1_hearts
+    call collect_heart
+
     ret
-checkcollstool_gonextobject:
+checkcollstool_gonextstool:
     ld de,DESK_DATA_LENGTH
     add ix,de
     jp check_collisions_player_stool
@@ -739,9 +756,27 @@ checkcollstool_gonextobject:
 
 
 
-
-
-
+collect_heart:
+    ld a,(iy)
+    cp 255
+    ret z
+    ld a,(iy)
+    cp 0
+    jp z,collect_gonextheart
+    ld a,(current_heart_seat)
+    cp (iy)
+    jp nz, collect_gonextheart
+    ;we sat down next to a heart...
+    xor a
+    ld (iy),a
+    ld a,(hearts_collected)
+    inc a
+    ld (hearts_collected),a  
+    ret
+collect_gonextheart:
+    ld de,HEART_DATA_LENGTH
+    inc iy
+    jp collect_heart
 
 
 

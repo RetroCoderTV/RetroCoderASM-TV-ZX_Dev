@@ -23,7 +23,7 @@ mainmenu_init:
 
 mainmenu_update:
     call check_keys
-    
+
     ld a,(keypressed_W)
     cp TRUE
     jp z, begin_level01

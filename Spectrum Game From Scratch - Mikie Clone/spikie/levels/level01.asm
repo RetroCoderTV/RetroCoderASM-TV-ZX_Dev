@@ -1,10 +1,22 @@
-L1_TOTAL_HEARTS equ 5
+
 
 L1_PLAYER_START_Y equ 156
 L1_PLAYER_START_X equ 7
 
 L1_EXIT_SIGN_START_Y equ 0
 L1_EXIT_SIGN_START_X equ 5
+
+
+L1_TOTAL_HEARTS equ 5
+
+
+l1_hearts:
+    db 1,7,88+24,4,16
+    db 2,15,88+24,4,16
+    db 3,7,120+24,4,16
+    db 4,15,120+24,4,16
+    db 5,15,152+24,4,16
+    db 255
 
 
 level_01_init:
@@ -22,7 +34,7 @@ level_01_init:
     ld a,L1_EXIT_SIGN_START_Y
     ld (exity),a
 
-    ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
+    ld a,EXIT_SIGN_TEXT_COLOUR
     ld (exit_text_current_colour),a 
 
     ret
@@ -68,6 +80,9 @@ level_01_update:
     ld ix,desksdata
     call drawdesks
 
+    ld ix,l1_hearts
+    call drawhearts
+
     ld bc,exitsign_sprite
     ld de,(exity)
     call drawsprite32_24
@@ -92,6 +107,10 @@ level_01_update:
     
     call sync_late 
     call drawgamewindow
+
+
     
 
     jp level_01_update
+
+

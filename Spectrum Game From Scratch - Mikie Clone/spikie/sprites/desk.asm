@@ -9,11 +9,11 @@ DESK_STOOL_OFFSET_Y equ 12
 ;isalive,x,y,w,h
 desksdata:
     db 1,6,88,4,16
-    db 1,14,88,4,16
-    db 1,6,120,4,16
-    db 1,14,120,4,16
-    db 1,6,152,4,16
-    db 1,14,152,4,16
+    db 2,14,88,4,16
+    db 3,6,120,4,16
+    db 4,14,120,4,16
+    db 99,6,152,4,16
+    db 5,14,152,4,16
     db 255
 
 ; ASM data file from a ZX-Paintbrush picture with 32 x 16 pixels (= 4 x 2 characters)

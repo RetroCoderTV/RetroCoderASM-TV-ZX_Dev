@@ -3,7 +3,7 @@ ENTRY_POINT equ 0x9900
     org ENTRY_POINT 
 
 game_init:
-    call setborderpink
+    call setborderblue
     call 0xDAF ;cls
 
     call mainmenu_init
@@ -27,6 +27,7 @@ begin_level02:
 
 main:
     call check_keys
+    
 
     ld a,(currentgamestate)
     cp MAIN_MENU
@@ -37,6 +38,11 @@ main:
     jp z,level_02_update
     
     jp main
+
+
+
+    
+    
 
 
 ;B=tile count
@@ -81,6 +87,24 @@ paintdesks:
     add ix,de
     jp paintdesks
 
+
+;IX=hearts
+drawhearts:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld a,(ix)
+    cp 0
+    jp z,drawhearts_gonext
+    ld bc,heartsprite
+    ld d,(ix+1)
+    ld e,(ix+2)
+    call drawsprite16_8
+drawhearts_gonext:
+    ld de,HEART_DATA_LENGTH
+    add ix,de
+    jp drawhearts
+
 ;;;;; INCLUDES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -96,6 +120,8 @@ currentgamestate db MAIN_MENU
     include 'sprites\door.asm'
     include 'sprites\desk.asm'
     include 'sprites\exitsign.asm'
+    include 'sprites\heart.asm'
+    ; include 'ui\ui.asm'    
     include 'utils\colours.asm'
     include 'utils\doublebuffering.asm'
     include 'utils\keycacher.asm'
