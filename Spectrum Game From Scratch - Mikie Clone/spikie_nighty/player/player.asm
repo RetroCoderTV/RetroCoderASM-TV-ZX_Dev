@@ -772,11 +772,8 @@ checkcollisions_lockertrigger:
     ld a,(player_direction)
     cp UP
     ret nz
-    call z,collectheartfromlocker
-    ; ld a,(ix)
-    ; ld (current_heart_seat),a
-    ; ld iy,l1_hearts
-    ; call collect_heart
+    call collectheartfromlocker
+    call setborderpink
 
     ret
 checkcoll_lockertrigger_gonext:
@@ -784,8 +781,6 @@ checkcoll_lockertrigger_gonext:
     add ix,de
     jp checkcollisions_lockertrigger
 ;
-
-
 
 
 collectheartfromlocker:

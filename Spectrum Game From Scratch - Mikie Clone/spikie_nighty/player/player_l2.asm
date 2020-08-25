@@ -35,6 +35,8 @@ player_update_l2:
     call reset_collisions_check
     ld ix,l2_lockers
     call check_collisions_lockers
+    ld ix,l2_lockers
+    call checkcollisions_lockertrigger
 
     call check_collision_player_door
 
