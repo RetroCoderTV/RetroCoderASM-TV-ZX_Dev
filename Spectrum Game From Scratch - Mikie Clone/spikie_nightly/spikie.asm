@@ -24,10 +24,12 @@ begin_level02:
     call level_02_init
     jp main
 
-main:
-    
+begin_level03:
+    call begin_level01
     
 
+
+main:
     ld a,(currentgamestate)
     cp MAIN_MENU
     jp z,mainmenu_update

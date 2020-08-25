@@ -305,10 +305,6 @@ paintsprite_32_24:
     ret
 
 
-
-
-
-
 ;Input
 ;B=xpos
 ;C=ypos

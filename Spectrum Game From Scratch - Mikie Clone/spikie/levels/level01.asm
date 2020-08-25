@@ -40,11 +40,40 @@ level_01_init:
     ld a,L1_PLAYER_STATE
     ld (player_state),a
 
-    ld a,5 ;todo: xor a
+    xor a
+    ;ld a,L1_TOTAL_HEARTS ;cheat
     ld (hearts_collected),a
+    ret
 
+
+level_01_checkvictory:
+    ;if hearts collected != TOTAL HEARTS
+    ;if collision door == false
+    ;if key_F != pressed
+
+
+    ld a,(hearts_collected)
+    cp L1_TOTAL_HEARTS
+    ret c
+
+
+    ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
+    ld (exit_text_current_colour),a
+
+
+    ld a,(collision_detected_door)
+    cp FALSE
+    ret z
+
+    ;if we reach here, level is ready to complete:
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, begin_level02
 
     ret
+;
+
+
 
 level_01_update:    
     ld hl,GAME_WINDOW_START
@@ -72,7 +101,7 @@ level_01_update:
     call sync 
 
     call player_update_l1
-    call check_victory_level01
+    call level_01_checkvictory
 
     ld bc,(doory)
     ld iyl,DOOR_COLOUR_EXIT

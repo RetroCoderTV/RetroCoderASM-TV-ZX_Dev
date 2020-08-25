@@ -45,8 +45,6 @@ exitsign_sprite:
 exitsign_paint:
     ld a,(exit_text_current_colour)
     ld iyl,a
-    ld a,(exity)
-    ld c,a
     call paintexitsign_text
  
     ret

@@ -14,14 +14,20 @@
 ; 65278 V, C, X, Z, Caps Shift
 
 
-keypressed_W db 0
-keypressed_A db 0
-keypressed_S db 0
-keypressed_D db 0
+keypressed_W db FALSE
+keypressed_A db FALSE
+keypressed_S db FALSE
+keypressed_D db FALSE
 
-keypressed_F db 0
+keypressed_F db FALSE
+keypressed_F_Held db FALSE
 
 check_keys:
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, set_F_Held
+    call nz, reset_F_Held
+
     xor a
     ld (keypressed_W),a
     ld (keypressed_A),a
@@ -60,28 +66,39 @@ check_keys:
     ret
 
 set_W:
-    ld a,1
+    ld a,TRUE
     ld (keypressed_W),a
     ret
 
 set_A:
-    ld a,1
+    ld a,TRUE
     ld (keypressed_A),a
     ret
 
 set_S:
-    ld a,1
+    ld a,TRUE
     ld (keypressed_S),a
     ret
 
 set_D:
-    ld a,1
+    ld a,TRUE
     ld (keypressed_D),a
     ret
 
 set_F:
-    ld a,1
+    ld a,TRUE
     ld (keypressed_F),a
+    ret
+
+
+set_F_Held:
+    ld a,TRUE
+    ld (keypressed_F_Held),a
+    ret 
+
+reset_F_Held:
+    xor a
+    ld (keypressed_F_Held),a
     ret
 
     

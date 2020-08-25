@@ -31,6 +31,7 @@ collision_detected_heart db 0
 
 hearts_collected db 0
 current_heart_seat db 0
+; current_locker_id db 0
 ;
 
 
@@ -655,7 +656,6 @@ checkcollstool_gonextstool:
 
 
 
-
 ;IX=lockers data
 check_collisions_lockers:
     ;if tx+tw<dx -skip 
@@ -712,9 +712,20 @@ checkcolllockers_gonextobject:
 
 
 
+
+
+
+
+
+
+
+
+
+
 ;ix=lockers
 checkcollisions_lockertrigger:
-        ;no collision if...
+    call setborderblue
+    ;no collision if...
     ;px+pw<dx
     ;dx+dw<px
     ;py+ph<dy 
@@ -724,45 +735,34 @@ checkcollisions_lockertrigger:
     cp 255 
     ret z ;if ix=255
     
-    ld a,(playerx)
-    push af
+
     ld a,(ix+1)
-    add a,LOCKER_TRIGGER_OFFSET_X
-    ld b,a
-    pop af    
+    ld b,a 
+    ld a,(playerx)
     cp b ;is A < B ?
     jp c, checkcoll_lockertrigger_gonext ;if tx+tw<dx -skip 
 
     ld a,(playerx)
-    add a,PLAYER_WIDTH
     ld b,a
     ld a,(ix+1)
-    add a,(ix+3)
-    sub LOCKER_TRIGGER_OFFSET_X
     cp b
     jp c, checkcoll_lockertrigger_gonext ;if dx+dw<tx -skip 
-
 
     ld a,(playery)
     add a,PLAYER_BOUNDING_BOX_HEIGHT
     add a,PLAYER_BOUNDING_BOX_OFFSET_Y
-    push af
-    ld a,(ix+2)
-    add a,LOCKER_TRIGGER_OFFSET_Y
-    ld b,a
-    pop af
+    ld b,(ix+2)
     cp b
-    jp c, checkcoll_lockertrigger_gonext ;if ty+th<dy -skip
-
+    jp c, checkcoll_lockertrigger_gonext
 
     ld a,(playery)
-    add a,PLAYER_BOUNDING_BOX_OFFSET_Y+8
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
     ld b,a
     ld a,(ix+2)
     add a,(ix+4)
     add a,LOCKER_TRIGGER_OFFSET_Y
     cp b
-    jp c, checkcoll_lockertrigger_gonext ;if dy+dh<ty -skip
+    jp c, checkcoll_lockertrigger_gonext
 
     ;else, we have collided...
     ; ld a,TRUE
@@ -772,8 +772,36 @@ checkcollisions_lockertrigger:
     ld a,(player_direction)
     cp UP
     ret nz
-    call collectheartfromlocker
+
+    ld a,(keypressed_F)
+    cp TRUE
+    ret nz
+
+    ld a,(keypressed_F_Held)
+    cp FALSE
+    ret nz
+
+    ;decrease heart in locker (if not zero already)
+   
+    ; ld a,(ix+5)
+    ; ld (current_locker_id),a
+    ; ld ix,l2_lockers
+    ; call collect_locker_heart
+
+    ld a,(ix)
+    cp 0 
+    ret z
+    dec a
+    ld (ix),a
+    ld a,(hearts_collected)
+    inc a
+    ld (hearts_collected),a
+
     call setborderpink
+    ; ld a,(ix+5)
+    ; cp 54
+    ; call c, setborderpink
+    ; call nc, setbordergreen
 
     ret
 checkcoll_lockertrigger_gonext:
@@ -783,14 +811,31 @@ checkcoll_lockertrigger_gonext:
 ;
 
 
-collectheartfromlocker:
-    ld a,(ix)
-    dec a
-    ld (ix),a
-    ret
 
 
 
+; collect_locker_heart:
+;     ld a,(ix)
+;     cp 255
+;     ret z
+;     ld a,(current_locker_id)
+;     ld b,a
+;     ld a,(ix+5)
+;     cp b
+;     jp nz, collectlockerheart_gonext
+;     ld a,(ix)
+;     cp 0 
+;     ret z
+;     dec a
+;     ld (ix),a
+;     ret
+; collectlockerheart_gonext:
+;     ld de,LOCKER_DATA_LENGTH
+;     add ix,de
+;     jp collect_locker_heart
+
+
+    
 
 
 
