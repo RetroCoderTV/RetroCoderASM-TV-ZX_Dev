@@ -1,5 +1,5 @@
 
-
+L1_PLAYER_STATE equ SIT
 L1_PLAYER_START_Y equ 156
 L1_PLAYER_START_X equ 7
 
@@ -37,6 +37,13 @@ level_01_init:
     ld a,EXIT_SIGN_TEXT_COLOUR
     ld (exit_text_current_colour),a 
 
+    ld a,L1_PLAYER_STATE
+    ld (player_state),a
+
+    ld a,5 ;todo: xor a
+    ld (hearts_collected),a
+
+
     ret
 
 level_01_update:    
@@ -64,7 +71,7 @@ level_01_update:
     call check_keys
     call sync 
 
-    call player_update
+    call player_update_l1
     call check_victory_level01
 
     ld bc,(doory)

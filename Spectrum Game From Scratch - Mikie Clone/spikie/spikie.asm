@@ -25,7 +25,7 @@ begin_level02:
     jp main
 
 main:
-    call check_keys
+    
     
 
     ld a,(currentgamestate)
@@ -72,6 +72,24 @@ drawdesks:
     ld de,DESK_DATA_LENGTH
     add ix,de
     jp drawdesks
+
+
+
+;IX=desks
+drawlockers:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld bc,lockersprite
+    ld d,(ix+1)
+    ld e,(ix+2)
+    call drawsprite16_24
+    ld de,L2_LOCKER_DATA_LENGTH
+    add ix,de
+    jp drawlockers
+
+
+
 
 ;IX=object array pointer
 ;;;;;TODO: DE=object data length;;
@@ -120,6 +138,7 @@ currentgamestate db MAIN_MENU
     include 'sprites\desk.asm'
     include 'sprites\exitsign.asm'
     include 'sprites\heart.asm'
+    include 'sprites\locker.asm'
     include 'ui\ui.asm'    
     include 'utils\colours.asm'
     include 'utils\doublebuffering.asm'

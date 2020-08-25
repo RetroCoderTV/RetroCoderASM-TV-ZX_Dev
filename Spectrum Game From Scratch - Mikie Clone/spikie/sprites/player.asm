@@ -9,7 +9,7 @@ PLAYER_ANIM_DELAY equ 3
 PLAYER_ATTACK_DURATION equ 25
 
 player_direction db UP
-player_state db SIT
+player_state db ATTACK
 player_current_frame db 0
 
 player_anim_timer db 0
@@ -37,8 +37,6 @@ check_victory_level01:
     ;if collision door == false
     ;if key_F != pressed
     
-    
-
 
     ld a,EXIT_SIGN_TEXT_COLOUR
     ld (exit_text_current_colour),a
@@ -47,8 +45,6 @@ check_victory_level01:
     cp L1_TOTAL_HEARTS
     ret c
 
-    
-    call setborderpink
 
     ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
     ld (exit_text_current_colour),a
@@ -64,7 +60,36 @@ check_victory_level01:
     call z, begin_level02
 
     ret
+;
+check_victory_level02:
+    ;if hearts collected != TOTAL HEARTS
+    ;if collision door == false
+    ;if key_F != pressed
+    
 
+    ld a,EXIT_SIGN_TEXT_COLOUR
+    ld (exit_text_current_colour),a
+
+    ld a,(hearts_collected)
+    cp L2_TOTAL_HEARTS
+    ret c
+
+
+    ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
+    ld (exit_text_current_colour),a
+
+
+    ld a,(collision_detected_door)
+    cp FALSE
+    ret z
+
+    ;if we reach here, level is ready to complete:
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, begin_level02
+
+    ret
+;
 
 
 
@@ -458,15 +483,13 @@ playersprite_sit:
 
 
 
-player_update:
-    call setborderblue
+player_update_l1:
+    
     call reset_collisions_check
     ld ix,desksdata
     call check_collisions_player_stool
     call check_collision_player_door
 
-    
-    
     ld a,(collision_detected_stool)
     cp TRUE
     call z,check_sit_keypress
@@ -486,7 +509,12 @@ player_update:
     cp SIT
     call z,plyr_update_sit
 
+
     ret
+
+
+
+
 
 
 check_sit_keypress:
@@ -514,19 +542,19 @@ plyr_update_sit:
 plyr_update_standard:
     ld a,(keypressed_W)
     cp 1
-    call z,try_move_up
+    call z,try_move_up_l1
 
     ld a,(keypressed_S)
     cp 1
-    call z,try_move_down
+    call z,try_move_down_l1
 
     ld a,(keypressed_A)
     cp 1
-    call z,try_move_left
+    call z,try_move_left_l1
 
     ld a,(keypressed_D)
     cp 1
-    call z,try_move_right
+    call z,try_move_right_l1
     ret
 
 plyr_update_attack:
@@ -559,7 +587,7 @@ reset_collisions_check:
 
 ;IX=objectdata
 ;DE=object data length
-check_collisions:
+check_collisions_desk_l1:
     ;if tx+tw<dx -skip 
     ;if dx+dw<tx -skip
     ;if ty+th<dy -skip
@@ -608,9 +636,8 @@ check_collisions:
 checkcoll_gonextobject:
     ld de,DESK_DATA_LENGTH
     add ix,de
-    jp check_collisions
+    jp check_collisions_desk_l1
 ;
-
 
 ; If A == N, then Z flag is set.
 ; If A != N, then Z flag is reset.
@@ -802,7 +829,7 @@ safemovetotargetpos:
 
 
 ;these move the targetpos. call them on keypress for example
-try_move_left:
+try_move_left_l1:
     ld a,LEFT
     ld (player_direction),a
     ld a,(playerx)
@@ -812,12 +839,12 @@ try_move_left:
     sub PLAYER_SPEED_X
     ld (targetpos_x),a
     ld ix,desksdata
-    call check_collisions
+    call check_collisions_desk_l1
     call safemovetotargetpos
     call anim_timer
     ret
 
-try_move_right:
+try_move_right_l1:
     ld a,RIGHT
     ld (player_direction),a
     ld a,(playerx)
@@ -827,12 +854,12 @@ try_move_right:
     add a,PLAYER_SPEED_X
     ld (targetpos_x),a
     ld ix,desksdata
-    call check_collisions
+    call check_collisions_desk_l1
     call safemovetotargetpos
     call anim_timer
     ret
 
-try_move_up:
+try_move_up_l1:
     ld a,UP
     ld (player_direction),a
     ld a,(playery)
@@ -842,12 +869,12 @@ try_move_up:
     sub PLAYER_SPEED_Y
     ld (targetpos_y),a
     ld ix,desksdata
-    call check_collisions
+    call check_collisions_desk_l1
     call safemovetotargetpos
     call anim_timer
     ret
 
-try_move_down:
+try_move_down_l1:
     ld a,DOWN
     ld (player_direction),a
     ld a,(playery)
@@ -857,7 +884,7 @@ try_move_down:
     add a,PLAYER_SPEED_Y
     ld (targetpos_y),a
     ld ix,desksdata
-    call check_collisions
+    call check_collisions_desk_l1
     call safemovetotargetpos
     call anim_timer
     ret
@@ -1098,6 +1125,211 @@ set_state_sit:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+player_update_l2:
+    call reset_collisions_check
+    ld ix,l2_lockers
+    call check_collisions_locker_l2
+
+    call check_collision_player_door
+
+    ; ld a,(player_state)
+    ; cp STANDARD
+    ; call z, check_attack_keypress
+    ; ld a,(player_state)
+    ; cp ATTACK
+    ; call z, check_attack_keypress
+
+    ld a,(player_state)
+    cp STANDARD
+    call z, plyr_update_standard_l2
+    ; cp ATTACK
+    ; call z, plyr_update_attack
+    ; cp SIT
+    ; call z,plyr_update_sit
+    ret
+
+
+plyr_update_standard_l2:
+    ld a,(keypressed_W)
+    cp 1
+    call z,try_move_up_l2
+
+    ld a,(keypressed_S)
+    cp 1
+    call z,try_move_down_l2
+
+    ld a,(keypressed_A)
+    cp 1
+    call z,try_move_left_l2
+
+    ld a,(keypressed_D)
+    cp 1
+    call z,try_move_right_l2
+    ret
+
+
+
+
+
+;IX=lockers data
+check_collisions_locker_l2:
+    ;if tx+tw<dx -skip 
+    ;if dx+dw<tx -skip
+    ;if ty+th<dy -skip
+    ;if dy+dh<ty -skip
+    ;else -set bool true and ret
+    ld a,(ix)
+    cp 255 
+    ret z ;if ix=255
+
+    ld a,(targetpos_x)
+    add a,PLAYER_WIDTH
+    sub PLAYER_BOUNDING_BOX_OFFSET_X
+    ld b,(ix+1)
+    cp b 
+    jp c, checkcoll_gonextobject_l2 ;if tx+tw<dx -skip 
+
+    ld a,(targetpos_x)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_X
+    ld b,a
+    ld a,(ix+1)
+    add a,(ix+3)
+    cp b
+    jp c, checkcoll_gonextobject_l2 ;if dx+dw<tx -skip 
+
+
+    ld a,(targetpos_y)
+    add a,PLAYER_BOUNDING_BOX_HEIGHT
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    ld b,(ix+2)
+    cp b
+    jp c, checkcoll_gonextobject_l2 ;if ty+th<dy -skip
+
+
+    ld a,(targetpos_y)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    ld b,a
+    ld a,(ix+2)
+    add a,(ix+4)
+    cp b
+    jp c, checkcoll_gonextobject_l2 ;if dy+dh<ty -skip
+
+    ;else, we have collided...
+    ld a,TRUE
+    ld (collision_detected),a
+    ret
+checkcoll_gonextobject_l2:
+    ld de,L2_LOCKER_DATA_LENGTH
+    add ix,de
+    jp check_collisions_locker_l2
+;
+
+
+
+
+;these move the targetpos. call them on keypress for example
+try_move_left_l2:
+    ld a,LEFT
+    ld (player_direction),a
+    ld a,(playerx)
+    cp MIN_X
+    ret c
+    ld a,(targetpos_x)
+    sub PLAYER_SPEED_X
+    ld (targetpos_x),a
+    ld ix,l2_lockers
+    call check_collisions_locker_l2
+    call safemovetotargetpos
+    call anim_timer
+    ret
+
+try_move_right_l2:
+    ld a,RIGHT
+    ld (player_direction),a
+    ld a,(playerx)
+    cp MAX_X
+    ret nc
+    ld a,(targetpos_x)
+    add a,PLAYER_SPEED_X
+    ld (targetpos_x),a
+    ld ix,l2_lockers
+    call check_collisions_locker_l2
+    call safemovetotargetpos
+    call anim_timer
+    ret
+
+try_move_up_l2:
+    ld a,UP
+    ld (player_direction),a
+    ld a,(playery)
+    cp MIN_Y
+    ret c
+    ld a,(targetpos_y)
+    sub PLAYER_SPEED_Y
+    ld (targetpos_y),a
+    ld ix,l2_lockers
+    call check_collisions_locker_l2
+    call safemovetotargetpos
+    call anim_timer
+    ret
+
+try_move_down_l2:
+    ld a,DOWN
+    ld (player_direction),a
+    ld a,(playery)
+    cp MAX_Y
+    ret nc
+    ld a,(targetpos_y)
+    add a,PLAYER_SPEED_Y
+    ld (targetpos_y),a
+    ld ix,l2_lockers
+    call check_collisions_locker_l2
+    call safemovetotargetpos
+    call anim_timer
+    ret
+;
 
 
 
