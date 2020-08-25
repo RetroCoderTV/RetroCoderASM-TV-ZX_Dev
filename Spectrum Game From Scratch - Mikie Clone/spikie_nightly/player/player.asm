@@ -784,7 +784,9 @@ checkcoll_lockertrigger_gonext:
 
 
 collectheartfromlocker:
-    dec (ix)
+    ld a,(ix)
+    dec a
+    ld (ix),a
     ret
 
 
