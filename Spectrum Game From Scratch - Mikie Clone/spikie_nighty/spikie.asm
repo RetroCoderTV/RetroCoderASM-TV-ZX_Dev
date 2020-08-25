@@ -84,12 +84,113 @@ drawlockers:
     ld d,(ix+1)
     ld e,(ix+2)
     call drawsprite16_24
-    ld de,L2_LOCKER_DATA_LENGTH
+    call drawlockerhearts
+    ld de,LOCKER_DATA_LENGTH
     add ix,de
     jp drawlockers
 
 
 
+drawlockerhearts:
+    ld a,(ix)
+    cp 4
+    call z,drawlockerhearts4
+    cp 3
+    call z,drawlockerhearts3
+    cp 2
+    call z,drawlockerhearts2
+    cp 1
+    call z,drawlockerhearts1
+    ret
+
+drawlockerhearts1:
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8
+
+    ret
+
+drawlockerhearts2:
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    inc a
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8_shiftleft1
+
+    ret
+
+drawlockerhearts3:
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    inc a
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8_shiftleft1
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL*2
+    ld e,a
+    call drawsprite8_8
+    ret
+
+drawlockerhearts4:
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    inc a
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL
+    ld e,a
+    call drawsprite8_8_shiftleft1
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL*2
+    ld e,a
+    call drawsprite8_8
+    ld bc,heartlockersprite
+    ld a,(ix+1)
+    inc a
+    ld d,a
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL*2
+    ld e,a
+    call drawsprite8_8_shiftleft1
+
+    ret
 
 ;IX=object array pointer
 ;;;;;TODO: DE=object data length;;
@@ -103,6 +204,33 @@ paintdesks:
     ld de,DESK_DATA_LENGTH
     add ix,de
     jp paintdesks
+
+;IX=lockers pointer
+paintlockers:
+    ld a,(ix)
+    cp 255
+    ret z
+    ;paint top 2 bytes...
+    ld b,(ix+1)
+    ld c,(ix+2)
+    ld iyl,LOCKER_LID_COLOUR
+    call paintsprite_16_8
+    ;paint remaining 2x2bytes...
+    ld b,(ix+1)
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL*1
+    ld c,a
+    ld iyl,LOCKER_MID_COLOUR
+    call paintsprite_16_8
+    ld b,(ix+1)
+    ld a,(ix+2)
+    add a,PIXEL_PER_CELL*2
+    ld c,a
+    call paintsprite_16_8
+    ld de,LOCKER_DATA_LENGTH
+    add ix,de
+    jp paintlockers
+
 
 
 ;IX=hearts

@@ -1,6 +1,6 @@
 DESK_COLOUR equ %01110000 ;yellow paper /  black ink
 
-DESK_DATA_LENGTH equ 5
+
 
 DESK_STOOL_OFFSET_X equ 1
 DESK_STOOL_OFFSET_Y equ 12

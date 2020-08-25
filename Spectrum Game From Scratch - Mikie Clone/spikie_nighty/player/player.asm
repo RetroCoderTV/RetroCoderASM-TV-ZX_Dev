@@ -704,7 +704,7 @@ check_collisions_lockers:
     ld (collision_detected),a
     ret
 checkcolllockers_gonextobject:
-    ld de,L2_LOCKER_DATA_LENGTH
+    ld de,LOCKER_DATA_LENGTH
     add ix,de
     jp check_collisions_lockers
 ;
@@ -712,11 +712,85 @@ checkcolllockers_gonextobject:
 
 
 
+;ix=lockers
+checkcollisions_lockertrigger:
+        ;no collision if...
+    ;px+pw<dx
+    ;dx+dw<px
+    ;py+ph<dy 
+    ;dy+dh<py
+
+    ld a,(ix)
+    cp 255 
+    ret z ;if ix=255
+    
+    ld a,(playerx)
+    push af
+    ld a,(ix+1)
+    add a,LOCKER_TRIGGER_OFFSET_X
+    ld b,a
+    pop af    
+    cp b ;is A < B ?
+    jp c, checkcoll_lockertrigger_gonext ;if tx+tw<dx -skip 
+
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    ld b,a
+    ld a,(ix+1)
+    add a,(ix+3)
+    sub LOCKER_TRIGGER_OFFSET_X
+    cp b
+    jp c, checkcoll_lockertrigger_gonext ;if dx+dw<tx -skip 
+
+
+    ld a,(playery)
+    add a,PLAYER_BOUNDING_BOX_HEIGHT
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    push af
+    ld a,(ix+2)
+    add a,LOCKER_TRIGGER_OFFSET_Y
+    ld b,a
+    pop af
+    cp b
+    jp c, checkcoll_lockertrigger_gonext ;if ty+th<dy -skip
+
+
+    ld a,(playery)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y+8
+    ld b,a
+    ld a,(ix+2)
+    add a,(ix+4)
+    add a,LOCKER_TRIGGER_OFFSET_Y
+    cp b
+    jp c, checkcoll_lockertrigger_gonext ;if dy+dh<ty -skip
+
+    ;else, we have collided...
+    ; ld a,TRUE
+    ; ld (collision_detected_stool),a
+
+    ; if we are facing up and press F, call collectheartfromlocker routine
+    ld a,(player_direction)
+    cp UP
+    ret nz
+    call z,collectheartfromlocker
+    ; ld a,(ix)
+    ; ld (current_heart_seat),a
+    ; ld iy,l1_hearts
+    ; call collect_heart
+
+    ret
+checkcoll_lockertrigger_gonext:
+    ld de,LOCKER_DATA_LENGTH
+    add ix,de
+    jp checkcollisions_lockertrigger
+;
 
 
 
 
-
+collectheartfromlocker:
+    dec (ix)
+    ret
 
 
 

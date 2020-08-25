@@ -1,8 +1,7 @@
 ; HEART_COLLISION_OFFSET_X db 0
 ; HEART_COLLISION_OFFSET_Y db 0
 
-HEART_DATA_LENGTH equ 5
-HEART_ICON_DATA_LENGTH equ 3
+
 ; ASM data file from a ZX-Paintbrush picture with 16 x 8 pixels (= 2 x 1 characters)
 ; line based output of pixel data:
 heartsprite:

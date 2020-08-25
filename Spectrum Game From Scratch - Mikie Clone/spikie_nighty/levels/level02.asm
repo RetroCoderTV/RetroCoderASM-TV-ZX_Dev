@@ -10,10 +10,16 @@ L2_EXIT_SIGN_START_X equ 5
 
 L2_TOTAL_HEARTS equ 5
 
-L2_LOCKER_DATA_LENGTH equ 5
+
 l2_lockers:
-    db 5,6,88,2,24
-    db 5,8,88,2,24
+    db 4,4,88,2,24
+    db 4,6,88,2,24
+    db 4,16,88,2,24
+    db 4,18,88,2,24
+    db 4,4,136,2,24
+    db 4,6,136,2,24
+    db 4,16,136,2,24
+    db 4,18,136,2,24
     db 255
 
 
@@ -81,6 +87,9 @@ level_02_update:
     ld bc,(door2y)
     ld iyl,DOOR_COLOUR_NOTEXIT
     call paintsprite_16_32
+
+    ld ix,l2_lockers
+    call paintlockers
 
     ld ix,l2_lockers
     call drawlockers

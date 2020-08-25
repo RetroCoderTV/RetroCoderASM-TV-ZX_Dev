@@ -40,11 +40,12 @@ level_01_init:
     ld a,L1_PLAYER_STATE
     ld (player_state),a
 
-    ld a,5 ;todo: xor a
+    ; xor a
+    ld a,L1_TOTAL_HEARTS
     ld (hearts_collected),a
-
-
     ret
+
+
 
 level_01_update:    
     ld hl,GAME_WINDOW_START
