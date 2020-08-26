@@ -1,33 +1,4 @@
 
-check_victory_level02:
-    ;if hearts collected != TOTAL HEARTS
-    ;if collision door == false
-    ;if key_F != pressed
-    
-
-    ld a,EXIT_SIGN_TEXT_COLOUR
-    ld (exit_text_current_colour),a
-
-    ld a,(hearts_collected)
-    cp L2_TOTAL_HEARTS
-    ret c
-
-
-    ld a,EXIT_SIGN_TEXT_COLOUR_FLASH
-    ld (exit_text_current_colour),a
-
-
-    ld a,(collision_detected_door)
-    cp FALSE
-    ret z
-
-    ;if we reach here, level is ready to complete:
-    ld a,(keypressed_F)
-    cp TRUE
-    call z, begin_level02
-
-    ret
-;
 
 player_update_l2:
     call reset_collisions_check
@@ -80,11 +51,13 @@ try_move_left_l2:
     ld a,(playerx)
     cp MIN_X
     ret c
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     sub PLAYER_SPEED_X
-    ld (targetpos_x),a
+    ld (player_targetpos_x),a
     ld ix,l2_lockers
     call check_collisions_lockers
+    ld ix,l2_baskets
+    call check_collisions_basket
     call safemovetotargetpos
     call anim_timer
     ret
@@ -95,11 +68,13 @@ try_move_right_l2:
     ld a,(playerx)
     cp MAX_X
     ret nc
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     add a,PLAYER_SPEED_X
-    ld (targetpos_x),a
+    ld (player_targetpos_x),a
     ld ix,l2_lockers
     call check_collisions_lockers
+    ld ix,l2_baskets
+    call check_collisions_basket
     call safemovetotargetpos
     call anim_timer
     ret
@@ -110,11 +85,13 @@ try_move_up_l2:
     ld a,(playery)
     cp MIN_Y
     ret c
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     sub PLAYER_SPEED_Y
-    ld (targetpos_y),a
+    ld (player_targetpos_y),a
     ld ix,l2_lockers
     call check_collisions_lockers
+    ld ix,l2_baskets
+    call check_collisions_basket
     call safemovetotargetpos
     call anim_timer
     ret
@@ -125,11 +102,13 @@ try_move_down_l2:
     ld a,(playery)
     cp MAX_Y
     ret nc
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     add a,PLAYER_SPEED_Y
-    ld (targetpos_y),a
+    ld (player_targetpos_y),a
     ld ix,l2_lockers
     call check_collisions_lockers
+    ld ix,l2_baskets
+    call check_collisions_basket
     call safemovetotargetpos
     call anim_timer
     ret

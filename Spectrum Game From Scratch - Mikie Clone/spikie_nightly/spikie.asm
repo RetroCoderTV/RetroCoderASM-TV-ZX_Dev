@@ -194,6 +194,27 @@ drawlockerhearts4:
 
     ret
 
+
+
+;IX=baskets
+drawbaskets:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld bc,basketsprite
+    ld a,(ix)
+    ld d,a
+    ld a,(ix+1)
+    ld e,a
+    call drawsprite16_16
+    ld de,BASKET_DATA_LENGTH
+    add ix,de
+    jp drawbaskets
+
+
+
+
+
 ;IX=object array pointer
 ;;;;;TODO: DE=object data length;;
 paintdesks:
@@ -266,6 +287,9 @@ currentgamestate db MAIN_MENU
     include 'player\player.asm'
     include 'player\player_l1.asm'
     include 'player\player_l2.asm'
+    include 'sprites\basket.asm'
+    include 'bob\bob.asm'
+    include 'bob\bob_l1.asm'
     include 'sprites\door.asm'
     include 'sprites\desk.asm'
     include 'sprites\exitsign.asm'

@@ -8,18 +8,24 @@ L2_EXIT_SIGN_START_Y equ 0
 L2_EXIT_SIGN_START_X equ 5
 
 
-L2_TOTAL_HEARTS equ 32
+L2_TOTAL_HEARTS equ 4*6
 
 
 l2_lockers:
-    db 4,4,88-16,2,24
-    db 4,6,88-16,2,24
-    db 4,16,88-16,2,24
-    db 4,18,88-16,2,24
-    db 4,4,136-16,2,24
-    db 4,6,136-16,2,24
-    db 4,16,136-16,2,24
-    db 4,18,136-16,2,24
+    db 4,4,88,2,24
+    db 4,6,88,2,24
+    db 4,16,88,2,24
+    db 4,18,88,2,24
+    db 4,8,136,2,24
+    db 4,14,136,2,24
+    db 255
+
+
+;format:
+;x,y,w,h
+l2_baskets:
+    db 8,96,2,16
+    db 14,96,2,16
     db 255
 
 level_02_init:
@@ -68,7 +74,7 @@ level_02_checkvictory:
     ld (exit_text_current_colour),a
 
 
-    ld a,(collision_detected_door)
+    ld a,(collision_detected_player_door)
     cp FALSE
     ret z
 
@@ -146,6 +152,9 @@ level_02_update:
     ld bc,doorframesprite
     ld de,(doorframe2y)
     call drawdoorframe
+
+    ld ix,l2_baskets
+    call drawbaskets
 
     call player_draw
     

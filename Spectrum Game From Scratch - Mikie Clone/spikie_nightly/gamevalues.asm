@@ -31,6 +31,12 @@ ATTACK equ 1
 SHOUT equ 2
 SIT equ 3
 
+;bob actions
+BOB_GO_UP equ 0
+BOB_GO_DOWN equ 1
+BOB_GO_LEFT equ 2
+BOB_GO_RIGHT equ 3
+
 
 ;game state
 MAIN_MENU equ 0
@@ -42,6 +48,7 @@ LOCKER_DATA_LENGTH equ 5
 DESK_DATA_LENGTH equ 5
 HEART_DATA_LENGTH equ 5
 HEART_ICON_DATA_LENGTH equ 3
+BASKET_DATA_LENGTH equ 4
 
 
 

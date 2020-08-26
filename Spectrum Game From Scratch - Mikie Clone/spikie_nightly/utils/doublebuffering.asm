@@ -3225,7 +3225,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*59)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*69)  
     pop af
     pop bc
     pop de
@@ -5290,7 +5290,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*59)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*69)
     pop af
     pop bc
     pop de

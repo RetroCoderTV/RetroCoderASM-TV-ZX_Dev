@@ -3,11 +3,22 @@ L1_PLAYER_STATE equ SIT
 L1_PLAYER_START_Y equ 156
 L1_PLAYER_START_X equ 7
 
+L1_BOB_STATE equ STANDARD
+L1_BOB_DIRECTION equ DOWN
+L1_BOB_START_Y equ 48
+L1_BOB_START_X equ MIN_X
+
 L1_EXIT_SIGN_START_Y equ 0
 L1_EXIT_SIGN_START_X equ 5
 
 
 L1_TOTAL_HEARTS equ 5
+
+
+
+
+
+
 
 
 l1_hearts:
@@ -29,6 +40,20 @@ level_01_init:
     ld a,L1_PLAYER_START_Y
     ld (playery),a
 
+    ld a,L1_PLAYER_STATE
+    ld (player_state),a
+
+    ld a,L1_BOB_START_X
+    ld (bobx),a
+    ld a,L1_BOB_START_Y
+    ld (boby),a
+
+    ld a,L1_BOB_STATE
+    ld (bob_state),a
+
+    ld a,L1_BOB_DIRECTION
+    ld (bob_direction),a
+
     ld a,L1_EXIT_SIGN_START_X
     ld (exitx),a
     ld a,L1_EXIT_SIGN_START_Y
@@ -37,11 +62,10 @@ level_01_init:
     ld a,EXIT_SIGN_TEXT_COLOUR
     ld (exit_text_current_colour),a 
 
-    ld a,L1_PLAYER_STATE
-    ld (player_state),a
+    
 
     xor a
-    ;ld a,L1_TOTAL_HEARTS ;cheat
+    ld a,L1_TOTAL_HEARTS ;cheat
     ld (hearts_collected),a
     ret
 
@@ -61,7 +85,7 @@ level_01_checkvictory:
     ld (exit_text_current_colour),a
 
 
-    ld a,(collision_detected_door)
+    ld a,(collision_detected_player_door)
     cp FALSE
     ret z
 
@@ -99,6 +123,8 @@ level_01_update:
 
     call check_keys
     call sync 
+
+    call bob_update_l1
 
     call player_update_l1
     call level_01_checkvictory
@@ -140,6 +166,8 @@ level_01_update:
     ld bc,doorframesprite
     ld de,(doorframe2y)
     call drawdoorframe
+
+    call bob_draw
 
     call player_draw
     

@@ -18,23 +18,18 @@ player_attack_timer db 0
 playery db 0
 playerx db 0
 
-targetpos_x db 0
-targetpos_y db 0
+player_targetpos_x db 0
+player_targetpos_y db 0
 
 PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 4
 
-collision_detected db 0
-collision_detected_door db 0
-collision_detected_stool db 0
-collision_detected_heart db 0
+collision_detected_player_desk db 0
+collision_detected_player_door db 0
+collision_detected_player_stool db 0
 
 hearts_collected db 0
 current_heart_seat db 0
-; current_locker_id db 0
-;
-
-
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
@@ -446,22 +441,21 @@ check_attack_keypress:
 
 
 player_draw:
-
     call paintplayer_16_24
     call drawplayer
     ret
 
-;sets targetpos back to player pos
+; ;sets targetpos back to player pos
 reset_collisions_check:
     ;reset targetpos
     ld a,(playerx)
-    ld (targetpos_x),a
+    ld (player_targetpos_x),a
     ld a,(playery)
-    ld (targetpos_y),a
+    ld (player_targetpos_y),a
 
     ;reset collision bool
     xor a
-    ld (collision_detected),a ;collision bool = 0
+    ld (collision_detected_player_desk),a ;collision bool = 0
     ret
 ;
 
@@ -478,14 +472,14 @@ check_collisions_desk:
     cp 255 
     ret z ;if ix=255
 
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     add a,PLAYER_WIDTH
     sub PLAYER_BOUNDING_BOX_OFFSET_X
     ld b,(ix+1)
     cp b 
     jp c, checkcolldesk_gonextobject ;if tx+tw<dx -skip 
 
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     add a,PLAYER_BOUNDING_BOX_OFFSET_X
     ld b,a
     ld a,(ix+1)
@@ -494,7 +488,7 @@ check_collisions_desk:
     jp c, checkcolldesk_gonextobject ;if dx+dw<tx -skip 
 
 
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     add a,PLAYER_BOUNDING_BOX_HEIGHT
     add a,PLAYER_BOUNDING_BOX_OFFSET_Y
     ld b,(ix+2)
@@ -502,7 +496,7 @@ check_collisions_desk:
     jp c, checkcolldesk_gonextobject ;if ty+th<dy -skip
 
 
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     add a,PLAYER_BOUNDING_BOX_OFFSET_Y
     ld b,a
     ld a,(ix+2)
@@ -512,7 +506,7 @@ check_collisions_desk:
 
     ;else, we have collided...
     ld a,TRUE
-    ld (collision_detected),a
+    ld (collision_detected_player_desk),a
     ret
 checkcolldesk_gonextobject:
     ld de,DESK_DATA_LENGTH
@@ -528,7 +522,7 @@ checkcolldesk_gonextobject:
 
 check_collision_player_door:
     ld a,FALSE
-    ld (collision_detected_door),a
+    ld (collision_detected_player_door),a
     ;px+pw<dx
     ;dx+dw<px
     ;if py+ph<dy -skip
@@ -564,7 +558,7 @@ check_collision_player_door:
 
     ;else, we collided....
     ld a,TRUE
-    ld (collision_detected_door),a
+    ld (collision_detected_player_door),a
 
     ret
 
@@ -584,7 +578,7 @@ check_collisions_player_stool:
     ret z ;if ix=255
     
     ld a,FALSE
-    ld (collision_detected_stool),a
+    ld (collision_detected_player_stool),a
 
 
     ld a,(playerx)
@@ -630,7 +624,7 @@ check_collisions_player_stool:
 
     ;else, we have collided...
     ld a,TRUE
-    ld (collision_detected_stool),a
+    ld (collision_detected_player_stool),a
 
     ; if we are sitting, collect heart
     ld a,(player_state)
@@ -667,14 +661,14 @@ check_collisions_lockers:
     cp 255 
     ret z ;if ix=255
 
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     add a,PLAYER_WIDTH
     sub PLAYER_BOUNDING_BOX_OFFSET_X
     ld b,(ix+1)
     cp b 
     jp c, checkcolllockers_gonextobject ;if tx+tw<dx -skip 
 
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     add a,PLAYER_BOUNDING_BOX_OFFSET_X
     ld b,a
     ld a,(ix+1)
@@ -683,7 +677,7 @@ check_collisions_lockers:
     jp c, checkcolllockers_gonextobject ;if dx+dw<tx -skip 
 
 
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     add a,PLAYER_BOUNDING_BOX_HEIGHT
     add a,PLAYER_BOUNDING_BOX_OFFSET_Y
     ld b,(ix+2)
@@ -691,7 +685,7 @@ check_collisions_lockers:
     jp c, checkcolllockers_gonextobject ;if ty+th<dy -skip
 
 
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     add a,PLAYER_BOUNDING_BOX_OFFSET_Y
     ld b,a
     ld a,(ix+2)
@@ -701,7 +695,7 @@ check_collisions_lockers:
 
     ;else, we have collided...
     ld a,TRUE
-    ld (collision_detected),a
+    ld (collision_detected_player_desk),a
     ret
 checkcolllockers_gonextobject:
     ld de,LOCKER_DATA_LENGTH
@@ -766,7 +760,7 @@ checkcollisions_lockertrigger:
 
     ;else, we have collided...
     ; ld a,TRUE
-    ; ld (collision_detected_stool),a
+    ; ld (collision_detected_player_stool),a
 
     ; if we are facing up and press F, call collectheartfromlocker routine
     ld a,(player_direction)
@@ -814,25 +808,70 @@ checkcoll_lockertrigger_gonext:
 
 
 
-; collect_locker_heart:
-;     ld a,(ix)
-;     cp 255
-;     ret z
-;     ld a,(current_locker_id)
-;     ld b,a
-;     ld a,(ix+5)
-;     cp b
-;     jp nz, collectlockerheart_gonext
-;     ld a,(ix)
-;     cp 0 
-;     ret z
-;     dec a
-;     ld (ix),a
-;     ret
-; collectlockerheart_gonext:
-;     ld de,LOCKER_DATA_LENGTH
-;     add ix,de
-;     jp collect_locker_heart
+
+;IX=objectdata
+check_collisions_basket:
+    ;if tx+tw<dx -skip 
+    ;if dx+dw<tx -skip
+    ;if ty+th<dy -skip
+    ;if dy+dh<ty -skip
+    ;else -set bool true and ret
+    ld a,(ix)
+    cp 255 
+    ret z ;if ix=255
+
+    ld a,(player_targetpos_x)
+    add a,PLAYER_WIDTH
+    sub PLAYER_BOUNDING_BOX_OFFSET_X
+    ld b,(ix)
+    cp b 
+    jp c, checkcollbasket_gonextobject ;if tx+tw<dx -skip 
+
+    ld a,(player_targetpos_x)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_X
+    ld b,a
+    ld a,(ix)
+    add a,(ix+2)
+    cp b
+    jp c, checkcollbasket_gonextobject ;if dx+dw<tx -skip 
+
+
+    ld a,(player_targetpos_y)
+    add a,PLAYER_BOUNDING_BOX_HEIGHT
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    ld b,(ix+1)
+    cp b
+    jp c, checkcollbasket_gonextobject ;if ty+th<dy -skip
+
+
+    ld a,(player_targetpos_y)
+    add a,PLAYER_BOUNDING_BOX_OFFSET_Y
+    ld b,a
+    ld a,(ix+1)
+    add a,(ix+3)
+    cp b
+    jp c, checkcollbasket_gonextobject ;if dy+dh<ty -skip
+
+    ;else, we have collided...
+    ld a,TRUE
+    ld (collision_detected_player_desk),a
+    ret
+checkcollbasket_gonextobject:
+    ld de,BASKET_DATA_LENGTH
+    add ix,de
+    jp check_collisions_basket
+;
+
+; If A == N, then Z flag is set.
+; If A != N, then Z flag is reset.
+; If A < N, then C flag is set.
+; If A >= N, then C flag is reset.
+
+
+
+
+
+
 
 
     
@@ -885,12 +924,12 @@ collect_gonextheart:
 
 ;sets player pos to targetpos (as long as collision not detected)
 safemovetotargetpos:
-    ld a,(collision_detected)
+    ld a,(collision_detected_player_desk)
     cp TRUE
     ret z ;if collision was detected dont move to target
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     ld (playerx),a
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     ld (playery),a
     ret
 ;

@@ -8,7 +8,7 @@ player_update_l1:
     call check_collisions_player_stool
     call check_collision_player_door
 
-    ld a,(collision_detected_stool)
+    ld a,(collision_detected_player_stool)
     cp TRUE
     call z,check_sit_keypress
 
@@ -64,9 +64,9 @@ try_move_left_l1:
     ld a,(playerx)
     cp MIN_X
     ret c
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     sub PLAYER_SPEED_X
-    ld (targetpos_x),a
+    ld (player_targetpos_x),a
     ld ix,desksdata
     call check_collisions_desk
     call safemovetotargetpos
@@ -79,9 +79,9 @@ try_move_right_l1:
     ld a,(playerx)
     cp MAX_X
     ret nc
-    ld a,(targetpos_x)
+    ld a,(player_targetpos_x)
     add a,PLAYER_SPEED_X
-    ld (targetpos_x),a
+    ld (player_targetpos_x),a
     ld ix,desksdata
     call check_collisions_desk
     call safemovetotargetpos
@@ -94,9 +94,9 @@ try_move_up_l1:
     ld a,(playery)
     cp MIN_Y
     ret c
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     sub PLAYER_SPEED_Y
-    ld (targetpos_y),a
+    ld (player_targetpos_y),a
     ld ix,desksdata
     call check_collisions_desk
     call safemovetotargetpos
@@ -109,9 +109,9 @@ try_move_down_l1:
     ld a,(playery)
     cp MAX_Y
     ret nc
-    ld a,(targetpos_y)
+    ld a,(player_targetpos_y)
     add a,PLAYER_SPEED_Y
-    ld (targetpos_y),a
+    ld (player_targetpos_y),a
     ld ix,desksdata
     call check_collisions_desk
     call safemovetotargetpos
