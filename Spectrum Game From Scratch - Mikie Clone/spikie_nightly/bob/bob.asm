@@ -7,12 +7,13 @@ BOB_BOUNDING_BOX_HEIGHT equ 5
 BOB_FRAME_SIZE equ 64
 BOB_ANIM_DELAY equ 3
 
-BOB_MIDDLE_CHANCE equ 250
+BOB_MIDDLE_CHANCE_TOP equ 150
+BOB_MIDDLE_CHANCE_BOTTOM equ 50
 
 
 bob_direction db DOWN
 bob_state db STANDARD
-bob_action_state db BOB_GO_DOWN
+bob_desired_direction db BOB_GO_DOWN
 bob_current_frame db 0
 
 bob_anim_timer db 0

@@ -6208,11 +6208,11 @@ drawsprite16_128:
     ;1,
     ld a,(bc)
     ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
+    ; inc bc
+    ; inc hl
+    ; ;2,
+    ; ld a,(bc)
+    ; ld (hl),a
     ret
 
 
