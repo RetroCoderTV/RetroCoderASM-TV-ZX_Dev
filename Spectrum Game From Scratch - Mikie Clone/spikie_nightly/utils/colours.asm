@@ -326,3 +326,92 @@ paintsprite_16_8:
     inc hl
     ld (hl),a ;1,0
     ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;;32 16
+;0x5800=Start of colour attri memory
+;attribute_address=0x5800 + ((y*32)+x)
+;Input
+;B=xpos
+;C=ypos
+;iyl=Colour byte
+paintsprite_48_32:
+    ld h,0
+    ld a,c
+    ld l,a ;HL=player cell y
+    add hl,hl ;x2
+    add hl,hl ;x4
+    ld a,b
+    ld d,0
+    ld e,a
+    add hl,de ;HL=((y*32)+x)
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;HL = 0x5800 + ((y*32)+x)
+    ld a,iyl
+    ld (hl),a ;0,0
+    inc hl
+    ld (hl),a ;1,
+    inc hl
+    ld (hl),a ;2,
+    inc hl
+    ld (hl),a ;3,
+    inc hl
+    ld (hl),a ;4,
+    inc hl
+    ld (hl),a ;5,
+    ld de,27
+    add hl,de
+    ld (hl),a ;0,1
+    inc hl
+    ld (hl),a ;1,
+    inc hl
+    ld (hl),a ;2,
+    inc hl
+    ld (hl),a ;3,
+    inc hl
+    ld (hl),a ;4,
+    inc hl
+    ld (hl),a ;5,
+    ld de,27
+    add hl,de
+    ld (hl),a ;0,2
+    inc hl
+    ld (hl),a ;1,
+    inc hl
+    ld (hl),a ;2,
+    inc hl
+    ld (hl),a ;3,
+    inc hl
+    ld (hl),a ;4,
+    inc hl
+    ld (hl),a ;5,
+    ld de,27
+    add hl,de
+    ld (hl),a ;0,3
+    inc hl
+    ld (hl),a ;1,
+    inc hl
+    ld (hl),a ;2,
+    inc hl
+    ld (hl),a ;3,
+    inc hl
+    ld (hl),a ;4,
+    inc hl
+    ld (hl),a ;5,    
+    ret
+

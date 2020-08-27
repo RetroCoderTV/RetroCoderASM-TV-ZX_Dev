@@ -5,20 +5,14 @@ L1_PLAYER_START_X equ 7
 
 L1_BOB_STATE equ STANDARD
 L1_BOB_DIRECTION equ DOWN
-L1_BOB_START_Y equ 48
-L1_BOB_START_X equ MIN_X
+L1_BOB_START_Y equ 36
+L1_BOB_START_X equ 11
 
 L1_EXIT_SIGN_START_Y equ 0
 L1_EXIT_SIGN_START_X equ 5
 
 
 L1_TOTAL_HEARTS equ 5
-
-
-
-
-
-
 
 
 l1_hearts:
@@ -34,6 +28,14 @@ level_01_init:
     ld hl,ATTRIBUTE_MEMORY_START
     ld de,bg_attributes
     call paint_bg
+
+    ld iyl,BLACKBOARD_COLOUR
+    ld a,BLACKBOARD_X
+    ld b,a
+    ld a,BLACKBOARD_Y
+    ld c,a
+    call paintsprite_48_32
+
 
     ld a,L1_PLAYER_START_X
     ld (playerx),a
@@ -71,11 +73,6 @@ level_01_init:
 
 
 level_01_checkvictory:
-    ;if hearts collected != TOTAL HEARTS
-    ;if collision door == false
-    ;if key_F != pressed
-
-
     ld a,(hearts_collected)
     cp L1_TOTAL_HEARTS
     ret c
@@ -121,6 +118,13 @@ level_01_update:
     ld de,(bg_right_y)
     call drawsprite16_128
 
+    ld bc,blackboardsprite
+    ld a,BLACKBOARD_X
+    ld d,a
+    ld a,BLACKBOARD_Y
+    ld e,a
+    call drawsprite48_32
+
     call check_keys
     call sync 
 
@@ -136,6 +140,9 @@ level_01_update:
     ld bc,(door2y)
     ld iyl,DOOR_COLOUR_NOTEXIT
     call paintsprite_16_32
+
+
+    
 
     ld ix,desksdata
     ld iyl,DESK_COLOUR

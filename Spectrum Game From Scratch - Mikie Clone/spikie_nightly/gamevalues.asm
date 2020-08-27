@@ -14,6 +14,7 @@ MIN_X equ 3
 MAX_X equ 24-2-2
 MIN_Y equ 45
 MAX_Y equ 192-20 ;24 is players height, we allow him to go a little bit off screen at bottom
+MID_X equ 11
 
 ;bools
 TRUE equ 1

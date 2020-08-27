@@ -2,7 +2,7 @@
 getrandom:
     ld hl,(seed)
     ld a,h 
-    and %00011111 ;keep within first 8k of memory
+    and 31 ;keep within first 8k of memory 
     ld h,a
     ld a,(hl)
     inc hl
@@ -11,4 +11,9 @@ getrandom:
 
 
 
-seed dw 0
+seed dw 765
+
+
+
+
+
