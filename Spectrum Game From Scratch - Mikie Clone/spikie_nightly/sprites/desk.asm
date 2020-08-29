@@ -4,17 +4,8 @@ DESK_COLOUR equ %01110000 ;yellow paper /  black ink
 
 DESK_STOOL_OFFSET_X equ 1
 DESK_STOOL_OFFSET_Y equ 12
+DESK_HEART_POSITION_OFFSET_Y equ 24
 
-;format:
-;isalive,x,y,w,h
-desksdata:
-    db 1,6,88,4,16
-    db 2,14,88,4,16
-    db 3,6,120,4,16
-    db 6,14,120,4,16
-    db 254,6,152,4,16
-    db 5,14,152,4,16
-    db 255
 
 ; ASM data file from a ZX-Paintbrush picture with 32 x 16 pixels (= 4 x 2 characters)
 ; line based output of pixel data:

@@ -9,7 +9,7 @@ PLAYER_ANIM_DELAY equ 3
 PLAYER_ATTACK_DURATION equ 25
 
 player_direction db UP
-player_state db ATTACK
+player_state db STANDARD
 player_current_frame db 0
 
 player_anim_timer db 0
@@ -27,6 +27,8 @@ PLAYER_SPEED_Y equ 4
 collision_detected_player_desk db 0
 collision_detected_player_door db 0
 collision_detected_player_stool db 0
+collision_detected_player_bob db 0
+collision_detected_player_basket db 0
 
 hearts_collected db 0
 current_heart_seat db 0
@@ -456,6 +458,7 @@ reset_collisions_check:
     ;reset collision bool
     xor a
     ld (collision_detected_player_desk),a ;collision bool = 0
+    ld (collision_detected_player_basket),a ;collision bool = 0
     ret
 ;
 
@@ -559,8 +562,55 @@ check_collision_player_door:
     ;else, we collided....
     ld a,TRUE
     ld (collision_detected_player_door),a
-
     ret
+
+
+
+
+
+
+check_collision_player_bob:
+    ld a,FALSE
+    ld (collision_detected_player_bob),a
+    ;px+pw<bx
+    ;bx+bw<px
+    ;if py+ph<by -skip
+    ;if by+bh<py -skip
+    ld a,(bobx)
+    ld b,a
+    ld a,(playerx)
+    cp b
+    ret c
+
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    ld b,a
+    ld a,(bobx)
+    add a,BOB_WIDTH
+    cp b
+    ret c
+    
+    ld a,(boby)
+    ld b,a
+    ld a,(playery)
+    sub PIXEL_PER_CELL
+    cp b
+    ret c
+
+    ld a,(playery)
+    ld b,a
+    ld a,(boby)
+    add a,PIXEL_PER_CELL
+    cp b
+    ret c
+
+    ;else, we collided....
+    ld a,TRUE
+    ld (collision_detected_player_bob),a
+    call setbordergreen
+    ret
+
+
 
 
 
@@ -806,9 +856,7 @@ checkcoll_lockertrigger_gonext:
 
 
 
-
-
-
+;todo fix desk/basket below...
 ;IX=objectdata
 check_collisions_basket:
     ;if tx+tw<dx -skip 
@@ -855,6 +903,19 @@ check_collisions_basket:
     ;else, we have collided...
     ld a,TRUE
     ld (collision_detected_player_desk),a
+
+    ld a,(keypressed_F)
+    cp FALSE
+    ret z
+
+    ld a,(keypressed_F_Held)
+    cp TRUE
+    ret z
+
+    ;spawn ball....
+    call ball_spawn
+
+
     ret
 checkcollbasket_gonextobject:
     ld de,BASKET_DATA_LENGTH

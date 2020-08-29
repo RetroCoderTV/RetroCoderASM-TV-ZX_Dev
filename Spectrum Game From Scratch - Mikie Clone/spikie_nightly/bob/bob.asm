@@ -7,12 +7,12 @@ BOB_BOUNDING_BOX_HEIGHT equ 5
 BOB_FRAME_SIZE equ 64
 BOB_ANIM_DELAY equ 3
 
-BOB_MIDDLE_CHANCE_TOP equ 150
-BOB_MIDDLE_CHANCE_BOTTOM equ 50
+BOB_WAITING_CHANCE equ 200
+BOB_RESUME_PATROL_CHANCE equ 254
 
 
 bob_direction db DOWN
-bob_state db STANDARD
+bob_state db PATROL
 bob_desired_direction db BOB_GO_DOWN
 bob_current_frame db 0
 
@@ -730,15 +730,15 @@ bob_setframe3:
     ld (bob_current_frame),a
     ret
 
-bob_set_state_standard:
-    ld a,STANDARD
-    ld (bob_state),a
-    ret
+; bob_set_state_patrol:
+;     ld a,PATROL
+;     ld (bob_state),a
+;     ret
 
-bob_set_state_attack:
-    ld a,ATTACK
-    ld (bob_state),a
-    ret
+; bob_set_state_attack:
+;     ld a,ATTACK
+;     ld (bob_state),a
+;     ret
 
 
 

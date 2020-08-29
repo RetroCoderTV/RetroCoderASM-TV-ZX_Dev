@@ -1,5 +1,4 @@
-FRAME_DELAY equ 2
-FRAME_DELAY_LATE equ 3
+
 
 previousframecount db 0
 

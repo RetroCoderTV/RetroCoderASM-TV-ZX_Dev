@@ -1,3 +1,7 @@
+FRAME_DELAY equ 2
+FRAME_DELAY_LATE equ 2
+
+
 ;Character Set
 ASCII_ZERO equ 0x30
 ASCII_SPACE equ 0x20
@@ -11,11 +15,10 @@ PIXEL_PER_CELL equ 8
 ;16 is players width, also 16 is margin so the screen colours at edges 
 ;can use ink and paper colours without worrying about player ink
 MIN_X equ 3
-MAX_X equ 24-2-2
-MIN_Y equ 45
-MAX_Y equ 192-20 ;24 is players height, we allow him to go a little bit off screen at bottom
 MID_X equ 11
-MID_Y equ 12
+MAX_X equ 20
+MIN_Y equ 48
+MAX_Y equ 152 
 
 ;bools
 TRUE equ 1
@@ -32,6 +35,13 @@ STANDARD equ 0
 ATTACK equ 1
 SHOUT equ 2
 SIT equ 3
+
+;bob states
+PATROL equ 0
+TURNING equ 1
+WAITING equ 2
+HUNTING equ 3
+TEETH equ 4
 
 ;bob actions
 BOB_GO_UP equ 0
@@ -51,6 +61,7 @@ DESK_DATA_LENGTH equ 5
 HEART_DATA_LENGTH equ 5
 HEART_ICON_DATA_LENGTH equ 3
 BASKET_DATA_LENGTH equ 4
+NODE_DATA_LENGTH equ 3
 
 
 

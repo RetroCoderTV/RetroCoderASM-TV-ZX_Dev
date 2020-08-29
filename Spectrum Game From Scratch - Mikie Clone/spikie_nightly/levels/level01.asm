@@ -3,7 +3,7 @@ L1_PLAYER_STATE equ SIT
 L1_PLAYER_START_Y equ 156
 L1_PLAYER_START_X equ 7
 
-L1_BOB_STATE equ STANDARD
+L1_BOB_STATE equ PATROL
 L1_BOB_DIRECTION equ DOWN
 L1_BOB_START_Y equ MIN_Y
 L1_BOB_START_X equ MID_X
@@ -15,12 +15,54 @@ L1_EXIT_SIGN_START_X equ 5
 L1_TOTAL_HEARTS equ 5
 
 
+L1_ROW1 equ MIN_Y
+L1_ROW2 equ 88
+L1_ROW3 equ 120
+L1_ROW4 equ MAX_Y
+
+
+L1_COLUMN1 equ MIN_X
+L1_COLUMN2 equ MID_X
+L1_COLUMN3 equ MAX_X
+
+
+;format:
+;isalive,x,y,w,h
+l1_desksdata:
+    db 1,6,L1_ROW2,4,16
+    db 2,14,L1_ROW2,4,16
+    db 3,6,L1_ROW3,4,16
+    db 6,14,L1_ROW3,4,16
+    db 254,6,L1_ROW4,4,16
+    db 5,14,L1_ROW4,4,16
+    db 255
+
+;x (bytes) / y (lines)
+l1_nodes: 
+    db 1,MIN_X,L1_ROW1 ;0,0
+    db 2,MID_X,L1_ROW1 ;0,1
+    db 3,MAX_X,L1_ROW1 ;0,2
+    db 4,MIN_X,L1_ROW2 ;1,0
+    db 5,MID_X,L1_ROW2 ;0,1
+    db 6,MAX_X,L1_ROW2;0,2
+    db 7,MIN_X,L1_ROW3 ;2,0
+    db 8,MID_X,L1_ROW3 ;0,1
+    db 9,MAX_X,L1_ROW3 ;0,2
+    db 10,MIN_X,L1_ROW4 ;3,0
+    db 11,MID_X,L1_ROW4 ;0,1
+    db 12,MAX_X,L1_ROW4 ;0,2
+    
+TOTAL_NODES equ 12
+
+
+
+
 l1_hearts:
-    db 1,7,88+24,4,16
-    db 2,15,88+24,4,16
-    db 3,7,120+24,4,16
-    db 6,15,120+24,4,16
-    db 5,15,152+24,4,16
+    db 1,7,L1_ROW2+DESK_HEART_POSITION_OFFSET_Y,4,16
+    db 2,15,L1_ROW2+DESK_HEART_POSITION_OFFSET_Y,4,16
+    db 3,7,L1_ROW3+DESK_HEART_POSITION_OFFSET_Y,4,16
+    db 6,15,L1_ROW3+DESK_HEART_POSITION_OFFSET_Y,4,16
+    db 5,15,L1_ROW4+DESK_HEART_POSITION_OFFSET_Y,4,16
     db 255
 
 
@@ -63,8 +105,6 @@ level_01_init:
 
     ld a,EXIT_SIGN_TEXT_COLOUR
     ld (exit_text_current_colour),a 
-
-    
 
     xor a
     ld a,L1_TOTAL_HEARTS ;cheat
@@ -142,13 +182,11 @@ level_01_update:
     call paintsprite_16_32
 
 
-    
-
-    ld ix,desksdata
+    ld ix,l1_desksdata
     ld iyl,DESK_COLOUR
     call paintdesks
 
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call drawdesks
 
     ld ix,l1_hearts

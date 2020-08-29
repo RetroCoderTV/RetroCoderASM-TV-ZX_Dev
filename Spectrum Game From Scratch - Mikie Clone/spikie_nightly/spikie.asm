@@ -289,6 +289,7 @@ currentgamestate db MAIN_MENU
     include 'player\player_l2.asm'    
     include 'bob\bob.asm'
     include 'bob\bob_l1.asm'
+    include 'sprites\ball.asm'
     include 'sprites\basket.asm'
     include 'sprites\blackboard.asm'
     include 'sprites\door.asm'

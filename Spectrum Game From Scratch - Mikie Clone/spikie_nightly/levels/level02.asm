@@ -119,6 +119,8 @@ level_02_update:
     call player_update_l2
     call level_02_checkvictory
 
+    call ball_update
+
     ld bc,(doory)
     ld iyl,DOOR_COLOUR_EXIT
     call paintsprite_16_32
@@ -157,6 +159,8 @@ level_02_update:
     call drawbaskets
 
     call player_draw
+
+    call ball_draw
     
     call sync_late 
     call drawgamewindow

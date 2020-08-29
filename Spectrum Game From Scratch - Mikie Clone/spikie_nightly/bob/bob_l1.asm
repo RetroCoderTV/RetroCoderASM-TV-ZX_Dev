@@ -1,13 +1,16 @@
 
 bob_update_l1:
-    
     call bob_reset_collisions_check
     
     ld a,(bob_state)
-    cp STANDARD
-    call z, bob_update_standard_l1
-    cp ATTACK
-    call z, bob_update_attack_l1
+    cp TURNING
+    ret z
+    cp PATROL
+    call z, bob_update_patrol_l1
+    cp HUNTING
+    call z, bob_update_hunting_l1
+    cp WAITING
+    call z, bob_update_waiting_l1
 
 
     ret
@@ -15,7 +18,7 @@ bob_update_l1:
 
 
 
-bob_update_standard_l1:
+bob_update_patrol_l1:
     ld a,(bob_desired_direction)
     cp BOB_GO_UP
     call z, bob_try_move_up_l1
@@ -30,178 +33,83 @@ bob_update_standard_l1:
     call z, bob_try_move_right_l1
 
 
-    call bob_middle_changer_top
-    call bob_middle_changer_bottom
-
-
-
     ret
 
-bob_update_attack_l1:
-
+bob_update_hunting_l1:
     ret
 
+bob_update_waiting_l1:
+    call getrandom
+    cp BOB_RESUME_PATROL_CHANCE
+    ret c
+    ld a,PATROL
+    ld (bob_state),a
+    ret
 
 
 ;these move the targetpos. call them on keypress for example
 bob_try_move_left_l1:
     ld a,LEFT
     ld (bob_direction),a
-    ld a,(bobx)
-    cp MIN_X
-    push af
-    call c, bob_hit_wall_l
-    pop af
-    ret c
     ld a,(bob_targetpos_x)
     sub BOB_SPEED_X
     ld (bob_targetpos_x),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_bob_desk
     call bob_safemovetotargetpos
     call bob_do_anim_timer
-    ret
+    jp bobchecknodesjump
+    ;ret
 
 bob_try_move_right_l1:
     ld a,RIGHT
     ld (bob_direction),a
-    ld a,(bobx)
-    cp MAX_X
-    push af
-    call nc, bob_hit_wall_r
-    pop af
-    ret nc
     ld a,(bob_targetpos_x)
     add a,BOB_SPEED_X
     ld (bob_targetpos_x),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_bob_desk
     call bob_safemovetotargetpos
     call bob_do_anim_timer
-    ret
+    ld ix,l1_nodes
+    jp bobchecknodesjump
+    ;ret
 
 bob_try_move_up_l1:
     ld a,UP
     ld (bob_direction),a
-    ld a,(boby)
-    cp MIN_Y
-    push af
-    call c, bob_hit_wall_t
-    pop af
-    ret c
     ld a,(bob_targetpos_y)
     sub BOB_SPEED_Y
     ld (bob_targetpos_y),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_bob_desk
     call bob_safemovetotargetpos
     call bob_do_anim_timer
-    ret
+    ld ix,l1_nodes
+    jp bobchecknodesjump
+    ;ret
 
 bob_try_move_down_l1:
     ld a,DOWN
     ld (bob_direction),a
-    ld a,(boby)
-    cp MAX_Y
-    push af
-    call nc, bob_hit_wall_b
-    pop af
-    ret nc
     ld a,(bob_targetpos_y)
     add a,BOB_SPEED_Y
     ld (bob_targetpos_y),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_bob_desk
     call bob_safemovetotargetpos
     call bob_do_anim_timer
+    ld ix,l1_nodes
+    jp bobchecknodesjump
+    ;ret
+
+bobchecknodesjump:
+    ld ix,l1_nodes
+    call bob_check_nodes
     ret
+
+
 ;
-
-
-bob_middle_changer_top:
-    ld a,(boby)
-    cp MIN_Y-4
-    ret nz
-    call getrandom
-    cp BOB_MIDDLE_CHANCE_TOP
-    ret c
-    ld a,(bobx)
-    cp MID_X
-    call z, bob_choose_random_direction_middle
-    ret
-bob_middle_changer_bottom:
-    ld a,(boby)
-    cp MAX_Y
-    ret c
-    call getrandom
-    cp BOB_MIDDLE_CHANCE_BOTTOM
-    ret c
-    ld a,(bobx)
-    cp MID_X
-    call z, bob_choose_random_direction_middle
-    ret
-
-bob_choose_random_direction_middle:
-    call getrandom
-    and %00000011 
-    ld (bob_desired_direction),a
-    ret
-
-
-;routines for top,bottom,left,right. They jump to corners ;Jump to corner cases 
-bob_hit_wall_t:
-    ld a,(bobx)
-    cp MID_X
-    jp c, bob_corner_tl
-    jp nc, bob_corner_tr
-bob_hit_wall_b:
-    ld a,(bobx)
-    cp MID_X
-    jp c, bob_corner_bl
-    jp nc, bob_corner_br
-bob_hit_wall_l:
-    ld a,(boby)
-    cp MID_Y
-    jp c, bob_corner_tl
-    jp nc, bob_corner_bl
-bob_hit_wall_r:
-    ld a,(boby)
-    cp MID_Y
-    jp c, bob_corner_tr
-    jp nc, bob_corner_br
-;jmp labels: Corner cases   
-bob_corner_bl:
-    call getrandom
-    cp 128
-    call c, bob_set_desired_direction_up
-    call nc, bob_set_desired_direction_right
-    ret
-bob_corner_br:
-    call getrandom
-    cp 128
-    call c, bob_set_desired_direction_up
-    call nc, bob_set_desired_direction_left
-    ret
-bob_corner_tl:
-    call getrandom
-    cp 128
-    call c, bob_set_desired_direction_down
-    call nc, bob_set_desired_direction_right
-    ret
-bob_corner_tr:
-    call getrandom
-    cp 128
-    call c, bob_set_desired_direction_down
-    call nc, bob_set_desired_direction_left
-    ret
-
-
-
-
-
-
-
-
 
 bob_set_desired_direction_up:
     ld a,BOB_GO_UP
@@ -219,3 +127,316 @@ bob_set_desired_direction_right:
     ld a,BOB_GO_RIGHT
     ld (bob_desired_direction),a
     ret
+
+bob_set_state_patrol:
+    ld a,PATROL
+    ld (bob_state),a
+    ret
+bob_set_state_waiting:
+    ld a,WAITING
+    ld (bob_state),a
+    ret
+
+
+
+
+;routines for top,bottom,left,right. They jump to corners ;Jump to corner cases 
+;ix=node
+bob_check_nodes:
+    ld a,(bobx)
+    cp (ix+1)
+    jp nz, bob_check_nodes_gonext
+    ld a,(boby)
+    cp (ix+2)
+    jp nz, bob_check_nodes_gonext  
+    jp bob_hit_node
+bob_check_nodes_gonext:
+    ld a,(ix)
+    cp TOTAL_NODES
+    jp z, bob_check_node_finish
+    ld de,NODE_DATA_LENGTH
+    add ix,de
+    jp bob_check_nodes
+bob_hit_node:
+    call getrandom
+    cp BOB_WAITING_CHANCE
+    jp nc, bob_set_state_waiting
+    ld a,TURNING
+    ld (bob_state),a
+    ld a,(ix) ;get node id
+    cp 1
+    jp z,bob_hitnode1
+    cp 2
+    jp z,bob_hitnode2
+    cp 3
+    jp z,bob_hitnode3
+    cp 4
+    jp z,bob_hitnode4
+    cp 5
+    jp z,bob_hitnode5
+    cp 6
+    jp z,bob_hitnode6
+    cp 7
+    jp z,bob_hitnode7
+    cp 8
+    jp z,bob_hitnode8
+    cp 9
+    jp z,bob_hitnode9
+    cp 10
+    jp z,bob_hitnode10
+    cp 11
+    jp z,bob_hitnode11
+    cp 12
+    jp z,bob_hitnode12
+bob_hitnode1:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode2:
+    ld a,(bob_direction)
+    cp RIGHT
+    jp z,bob_hitnode2r
+    jp nz,bob_hitnode2l
+bob_hitnode2l:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode2r:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode3:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode4:
+    ld a,(bob_direction)
+    cp LEFT
+    jp z,bob_hitnode4l
+    cp UP
+    jp z,bob_hitnode4u
+    jp nz,bob_hitnode4d
+bob_hitnode4l:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_down
+    jp bob_check_node_finish
+bob_hitnode4u:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode4d:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode5:
+    ld a,(bob_direction)
+    cp UP
+    jp z,bob_hitnode5u
+    cp DOWN
+    jp z,bob_hitnode5d
+    cp LEFT
+    jp z,bob_hitnode5l
+    cp RIGHT
+    jp z,bob_hitnode5r
+bob_hitnode5u:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_up
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_left
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode5d:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_down
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_left
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode5l:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_left
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_down
+    jp bob_check_node_finish
+bob_hitnode5r:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_left
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_down
+    jp bob_check_node_finish
+bob_hitnode6:
+    ld a,(bob_direction)
+    cp UP
+    jp z,bob_hitnode6u
+    jp nz,bob_hitnode6d
+bob_hitnode6u:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode6d:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode7:
+    ld a,(bob_direction)
+    cp UP
+    jp z,bob_hitnode7u
+    jp nz,bob_hitnode7d
+bob_hitnode7u:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode7d:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode8:
+    ld a,(bob_direction)
+    cp UP
+    jp z,bob_hitnode8u
+    cp DOWN
+    jp z,bob_hitnode8d
+    cp LEFT
+    jp z,bob_hitnode8l
+    cp RIGHT
+    jp z,bob_hitnode8r
+bob_hitnode8u:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_up
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_left
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode8d:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_down
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_left
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode8l:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_left
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_down
+    jp bob_check_node_finish
+bob_hitnode8r:
+    call getrandom
+    cp 255/3
+    call c, bob_set_desired_direction_left
+    call getrandom
+    cp 255/2
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_down
+    jp bob_check_node_finish
+bob_hitnode9:
+    ld a,(bob_direction)
+    cp UP
+    jp z,bob_hitnode9u
+    jp nz,bob_hitnode9d
+bob_hitnode9u:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode9d:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_down
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode10:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode11:
+    ld a,(bob_direction)
+    cp DOWN
+    jp z,bob_hitnode11d
+    cp RIGHT
+    jp z,bob_hitnode11r
+    jp nz,bob_hitnode11l
+bob_hitnode11d:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_right
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode11l:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_hitnode11r:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_right
+    jp bob_check_node_finish
+bob_hitnode12:
+    call getrandom
+    cp 128
+    call c, bob_set_desired_direction_up
+    call nc, bob_set_desired_direction_left
+    jp bob_check_node_finish
+bob_check_node_finish:
+    ld a,PATROL
+    ld (bob_state),a ;restore bobstate
+    ret
+
+
+
+
+
+
+
+
+
+
+    
+
+
+

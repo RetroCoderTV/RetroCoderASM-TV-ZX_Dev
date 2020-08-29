@@ -2,11 +2,12 @@
 
 
 player_update_l1:
-    
+    call setborderblue
     call reset_collisions_check
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_player_stool
     call check_collision_player_door
+    call check_collision_player_bob
 
     ld a,(collision_detected_player_stool)
     cp TRUE
@@ -67,7 +68,7 @@ try_move_left_l1:
     ld a,(player_targetpos_x)
     sub PLAYER_SPEED_X
     ld (player_targetpos_x),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_desk
     call safemovetotargetpos
     call anim_timer
@@ -82,7 +83,7 @@ try_move_right_l1:
     ld a,(player_targetpos_x)
     add a,PLAYER_SPEED_X
     ld (player_targetpos_x),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_desk
     call safemovetotargetpos
     call anim_timer
@@ -97,7 +98,7 @@ try_move_up_l1:
     ld a,(player_targetpos_y)
     sub PLAYER_SPEED_Y
     ld (player_targetpos_y),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_desk
     call safemovetotargetpos
     call anim_timer
@@ -112,7 +113,7 @@ try_move_down_l1:
     ld a,(player_targetpos_y)
     add a,PLAYER_SPEED_Y
     ld (player_targetpos_y),a
-    ld ix,desksdata
+    ld ix,l1_desksdata
     call check_collisions_desk
     call safemovetotargetpos
     call anim_timer
