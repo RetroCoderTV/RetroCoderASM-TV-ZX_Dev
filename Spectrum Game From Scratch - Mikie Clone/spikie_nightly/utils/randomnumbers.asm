@@ -11,7 +11,7 @@ getrandom:
 
 
 
-seed dw 1
+seed dw 1234
 
 
 

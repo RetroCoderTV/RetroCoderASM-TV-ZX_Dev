@@ -108,7 +108,7 @@ try_move_down_l1:
     ld a,DOWN
     ld (player_direction),a
     ld a,(playery)
-    cp MAX_Y
+    cp PLAYER_MAX_Y
     ret nc
     ld a,(player_targetpos_y)
     add a,PLAYER_SPEED_Y

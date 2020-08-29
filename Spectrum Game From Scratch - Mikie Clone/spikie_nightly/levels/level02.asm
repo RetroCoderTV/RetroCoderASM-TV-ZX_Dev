@@ -95,7 +95,7 @@ level_02_update:
     ld hl,GAME_WINDOW_START
     call cleargamewindow 
 
-    call ui_update
+    ; call ui_update
 
     call exitsign_paint
 

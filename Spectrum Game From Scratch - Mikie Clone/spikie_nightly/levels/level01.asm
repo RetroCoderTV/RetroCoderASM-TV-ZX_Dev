@@ -1,6 +1,6 @@
 
 L1_PLAYER_STATE equ SIT
-L1_PLAYER_START_Y equ 156
+L1_PLAYER_START_Y equ PLAYER_MAX_Y
 L1_PLAYER_START_X equ 7
 
 L1_BOB_STATE equ PATROL
@@ -107,7 +107,7 @@ level_01_init:
     ld (exit_text_current_colour),a 
 
     xor a
-    ld a,L1_TOTAL_HEARTS ;cheat
+    ; ld a,L1_TOTAL_HEARTS ;cheat
     ld (hearts_collected),a
     ret
 
@@ -127,10 +127,7 @@ level_01_checkvictory:
     ret z
 
     ;if we reach here, level is ready to complete:
-    ld a,(keypressed_F)
-    cp TRUE
-    call z, begin_level02
-
+    call begin_level02
     ret
 ;
 
@@ -140,7 +137,7 @@ level_01_update:
     ld hl,GAME_WINDOW_START
     call cleargamewindow 
 
-    call ui_update
+    ; call ui_update
 
     call exitsign_paint
 

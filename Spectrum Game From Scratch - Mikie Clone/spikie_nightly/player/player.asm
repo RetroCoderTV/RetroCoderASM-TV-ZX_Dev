@@ -965,8 +965,8 @@ collect_heart:
     xor a
     ld (iy),a
 
-    ld ix,hearticons
-    call ui_add_heart
+    ; ld ix,hearticons
+    ; call ui_add_heart
 
     ld a,(hearts_collected)
     inc a

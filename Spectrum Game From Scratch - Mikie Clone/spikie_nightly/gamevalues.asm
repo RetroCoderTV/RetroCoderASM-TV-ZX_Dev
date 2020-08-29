@@ -19,10 +19,12 @@ MID_X equ 11
 MAX_X equ 20
 MIN_Y equ 48
 MAX_Y equ 152 
+PLAYER_MAX_Y equ 156
 
 ;bools
 TRUE equ 1
 FALSE equ 0
+FIFTY50 equ 128
 
 ;directions
 UP equ 0
@@ -62,6 +64,7 @@ HEART_DATA_LENGTH equ 5
 HEART_ICON_DATA_LENGTH equ 3
 BASKET_DATA_LENGTH equ 4
 NODE_DATA_LENGTH equ 3
+
 
 
 

@@ -42,8 +42,16 @@ bob_update_waiting_l1:
     call getrandom
     cp BOB_RESUME_PATROL_CHANCE
     ret c
+    call getrandom
+    cp FIFTY50;BOB_TEETH_CHANCE_1
+    jp nc,bob_resumepatrol
+    jp c,bob_throwteeth
+bob_resumepatrol:
     ld a,PATROL
     ld (bob_state),a
+    ret
+bob_throwteeth:
+    call setborderpink
     ret
 
 
@@ -135,6 +143,10 @@ bob_set_state_patrol:
 bob_set_state_waiting:
     ld a,WAITING
     ld (bob_state),a
+    ld a,DOWN
+    ld (bob_direction),a
+    ld a,BOB_GO_DOWN
+    ld (bob_desired_direction),a   
     ret
 
 
@@ -158,11 +170,15 @@ bob_check_nodes_gonext:
     add ix,de
     jp bob_check_nodes
 bob_hit_node:
+    ld a,(ix)
+    cp 10
+    jp nc, bob_whichnode
     call getrandom
     cp BOB_WAITING_CHANCE
     jp nc, bob_set_state_waiting
     ld a,TURNING
     ld (bob_state),a
+bob_whichnode:
     ld a,(ix) ;get node id
     cp 1
     jp z,bob_hitnode1
