@@ -4,11 +4,6 @@ BALL_HEIGHT equ 8
 BALL_HELD_OFFSET_X equ 2
 BALL_HELD_OFFSET_Y equ 0
 
-;ball states:
-BALL_DEAD equ 0
-BALL_HELD equ 1
-BALL_FLYING equ 2
-
 bally db 0
 ballx db 0
 

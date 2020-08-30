@@ -1,5 +1,6 @@
 
 bob_update_l1:
+    call setborderblue
     call bob_reset_collisions_check
     
     ld a,(bob_state)
@@ -39,19 +40,23 @@ bob_update_hunting_l1:
     ret
 
 bob_update_waiting_l1:
+    call setbordergreen
     call getrandom
     cp BOB_RESUME_PATROL_CHANCE
     ret c
     call getrandom
     cp FIFTY50;BOB_TEETH_CHANCE_1
-    jp nc,bob_resumepatrol
-    jp c,bob_throwteeth
+    jp c,bob_resumepatrol
+    jp nc,bob_throwteeth
 bob_resumepatrol:
     ld a,PATROL
     ld (bob_state),a
     ret
 bob_throwteeth:
     call setborderpink
+    ld a,(teeth_current_state)
+    cp TEETH_DEAD
+    call z, teeth_spawn
     ret
 
 

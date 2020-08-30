@@ -107,7 +107,7 @@ level_01_init:
     ld (exit_text_current_colour),a 
 
     xor a
-    ; ld a,L1_TOTAL_HEARTS ;cheat
+    ld a,L1_TOTAL_HEARTS ;cheat
     ld (hearts_collected),a
     ret
 
@@ -170,6 +170,8 @@ level_01_update:
     call player_update_l1
     call level_01_checkvictory
 
+    call teeth_update
+
     ld bc,(doory)
     ld iyl,DOOR_COLOUR_EXIT
     call paintsprite_16_32
@@ -212,6 +214,9 @@ level_01_update:
     call bob_draw
 
     call player_draw
+
+
+    call teeth_draw
     
     call sync_late 
     call drawgamewindow

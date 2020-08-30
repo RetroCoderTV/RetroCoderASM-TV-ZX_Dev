@@ -2,12 +2,13 @@
 
 
 player_update_l1:
-    call setborderblue
+    
     call reset_collisions_check
     ld ix,l1_desksdata
     call check_collisions_player_stool
     call check_collision_player_door
     call check_collision_player_bob
+    call check_collision_player_teeth
 
     ld a,(collision_detected_player_stool)
     cp TRUE

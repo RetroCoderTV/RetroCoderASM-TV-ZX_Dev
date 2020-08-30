@@ -24,11 +24,12 @@ player_targetpos_y db 0
 PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 4
 
-collision_detected_player_desk db 0
-collision_detected_player_door db 0
-collision_detected_player_stool db 0
-collision_detected_player_bob db 0
-collision_detected_player_basket db 0
+collision_detected_player_desk db FALSE
+collision_detected_player_door db FALSE
+collision_detected_player_stool db FALSE
+collision_detected_player_bob db FALSE
+collision_detected_player_basket db FALSE
+collision_detected_player_teeth db FALSE
 
 hearts_collected db 0
 current_heart_seat db 0
@@ -569,6 +570,11 @@ check_collision_player_door:
 
 
 
+
+
+
+
+
 check_collision_player_bob:
     ld a,FALSE
     ld (collision_detected_player_bob),a
@@ -607,8 +613,61 @@ check_collision_player_bob:
     ;else, we collided....
     ld a,TRUE
     ld (collision_detected_player_bob),a
-    call setbordergreen
     ret
+
+
+
+
+
+
+check_collision_player_teeth:
+    ld a,FALSE
+    ld (collision_detected_player_teeth),a
+    ;px+pw<bx
+    ;bx+bw<px
+    ;if py+ph<by -skip
+    ;if by+bh<py -skip
+    ld a,(teethx)
+    ld b,a
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    cp b
+    ret c
+
+    ld a,(playerx)
+    ; add a,PLAYER_WIDTH
+    ld b,a
+    ld a,(teethx)
+    add a,TEETH_WIDTH
+    cp b
+    ret c
+    
+    ld a,(teethy)
+    ld b,a
+    ld a,(playery)
+    cp b
+    ret c
+
+    ld a,(playery)
+    ld b,a
+    ld a,(teethy)
+    add a,PIXEL_PER_CELL
+    add a,PLAYER_WIDTH
+    cp b
+    ret c
+
+    ;else, we collided....
+    ld a,TRUE
+    ld (collision_detected_player_teeth),a
+
+    call begin_gameover
+    ret
+
+
+
+
+
+
 
 
 
@@ -768,7 +827,6 @@ checkcolllockers_gonextobject:
 
 ;ix=lockers
 checkcollisions_lockertrigger:
-    call setborderblue
     ;no collision if...
     ;px+pw<dx
     ;dx+dw<px
@@ -841,11 +899,6 @@ checkcollisions_lockertrigger:
     inc a
     ld (hearts_collected),a
 
-    call setborderpink
-    ; ld a,(ix+5)
-    ; cp 54
-    ; call c, setborderpink
-    ; call nc, setbordergreen
 
     ret
 checkcoll_lockertrigger_gonext:

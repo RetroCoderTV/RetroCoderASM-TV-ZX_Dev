@@ -51,8 +51,27 @@ BOB_GO_DOWN equ 1
 BOB_GO_LEFT equ 2
 BOB_GO_RIGHT equ 3
 
+;ball states:
+BALL_DEAD equ 0
+BALL_HELD equ 1
+BALL_FLYING equ 2
+
+;teeth states
+TEETH_DEAD equ 0
+TEETH_AIMING equ 1
+TEETH_FLYING equ 2
+
+ 
+
+
+
+
+
+
+
 
 ;game state
+GAME_OVER equ 255
 MAIN_MENU equ 0
 LEVEL_01_CLASS equ 1
 LEVEL_02_DINER equ 2

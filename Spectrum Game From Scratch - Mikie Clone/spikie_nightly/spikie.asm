@@ -24,6 +24,15 @@ begin_level02:
     call level_02_init
     jp main
 
+
+begin_gameover:
+    ld a,GAME_OVER
+    ld (currentgamestate),a
+    call 0xDAF ;cls
+    call gameover_init
+    halt
+    jp main
+
 begin_level03:
     call begin_level01
     
@@ -37,7 +46,11 @@ main:
     jp z,level_01_update
     cp LEVEL_02_DINER
     jp z,level_02_update
+    cp GAME_OVER
+    jp z, gameover_update
     
+
+
     jp main
 
 
@@ -282,6 +295,7 @@ currentgamestate db MAIN_MENU
 
     include 'bg\bg1.asm'
     include 'levels\mainmenu.asm'
+    include 'levels\gameover.asm'
     include 'levels\level01.asm'
     include 'levels\level02.asm'
     include 'player\player.asm'
@@ -297,6 +311,7 @@ currentgamestate db MAIN_MENU
     include 'sprites\exitsign.asm'
     include 'sprites\heart.asm'
     include 'sprites\locker.asm'
+    include 'sprites\teeth.asm'
     include 'ui\ui.asm'    
     include 'utils\colours.asm'
     include 'utils\doublebuffering.asm'
