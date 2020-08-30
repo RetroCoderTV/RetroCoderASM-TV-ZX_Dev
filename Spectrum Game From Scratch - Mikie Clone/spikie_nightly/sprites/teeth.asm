@@ -15,8 +15,48 @@ teeth_aiming_down db FALSE
 teeth_aiming_left db FALSE
 teeth_aiming_right db FALSE
 
+teeth_current_frame db 0
+TEETH_TOTAL_FRAMES equ 2
+TEETH_FRAME_LENGTH equ 48
 
 
+teethsprite:
+; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
+; line based output of pixel data:
+    ;frame0
+    db %00000111, %11111110
+    db %00011000, %00000010
+    db %00010000, %00000011
+    db %00110000, %00000001
+    db %00100000, %00000001
+    db %01100000, %00000111
+    db %01111110, %00000111
+    db %01111111, %10001111
+    db %01010111, %11111111
+    db %11110101, %11111011
+    db %11100111, %01010011
+    db %10100000, %01110011
+    db %10101110, %11101111
+    db %11101010, %10101011
+    db %11111010, %10101111
+    db %01111111, %11111110
+    ;frame1
+    db %00001111, %11111000
+    db %00010000, %00001100
+    db %00111111, %11100010
+    db %01010101, %01010010
+    db %01010101, %01011010
+    db %00111111, %11110101
+    db %00000111, %11110111
+    db %00000011, %11111111
+    db %00000001, %11111111
+    db %00000111, %11111111
+    db %11101000, %00000011
+    db %10110000, %00000010
+    db %10101110, %11101111
+    db %01101010, %10101010
+    db %00111010, %10101110
+    db %00011111, %11111000
 
 
 
@@ -154,7 +194,19 @@ teeth_draw:
     ld a,(teeth_current_state)
     cp TEETH_DEAD
     ret z
+    ld a,(teeth_current_frame)
+    cp 1
+    jp z,teeth_setframe1
+teeth_setframe0:
     ld bc,teethsprite
+    inc a
+    ld (teeth_current_frame),a
+    jp teeth_drawframe
+teeth_setframe1:
+    ld bc,teethsprite+(TEETH_FRAME_LENGTH*1)
+    xor a
+    ld (teeth_current_frame),a
+teeth_drawframe:
     ld de,(teethy)
     call drawsprite16_16
     ret
@@ -162,42 +214,3 @@ teeth_draw:
 
 
 
-
-
-teethsprite:
-; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
-; line based output of pixel data:
-    ;frame0
-    db %00000111, %11111110
-    db %00011000, %00000010
-    db %00010000, %00000011
-    db %00110000, %00000001
-    db %00100000, %00000001
-    db %01100000, %00000111
-    db %01111110, %00000111
-    db %01111111, %10001111
-    db %01010111, %11111111
-    db %11110101, %11111011
-    db %11100111, %01010011
-    db %10100000, %01110011
-    db %10101110, %11101111
-    db %11101010, %10101011
-    db %11111010, %10101111
-    db %01111111, %11111110
-    ;frame1
-    db %00001111, %11111000
-    db %00010000, %00001100
-    db %00111111, %11100010
-    db %01010101, %01010010
-    db %01010101, %01011010
-    db %00111111, %11110101
-    db %00000111, %11110111
-    db %00000011, %11111111
-    db %00000001, %11111111
-    db %00000111, %11111111
-    db %11101000, %00000011
-    db %10110000, %00000010
-    db %10101110, %11101111
-    db %01101010, %10101010
-    db %00111010, %10101110
-    db %00011111, %11111000
