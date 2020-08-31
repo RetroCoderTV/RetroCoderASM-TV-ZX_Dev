@@ -1,4 +1,4 @@
-ENTRY_POINT equ 0x9900
+ENTRY_POINT equ 0x9600
 
     org ENTRY_POINT 
 
@@ -293,7 +293,12 @@ currentgamestate db MAIN_MENU
 
     include 'gamevalues.asm'
 
+    include 'muttski\muttski.asm'
+    include 'muttski\muttski_l2.asm'
+
     include 'bg\bg1.asm'
+    include 'bob\bob.asm'
+    include 'bob\bob_l1.asm'
     include 'levels\mainmenu.asm'
     include 'levels\gameover.asm'
     include 'levels\level01.asm'
@@ -301,8 +306,6 @@ currentgamestate db MAIN_MENU
     include 'player\player.asm'
     include 'player\player_l1.asm'
     include 'player\player_l2.asm'    
-    include 'bob\bob.asm'
-    include 'bob\bob_l1.asm'
     include 'sprites\ball.asm'
     include 'sprites\basket.asm'
     include 'sprites\blackboard.asm'

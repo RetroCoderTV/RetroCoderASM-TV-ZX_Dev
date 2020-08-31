@@ -7,6 +7,16 @@ L2_PLAYER_START_X equ 15
 L2_EXIT_SIGN_START_Y equ 0
 L2_EXIT_SIGN_START_X equ 5
 
+L2_BOB_START_STATE equ PATROL
+L2_BOB_START_DIRECTION equ DOWN
+L2_BOB_START_Y equ MIN_Y
+L2_BOB_START_X equ MID_X
+
+L2_MUTTSKI_START_STATE equ PATROL
+L2_MUTTSKI_START_DIRECTION equ DOWN
+L2_MUTTSKI_START_Y equ MIN_Y
+L2_MUTTSKI_START_X equ MID_X
+
 
 L2_TOTAL_HEARTS equ 4*6
 
@@ -19,6 +29,22 @@ l2_lockers:
     db 4,8,136,2,24
     db 4,14,136,2,24
     db 255
+
+
+l2_nodes: 
+    db 1,MIN_X,L1_ROW1 ;0,0
+    db 2,MID_X,L1_ROW1 ;0,1
+    db 3,MAX_X,L1_ROW1 ;0,2
+    db 4,MIN_X,L1_ROW2 ;1,0
+    db 5,MID_X,L1_ROW2 ;0,1
+    db 6,MAX_X,L1_ROW2;0,2
+    db 7,MIN_X,L1_ROW3 ;2,0
+    db 8,MID_X,L1_ROW3 ;0,1
+    db 9,MAX_X,L1_ROW3 ;0,2
+    db 10,MIN_X,L1_ROW4 ;3,0
+    db 11,MID_X,L1_ROW4 ;0,1
+    db 12,MAX_X,L1_ROW4 ;0,2
+
 
 
 ;format:
@@ -54,6 +80,18 @@ level_02_init:
 
     xor a
     ld (hearts_collected),a
+
+    ld a,L2_MUTTSKI_START_STATE
+    ld (muttski_state),a
+
+    ld a,L2_MUTTSKI_START_DIRECTION
+    ld (muttski_direction),a
+
+    ld a,L2_MUTTSKI_START_X
+    ld (muttskix),a
+
+    ld a,L2_MUTTSKI_START_Y
+    ld (muttskiy),a
 
     ret
 
@@ -116,6 +154,8 @@ level_02_update:
     call check_keys
     call sync 
 
+    call muttski_update_l2
+
     call player_update_l2
     call level_02_checkvictory
 
@@ -157,6 +197,8 @@ level_02_update:
 
     ld ix,l2_baskets
     call drawbaskets
+
+    call muttski_draw
 
     call player_draw
 

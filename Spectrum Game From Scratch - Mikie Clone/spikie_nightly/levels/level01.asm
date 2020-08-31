@@ -3,8 +3,8 @@ L1_PLAYER_STATE equ SIT
 L1_PLAYER_START_Y equ PLAYER_MAX_Y
 L1_PLAYER_START_X equ 7
 
-L1_BOB_STATE equ PATROL
-L1_BOB_DIRECTION equ DOWN
+L1_BOB_START_STATE equ PATROL
+L1_BOB_START_DIRECTION equ DOWN
 L1_BOB_START_Y equ MIN_Y
 L1_BOB_START_X equ MID_X
 
@@ -92,10 +92,10 @@ level_01_init:
     ld a,L1_BOB_START_Y
     ld (boby),a
 
-    ld a,L1_BOB_STATE
+    ld a,L1_BOB_START_STATE
     ld (bob_state),a
 
-    ld a,L1_BOB_DIRECTION
+    ld a,L1_BOB_START_DIRECTION
     ld (bob_direction),a
 
     ld a,L1_EXIT_SIGN_START_X
