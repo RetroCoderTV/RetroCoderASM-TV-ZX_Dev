@@ -32,18 +32,18 @@ l2_lockers:
 
 
 l2_nodes: 
-    db 1,MIN_X,L1_ROW1 ;0,0
-    db 2,MID_X,L1_ROW1 ;0,1
-    db 3,MAX_X,L1_ROW1 ;0,2
-    db 4,MIN_X,L1_ROW2 ;1,0
-    db 5,MID_X,L1_ROW2 ;0,1
-    db 6,MAX_X,L1_ROW2;0,2
-    db 7,MIN_X,L1_ROW3 ;2,0
-    db 8,MID_X,L1_ROW3 ;0,1
-    db 9,MAX_X,L1_ROW3 ;0,2
-    db 10,MIN_X,L1_ROW4 ;3,0
-    db 11,MID_X,L1_ROW4 ;0,1
-    db 12,MAX_X,L1_ROW4 ;0,2
+    db 1,2,56 ;0,0
+    db 2,11,56 ;0,1
+    db 3,20,56 ;0,2
+    ; db 4,MIN_X,L1_ROW2 ;1,0
+    ; db 5,MID_X,L1_ROW2 ;0,1
+    ; db 6,MAX_X,L1_ROW2;0,2
+    db 7,2,104 ;2,0
+    db 8,11,104 ;0,1
+    db 9,20,104 ;0,2
+    db 10,2,160 ;3,0
+    db 11,11,160 ;0,1
+    db 12,20,160 ;0,2
 
 
 
@@ -94,6 +94,10 @@ level_02_init:
     ld (muttskiy),a
 
     ret
+
+
+
+
 
 
 

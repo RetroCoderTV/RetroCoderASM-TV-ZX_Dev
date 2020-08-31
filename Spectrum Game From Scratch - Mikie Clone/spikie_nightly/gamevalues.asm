@@ -38,12 +38,13 @@ ATTACK equ 1
 SHOUT equ 2
 SIT equ 3
 
-;bob states
+;enemy states
 PATROL equ 0
 TURNING equ 1
 WAITING equ 2
 HUNTING equ 3
 TEETH equ 4
+BASKETBALL equ 5
 
 ;bob actions
 BOB_GO_UP equ 0
@@ -61,15 +62,6 @@ TEETH_DEAD equ 0
 TEETH_AIMING equ 1
 TEETH_FLYING equ 2
 
- 
-
-
-
-
-
-
-
-
 ;game state
 GAME_OVER equ 255
 MAIN_MENU equ 0
@@ -84,6 +76,9 @@ HEART_ICON_DATA_LENGTH equ 3
 BASKET_DATA_LENGTH equ 4
 NODE_DATA_LENGTH equ 3
 
+;nearest enemies
+NEAREST_BOB equ 0
+NEAREST_MUTTSKI equ 1
 
 
 
