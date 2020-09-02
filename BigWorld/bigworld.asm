@@ -6,8 +6,8 @@ ENTRY_POINT equ 0x9500
 
 
 game_init:
-    call 0xDAF
-    ld a,3
+    call 0xDAF ;br
+    ld a,2
     call 0x229B
     jp main
 
