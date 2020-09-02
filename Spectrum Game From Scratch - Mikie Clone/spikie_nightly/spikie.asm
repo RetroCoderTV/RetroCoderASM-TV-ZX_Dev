@@ -1,4 +1,4 @@
-ENTRY_POINT equ 0x9600
+ENTRY_POINT equ 0x9200
 
     org ENTRY_POINT 
 
