@@ -13,7 +13,7 @@ begin_level01:
     ld a,LEVEL_01_CLASS
     ld (currentgamestate),a
     call 0xDAF ;cls
-    call level_01_init
+    call level_01_init ;
     jp main
 
 
