@@ -2,12 +2,17 @@ ENTRY_POINT equ 0x9800
 
     org ENTRY_POINT
 
-
+    call setborderblue
     ld a,COLOUR_BLACK
     call 0x229B
     call 0xDAF
-    jp begin_level_1
+
+
+begin_level_0:
+    call mainmenu_init
+    jp mainmenu_update
     
+
 
 begin_level_1:
     call l1_start
@@ -46,10 +51,12 @@ game_state db LEVEL_01
     include 'retrohelpers\sgsconstants.asm'
     include 'retrohelpers\texttools.asm'
     include 'retrohelpers\vsync.asm'
+    include 'levels\level0.asm'
     include 'levels\level1.asm'
     include 'sprites\vehicles.asm'
     include 'spikie\player.asm'
     include 'spikie\player_l1.asm'
     include 'spikie\player_l2.asm'
+    include 'ui\ui.asm'
 
     end ENTRY_POINT

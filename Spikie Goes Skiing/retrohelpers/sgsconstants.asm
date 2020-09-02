@@ -2,6 +2,10 @@
 LANE_1_Y equ 24
 LANE_1_HEIGHT equ 48
 
+LANE_2_Y equ 96
+
+LANE_2_HEIGHT equ 48
+
 ;lane attribute lines
 ROAD_START_LINE equ 3
 ROAD_END_LINE equ 21

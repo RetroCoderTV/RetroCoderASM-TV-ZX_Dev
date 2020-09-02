@@ -28,9 +28,23 @@ vehicles_r:
     db 255
 
 
+vehicles_l:
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0
+    db 255
+
+
 ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
 ; line based output of pixel data:
-sprite_bike:
+sprite_bike_r:
     db %00000000, %01110000
     db %00000000, %11111000
     db %00000000, %11001000
@@ -51,7 +65,7 @@ sprite_bike:
 
 ; ASM data file from a ZX-Paintbrush picture with 32 x 16 pixels (= 4 x 2 characters)
 ; line based output of pixel data:
-sprite_saloon:
+sprite_saloon_r:
     db %00000001, %11111111, %11111100, %00000000
     db %00000011, %11111111, %11111110, %00000000
     db %00001111, %11111111, %11110010, %00000000
@@ -72,7 +86,7 @@ sprite_saloon:
 
 ; ASM data file from a ZX-Paintbrush picture with 56 x 24 pixels (= 7 x 3 characters)
 ; line based output of pixel data:
-sprite_truck:
+sprite_truck_r:
     db %00000000, %00000111, %11111111, %11111111, %11111111, %11111110, %00000000
     db %00000000, %00011000, %00000000, %00000000, %00000000, %00001110, %00000000
     db %00000000, %01100111, %10111111, %00001110, %00000111, %00110010, %00000000
@@ -99,7 +113,77 @@ sprite_truck:
     db %00000110, %00110000, %00000000, %00011000, %00000000, %01100000, %00000000
 ;
 
+; ASM data file from a ZX-Paintbrush picture with 32 x 16 pixels (= 4 x 2 characters)
+; line based output of pixel data:
 
+
+; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
+; line based output of pixel data:
+sprite_bike_l:
+    db %00001110, %00000000
+    db %00011111, %00000000
+    db %00010011, %00000000
+    db %00000011, %00000000
+    db %00000000, %01000000
+    db %11001100, %11110000
+    db %11111000, %00111000
+    db %01001001, %10111110
+    db %01001110, %00111110
+    db %01111101, %11100010
+    db %01101100, %11111110
+    db %11001110, %11111010
+    db %10011010, %11101011
+    db %10000110, %00100011
+    db %11001100, %00110110
+    db %01111000, %00011100
+;
+sprite_saloon_l:
+    db %00000000, %00111111, %11111111, %10000000
+    db %00000000, %01111111, %11111111, %11000000
+    db %00000000, %01001111, %11111111, %11110000
+    db %00000000, %11000011, %11111111, %11111000
+    db %00000001, %10000000, %11111111, %11111000
+    db %00000001, %10000000, %01100000, %10001100
+    db %00111111, %11000000, %11000000, %10001100
+    db %01111111, %11110000, %11000000, %10001100
+    db %11111111, %11111100, %10000000, %10000110
+    db %11111111, %11111111, %11111111, %11111110
+    db %01111111, %11111111, %11111111, %11111110
+    db %00111111, %11111111, %11111111, %11111111
+    db %00001111, %11001111, %11111111, %11100111
+    db %00000011, %10110111, %11111111, %11011011
+    db %00000000, %01111000, %00000000, %00111100
+    db %00000000, %00110000, %00000000, %00011000
+;
+
+; ASM data file from a ZX-Paintbrush picture with 56 x 24 pixels (= 7 x 3 characters)
+; line based output of pixel data:
+sprite_truck_l:
+    db %00000000, %01111111, %11111111, %11111111, %11111111, %11100000, %00000000
+    db %00000110, %01110000, %00000000, %00000000, %00000000, %00011000, %00000000
+    db %00000100, %01001100, %11100000, %01110000, %11111101, %11100110, %00000000
+    db %00000100, %01000011, %00111111, %11111100, %01110011, %10111001, %10000000
+    db %00000100, %00000000, %11001110, %00000111, %00011100, %00001110, %01100000
+    db %00000111, %11100000, %00110011, %10000001, %11000111, %00000011, %10011000
+    db %00001111, %11111000, %00001100, %00000000, %00000000, %00000000, %00000110
+    db %00001111, %11111110, %00000011, %11111111, %11111111, %11111111, %11111111
+    db %00011111, %11111111, %10000010, %00000000, %00000000, %00000000, %00000001
+    db %00011001, %11111111, %11100010, %11001110, %11101100, %11100000, %11110101
+    db %00011000, %01111111, %11111010, %10101100, %01001010, %10100000, %01010101
+    db %00011000, %01111111, %11111010, %11001000, %01001100, %11100000, %01010101
+    db %00111000, %01111001, %11111010, %10101110, %01001010, %00000000, %01001001
+    db %00111100, %01110001, %11111010, %00000000, %00000000, %00011101, %10000001
+    db %01111111, %11110001, %11111010, %00000001, %11011101, %10011001, %01000001
+    db %11111111, %11110001, %11111010, %00000001, %00010101, %01010001, %10000001
+    db %11011111, %11111111, %11111010, %00000001, %11011101, %10011101, %01000001
+    db %10001111, %11111111, %11111010, %00000000, %00000000, %00000000, %00000001
+    db %11011101, %11111111, %11111110, %00000011, %11111111, %11111111, %11111111
+    db %01111000, %11111001, %11011011, %11111100, %00000000, %00000000, %00001000
+    db %00111101, %11100110, %01111000, %00011000, %00000000, %00001100, %01101100
+    db %00001111, %11101111, %01111000, %00111100, %00000000, %00011110, %11110110
+    db %00000011, %11101111, %01111000, %00111100, %00000000, %00011110, %11110010
+    db %00000000, %00000110, %00000000, %00011000, %00000000, %00001100, %01100000
+;
 spawn_vehicle_right:
     ld ix,vehicles_r
     call spwn_veh_r
@@ -118,13 +202,12 @@ spwn_veh_r_do_spawn:
     call getrandom
     cp FIFTY50
     push af
-    call c,spwn_saloon
+    call c,spwn_saloon_r
     pop af
-    call nc,spwn_bike
+    call nc,spwn_bike_r
     ret
 
-
-spwn_bike:
+spwn_bike_r:
     ld a,VEH_BIKE
     ld (ix),a
     xor a
@@ -147,7 +230,7 @@ spwn_bike:
     ld (ix+5),a
     ret
 
-spwn_saloon:
+spwn_saloon_r:
     ld a,VEH_SALOON
     ld (ix),a
     xor a
@@ -170,159 +253,234 @@ spwn_saloon:
     ld (ix+5),a
     ret
 
-spwn_truck:
+spwn_truck_r:
     ret
 
 
+
+spawn_vehicle_left:
+    ld ix,vehicles_l
+    call spwn_veh_l
+    ret
+
+spwn_veh_l:
+    ld a,(ix)
+    cp 255
+    ret z
+    cp VEH_DEAD
+    jp z,spwn_veh_l_do_spawn
+    ld de,VEH_DATA_LENGTH
+    add ix,de
+    jp spwn_veh_l
+spwn_veh_l_do_spawn:
+    call getrandom
+    cp FIFTY50
+    push af
+    call c,spwn_saloon_l
+    pop af
+    call nc,spwn_bike_l
+    ret
+
+spwn_bike_l:
+    ld a,VEH_BIKE
+    ld (ix),a
+    ld a,MAX_X-1
+    ld (ix+1),a
+    call getrandom
+    and %00011111
+    ld b,a
+    call getrandom
+    and %00001111
+    add a,b
+    ld b,a
+    ld a, LANE_2_Y
+    add a,b
+    ld (ix+2),a
+    ld a,VEH_BIKE_WIDTH
+    ld (ix+3),a
+    ld a,VEH_BIKE_HEIGHT
+    ld (ix+4),a
+    ld a,-VEH_BIKE_SPEED
+    ld (ix+5),a
+    ret
+
+spwn_saloon_l:
+    ld a,VEH_SALOON
+    ld (ix),a
+    ld a,MAX_X
+    ld (ix+1),a
+    call getrandom
+    and %00011111
+    ld b,a
+    call getrandom
+    and %00001111
+    add a,b
+    ld b,a
+    ld a, LANE_2_Y
+    add a,b
+    ld (ix+2),a
+    ld a,VEH_SALOON_WIDTH
+    ld (ix+3),a
+    ld a,VEH_SALOON_HEIGHT
+    ld (ix+4),a
+    ld a,-VEH_SALOON_SPEED
+    ld (ix+5),a
+    ret
+
+spwn_truck_l:
+    ret
 
 
 
 vehicles_update:
     
     ld ix,vehicles_r
-    call veh_move_cars
+    call veh_move_cars_r
 
-    ld iy,vehicles_r
-    call vehicle_check_collisions
+    ld ix,vehicles_l
+    call veh_move_cars_l
+
     ret
 
 vehicles_draw:
     ld ix,vehicles_r
-    call veh_draw
+    call veh_draw_r
+
+    ld ix,vehicles_l
+    call veh_draw_l
     ret
 
 
 
-veh_move_cars:
+veh_move_cars_r:
     ld a,(ix)
     cp 255
     ret z
     ld a,(ix)
     cp VEH_DEAD
-    jp z,vm_next
+    jp z,vm_next_r
     ld a,(ix+1)
     cp MAX_X
-    jp nc,vm_kill
+    jp nc,vm_kill_r
     ld b,a
     ld a,(ix+5)
     add a,b
     ld (ix+1),a
-    ;check for collisions
-
-vm_next:
+vm_next_r:
     ld de,VEH_DATA_LENGTH
     add ix,de
-    jp veh_move_cars
-vm_kill:
+    jp veh_move_cars_r
+vm_kill_r:
     ld a,VEH_DEAD
     ld (ix),a
-    jp vm_next
-
-;IY=vehicles
-vehicle_check_collisions:
-    ld a,(iy)
-    cp 255
-    ret z
-    ld a,(iy)
-    cp VEH_DEAD
-    jp z,vc_next
-    ld ix,vehicles_r
-    ld a,(iy)
-    push af
-    ld a,VEH_DEAD
-    ld (iy),a
-    call veh_check_collisions
-    pop af
-    ld (iy),a
-vc_next:
-    ld de,VEH_DATA_LENGTH
-    add iy,de
-    jp vehicle_check_collisions
-    
-
-;IX=cars
-;DE= car xy
-veh_check_collisions:  
+    jp vm_next_r
+veh_move_cars_l:
     ld a,(ix)
     cp 255
     ret z
-
     ld a,(ix)
     cp VEH_DEAD
-    jp z, veh_chk_coll_next
-
-
-    ld a,(iy+1)
-    add a,(iy+3)
-    ld b,a
+    jp z,vm_next_l
     ld a,(ix+1)
-    add a,(ix+3)
-    cp b
-    jp c, veh_chk_coll_next
-    
-    ld a,(ix+2)
+    cp MIN_X+1
+    jp c,vm_kill_l
     ld b,a
-    ld a,(iy+2)
-    add a,(iy+4)
-    cp b
-    jp c, veh_chk_coll_next
-
-    ld a,(ix+2)
-    add a,(ix+4)
-    ld b,a
-    ld a,(iy+2)
-    add a,(iy+4)
-    cp b
-    jp nc, veh_chk_coll_next
-
-    ; ;else, we collided....
-    call setborderpink
-    ret
-veh_chk_coll_next:
+    ld a,(ix+5)
+    add a,b
+    ld (ix+1),a
+vm_next_l:
     ld de,VEH_DATA_LENGTH
     add ix,de
-    jp veh_check_collisions
+    jp veh_move_cars_l
+vm_kill_l:
+    ld a,VEH_DEAD
+    ld (ix),a
+    jp vm_next_l
+
 
 ;ix=vehs
-veh_draw:
+veh_draw_r:
     ld a,(ix)
     cp 255
     jp z,vd_end
     cp VEH_DEAD
-    jp z,vd_next
+    jp z,vd_next_r
     cp VEH_BIKE
-    jp z,vd_bike
+    jp z,vd_bike_r
     cp VEH_SALOON
-    jp z,vd_saloon
+    jp z,vd_saloon_r
     cp VEH_TRUCK
-    jp z,vd_truck
-vd_bike:
-    ld bc,sprite_bike
+    jp z,vd_truck_r
+vd_bike_r:
+    ld bc,sprite_bike_r
     ld a,(ix+1)
     ld d,a
     ld a,(ix+2)
     ld e,a
     call drawsprite16_16
-    jp vd_next
-vd_saloon:
-    ld bc,sprite_saloon
+    jp vd_next_r
+vd_saloon_r:
+    ld bc,sprite_saloon_r
     ld a,(ix+1)
     ld d,a
     ld a,(ix+2)
     ld e,a
     call drawsprite32_16
-    jp vd_next
-vd_truck:
+    jp vd_next_r
+vd_truck_r:
     ; ld bc,sprite_truck
     ; ld a,(ix+1)
     ; ld d,a
     ; ld a,(ix+2)
     ; ld e,a
     ; todo: make drawsprite56_24    
-    jp vd_next
-vd_next:
+    jp vd_next_r
+vd_next_r:
     ld de,VEH_DATA_LENGTH
     add ix,de
-    jp veh_draw
+    jp veh_draw_r
+veh_draw_l:
+    ld a,(ix)
+    cp 255
+    jp z,vd_end
+    cp VEH_DEAD
+    jp z,vd_next_l
+    cp VEH_BIKE
+    jp z,vd_bike_l
+    cp VEH_SALOON
+    jp z,vd_saloon_l
+    cp VEH_TRUCK
+    jp z,vd_truck_l
+vd_bike_l:
+    ld bc,sprite_bike_l
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    ld e,a
+    call drawsprite16_16
+    jp vd_next_l
+vd_saloon_l:
+    ld bc,sprite_saloon_l
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    ld e,a
+    call drawsprite32_16
+    jp vd_next_l
+vd_truck_l:
+    ; ld bc,sprite_truck
+    ; ld a,(ix+1)
+    ; ld d,a
+    ; ld a,(ix+2)
+    ; ld e,a
+    ; todo: make drawsprite56_24    
+    jp vd_next_l
+vd_next_l:
+    ld de,VEH_DATA_LENGTH
+    add ix,de
+    jp veh_draw_l
 vd_end:
     ret
+
+
+

@@ -23,6 +23,7 @@ PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 4
 
 collision_detected_player_solid db FALSE
+collision_detected_player_shop db FALSE
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
@@ -335,6 +336,7 @@ playersprite_right:
 
 ;
 player_update:
+    
     ld a,(game_state)
     cp LEVEL_01
     call z,player_update_l1
@@ -351,46 +353,12 @@ player_draw:
 ;
 
 
-;INPUT:
-;IX=cars
-player_check_collision_cars:
-    ld a,(ix)
-    cp 255
-    ret z
-
-    ld a,(playerx)
-    add a,PLAYER_WIDTH
-    ld b,a
-    ld a,(ix+1)
-    add a,(ix+3)
-    cp b
-    jp c, plyr_chk_coll_cars_next
-    
-    ld a,(ix+2)
-    ld b,a
-    ld a,(playery)
-    add a,PLAYER_HEIGHT
-    cp b
-    jp c, plyr_chk_coll_cars_next
-
-    ld a,(ix+2)
-    add a,(ix+4)
-    ld b,a
-    ld a,(playery)
-    add a,PLAYER_HEIGHT/2
-    cp b
-    jp nc, plyr_chk_coll_cars_next
-
-    ; ;else, we collided....
-    
-    ret
-plyr_chk_coll_cars_next:
-    ld de,VEH_DATA_LENGTH
-    add ix,de
-    jp player_check_collision_cars
 
 
 drawplayer:    
+    ld a,(collision_detected_player_shop)
+    cp TRUE
+    ret z
     ld a,(player_direction)
     cp UP
     jp z, drawplayer_up
@@ -471,7 +439,7 @@ drawplayer_left:
     cp 3
     jp z,dpl3
 dpl0:
-    ld bc,playersprite_left+96
+    ld bc,playersprite_left
     ld de,(playery)
     call drawplayer16_24
     jp drawplayer_end
@@ -481,12 +449,12 @@ dpl1:
     call drawplayer16_24
     jp drawplayer_end
 dpl2:
-    ld bc,playersprite_left+96
+    ld bc,playersprite_left
     ld de,(playery)
     call drawplayer16_24
     jp drawplayer_end
 dpl3:
-    ld bc,playersprite_left
+    ld bc,playersprite_left+96
     ld de,(playery)
     call drawplayer16_24
     jp drawplayer_end
