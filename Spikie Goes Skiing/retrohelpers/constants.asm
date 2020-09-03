@@ -11,8 +11,8 @@ FALSE equ 0
 FIFTY50 equ 128
 
 ;Game Window Boundaries
-MIN_X equ 3
-MAX_X equ 18
+MIN_X equ 2
+MAX_X equ 26-2
 MIN_Y equ 4
 MAX_Y equ 192-24
 

@@ -2,10 +2,12 @@ L1_PAVEMENT_COLOUR equ %01111000
 L1_ROAD_COLOUR equ %01000111
 L1_WHITELINE_Y equ 96
 
+L1_WHITELINE_X equ 2
+
 SPAWN_CHANCE_1 equ 210
 
 
-SHOP_X equ 8
+SHOP_X equ 11
 SHOP_Y equ 192-24
 
 SHOP_W equ 6
@@ -90,7 +92,7 @@ l1_draw:
 
 
 l1_draw_whitelines: 
-    xor a
+    ld a,L1_WHITELINE_X
     ld d,a
     ld a,L1_WHITELINE_Y
     ld e,a
@@ -105,7 +107,7 @@ l1_drw_wl:
     inc d
     inc d
     ld a,d
-    cp GAME_WINDOW_WIDTH
+    cp GAME_WINDOW_WIDTH+BUFFER_SIDE_EXTRA
     jp c, l1_drw_wl
     ret
 

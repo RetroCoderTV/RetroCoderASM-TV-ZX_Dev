@@ -1,9 +1,18 @@
 GAME_WINDOW_START equ 0x8000
-GAME_WINDOW_LENGTH equ 0x1200
-GAME_WINDOW_END_UB equ 0x92
+GAME_WINDOW_LENGTH equ 0x1500
+GAME_WINDOW_END_UB equ 0x95
 GAME_WINDOW_WIDTH equ 24
+
+
+BUFFER_SIDE_EXTRA equ 2
+
+BUFFER_WINDOW_WIDTH equ 28; GAME_WINDOW_WIDTH+(BUFFER_SIDE_EXTRA*2)
+
+BUFFER_MIDDLE equ 14
+
+
 BUFFER_CHUNK_LENGTH equ 12
-SEG_SIZE equ 0x600
+SEG_SIZE equ 0x700
 
 VMEM_SEG_0 equ 0x4000
 VMEM_SEG_1 equ 0x4800
@@ -69,7 +78,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*0)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*0)
     pop af
     pop bc
     pop de
@@ -84,7 +93,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*1)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*1)
     pop af
     pop bc
     pop de
@@ -100,7 +109,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*2)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*2)
     pop af
     pop bc
     pop de
@@ -115,7 +124,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*3)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*3)
     pop af
     pop bc
     pop de
@@ -131,7 +140,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*4)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*4)
     pop af
     pop bc
     pop de
@@ -146,7 +155,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*5)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*5)
     pop af
     pop bc
     pop de
@@ -162,7 +171,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*6)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*6)
     pop af
     pop bc
     pop de
@@ -177,7 +186,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*7)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*7)
     pop af
     pop bc
     pop de
@@ -193,7 +202,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*8)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*8)
     pop af
     pop bc
     pop de
@@ -208,7 +217,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*9)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*9)
     pop af
     pop bc
     pop de
@@ -224,7 +233,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*10)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*10)
     pop af
     pop bc
     pop de
@@ -239,7 +248,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*11)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*11)
     pop af
     pop bc
     pop de
@@ -255,7 +264,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*12)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*12)
     pop af
     pop bc
     pop de
@@ -270,7 +279,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*13)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*13)
     pop af
     pop bc
     pop de
@@ -286,7 +295,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*14)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*14)
     pop af
     pop bc
     pop de
@@ -301,7 +310,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*15)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*15)
     pop af
     pop bc
     pop de
@@ -323,7 +332,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*16)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*16)
     pop af
     pop bc
     pop de
@@ -338,7 +347,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*17)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*17)
     pop af
     pop bc
     pop de
@@ -354,7 +363,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*18)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*18)
     pop af
     pop bc
     pop de
@@ -369,7 +378,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*19)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*19)
     pop af
     pop bc
     pop de
@@ -385,7 +394,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*20)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*20)
     pop af
     pop bc
     pop de
@@ -400,7 +409,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*21)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*21)
     pop af
     pop bc
     pop de
@@ -416,7 +425,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*22)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*22)
     pop af
     pop bc
     pop de
@@ -431,7 +440,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*23)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*23)
     pop af
     pop bc
     pop de
@@ -447,7 +456,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*24)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*24)
     pop af
     pop bc
     pop de
@@ -462,7 +471,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*25)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*25)
     pop af
     pop bc
     pop de
@@ -478,7 +487,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*26)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*26)
     pop af
     pop bc
     pop de
@@ -493,7 +502,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*27)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*27)
     pop af
     pop bc
     pop de
@@ -509,7 +518,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*28)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*28)
     pop af
     pop bc
     pop de
@@ -524,7 +533,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*29)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*29)
     pop af
     pop bc
     pop de
@@ -540,7 +549,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*30)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*30)
     pop af
     pop bc
     pop de
@@ -555,7 +564,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*31)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*31)
     pop af
     pop bc
     pop de
@@ -577,7 +586,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*32)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*32)
     pop af
     pop bc
     pop de
@@ -592,7 +601,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*33)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*33)
     pop af
     pop bc
     pop de
@@ -608,7 +617,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*34)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*34)
     pop af
     pop bc
     pop de
@@ -623,7 +632,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*35)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*35)
     pop af
     pop bc
     pop de
@@ -639,7 +648,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*36)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*36)
     pop af
     pop bc
     pop de
@@ -654,7 +663,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*37)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*37)
     pop af
     pop bc
     pop de
@@ -670,7 +679,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*38)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*38)
     pop af
     pop bc
     pop de
@@ -685,7 +694,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*39)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*39)
     pop af
     pop bc
     pop de
@@ -701,7 +710,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*40)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*40)
     pop af
     pop bc
     pop de
@@ -716,7 +725,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*41)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*41)
     pop af
     pop bc
     pop de
@@ -732,7 +741,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*42)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*42)
     pop af
     pop bc
     pop de
@@ -747,7 +756,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*43)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*43)
     pop af
     pop bc
     pop de
@@ -763,7 +772,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*44)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*44)
     pop af
     pop bc
     pop de
@@ -778,7 +787,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*45)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*45)
     pop af
     pop bc
     pop de
@@ -794,7 +803,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*46)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*46)
     pop af
     pop bc
     pop de
@@ -809,7 +818,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*47)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*47)
     pop af
     pop bc
     pop de
@@ -830,7 +839,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*48)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*48)
     pop af
     pop bc
     pop de
@@ -845,7 +854,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*49)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*49)
     pop af
     pop bc
     pop de
@@ -861,7 +870,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*50)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*50)
     pop af
     pop bc
     pop de
@@ -876,7 +885,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*51)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*51)
     pop af
     pop bc
     pop de
@@ -892,7 +901,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*52)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*52)
     pop af
     pop bc
     pop de
@@ -907,7 +916,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*53)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*53)
     pop af
     pop bc
     pop de
@@ -923,7 +932,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*54)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*54)
     pop af
     pop bc
     pop de
@@ -938,7 +947,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*55)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*55)
     pop af
     pop bc
     pop de
@@ -954,7 +963,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*56)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*56)
     pop af
     pop bc
     pop de
@@ -969,7 +978,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*57)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*57)
     pop af
     pop bc
     pop de
@@ -985,7 +994,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*58)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*58)
     pop af
     pop bc
     pop de
@@ -1000,7 +1009,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*59)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*59)
     pop af
     pop bc
     pop de
@@ -1016,7 +1025,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*60)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*60)
     pop af
     pop bc
     pop de
@@ -1031,7 +1040,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*61)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*61)
     pop af
     pop bc
     pop de
@@ -1047,7 +1056,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*62)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*62)
     pop af
     pop bc
     pop de
@@ -1062,7 +1071,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*63)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*63)
     pop af
     pop bc
     pop de
@@ -1084,7 +1093,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*64)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*64)
     pop af
     pop bc
     pop de
@@ -1099,7 +1108,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*65)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*65)
     pop af
     pop bc
     pop de
@@ -1115,7 +1124,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*66)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*66)
     pop af
     pop bc
     pop de
@@ -1130,7 +1139,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*67)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*67)
     pop af
     pop bc
     pop de
@@ -1146,7 +1155,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*68)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*68)
     pop af
     pop bc
     pop de
@@ -1161,7 +1170,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*69)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*69)
     pop af
     pop bc
     pop de
@@ -1177,7 +1186,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*70)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*70)
     pop af
     pop bc
     pop de
@@ -1192,7 +1201,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*71)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*71)
     pop af
     pop bc
     pop de
@@ -1208,7 +1217,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*72)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*72)
     pop af
     pop bc
     pop de
@@ -1223,7 +1232,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*73)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*73)
     pop af
     pop bc
     pop de
@@ -1239,7 +1248,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*74)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*74)
     pop af
     pop bc
     pop de
@@ -1254,7 +1263,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*75)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*75)
     pop af
     pop bc
     pop de
@@ -1270,7 +1279,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*76)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*76)
     pop af
     pop bc
     pop de
@@ -1285,7 +1294,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*77)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*77)
     pop af
     pop bc
     pop de
@@ -1301,7 +1310,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*78)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*78)
     pop af
     pop bc
     pop de
@@ -1316,7 +1325,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*79)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*79)
     pop af
     pop bc
     pop de
@@ -1339,7 +1348,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*80)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*80)
     pop af
     pop bc
     pop de
@@ -1354,7 +1363,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*81)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*81)
     pop af
     pop bc
     pop de
@@ -1370,7 +1379,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*82)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*82)
     pop af
     pop bc
     pop de
@@ -1385,7 +1394,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*83)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*83)
     pop af
     pop bc
     pop de
@@ -1401,7 +1410,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*84)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*84)
     pop af
     pop bc
     pop de
@@ -1416,7 +1425,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*85)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*85)
     pop af
     pop bc
     pop de
@@ -1432,7 +1441,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*86)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*86)
     pop af
     pop bc
     pop de
@@ -1447,7 +1456,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*87)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*87)
     pop af
     pop bc
     pop de
@@ -1463,7 +1472,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*88)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*88)
     pop af
     pop bc
     pop de
@@ -1478,7 +1487,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*89)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*89)
     pop af
     pop bc
     pop de
@@ -1494,7 +1503,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*90)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*90)
     pop af
     pop bc
     pop de
@@ -1509,7 +1518,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*91)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*91)
     pop af
     pop bc
     pop de
@@ -1525,7 +1534,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*92)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*92)
     pop af
     pop bc
     pop de
@@ -1540,7 +1549,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*93)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*93)
     pop af
     pop bc
     pop de
@@ -1556,7 +1565,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*94)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*94)
     pop af
     pop bc
     pop de
@@ -1571,7 +1580,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*95)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*95)
     pop af
     pop bc
     pop de
@@ -1592,7 +1601,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*96)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*96)
     pop af
     pop bc
     pop de
@@ -1607,7 +1616,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*97)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*97)
     pop af
     pop bc
     pop de
@@ -1623,7 +1632,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*98)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*98)
     pop af
     pop bc
     pop de
@@ -1638,7 +1647,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*99)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*99)
     pop af
     pop bc
     pop de
@@ -1654,7 +1663,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*100)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*100)
     pop af
     pop bc
     pop de
@@ -1669,7 +1678,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*101)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*101)
     pop af
     pop bc
     pop de
@@ -1685,7 +1694,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*102)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*102)
     pop af
     pop bc
     pop de
@@ -1700,7 +1709,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*103)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*103)
     pop af
     pop bc
     pop de
@@ -1716,7 +1725,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*104)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*104)
     pop af
     pop bc
     pop de
@@ -1731,7 +1740,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*105)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*105)
     pop af
     pop bc
     pop de
@@ -1747,7 +1756,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*106)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*106)
     pop af
     pop bc
     pop de
@@ -1762,7 +1771,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*107)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*107)
     pop af
     pop bc
     pop de
@@ -1778,7 +1787,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*108)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*108)
     pop af
     pop bc
     pop de
@@ -1793,7 +1802,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*109)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*109)
     pop af
     pop bc
     pop de
@@ -1809,7 +1818,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*110)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*110)
     pop af
     pop bc
     pop de
@@ -1824,7 +1833,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*111)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*111)
     pop af
     pop bc
     pop de
@@ -1845,7 +1854,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*112)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*112)
     pop af
     pop bc
     pop de
@@ -1860,7 +1869,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*113)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*113)
     pop af
     pop bc
     pop de
@@ -1876,7 +1885,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*114)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*114)
     pop af
     pop bc
     pop de
@@ -1891,7 +1900,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*115)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*115)
     pop af
     pop bc
     pop de
@@ -1907,7 +1916,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*116)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*116)
     pop af
     pop bc
     pop de
@@ -1922,7 +1931,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*117)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*117)
     pop af
     pop bc
     pop de
@@ -1938,7 +1947,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*118)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*118)
     pop af
     pop bc
     pop de
@@ -1953,7 +1962,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*119)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*119)
     pop af
     pop bc
     pop de
@@ -1969,7 +1978,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*120)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*120)
     pop af
     pop bc
     pop de
@@ -1984,7 +1993,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*121)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*121)
     pop af
     pop bc
     pop de
@@ -2000,7 +2009,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*122)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*122)
     pop af
     pop bc
     pop de
@@ -2015,7 +2024,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*123)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*123)
     pop af
     pop bc
     pop de
@@ -2031,7 +2040,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*124)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*124)
     pop af
     pop bc
     pop de
@@ -2046,7 +2055,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*125)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*125)
     pop af
     pop bc
     pop de
@@ -2062,7 +2071,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*126)
+    ld sp,BUFFER_SIDE_EXTRA+GAME_WINDOW_START+(BUFFER_MIDDLE*126)
     pop af
     pop bc
     pop de
@@ -2077,7 +2086,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*127)
+    ld sp,GAME_WINDOW_START+(BUFFER_MIDDLE*127)
     pop af
     pop bc
     pop de
@@ -2132,7 +2141,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*0)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*0)
     pop af
     pop bc
     pop de
@@ -2147,7 +2156,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*1)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*1)
     pop af
     pop bc
     pop de
@@ -2163,7 +2172,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*2)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*2)
     pop af
     pop bc
     pop de
@@ -2178,7 +2187,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*3)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*3)
     pop af
     pop bc
     pop de
@@ -2194,7 +2203,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*4)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*4)
     pop af
     pop bc
     pop de
@@ -2209,7 +2218,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*5)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*5)
     pop af
     pop bc
     pop de
@@ -2225,7 +2234,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*6)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*6)
     pop af
     pop bc
     pop de
@@ -2240,7 +2249,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*7)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*7)
     pop af
     pop bc
     pop de
@@ -2256,7 +2265,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*8)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*8)
     pop af
     pop bc
     pop de
@@ -2271,7 +2280,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*9)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*9)
     pop af
     pop bc
     pop de
@@ -2287,7 +2296,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*10)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*10)
     pop af
     pop bc
     pop de
@@ -2302,7 +2311,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*11)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*11)
     pop af
     pop bc
     pop de
@@ -2318,7 +2327,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*12)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*12)
     pop af
     pop bc
     pop de
@@ -2333,7 +2342,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*13)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*13)
     pop af
     pop bc
     pop de
@@ -2349,7 +2358,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*14)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*14)
     pop af
     pop bc
     pop de
@@ -2364,7 +2373,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*15)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*15)
     pop af
     pop bc
     pop de
@@ -2386,7 +2395,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*16)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*16)
     pop af
     pop bc
     pop de
@@ -2401,7 +2410,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*17)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*17)
     pop af
     pop bc
     pop de
@@ -2417,7 +2426,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*18)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*18)
     pop af
     pop bc
     pop de
@@ -2432,7 +2441,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*19)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*19)
     pop af
     pop bc
     pop de
@@ -2448,7 +2457,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*20)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*20)
     pop af
     pop bc
     pop de
@@ -2463,7 +2472,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*21)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*21)
     pop af
     pop bc
     pop de
@@ -2479,7 +2488,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*22)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*22)
     pop af
     pop bc
     pop de
@@ -2494,7 +2503,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*23)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*23)
     pop af
     pop bc
     pop de
@@ -2510,7 +2519,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*24)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*24)
     pop af
     pop bc
     pop de
@@ -2525,7 +2534,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*25)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*25)
     pop af
     pop bc
     pop de
@@ -2541,7 +2550,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*26)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*26)
     pop af
     pop bc
     pop de
@@ -2556,7 +2565,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*27)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*27)
     pop af
     pop bc
     pop de
@@ -2572,7 +2581,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*28)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*28)
     pop af
     pop bc
     pop de
@@ -2587,7 +2596,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*29)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*29)
     pop af
     pop bc
     pop de
@@ -2603,7 +2612,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*30)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*30)
     pop af
     pop bc
     pop de
@@ -2618,7 +2627,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*31)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*31)
     pop af
     pop bc
     pop de
@@ -2640,7 +2649,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*32)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*32)
     pop af
     pop bc
     pop de
@@ -2655,7 +2664,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*33)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*33)
     pop af
     pop bc
     pop de
@@ -2671,7 +2680,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*34)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*34)
     pop af
     pop bc
     pop de
@@ -2686,7 +2695,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*35)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*35)
     pop af
     pop bc
     pop de
@@ -2702,7 +2711,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*36)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*36)
     pop af
     pop bc
     pop de
@@ -2717,7 +2726,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*37)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*37)
     pop af
     pop bc
     pop de
@@ -2733,7 +2742,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*38)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*38)
     pop af
     pop bc
     pop de
@@ -2748,7 +2757,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*39)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*39)
     pop af
     pop bc
     pop de
@@ -2764,7 +2773,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*40)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*40)
     pop af
     pop bc
     pop de
@@ -2779,7 +2788,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*41)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*41)
     pop af
     pop bc
     pop de
@@ -2795,7 +2804,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*42)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*42)
     pop af
     pop bc
     pop de
@@ -2810,7 +2819,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*43)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*43)
     pop af
     pop bc
     pop de
@@ -2826,7 +2835,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*44)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*44)
     pop af
     pop bc
     pop de
@@ -2841,7 +2850,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*45)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*45)
     pop af
     pop bc
     pop de
@@ -2857,7 +2866,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*46)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*46)
     pop af
     pop bc
     pop de
@@ -2872,7 +2881,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*47)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*47)
     pop af
     pop bc
     pop de
@@ -2893,7 +2902,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*48)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*48)
     pop af
     pop bc
     pop de
@@ -2908,7 +2917,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*49)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*49)
     pop af
     pop bc
     pop de
@@ -2924,7 +2933,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*50)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*50)
     pop af
     pop bc
     pop de
@@ -2939,7 +2948,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*51)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*51)
     pop af
     pop bc
     pop de
@@ -2955,7 +2964,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*52)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*52)
     pop af
     pop bc
     pop de
@@ -2970,7 +2979,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*53)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*53)
     pop af
     pop bc
     pop de
@@ -2986,7 +2995,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*54)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*54)
     pop af
     pop bc
     pop de
@@ -3001,7 +3010,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*55)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*55)
     pop af
     pop bc
     pop de
@@ -3017,7 +3026,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*56)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*56)
     pop af
     pop bc
     pop de
@@ -3032,7 +3041,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*57)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*57)
     pop af
     pop bc
     pop de
@@ -3048,7 +3057,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*58)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*58)
     pop af
     pop bc
     pop de
@@ -3063,7 +3072,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*59)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*59)
     pop af
     pop bc
     pop de
@@ -3079,7 +3088,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*60)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*60)
     pop af
     pop bc
     pop de
@@ -3094,7 +3103,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*61)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*61)
     pop af
     pop bc
     pop de
@@ -3110,7 +3119,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*62)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*62)
     pop af
     pop bc
     pop de
@@ -3125,7 +3134,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*63)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*63)
     pop af
     pop bc
     pop de
@@ -3147,7 +3156,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*64)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*64)
     pop af
     pop bc
     pop de
@@ -3162,7 +3171,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*65)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*65)
     pop af
     pop bc
     pop de
@@ -3178,7 +3187,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*66)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*66)
     pop af
     pop bc
     pop de
@@ -3193,7 +3202,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*67)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*67)
     pop af
     pop bc
     pop de
@@ -3209,7 +3218,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*68)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*68)
     pop af
     pop bc
     pop de
@@ -3224,7 +3233,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*69)  
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*69)  
     pop af
     pop bc
     pop de
@@ -3240,7 +3249,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*70)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*70)
     pop af
     pop bc
     pop de
@@ -3255,7 +3264,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*71)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*71)
     pop af
     pop bc
     pop de
@@ -3271,7 +3280,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*72)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*72)
     pop af
     pop bc
     pop de
@@ -3286,7 +3295,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*73)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*73)
     pop af
     pop bc
     pop de
@@ -3302,7 +3311,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*74)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*74)
     pop af
     pop bc
     pop de
@@ -3317,7 +3326,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*75)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*75)
     pop af
     pop bc
     pop de
@@ -3333,7 +3342,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*76)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*76)
     pop af
     pop bc
     pop de
@@ -3348,7 +3357,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*77)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*77)
     pop af
     pop bc
     pop de
@@ -3364,7 +3373,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*78)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*78)
     pop af
     pop bc
     pop de
@@ -3379,7 +3388,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*79)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*79)
     pop af
     pop bc
     pop de
@@ -3402,7 +3411,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*80)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*80)
     pop af
     pop bc
     pop de
@@ -3417,7 +3426,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*81)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*81)
     pop af
     pop bc
     pop de
@@ -3433,7 +3442,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*82)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*82)
     pop af
     pop bc
     pop de
@@ -3448,7 +3457,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*83)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*83)
     pop af
     pop bc
     pop de
@@ -3464,7 +3473,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*84)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*84)
     pop af
     pop bc
     pop de
@@ -3479,7 +3488,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*85)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*85)
     pop af
     pop bc
     pop de
@@ -3495,7 +3504,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*86)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*86)
     pop af
     pop bc
     pop de
@@ -3510,7 +3519,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*87)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*87)
     pop af
     pop bc
     pop de
@@ -3526,7 +3535,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*88)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*88)
     pop af
     pop bc
     pop de
@@ -3541,7 +3550,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*89)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*89)
     pop af
     pop bc
     pop de
@@ -3557,7 +3566,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*90)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*90)
     pop af
     pop bc
     pop de
@@ -3572,7 +3581,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*91)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*91)
     pop af
     pop bc
     pop de
@@ -3588,7 +3597,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*92)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*92)
     pop af
     pop bc
     pop de
@@ -3603,7 +3612,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*93)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*93)
     pop af
     pop bc
     pop de
@@ -3619,7 +3628,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*94)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*94)
     pop af
     pop bc
     pop de
@@ -3634,7 +3643,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*95)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*95)
     pop af
     pop bc
     pop de
@@ -3655,7 +3664,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*96)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*96)
     pop af
     pop bc
     pop de
@@ -3670,7 +3679,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*97)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*97)
     pop af
     pop bc
     pop de
@@ -3686,7 +3695,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*98)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*98)
     pop af
     pop bc
     pop de
@@ -3701,7 +3710,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*99)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*99)
     pop af
     pop bc
     pop de
@@ -3717,7 +3726,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*100)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*100)
     pop af
     pop bc
     pop de
@@ -3732,7 +3741,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*101)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*101)
     pop af
     pop bc
     pop de
@@ -3748,7 +3757,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*102)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*102)
     pop af
     pop bc
     pop de
@@ -3763,7 +3772,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*103)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*103)
     pop af
     pop bc
     pop de
@@ -3779,7 +3788,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*104)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*104)
     pop af
     pop bc
     pop de
@@ -3794,7 +3803,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*105)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*105)
     pop af
     pop bc
     pop de
@@ -3810,7 +3819,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*106)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*106)
     pop af
     pop bc
     pop de
@@ -3825,7 +3834,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*107)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*107)
     pop af
     pop bc
     pop de
@@ -3841,7 +3850,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*108)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*108)
     pop af
     pop bc
     pop de
@@ -3856,7 +3865,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*109)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*109)
     pop af
     pop bc
     pop de
@@ -3872,7 +3881,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*110)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*110)
     pop af
     pop bc
     pop de
@@ -3887,7 +3896,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*111)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*111)
     pop af
     pop bc
     pop de
@@ -3908,7 +3917,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*112)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*112)
     pop af
     pop bc
     pop de
@@ -3923,7 +3932,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*113)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*113)
     pop af
     pop bc
     pop de
@@ -3939,7 +3948,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*114)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*114)
     pop af
     pop bc
     pop de
@@ -3954,7 +3963,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*115)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*115)
     pop af
     pop bc
     pop de
@@ -3970,7 +3979,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*116)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*116)
     pop af
     pop bc
     pop de
@@ -3985,7 +3994,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*117)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*117)
     pop af
     pop bc
     pop de
@@ -4001,7 +4010,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*118)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*118)
     pop af
     pop bc
     pop de
@@ -4016,7 +4025,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*119)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*119)
     pop af
     pop bc
     pop de
@@ -4032,7 +4041,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*120)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*120)
     pop af
     pop bc
     pop de
@@ -4047,7 +4056,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*121)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*121)
     pop af
     pop bc
     pop de
@@ -4063,7 +4072,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*122)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*122)
     pop af
     pop bc
     pop de
@@ -4078,7 +4087,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*123)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*123)
     pop af
     pop bc
     pop de
@@ -4094,7 +4103,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*124)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*124)
     pop af
     pop bc
     pop de
@@ -4109,7 +4118,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*125)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*125)
     pop af
     pop bc
     pop de
@@ -4125,7 +4134,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*126)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*126)
     pop af
     pop bc
     pop de
@@ -4140,7 +4149,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*127)
+    ld sp,SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*127)
     pop af
     pop bc
     pop de
@@ -4197,7 +4206,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*0)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*0)
     pop af
     pop bc
     pop de
@@ -4212,7 +4221,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*1)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*1)
     pop af
     pop bc
     pop de
@@ -4228,7 +4237,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*2)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*2)
     pop af
     pop bc
     pop de
@@ -4243,7 +4252,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*3)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*3)
     pop af
     pop bc
     pop de
@@ -4259,7 +4268,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*4)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*4)
     pop af
     pop bc
     pop de
@@ -4274,7 +4283,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*5)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*5)
     pop af
     pop bc
     pop de
@@ -4290,7 +4299,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*6)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*6)
     pop af
     pop bc
     pop de
@@ -4305,7 +4314,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*7)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*7)
     pop af
     pop bc
     pop de
@@ -4321,7 +4330,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*8)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*8)
     pop af
     pop bc
     pop de
@@ -4336,7 +4345,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*9)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*9)
     pop af
     pop bc
     pop de
@@ -4352,7 +4361,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*10)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*10)
     pop af
     pop bc
     pop de
@@ -4367,7 +4376,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*11)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*11)
     pop af
     pop bc
     pop de
@@ -4383,7 +4392,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*12)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*12)
     pop af
     pop bc
     pop de
@@ -4398,7 +4407,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*13)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*13)
     pop af
     pop bc
     pop de
@@ -4414,7 +4423,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*14)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*14)
     pop af
     pop bc
     pop de
@@ -4429,7 +4438,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*15)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*15)
     pop af
     pop bc
     pop de
@@ -4451,7 +4460,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*16)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*16)
     pop af
     pop bc
     pop de
@@ -4466,7 +4475,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*17)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*17)
     pop af
     pop bc
     pop de
@@ -4482,7 +4491,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*18)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*18)
     pop af
     pop bc
     pop de
@@ -4497,7 +4506,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*19)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*19)
     pop af
     pop bc
     pop de
@@ -4513,7 +4522,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*20)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*20)
     pop af
     pop bc
     pop de
@@ -4528,7 +4537,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*21)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*21)
     pop af
     pop bc
     pop de
@@ -4544,7 +4553,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*22)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*22)
     pop af
     pop bc
     pop de
@@ -4559,7 +4568,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*23)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*23)
     pop af
     pop bc
     pop de
@@ -4575,7 +4584,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*24)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*24)
     pop af
     pop bc
     pop de
@@ -4590,7 +4599,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*25)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*25)
     pop af
     pop bc
     pop de
@@ -4606,7 +4615,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*26)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*26)
     pop af
     pop bc
     pop de
@@ -4621,7 +4630,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*27)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*27)
     pop af
     pop bc
     pop de
@@ -4637,7 +4646,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*28)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*28)
     pop af
     pop bc
     pop de
@@ -4652,7 +4661,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*29)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*29)
     pop af
     pop bc
     pop de
@@ -4668,7 +4677,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*30)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*30)
     pop af
     pop bc
     pop de
@@ -4683,7 +4692,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*31)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*31)
     pop af
     pop bc
     pop de
@@ -4705,7 +4714,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*32)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*32)
     pop af
     pop bc
     pop de
@@ -4720,7 +4729,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*33)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*33)
     pop af
     pop bc
     pop de
@@ -4736,7 +4745,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*34)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*34)
     pop af
     pop bc
     pop de
@@ -4751,7 +4760,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*35)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*35)
     pop af
     pop bc
     pop de
@@ -4767,7 +4776,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*36)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*36)
     pop af
     pop bc
     pop de
@@ -4782,7 +4791,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*37)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*37)
     pop af
     pop bc
     pop de
@@ -4798,7 +4807,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*38)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*38)
     pop af
     pop bc
     pop de
@@ -4813,7 +4822,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*39)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*39)
     pop af
     pop bc
     pop de
@@ -4829,7 +4838,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*40)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*40)
     pop af
     pop bc
     pop de
@@ -4844,7 +4853,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*41)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*41)
     pop af
     pop bc
     pop de
@@ -4860,7 +4869,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*42)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*42)
     pop af
     pop bc
     pop de
@@ -4875,7 +4884,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*43)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*43)
     pop af
     pop bc
     pop de
@@ -4891,7 +4900,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*44)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*44)
     pop af
     pop bc
     pop de
@@ -4906,7 +4915,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*45)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*45)
     pop af
     pop bc
     pop de
@@ -4922,7 +4931,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*46)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*46)
     pop af
     pop bc
     pop de
@@ -4937,7 +4946,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*47)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*47)
     pop af
     pop bc
     pop de
@@ -4958,7 +4967,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*48)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*48)
     pop af
     pop bc
     pop de
@@ -4973,7 +4982,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*49)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*49)
     pop af
     pop bc
     pop de
@@ -4989,7 +4998,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*50)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*50)
     pop af
     pop bc
     pop de
@@ -5004,7 +5013,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*51)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*51)
     pop af
     pop bc
     pop de
@@ -5020,7 +5029,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*52)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*52)
     pop af
     pop bc
     pop de
@@ -5035,7 +5044,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*53)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*53)
     pop af
     pop bc
     pop de
@@ -5051,7 +5060,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*54)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*54)
     pop af
     pop bc
     pop de
@@ -5066,7 +5075,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*55)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*55)
     pop af
     pop bc
     pop de
@@ -5082,7 +5091,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*56)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*56)
     pop af
     pop bc
     pop de
@@ -5097,7 +5106,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*57)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*57)
     pop af
     pop bc
     pop de
@@ -5113,7 +5122,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*58)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*58)
     pop af
     pop bc
     pop de
@@ -5128,7 +5137,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*59)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*59)
     pop af
     pop bc
     pop de
@@ -5144,7 +5153,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*60)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*60)
     pop af
     pop bc
     pop de
@@ -5159,7 +5168,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*61)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*61)
     pop af
     pop bc
     pop de
@@ -5175,7 +5184,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*62)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*62)
     pop af
     pop bc
     pop de
@@ -5190,7 +5199,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*63)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*63)
     pop af
     pop bc
     pop de
@@ -5212,7 +5221,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*64)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*64)
     pop af
     pop bc
     pop de
@@ -5227,7 +5236,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*65)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*65)
     pop af
     pop bc
     pop de
@@ -5243,7 +5252,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*66)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*66)
     pop af
     pop bc
     pop de
@@ -5258,7 +5267,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*67)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*67)
     pop af
     pop bc
     pop de
@@ -5274,7 +5283,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*68)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*68)
     pop af
     pop bc
     pop de
@@ -5289,7 +5298,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*69)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*69)
     pop af
     pop bc
     pop de
@@ -5305,7 +5314,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*70)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*70)
     pop af
     pop bc
     pop de
@@ -5320,7 +5329,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*71)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*71)
     pop af
     pop bc
     pop de
@@ -5336,7 +5345,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*72)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*72)
     pop af
     pop bc
     pop de
@@ -5351,7 +5360,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*73)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*73)
     pop af
     pop bc
     pop de
@@ -5367,7 +5376,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*74)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*74)
     pop af
     pop bc
     pop de
@@ -5382,7 +5391,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*75)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*75)
     pop af
     pop bc
     pop de
@@ -5398,7 +5407,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*76)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*76)
     pop af
     pop bc
     pop de
@@ -5413,7 +5422,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*77)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*77)
     pop af
     pop bc
     pop de
@@ -5429,7 +5438,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*78)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*78)
     pop af
     pop bc
     pop de
@@ -5444,7 +5453,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*79)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*79)
     pop af
     pop bc
     pop de
@@ -5467,7 +5476,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*80)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*80)
     pop af
     pop bc
     pop de
@@ -5482,7 +5491,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*81)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*81)
     pop af
     pop bc
     pop de
@@ -5498,7 +5507,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*82)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*82)
     pop af
     pop bc
     pop de
@@ -5513,7 +5522,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*83)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*83)
     pop af
     pop bc
     pop de
@@ -5529,7 +5538,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*84)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*84)
     pop af
     pop bc
     pop de
@@ -5544,7 +5553,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*85)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*85)
     pop af
     pop bc
     pop de
@@ -5560,7 +5569,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*86)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*86)
     pop af
     pop bc
     pop de
@@ -5575,7 +5584,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*87)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*87)
     pop af
     pop bc
     pop de
@@ -5591,7 +5600,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*88)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*88)
     pop af
     pop bc
     pop de
@@ -5606,7 +5615,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*89)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*89)
     pop af
     pop bc
     pop de
@@ -5622,7 +5631,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*90)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*90)
     pop af
     pop bc
     pop de
@@ -5637,7 +5646,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*91)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*91)
     pop af
     pop bc
     pop de
@@ -5653,7 +5662,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*92)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*92)
     pop af
     pop bc
     pop de
@@ -5668,7 +5677,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*93)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*93)
     pop af
     pop bc
     pop de
@@ -5684,7 +5693,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*94)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*94)
     pop af
     pop bc
     pop de
@@ -5699,7 +5708,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*95)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*95)
     pop af
     pop bc
     pop de
@@ -5720,7 +5729,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*96)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*96)
     pop af
     pop bc
     pop de
@@ -5735,7 +5744,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*97)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*97)
     pop af
     pop bc
     pop de
@@ -5751,7 +5760,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*98)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*98)
     pop af
     pop bc
     pop de
@@ -5766,7 +5775,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*99)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*99)
     pop af
     pop bc
     pop de
@@ -5782,7 +5791,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*100)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*100)
     pop af
     pop bc
     pop de
@@ -5797,7 +5806,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*101)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*101)
     pop af
     pop bc
     pop de
@@ -5813,7 +5822,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*102)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*102)
     pop af
     pop bc
     pop de
@@ -5828,7 +5837,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*103)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*103)
     pop af
     pop bc
     pop de
@@ -5844,7 +5853,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*104)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*104)
     pop af
     pop bc
     pop de
@@ -5859,7 +5868,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*105)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*105)
     pop af
     pop bc
     pop de
@@ -5875,7 +5884,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*106)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*106)
     pop af
     pop bc
     pop de
@@ -5890,7 +5899,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*107)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*107)
     pop af
     pop bc
     pop de
@@ -5906,7 +5915,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*108)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*108)
     pop af
     pop bc
     pop de
@@ -5921,7 +5930,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*109)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*109)
     pop af
     pop bc
     pop de
@@ -5937,7 +5946,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*110)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*110)
     pop af
     pop bc
     pop de
@@ -5952,7 +5961,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*111)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*111)
     pop af
     pop bc
     pop de
@@ -5973,7 +5982,7 @@ drawgamewindow:
 
     ;Scanline 0
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*112)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*112)
     pop af
     pop bc
     pop de
@@ -5988,7 +5997,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*113)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*113)
     pop af
     pop bc
     pop de
@@ -6004,7 +6013,7 @@ drawgamewindow:
     push af
     ;Scanline 1
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*114)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*114)
     pop af
     pop bc
     pop de
@@ -6019,7 +6028,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*115)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*115)
     pop af
     pop bc
     pop de
@@ -6035,7 +6044,7 @@ drawgamewindow:
     push af
     ;Scanline 2
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*116)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*116)
     pop af
     pop bc
     pop de
@@ -6050,7 +6059,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*117)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*117)
     pop af
     pop bc
     pop de
@@ -6066,7 +6075,7 @@ drawgamewindow:
     push af
     ;Scanline 3
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*118)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*118)
     pop af
     pop bc
     pop de
@@ -6081,7 +6090,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*119)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*119)
     pop af
     pop bc
     pop de
@@ -6097,7 +6106,7 @@ drawgamewindow:
     push af
     ;Scanline 4
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*120)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*120)
     pop af
     pop bc
     pop de
@@ -6112,7 +6121,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*121)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*121)
     pop af
     pop bc
     pop de
@@ -6128,7 +6137,7 @@ drawgamewindow:
     push af
     ;Scanline 5
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*122)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*122)
     pop af
     pop bc
     pop de
@@ -6143,7 +6152,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*123)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*123)
     pop af
     pop bc
     pop de
@@ -6159,7 +6168,7 @@ drawgamewindow:
     push af
     ;Scanline 6
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*124)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*124)
     pop af
     pop bc
     pop de
@@ -6174,7 +6183,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*125)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*125)
     pop af
     pop bc
     pop de
@@ -6190,7 +6199,7 @@ drawgamewindow:
     push af
     ;Scanline 7
     ;1/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*126)
+    ld sp,BUFFER_SIDE_EXTRA+SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*126)
     pop af
     pop bc
     pop de
@@ -6205,7 +6214,7 @@ drawgamewindow:
     push bc
     push af
     ;2/2
-    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_CHUNK_LENGTH*127)
+    ld sp,SEG_SIZE+SEG_SIZE+GAME_WINDOW_START+(BUFFER_MIDDLE*127)
     pop af
     pop bc
     pop de
