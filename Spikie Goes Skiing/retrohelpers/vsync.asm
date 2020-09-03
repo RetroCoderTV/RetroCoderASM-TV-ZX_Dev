@@ -1,4 +1,4 @@
-FRAME_DELAY equ 3
+FRAME_DELAY equ 2
 
 
 

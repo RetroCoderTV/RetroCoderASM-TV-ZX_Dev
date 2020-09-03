@@ -7,38 +7,35 @@ VEH_TRUCK equ 3
 ;vehicle constants:
 VEH_BIKE_WIDTH equ 2
 VEH_BIKE_HEIGHT equ 2
-VEH_BIKE_SPEED equ 2
 VEH_SALOON_WIDTH equ 4
 VEH_SALOON_HEIGHT equ 2
-VEH_SALOON_SPEED equ 1
 
-VEH_DATA_LENGTH equ 6
-;isAlive,x,y,w,h,speed
+VEH_FAST_SPEED equ 248
+VEH_MEDIUM_SPEED equ 124
+VEH_SLOW_SPEED equ 62
+
+VEH_SPEED_CLOCK_MAX equ 248
+
+VEH_MAX_SPEED equ 3
+VEH_DATA_LENGTH equ 7
+;isAlive,x,y,w,h,speed,speedcounter
 vehicles_r:
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
     db 255
 
 
 vehicles_l:
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0
     db 255
 
 
@@ -185,6 +182,9 @@ sprite_truck_l:
     db %00000000, %00000110, %00000000, %00011000, %00000000, %00001100, %01100000
 ;
 spawn_vehicle_right:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
     ld ix,vehicles_r
     call spwn_veh_r
     ret
@@ -226,9 +226,15 @@ spwn_bike_r:
     ld (ix+3),a
     ld a,VEH_BIKE_HEIGHT
     ld (ix+4),a
-    ld a,VEH_BIKE_SPEED
-    ld (ix+5),a
+    call getrandom
+    cp FIFTY50
+    call c, spwn_set_bike_speed_half
+    call nc, spwn_set_bike_speed_full
+    xor a
+    ld (ix+6),a
     ret
+
+
 
 spwn_saloon_r:
     ld a,VEH_SALOON
@@ -249,9 +255,15 @@ spwn_saloon_r:
     ld (ix+3),a
     ld a,VEH_SALOON_HEIGHT
     ld (ix+4),a
-    ld a,VEH_SALOON_SPEED
-    ld (ix+5),a
+    call getrandom
+    cp FIFTY50
+    call c, spwn_set_saloon_speed_half
+    call nc, spwn_set_saloon_speed_full
+    xor a
+    ld (ix+6),a
     ret
+
+
 
 spwn_truck_r:
     ret
@@ -259,6 +271,9 @@ spwn_truck_r:
 
 
 spawn_vehicle_left:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
     ld ix,vehicles_l
     call spwn_veh_l
     ret
@@ -300,8 +315,12 @@ spwn_bike_l:
     ld (ix+3),a
     ld a,VEH_BIKE_HEIGHT
     ld (ix+4),a
-    ld a,-VEH_BIKE_SPEED
-    ld (ix+5),a
+    call getrandom
+    cp FIFTY50
+    call c, spwn_set_bike_speed_half
+    call nc, spwn_set_bike_speed_full
+    xor a
+    ld (ix+6),a
     ret
 
 spwn_saloon_l:
@@ -323,7 +342,29 @@ spwn_saloon_l:
     ld (ix+3),a
     ld a,VEH_SALOON_HEIGHT
     ld (ix+4),a
-    ld a,-VEH_SALOON_SPEED
+    call getrandom
+    cp FIFTY50
+    call c, spwn_set_saloon_speed_half
+    call nc, spwn_set_saloon_speed_full
+    xor a
+    ld (ix+6),a
+    ret
+
+
+spwn_set_bike_speed_full:
+    ld a,VEH_FAST_SPEED
+    ld (ix+5),a
+    ret
+spwn_set_bike_speed_half:
+    ld a,VEH_MEDIUM_SPEED
+    ld (ix+5),a
+    ret
+spwn_set_saloon_speed_full:
+    ld a,VEH_MEDIUM_SPEED
+    ld (ix+5),a
+    ret
+spwn_set_saloon_speed_half:
+    ld a,VEH_SLOW_SPEED
     ld (ix+5),a
     ret
 
@@ -336,6 +377,7 @@ vehicles_update:
     
     ld ix,vehicles_r
     call veh_move_cars_r
+
 
     ld ix,vehicles_l
     call veh_move_cars_l
@@ -362,10 +404,16 @@ veh_move_cars_r:
     ld a,(ix+1)
     cp MAX_X
     jp nc,vm_kill_r
-    ld b,a
-    ld a,(ix+5)
-    add a,b
+    ld a,(ix+6)
+    add a,(ix+5)
+    ld (ix+6),a
+    cp VEH_SPEED_CLOCK_MAX
+    jp c,vm_next_r
+    ld a,(ix+1)
+    add a,VEH_MAX_SPEED
     ld (ix+1),a
+    xor a
+    ld (ix+6),a
 vm_next_r:
     ld de,VEH_DATA_LENGTH
     add ix,de
@@ -384,10 +432,16 @@ veh_move_cars_l:
     ld a,(ix+1)
     cp MIN_X+1
     jp c,vm_kill_l
-    ld b,a
-    ld a,(ix+5)
-    add a,b
+    ld a,(ix+6)
+    add a,(ix+5)
+    ld (ix+6),a
+    cp VEH_SPEED_CLOCK_MAX
+    jp c,vm_next_l
+    ld a,(ix+1)
+    add a,-VEH_MAX_SPEED
     ld (ix+1),a
+    xor a
+    ld (ix+6),a
 vm_next_l:
     ld de,VEH_DATA_LENGTH
     add ix,de

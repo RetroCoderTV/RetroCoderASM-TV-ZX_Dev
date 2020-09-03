@@ -39,6 +39,16 @@ setbordergreen:
     call 0x229B
     ret
 
+setborderred:
+    ld a,COLOUR_RED
+    call 0x229B
+    ret
+
+setborderdefault:
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
+    ret
+
 paint_background:
     ld hl,ATTRIBUTE_MEMORY_START
     xor a

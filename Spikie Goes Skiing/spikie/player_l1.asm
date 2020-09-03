@@ -3,8 +3,8 @@
 
 player_update_l1:
     call check_keys
-
     call player_check_collision_shop
+    
     
     ld ix,vehicles_r
     call player_check_collision_cars
@@ -12,15 +12,47 @@ player_update_l1:
     ld ix,vehicles_l
     call player_check_collision_cars
 
-    call plyr_upd_noski_l1
-    ; ld a,(player_state)
-    ; cp NO_SKI
-    ; call z, plyr_upd_noski_l1
-    ; cp WITH_SKI
-    ; call z, plyr_upd_withski_l1
-
-
+    
+    
+    ld a,(player_state)
+    cp NO_SKI
+    call z, plyr_upd_noski_l1
+    ld a,(player_state)
+    cp WITH_SKI
+    call z, plyr_upd_withski_l1
+    ld a,(player_state)
+    cp PLAYER_DEAD
+    call z, plyr_upd_dead_l1
+    
     ret
+
+plyr_upd_dead_l1:  
+    call setborderred
+    call sync
+    call sync
+    call sync
+    call sync
+    call sync
+    call sync
+    call sync
+    call sync
+    call sync
+    ld a,(cash_10)
+    cp 0
+    ;jp z, game_over_screen
+    dec a
+    ld (cash_10),a
+    ld a,4
+    ld (playerx),a
+    xor a
+    ld (playery),a
+    ld a,NO_SKI
+    ld (player_state),a
+    ld a,DOWN
+    ld (player_direction),a
+    call setborderdefault
+    ret
+
 
 
 plyr_upd_noski_l1:
@@ -88,6 +120,9 @@ try_move_right_l1:
     ret
 
 try_move_up_l1:
+    ld a,(collision_detected_player_shop)
+    cp TRUE
+    ret z
     ld a,UP
     ld (player_direction),a
     ld a,(playery)
@@ -156,7 +191,9 @@ player_check_collision_cars:
     jp c, plyr_chk_coll_cars_next
 
     ; ;else, we collided....
-    ; call setborderpink
+    call setborderpink
+    ld a,PLAYER_DEAD
+    ld (player_state),a
     
     ret
 plyr_chk_coll_cars_next:

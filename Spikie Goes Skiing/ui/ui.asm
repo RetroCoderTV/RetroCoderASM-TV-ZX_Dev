@@ -152,6 +152,8 @@ draw_digit:
 
 
 
+
+
 increment_score1:
     ld a,(score_1)
     cp 9

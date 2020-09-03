@@ -14,7 +14,7 @@ player_anim_timer db 0
 player_attack_timer db 0
 
 playery db 0
-playerx db 0
+playerx db 4
 
 player_targetpos_x db 0
 player_targetpos_y db 0

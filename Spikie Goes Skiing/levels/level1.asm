@@ -2,7 +2,7 @@ L1_PAVEMENT_COLOUR equ %01111000
 L1_ROAD_COLOUR equ %01000111
 L1_WHITELINE_Y equ 96
 
-SPAWN_CHANCE_1 equ 15
+SPAWN_CHANCE_1 equ 210
 
 
 SHOP_X equ 8
@@ -64,10 +64,10 @@ l1_update:
     call increment_score1
     ; call setborderblue
     call getrandom
-    cp SPAWN_CHANCE_1
+    cp FIFTY50
     call c, spawn_vehicle_right
     call getrandom
-    cp SPAWN_CHANCE_1
+    cp FIFTY50
     call c, spawn_vehicle_left
 
     call vehicles_update
