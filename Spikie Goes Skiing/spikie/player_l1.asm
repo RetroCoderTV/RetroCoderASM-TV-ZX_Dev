@@ -98,7 +98,7 @@ try_move_left_l1:
     ld a,LEFT
     ld (player_direction),a
     ld a,(playerx)
-    cp MIN_X
+    cp PLAYER_MIN_X
     ret c
     ld a,(playerx)
     sub PLAYER_SPEED_X
@@ -112,7 +112,7 @@ try_move_right_l1:
     ld a,RIGHT
     ld (player_direction),a
     ld a,(playerx)
-    cp MAX_X
+    cp PLAYER_MAX_X
     ret nc
     ld a,(playerx)
     add a,PLAYER_SPEED_X
@@ -126,7 +126,7 @@ try_move_up_l1:
     ld a,UP
     ld (player_direction),a
     ld a,(playery)
-    cp MIN_Y
+    cp PLAYER_MIN_Y
     ret c
     ld a,(playery)
     sub PLAYER_SPEED_Y
@@ -139,7 +139,7 @@ try_move_down_l1:
     ld a,DOWN
     ld (player_direction),a
     ld a,(playery)
-    cp MAX_Y
+    cp PLAYER_MAX_Y
     ret nc
     ld a,(playery)
     add a,PLAYER_SPEED_Y

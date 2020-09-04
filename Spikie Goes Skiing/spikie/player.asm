@@ -6,6 +6,11 @@ PLAYER_BOUNDING_BOX_HEIGHT equ 5
 
 PLAYER_FRAME_SIZE equ 48
 
+PLAYER_MIN_X equ 2
+PLAYER_MAX_X equ BUFFER_WINDOW_WIDTH-PLAYER_WIDTH-1
+PLAYER_MIN_Y equ 4
+PLAYER_MAX_Y equ 192-24
+
 player_direction db DOWN
 player_state db NO_SKI
 player_current_frame db 0
@@ -13,17 +18,20 @@ player_current_frame db 0
 player_anim_timer db 0
 player_attack_timer db 0
 
-playery db 0
-playerx db 4
+playery db 32
+playerx db 12
 
 player_targetpos_x db 0
 player_targetpos_y db 0
 
 PLAYER_SPEED_X equ 1
-PLAYER_SPEED_Y equ 4
+PLAYER_SPEED_Y equ 8
 
 collision_detected_player_solid db FALSE
 collision_detected_player_shop db FALSE
+
+
+PLAYER_INK_COLOUR equ %01000010
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
@@ -336,7 +344,6 @@ playersprite_right:
 
 ;
 player_update:
-    
     ld a,(game_state)
     cp LEVEL_01
     call z,player_update_l1
@@ -347,10 +354,16 @@ player_update:
 ;
 
 player_draw:
-    ; call paintplayer_16_24
+    call plyr_paint
     call drawplayer
     ret
 ;
+
+plyr_paint:
+    ld b,PLAYER_INK_COLOUR
+    ld de,(playery)
+    call paint_sprite_2_3
+    ret
 
 
 

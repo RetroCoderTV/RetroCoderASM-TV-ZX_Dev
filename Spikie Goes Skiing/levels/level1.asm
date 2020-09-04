@@ -4,7 +4,7 @@ L1_WHITELINE_Y equ 96
 
 L1_WHITELINE_X equ 2
 
-SPAWN_CHANCE_1 equ 210
+SPAWN_CHANCE_1 equ 255
 
 
 SHOP_X equ 11
@@ -64,7 +64,6 @@ l1_start:
 
 l1_update:
     call increment_score1
-    ; call setborderblue
     call getrandom
     cp FIFTY50
     call c, spawn_vehicle_right

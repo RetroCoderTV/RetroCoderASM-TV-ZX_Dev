@@ -4,6 +4,9 @@ VEH_BIKE equ 1
 VEH_SALOON equ 2
 VEH_TRUCK equ 3
 
+
+VEH_COLOUR equ %01000110
+
 ;vehicle constants:
 VEH_BIKE_WIDTH equ 2
 VEH_BIKE_HEIGHT equ 2
@@ -472,6 +475,13 @@ vd_bike_r:
     ld a,(ix+2)
     ld e,a
     call drawsprite16_16
+    ld b,VEH_COLOUR
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    ld e,a
+    call paint_sprite_2_2
+
     jp vd_next_r
 vd_saloon_r:
     ld bc,sprite_saloon_r
@@ -480,6 +490,12 @@ vd_saloon_r:
     ld a,(ix+2)
     ld e,a
     call drawsprite32_16
+    ld b,VEH_COLOUR
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    ld e,a
+    call paint_sprite_4_2
     jp vd_next_r
 vd_truck_r:
     ; ld bc,sprite_truck
@@ -512,6 +528,12 @@ vd_bike_l:
     ld a,(ix+2)
     ld e,a
     call drawsprite16_16
+    ld b,VEH_COLOUR
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    ld e,a
+    call paint_sprite_2_2
     jp vd_next_l
 vd_saloon_l:
     ld bc,sprite_saloon_l
@@ -520,6 +542,12 @@ vd_saloon_l:
     ld a,(ix+2)
     ld e,a
     call drawsprite32_16
+    ld b,VEH_COLOUR
+    ld a,(ix+1)
+    ld d,a
+    ld a,(ix+2)
+    ld e,a
+    call paint_sprite_4_2
     jp vd_next_l
 vd_truck_l:
     ; ld bc,sprite_truck

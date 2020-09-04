@@ -1,5 +1,6 @@
 
 ;Colours
+;FBPPPIII
 COLOUR_BLACK equ 0  ;%000
 COLOUR_BLUE equ 1   ;%001
 COLOUR_RED equ 2    ;%010
@@ -10,7 +11,7 @@ COLOUR_YELLOW equ 6 ;%110
 COLOUR_WHITE equ 7  ;%111
 
 ;ink only, use masking for paper bits
-BLACK_INK   equ %00000000
+BLACK_INK   equ %00000010
 BLUE_INK    equ %00000001
 YELLOW_INK  equ %00000110 
 
@@ -74,14 +75,6 @@ pnt_bg:
     inc c
     jp pnt_bg
     ret
-
-pnt_bg_setpavementcolour:
-    ld iyl,L1_PAVEMENT_COLOUR
-    ret
-pnt_bg_setroadcolour:
-    ld iyl,L1_ROAD_COLOUR
-    ret
-
 ;iyl=colour
 ;b=window width
 pnt_line:
@@ -91,4 +84,243 @@ pnt_line:
     inc de
     djnz pnt_line
     ret
+
+
+
+pnt_bg_setpavementcolour:
+    ld iyl,L1_PAVEMENT_COLOUR
+    ret
+pnt_bg_setroadcolour:
+    ld iyl,L1_ROAD_COLOUR
+    ret
+
+
+
+
+
+
+
+;origin addr=attrmem+(y*4)+x
+;DE=xy
+;B=ink only colour
+paint_sprite_2_2:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-4
+    ret nc
+    ld a,e
+    cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
+    ret nc
+    ld hl,0
+    ld l,e
+    add hl,hl ;x2
+    add hl,hl ;x4
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld de,31
+    add hl,de
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;origin addr=attrmem+(y*4)+x
+;DE=xy
+;B=ink only colour
+paint_sprite_4_2:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-4
+    ret nc
+    ld a,e
+    cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
+    ret nc
+    ld hl,0
+    ld l,e
+    
+    add hl,hl ;x2
+    add hl,hl ;x4
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld de,29
+    add hl,de
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;origin addr=attrmem+(y*4)+x
+;DE=xy
+;B=ink only colour
+paint_sprite_2_3:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-4
+    ret nc
+    ld a,e
+    cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
+    ret nc
+    ld hl,0
+    ld l,e
+    add hl,hl ;x2
+    add hl,hl ;x4
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld de,31
+    add hl,de
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld de,31
+    add hl,de
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+
+
+    ret
+
 
