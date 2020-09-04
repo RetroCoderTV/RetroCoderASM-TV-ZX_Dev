@@ -20,26 +20,54 @@ VEH_SLOW_SPEED equ 62
 VEH_SPEED_CLOCK_MAX equ 248
 
 VEH_MAX_SPEED equ 3
-VEH_DATA_LENGTH equ 7
-;isAlive,x,y,w,h,speed,speedcounter
-vehicles_r:
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
+
+
+VEH_LANE_R_1 equ 32
+VEH_LANE_R_2 equ 48
+VEH_LANE_R_3 equ 64
+VEH_LANE_L_1 equ 104
+VEH_LANE_L_2 equ 120
+VEH_LANE_L_3 equ 136
+
+VEH_DATA_LENGTH equ 8
+;isAlive,x,y,w,h,speed,speedcounter,colour
+vehicles_r_1:
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db 255
+
+vehicles_r_2:
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db 255
+
+vehicles_r_3:
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db 255
+
+vehicles_l_1:
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db 255
+
+vehicles_l_2:
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db 255
+
+vehicles_l_3:
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 
-vehicles_l:
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0
-    db 255
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
@@ -184,13 +212,85 @@ sprite_truck_l:
     db %00000011, %11101111, %01111000, %00111100, %00000000, %00011110, %11110010
     db %00000000, %00000110, %00000000, %00011000, %00000000, %00001100, %01100000
 ;
-spawn_vehicle_right:
+
+
+spawn_vehicle_right_1:
     call getrandom
     cp SPAWN_CHANCE_1
     ret c
-    ld ix,vehicles_r
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    ld ix,vehicles_r_1
+    ld b,VEH_LANE_R_1
     call spwn_veh_r
     ret
+
+spawn_vehicle_right_2:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    ld ix,vehicles_r_2
+    ld b,VEH_LANE_R_2
+    call spwn_veh_r
+    ret
+
+spawn_vehicle_right_3:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    ld ix,vehicles_r_3
+    ld b,VEH_LANE_R_3
+    call spwn_veh_r
+    ret
+
+
+spawn_vehicle_left_1:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    ld ix,vehicles_l_1
+    ld b,VEH_LANE_L_1
+    call spwn_veh_l
+    ret
+
+spawn_vehicle_left_2:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    ld ix,vehicles_l_2
+    ld b,VEH_LANE_L_2
+    call spwn_veh_l
+    ret
+
+spawn_vehicle_left_3:
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    call getrandom
+    cp SPAWN_CHANCE_1
+    ret c
+    ld ix,vehicles_l_3
+    ld b,VEH_LANE_L_3
+    call spwn_veh_l
+    ret
+
+
+
+
+
 
 spwn_veh_r:
     ld a,(ix)
@@ -202,6 +302,20 @@ spwn_veh_r:
     add ix,de
     jp spwn_veh_r
 spwn_veh_r_do_spawn:
+    call getrandom
+    and %00000111
+    cp 0
+    jp z, spwn_veh_r_do_spawn
+    cp 7
+    jp z, spwn_veh_r_do_spawn
+    ld (ix+7),a
+    call getrandom
+    cp FIFTY50
+    jp c, spwn_veh_now
+    ld a,(ix+7)
+    add a,64 ;add bright bit
+    ld (ix+7),a
+spwn_veh_now:
     call getrandom
     cp FIFTY50
     push af
@@ -215,16 +329,8 @@ spwn_bike_r:
     ld (ix),a
     xor a
     ld (ix+1),a
-    call getrandom
-    and %00011111
-    ld b,a
-    call getrandom
-    and %00001111
-    add a,b
-    ld b,a
-    ld a, LANE_1_Y
-    add a,b
-    ld (ix+2),a
+    ;
+    ld (ix+2),b
     ld a,VEH_BIKE_WIDTH
     ld (ix+3),a
     ld a,VEH_BIKE_HEIGHT
@@ -244,16 +350,7 @@ spwn_saloon_r:
     ld (ix),a
     xor a
     ld (ix+1),a
-    call getrandom
-    and %00011111
-    ld b,a
-    call getrandom
-    and %00001111
-    add a,b
-    ld b,a
-    ld a, LANE_1_Y
-    add a,b
-    ld (ix+2),a
+    ld (ix+2),b
     ld a,VEH_SALOON_WIDTH
     ld (ix+3),a
     ld a,VEH_SALOON_HEIGHT
@@ -277,7 +374,7 @@ spawn_vehicle_left:
     call getrandom
     cp SPAWN_CHANCE_1
     ret c
-    ld ix,vehicles_l
+    ld ix,vehicles_l_1
     call spwn_veh_l
     ret
 
@@ -292,6 +389,19 @@ spwn_veh_l:
     jp spwn_veh_l
 spwn_veh_l_do_spawn:
     call getrandom
+    and %00000111
+    cp 0
+    jp z, spwn_veh_l_do_spawn
+    cp 7
+    jp z, spwn_veh_l_do_spawn
+    ld (ix+7),a
+    call getrandom
+    cp FIFTY50
+    jp c, spwn_veh_now
+    ld a,(ix+7)
+    add a,64 ;add bright bit
+    ld (ix+7),a
+    call getrandom
     cp FIFTY50
     push af
     call c,spwn_saloon_l
@@ -304,16 +414,7 @@ spwn_bike_l:
     ld (ix),a
     ld a,MAX_X-1
     ld (ix+1),a
-    call getrandom
-    and %00011111
-    ld b,a
-    call getrandom
-    and %00001111
-    add a,b
-    ld b,a
-    ld a, LANE_2_Y
-    add a,b
-    ld (ix+2),a
+    ld (ix+2),b
     ld a,VEH_BIKE_WIDTH
     ld (ix+3),a
     ld a,VEH_BIKE_HEIGHT
@@ -331,16 +432,7 @@ spwn_saloon_l:
     ld (ix),a
     ld a,MAX_X
     ld (ix+1),a
-    call getrandom
-    and %00011111
-    ld b,a
-    call getrandom
-    and %00001111
-    add a,b
-    ld b,a
-    ld a, LANE_2_Y
-    add a,b
-    ld (ix+2),a
+    ld (ix+2),b
     ld a,VEH_SALOON_WIDTH
     ld (ix+3),a
     ld a,VEH_SALOON_HEIGHT
@@ -378,20 +470,35 @@ spwn_truck_l:
 
 vehicles_update:
     
-    ld ix,vehicles_r
+    ld ix,vehicles_r_1
+    call veh_move_cars_r
+    ld ix,vehicles_r_2
+    call veh_move_cars_r
+    ld ix,vehicles_r_3
     call veh_move_cars_r
 
-
-    ld ix,vehicles_l
+    ld ix,vehicles_l_1
+    call veh_move_cars_l
+    ld ix,vehicles_l_2
+    call veh_move_cars_l
+    ld ix,vehicles_l_3
     call veh_move_cars_l
 
     ret
 
 vehicles_draw:
-    ld ix,vehicles_r
+    ld ix,vehicles_r_1
+    call veh_draw_r
+    ld ix,vehicles_r_2
+    call veh_draw_r
+    ld ix,vehicles_r_3
     call veh_draw_r
 
-    ld ix,vehicles_l
+    ld ix,vehicles_l_1
+    call veh_draw_l
+    ld ix,vehicles_l_2
+    call veh_draw_l
+    ld ix,vehicles_l_3
     call veh_draw_l
     ret
 
@@ -475,7 +582,7 @@ vd_bike_r:
     ld a,(ix+2)
     ld e,a
     call drawsprite16_16
-    ld b,VEH_COLOUR
+    ld b,(ix+7)
     ld a,(ix+1)
     ld d,a
     ld a,(ix+2)
@@ -490,7 +597,7 @@ vd_saloon_r:
     ld a,(ix+2)
     ld e,a
     call drawsprite32_16
-    ld b,VEH_COLOUR
+    ld b,(ix+7)
     ld a,(ix+1)
     ld d,a
     ld a,(ix+2)
@@ -528,7 +635,7 @@ vd_bike_l:
     ld a,(ix+2)
     ld e,a
     call drawsprite16_16
-    ld b,VEH_COLOUR
+    ld b,(ix+7)
     ld a,(ix+1)
     ld d,a
     ld a,(ix+2)
@@ -542,7 +649,7 @@ vd_saloon_l:
     ld a,(ix+2)
     ld e,a
     call drawsprite32_16
-    ld b,VEH_COLOUR
+    ld b,(ix+7)
     ld a,(ix+1)
     ld d,a
     ld a,(ix+2)

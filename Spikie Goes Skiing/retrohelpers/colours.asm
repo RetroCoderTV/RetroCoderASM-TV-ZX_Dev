@@ -100,6 +100,72 @@ pnt_bg_setroadcolour:
 
 
 
+
+
+
+
+
+
+
+paint_sprite_1_1:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-4
+    ret nc
+    ld a,e
+    cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
+    ret nc
+    ld hl,0
+    ld l,e
+    add hl,hl ;x2
+    add hl,hl ;x4
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    
+
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;origin addr=attrmem+(y*4)+x
 ;DE=xy
 ;B=ink only colour
@@ -210,6 +276,7 @@ paint_sprite_4_2:
     and %01111000
     or b
     ld (hl),a
+    inc hl
     ld a,(hl)
     and %01111000
     or b
@@ -231,6 +298,7 @@ paint_sprite_4_2:
     and %01111000
     or b
     ld (hl),a
+    inc hl
     ld a,(hl)
     and %01111000
     or b
@@ -322,5 +390,158 @@ paint_sprite_2_3:
 
 
     ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;origin addr=attrmem+(y*4)+x
+;DE=xy
+;B=ink only colour
+paint_sprite_6_3:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-4
+    ret nc
+    ld a,e
+    cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
+    ret nc
+    ld hl,0
+    ld l,e
+    
+    add hl,hl ;x2
+    add hl,hl ;x4
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld de,27
+    add hl,de
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    ld de,27
+    add hl,de
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    inc hl
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+
+    ret
+
+
+
+
+
 
 

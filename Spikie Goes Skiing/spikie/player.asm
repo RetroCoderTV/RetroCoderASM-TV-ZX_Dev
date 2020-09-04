@@ -18,7 +18,7 @@ player_current_frame db 0
 player_anim_timer db 0
 player_attack_timer db 0
 
-playery db 32
+playery db 0
 playerx db 12
 
 player_targetpos_x db 0

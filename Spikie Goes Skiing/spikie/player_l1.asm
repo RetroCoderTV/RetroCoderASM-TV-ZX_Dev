@@ -6,13 +6,19 @@ player_update_l1:
     call player_check_collision_shop
     
     
-    ld ix,vehicles_r
-    call player_check_collision_cars
+    ; ld ix,vehicles_r_1
+    ; call player_check_collision_cars
+    ; ld ix,vehicles_r_2
+    ; call player_check_collision_cars
+    ; ld ix,vehicles_r_3
+    ; call player_check_collision_cars
 
-    ld ix,vehicles_l
-    call player_check_collision_cars
-
-    
+    ; ld ix,vehicles_l_1
+    ; call player_check_collision_cars
+    ; ld ix,vehicles_l_2
+    ; call player_check_collision_cars
+    ; ld ix,vehicles_l_3
+    ; call player_check_collision_cars
     
     ld a,(player_state)
     cp NO_SKI

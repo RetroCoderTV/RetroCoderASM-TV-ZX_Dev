@@ -4,7 +4,7 @@ L1_WHITELINE_Y equ 96
 
 L1_WHITELINE_X equ 2
 
-SPAWN_CHANCE_1 equ 255
+SPAWN_CHANCE_1 equ 180
 
 
 SHOP_X equ 11
@@ -14,6 +14,8 @@ SHOP_W equ 6
 
 SHOP_H equ 24
 SHOP_DOOR_OFFSET equ 1
+
+SHOP_COLOUR equ %01111001
 
 
 roadline_sprite:
@@ -63,13 +65,16 @@ l1_start:
     ret
 
 l1_update:
-    call increment_score1
-    call getrandom
-    cp FIFTY50
-    call c, spawn_vehicle_right
-    call getrandom
-    cp FIFTY50
-    call c, spawn_vehicle_left
+    
+
+
+    call spawn_vehicle_right_1
+    call spawn_vehicle_right_2
+    call spawn_vehicle_right_3
+    call spawn_vehicle_left_1
+    call spawn_vehicle_left_2
+    call spawn_vehicle_left_3
+    
 
     call vehicles_update
 
@@ -103,6 +108,10 @@ l1_drw_wl:
     ld bc,roadline_sprite
     call drawsprite8_8
     pop de
+    push de
+    ld b,%01000111 ; white lines, black paper
+    call paint_sprite_1_1
+    pop de
     inc d
     inc d
     ld a,d
@@ -117,4 +126,8 @@ l1_draw_shop:
     ld a,SHOP_Y
     ld e,a
     call drawsprite48_24
+    ld b,SHOP_COLOUR
+    ld d,SHOP_X
+    ld e,SHOP_Y
+    call paint_sprite_6_3
     ret
