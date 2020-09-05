@@ -143,9 +143,9 @@ draw_ui:
 draw_digit:
     ld a,ASCII_AT
     rst 16
-    ld a,d
+    ld a,SCORE_Y
     rst 16
-    ld a,e
+    ld a,SCORE_1_X
     rst 16
     ld a,(hl)
     add a,ASCII_ZERO
@@ -209,6 +209,7 @@ reset_score10:
     ret
 
 increment_score100:
+    call setbordergreen
     ld a,(score_100)
     cp 9
     jp z,reset_score100
@@ -329,11 +330,11 @@ score_string db 'POINTS'
 eo_score_string equ $
 
 score_1     db 0
-score_10    db 1
-score_100   db 2
-score_1000  db 3
-score_10000  db 4
-score_100000  db 5
+score_10    db 8
+score_100   db 9
+score_1000  db 9
+score_10000  db 9
+score_100000  db 9
 
 
 

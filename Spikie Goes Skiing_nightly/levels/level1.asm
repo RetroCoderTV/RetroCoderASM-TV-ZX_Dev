@@ -81,7 +81,15 @@ l1_update:
 
     call player_update
 
-
+    ld a,22
+    rst 16
+    ld a,8
+    rst 16
+    ld a,26
+    rst 16
+    ld a,(score_1)
+    add a,ASCII_ZERO
+    rst 16
  
     ret
 
