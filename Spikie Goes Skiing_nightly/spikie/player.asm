@@ -344,6 +344,9 @@ playersprite_right:
 
 ;
 player_update:
+    ld a,(ready)
+    cp FALSE
+    ret z
     ld a,(game_state)
     cp LEVEL_01
     call z,player_update_l1
@@ -369,6 +372,10 @@ plyr_paint:
 
 
 drawplayer:    
+    ld a,(ready)
+    cp FALSE
+    ret z
+
     ld a,(collision_detected_player_shop)
     cp TRUE
     ret z

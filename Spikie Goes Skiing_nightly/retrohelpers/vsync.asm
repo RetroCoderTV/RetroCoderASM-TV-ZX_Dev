@@ -13,9 +13,6 @@ sync:
     jp nc, sync_end
     ;waiting for next frame
     ;
-    ;
-    
- 
     ;;
     jp sync
 sync_end:

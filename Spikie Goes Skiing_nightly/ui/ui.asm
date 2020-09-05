@@ -74,9 +74,9 @@ draw_ui:
 
     ld a,ASCII_AT
     rst 16
-    ld a,4
+    ld a,SCORE_Y
     rst 16
-    ld a,25
+    ld a,SCORE_100000_X
     rst 16
     ld a,(score_100000)
     add a,ASCII_ZERO
@@ -84,9 +84,9 @@ draw_ui:
 
     ld a,ASCII_AT
     rst 16
-    ld a,4
+    ld a,SCORE_Y
     rst 16
-    ld a,26
+    ld a,SCORE_10000_X
     rst 16
     ld a,(score_10000)
     add a,ASCII_ZERO
@@ -94,9 +94,9 @@ draw_ui:
    
     ld a,ASCII_AT
     rst 16
-    ld a,4
+    ld a,SCORE_Y
     rst 16
-    ld a,27
+    ld a,SCORE_1000_X
     rst 16
     ld a,(score_1000)
     add a,ASCII_ZERO
@@ -104,9 +104,9 @@ draw_ui:
 
     ld a,ASCII_AT
     rst 16
-    ld a,4
+    ld a,SCORE_Y
     rst 16
-    ld a,28
+    ld a,SCORE_100_X
     rst 16
     ld a,(score_100)
     add a,ASCII_ZERO
@@ -114,9 +114,9 @@ draw_ui:
    
     ld a,ASCII_AT
     rst 16
-    ld a,4
+    ld a,SCORE_Y
     rst 16
-    ld a,29
+    ld a,SCORE_10_X
     rst 16
     ld a,(score_10)
     add a,ASCII_ZERO
@@ -143,30 +143,28 @@ draw_ui:
 draw_digit:
     ld a,ASCII_AT
     rst 16
-    ld a,SCORE_Y
+    ld a,d
     rst 16
-    ld a,SCORE_1_X
+    ld a,e
     rst 16
     ld a,(hl)
     add a,ASCII_ZERO
     rst 16   
     
     ret
-
-
-
+ 
 
 
 increment_score1:
+
     ld a,(score_1)
+    inc a
+    ld (score_1),a 
     cp 9
     jp z, reset_score_1
-    inc a
-    ld (score_1),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_1_X
-    ld e,a
+    
+    ld d,SCORE_Y
+    ld e,SCORE_1_X
     ld hl,score_1
     call draw_digit
     ret
@@ -174,10 +172,8 @@ reset_score_1:
     call increment_score10
     xor a
     ld (score_1),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_1_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_1_X
     ld hl,score_1
     call draw_digit
     ret
@@ -188,51 +184,46 @@ increment_score10:
     jp nc,reset_score10
     inc a
     ld (score_10),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_10_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_10_X
     ld hl,score_10
     call draw_digit
     ret
 
 reset_score10:
+    call increment_score100
     xor a
     ld (score_10),a
     ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_10_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_10_X
     ld hl,score_10
     call draw_digit
-    call increment_score100
+    
     ret
 
 increment_score100:
-    call setbordergreen
     ld a,(score_100)
     cp 9
     jp z,reset_score100
     inc a
     ld (score_100),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_100_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_100_X
     ld hl,score_100
     call draw_digit
     ret
 
 reset_score100:
+    call increment_score1000
     xor a
     ld (score_100),a
     ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_100_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_100_X
     ld hl,score_100
     call draw_digit
-    call increment_score1000
+    
     ret
 
 increment_score1000:
@@ -241,24 +232,22 @@ increment_score1000:
     jp z,reset_score1000
     inc a
     ld (score_1000),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_1000_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_1000_X
     ld hl,score_1000
     call draw_digit
     ret
 
 reset_score1000:
+    call increment_score10000
     xor a
     ld (score_1000),a
     ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_1000_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_1000_X
     ld hl,score_1000
     call draw_digit
-    call increment_score10000
+    
     ret
 
 increment_score10000:
@@ -267,24 +256,21 @@ increment_score10000:
     jp z,reset_score10000
     inc a
     ld (score_10000),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_10000_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_10000_X
     ld hl,score_10000
     call draw_digit
     ret
 
 reset_score10000:
+    call increment_score100000
     xor a
     ld (score_10000),a
     ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_10000_X
-    ld e,a
-    ld hl,score_10000
-    call draw_digit
-    call increment_score100000
+    ld d,SCORE_Y
+    ld e,SCORE_10000_X
+    ld hl,score_100000
+    call draw_digit  
     ret
 
 increment_score100000:
@@ -293,10 +279,8 @@ increment_score100000:
     jp z,reset_score100000
     inc a
     ld (score_100000),a
-    ld a,SCORE_Y
-    ld d,a
-    ld a,SCORE_100000_X
-    ld e,a
+    ld d,SCORE_Y
+    ld e,SCORE_100000_X
     ld hl,score_100000
     call draw_digit
     ret
@@ -330,11 +314,11 @@ score_string db 'POINTS'
 eo_score_string equ $
 
 score_1     db 0
-score_10    db 8
-score_100   db 9
-score_1000  db 9
-score_10000  db 9
-score_100000  db 9
+score_10    db 0
+score_100   db 0
+score_1000  db 0
+score_10000  db 0
+score_100000  db 0
 
 
 

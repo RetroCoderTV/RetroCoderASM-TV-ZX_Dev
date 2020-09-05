@@ -62,10 +62,15 @@ shop_sprite:
 
 l1_start:
     call paint_background
-    call draw_ui
+    ; call draw_ui
+    
     ret
 
 l1_update:
+    ld a,(ready)
+    cp FALSE
+    ret z
+
     call spawn_vehicle_left_1
     call spawn_vehicle_left_2
     call spawn_vehicle_left_3
@@ -81,16 +86,9 @@ l1_update:
 
     call player_update
 
-    ld a,22
-    rst 16
-    ld a,8
-    rst 16
-    ld a,26
-    rst 16
-    ld a,(score_1)
-    add a,ASCII_ZERO
-    rst 16
- 
+    
+
+   
     ret
 
 
@@ -101,11 +99,17 @@ l1_update:
 
 
 l1_draw:
+    ld a,(ready)
+    cp FALSE
+    ret z
+
     call vehicles_draw
     call l1_draw_whitelines
 
     call player_draw
     call l1_draw_shop
+
+
     ret
 
 

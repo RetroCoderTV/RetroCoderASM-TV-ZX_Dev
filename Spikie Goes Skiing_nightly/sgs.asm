@@ -19,19 +19,25 @@ begin_level_1:
     jp main
     
     
-main:    
-    call cleargamewindow  
+main:     
+    call cleargamewindow 
+      
+    
     call sync 
+
     call l1_update
     call l1_draw
-
-
     
-
+    call increment_score1
     call sync
+
     call drawgamewindow
+
     
+
     jp main
+
+
 
 
 
