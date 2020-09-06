@@ -150,13 +150,12 @@ draw_digit:
     ld a,(hl)
     add a,ASCII_ZERO
     rst 16   
-    
+
     ret
  
 
 
 increment_score1:
-
     ld a,(score_1)
     inc a
     ld (score_1),a 
@@ -288,7 +287,26 @@ increment_score100000:
 reset_score100000:
    
     ret
+
+
+
+drawskiicon:
+    ld a,22
+    rst 16
+    ld a,8
+    rst 16
+    ld a,27
+    rst 16
+    ld a,'*'
+    rst 16
+    ret
+
+
+
+
 ;;;; DATA ;;;;;;;;;;
+
+skis_got db 0
 
 CASH_LABEL_X equ 26
 cash_string db 'CASH'

@@ -1,7 +1,23 @@
 
+PLAYER_START_X_L1 equ 8
+PLAYER_START_Y_L1 equ 0
+
+PLAYER_START_FACING equ DOWN
+
+
+
+player_init_l1:
+    ld a,PLAYER_START_X_L1
+    ld (playerx),a
+    ld a,PLAYER_START_Y_L1
+    ld (playery),a
+    ld a,PLAYER_START_FACING
+    ld (player_direction),a
+    ret
 
 
 player_update_l1:
+    call player_check_level_complete_l1
     call check_keys
     call player_check_collision_shop
     
@@ -242,9 +258,21 @@ player_check_collision_shop:
     ld a,TRUE
     ld (collision_detected_player_shop),a
 
+    ld a,TRUE
+    ld (skis_got),a
+
     ret
 
 
 
+player_check_level_complete_l1:
+    ld a,(skis_got)
+    cp TRUE
+    ret nz
+    ld a,(playery)
+    cp PLAYER_MIN_Y+4
+    ret nc
+    jp begin_level_2
+    ret
 
 

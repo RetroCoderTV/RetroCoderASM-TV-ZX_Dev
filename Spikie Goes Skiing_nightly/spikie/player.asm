@@ -21,6 +21,9 @@ player_attack_timer db 0
 playery db 0
 playerx db 12
 
+
+player_ski_y dw 0
+
 player_targetpos_x db 0
 player_targetpos_y db 0
 
@@ -344,15 +347,12 @@ playersprite_right:
 
 ;
 player_update:
-    ld a,(ready)
-    cp FALSE
-    ret z
     ld a,(game_state)
     cp LEVEL_01
     call z,player_update_l1
     ld a,(game_state)
-    ; cp LEVEL_02
-    ; call z,player_update_l2
+    cp LEVEL_02
+    call z,player_update_l2
     ret
 ;
 
@@ -372,10 +372,6 @@ plyr_paint:
 
 
 drawplayer:    
-    ld a,(ready)
-    cp FALSE
-    ret z
-
     ld a,(collision_detected_player_shop)
     cp TRUE
     ret z

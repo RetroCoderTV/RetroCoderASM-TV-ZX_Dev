@@ -19,6 +19,11 @@ SHOP_DOOR_OFFSET equ 1
 SHOP_COLOUR equ %01111001
 
 
+
+
+
+
+
 roadline_sprite:
     db %00000000
     db %00000000
@@ -62,15 +67,11 @@ shop_sprite:
 
 l1_start:
     call paint_background
-    ; call draw_ui
-    
+    call draw_ui
+    call player_init_l1
     ret
 
 l1_update:
-    ld a,(ready)
-    cp FALSE
-    ret z
-
     call spawn_vehicle_left_1
     call spawn_vehicle_left_2
     call spawn_vehicle_left_3
@@ -88,7 +89,7 @@ l1_update:
 
     
 
-   
+    call l1_draw
     ret
 
 
@@ -99,9 +100,7 @@ l1_update:
 
 
 l1_draw:
-    ld a,(ready)
-    cp FALSE
-    ret z
+  
 
     call vehicles_draw
     call l1_draw_whitelines

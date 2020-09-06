@@ -40,31 +40,22 @@ C6 equ 0xC0
 C7 equ 0xE0
 
 stack_ptr dw 0
-
-ready db FALSE 
-cleargamewindow:
-    ld a,FALSE
-    ld (ready),a
-
+cleargamewindow: 
     ld hl,GAME_WINDOW_START
     call clr_window
     ret
 
 
 
-clr_window:
-    
+clr_window:  
     ld a,h
     cp GAME_WINDOW_END_UB
-    jp z,clr_window_end
+    ret z
     xor a
     ld (hl),a
     inc hl
     jp clr_window
-clr_window_end:
-    ld a,TRUE
-    ld (ready),a
-    ret
+
 
 
 
@@ -77,9 +68,13 @@ clr_window_end:
 ;each scanline is drawn in two 'chunks' starting at left of screen.
 ;moves the 'game window' back buffer, into the 'screen memory' front buffer (ie. draws it on screen)
 drawgamewindow:
-    ld a,FALSE
-    ld (ready),a
-
+    di
+    push iy
+    push ix
+    push hl
+    push de
+    push bc
+    push af
     ld (stack_ptr),sp ;cache correct stack_ptr
 
     ;SEG0
@@ -6241,8 +6236,13 @@ drawgamewindow:
 
     ld sp,(stack_ptr)
 
-    
+    pop af
+    pop bc
+    pop de
+    pop hl
+    pop ix
+    pop iy
+    ei
 
-    ld a,TRUE
-    ld (ready),a
+  
     ret
