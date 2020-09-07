@@ -46,8 +46,8 @@ draw_flag:
     ld a,l
     cp FLAG_START_Y+1
     ret nc
-    ; cp 0
-    ; ret z
+    cp 0
+    ret z
     ld e,l
     ld a,8
     ld d,a
