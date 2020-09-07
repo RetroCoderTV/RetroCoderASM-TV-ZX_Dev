@@ -21,14 +21,6 @@ VEH_SPEED_CLOCK_MAX equ 248
 
 VEH_MAX_SPEED equ 3
 
-
-VEH_LANE_R_1 equ 32
-VEH_LANE_R_2 equ 56
-VEH_LANE_R_3 equ 72
-VEH_LANE_L_1 equ 112
-VEH_LANE_L_2 equ 128
-VEH_LANE_L_3 equ 144
-
 VEH_DATA_LENGTH equ 8
 ;isAlive,x,y,w,h,speed,speedcounter,colour
 vehicles_r_1:
@@ -293,17 +285,20 @@ spwn_veh_r_do_spawn:
     ld (ix+7),a
     call rand
     cp FIFTY50
-    jp c, spwn_veh_now
-    ld a,(ix+7)
-    add a,64 ;add bright bit
-    ld (ix+7),a
-spwn_veh_now:
+    jp c, spwn_veh_now_r
+spwn_veh_now_r:
     ld a,r
     cp FIFTY50
     push af
     call c,spwn_saloon_r
     pop af
     call nc,spwn_bike_r
+    call rand
+    cp FIFTY50
+    ret c
+    ld a,(ix+7)
+    add a,64;add bright bit
+    ld (ix+7),a
     ret
 
 spwn_bike_r:
@@ -379,10 +374,8 @@ spwn_veh_l_do_spawn:
     ld (ix+7),a
     call rand
     cp FIFTY50
-    jp c, spwn_veh_now
-    ld a,(ix+7)
-    add a,64 ;add bright bit
-    ld (ix+7),a
+    jp c, spwn_veh_now_l
+    
     ld a,r
     cp FIFTY50
     push af
@@ -390,6 +383,21 @@ spwn_veh_l_do_spawn:
     pop af
     call nc,spwn_bike_l
     ret
+spwn_veh_now_l:
+    ld a,r
+    cp FIFTY50
+    push af
+    call c,spwn_saloon_l
+    pop af
+    call nc,spwn_bike_l
+    call rand
+    cp FIFTY50
+    ret c
+    ld a,(ix+7)
+    add a,64;add bright bit
+    ld (ix+7),a
+    ret
+
 
 spwn_bike_l:
     ld a,VEH_BIKE

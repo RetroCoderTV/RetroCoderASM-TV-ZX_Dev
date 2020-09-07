@@ -53,12 +53,6 @@ draw_ui:
 
 
 
-
-
-
-
-
-
     ;;POINTS::
     
     ld a,ASCII_AT
@@ -152,7 +146,7 @@ draw_digit:
     rst 16   
 
     ret
- 
+; 
 
 
 increment_score1:

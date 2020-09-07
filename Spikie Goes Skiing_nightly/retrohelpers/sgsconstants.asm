@@ -1,12 +1,24 @@
-;lane positions
+;Game Colours
+GAME_BORDER_COLOUR equ COLOUR_BLACK
+L1_PAVEMENT_COLOUR equ %01111000
+L1_ROAD_COLOUR equ %01000111
+L1_SHOP_COLOUR equ %01111010
+L2_SNOW_COLOUR equ %01101000
+
+;Lane Positions
 LANE_1_Y equ 24
 LANE_1_HEIGHT equ 48
-
 LANE_2_Y equ 96
-
 LANE_2_HEIGHT equ 48
+VEH_LANE_R_1 equ 32
+VEH_LANE_R_2 equ 56
+VEH_LANE_R_3 equ 72
+VEH_LANE_L_1 equ 112
+VEH_LANE_L_2 equ 128
+VEH_LANE_L_3 equ 144
 
-;lane attribute lines
+
+;Colour Line Char Cell Vales
 ROAD_START_LINE equ 3
 ROAD_END_LINE equ 21
 
@@ -23,5 +35,3 @@ SKIING equ 2
 PLAYER_DEAD equ 3
 
 
-
-GAME_BORDER_COLOUR equ COLOUR_BLACK

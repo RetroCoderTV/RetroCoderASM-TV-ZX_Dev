@@ -25,6 +25,8 @@ ATTRIBUTE_MEMORY_START equ 0x5800
 ATTRIBUTE_MEMORY_END_UB equ 0x5B
 ATTRIBUTE_MEMORY_LENGTH equ 0x300
 
+DEFAULT_SCREEN_COLOURS equ %00000011 ;black paper, pink ink
+
 setborderblue:
     ld a,COLOUR_BLUE
     call 0x229B
@@ -50,51 +52,17 @@ setborderdefault:
     call 0x229B
     ret
 
-paint_background:
-    ld hl,ATTRIBUTE_MEMORY_START
-    xor a
-    ld c,a
-    ld iyl,L1_PAVEMENT_COLOUR
-    call pnt_bg
-    ret
 
 ;HL=0x5800
-pnt_bg:
+;b=colour
+paint_base_attributes:
     ld a,h
     cp ATTRIBUTE_MEMORY_END_UB
     ret z
-    ld a,c
-    cp ROAD_START_LINE
-    call nc,pnt_bg_setroadcolour
-    cp ROAD_END_LINE
-    call nc,pnt_bg_setpavementcolour
-    ld b,GAME_WINDOW_WIDTH
-    call pnt_line
-    ld de,SCREEN_WIDTH-GAME_WINDOW_WIDTH
-    add hl,de
-    inc c
-    jp pnt_bg
-    ret
-;iyl=colour
-;b=window width
-pnt_line:
-    ld a,iyl
-    ld (hl),a
+    ld (hl),b
     inc hl
-    inc de
-    djnz pnt_line
-    ret
-
-
-
-pnt_bg_setpavementcolour:
-    ld iyl,L1_PAVEMENT_COLOUR
-    ret
-pnt_bg_setroadcolour:
-    ld iyl,L1_ROAD_COLOUR
-    ret
-
-
+    jp paint_base_attributes
+;
 
 
 
@@ -143,7 +111,16 @@ paint_sprite_1_1:
 
 
 
-
+;hl=attr address
+;iyl=colour
+;b=window width
+paint_line:
+    ld a,iyl
+    ld (hl),a
+    inc hl
+    inc de
+    djnz paint_line
+    ret
 
 
 

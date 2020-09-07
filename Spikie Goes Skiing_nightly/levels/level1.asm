@@ -1,28 +1,15 @@
-L1_PAVEMENT_COLOUR equ %01111000
-L1_ROAD_COLOUR equ %01000111
 L1_WHITELINE_Y equ 96
-
 L1_WHITELINE_X equ 2
-
 SPAWN_CHANCE_1 equ 249
 SPAWN_CHANCE_2 equ 245
-
-
 SHOP_X equ 11
 SHOP_Y equ 192-24
-
 SHOP_W equ 6
-
 SHOP_H equ 24
 SHOP_DOOR_OFFSET equ 1
-
-SHOP_COLOUR equ %01111001
-
-
-
-
-
-
+L1_PLAYER_START_FACING equ DOWN
+L1_PLAYER_START_X equ 8
+L1_PLAYER_START_Y equ 0
 
 roadline_sprite:
     db %00000000
@@ -34,7 +21,6 @@ roadline_sprite:
     db %00000000
     db %00000000
 ;
-
 
 ; ASM data file from a ZX-Paintbrush picture with 48 x 24 pixels (= 6 x 3 characters)
 ; line based output of pixel data:
@@ -66,7 +52,7 @@ shop_sprite:
 ;
 
 l1_start:
-    call paint_background
+    call paint_background_l1
     call draw_ui
     call player_init_l1
     ret
@@ -143,8 +129,49 @@ l1_draw_shop:
     ld a,SHOP_Y
     ld e,a
     call drawsprite48_24
-    ld b,SHOP_COLOUR
+    ld b,L1_SHOP_COLOUR
     ld d,SHOP_X
     ld e,SHOP_Y
     call paint_sprite_6_3
     ret
+
+
+
+
+
+
+paint_background_l1:
+    ld hl,ATTRIBUTE_MEMORY_START
+    xor a
+    ld c,a
+    ld iyl,L1_PAVEMENT_COLOUR
+    call pnt_bg_l1
+    ret
+
+;HL=0x5800
+;iyl=first colour
+pnt_bg_l1:
+    ld a,h
+    cp ATTRIBUTE_MEMORY_END_UB
+    ret z
+    ld a,c
+    cp ROAD_START_LINE
+    call nc,pnt_bg_setroadcolour
+    cp ROAD_END_LINE
+    call nc,pnt_bg_setpavementcolour
+    ld b,GAME_WINDOW_WIDTH
+    call paint_line
+    ld de,SCREEN_WIDTH-GAME_WINDOW_WIDTH
+    add hl,de
+    inc c
+    jp pnt_bg_l1
+    ret
+
+pnt_bg_setpavementcolour:
+    ld iyl,L1_PAVEMENT_COLOUR
+    ret
+pnt_bg_setroadcolour:
+    ld iyl,L1_ROAD_COLOUR
+    ret
+
+

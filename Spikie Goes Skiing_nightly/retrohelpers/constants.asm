@@ -21,9 +21,8 @@ UP equ 0
 DOWN equ 1
 LEFT equ 2
 RIGHT equ 3
-
-
-
+DIAG_LEFT equ 4
+DIAG_RIGHT equ 5
 
 
 

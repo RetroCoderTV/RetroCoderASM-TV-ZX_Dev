@@ -1,20 +1,20 @@
-
-PLAYER_START_X_L1 equ 8
-PLAYER_START_Y_L1 equ 0
-
-PLAYER_START_FACING equ DOWN
-
-
-
 player_init_l1:
-    ld a,PLAYER_START_X_L1
+    ld a,L1_PLAYER_START_X
     ld (playerx),a
-    ld a,PLAYER_START_Y_L1
+    ld a,L1_PLAYER_START_Y
     ld (playery),a
-    ld a,PLAYER_START_FACING
+    ld a,L1_PLAYER_START_FACING
     ld (player_direction),a
     ret
-
+player_check_level_complete_l1:
+    ld a,(skis_got)
+    cp TRUE
+    ret nz
+    ld a,(playery)
+    cp PLAYER_MIN_Y+4
+    ret nc
+    jp begin_level_2
+    ret
 
 player_update_l1:
     call player_check_level_complete_l1
@@ -31,8 +31,6 @@ player_update_l1:
     cp PLAYER_DEAD
     call z, plyr_upd_dead_l1
     
-
-
     ; ld ix,vehicles_r_1
     ; call player_check_collision_cars
     ; ld ix,vehicles_r_2
@@ -46,8 +44,6 @@ player_update_l1:
     ; call player_check_collision_cars
     ; ld ix,vehicles_l_3
     ; call player_check_collision_cars
-
-
 
     ret
 
@@ -71,10 +67,8 @@ plyr_upd_dead_l1:
     ld (playerx),a
     xor a
     ld (playery),a
-    ld a,NO_SKI
-    ld (player_state),a
-    ld a,DOWN
-    ld (player_direction),a
+    call set_state_noski
+    call set_direction_down
     call setborderdefault
     ret
 
@@ -157,7 +151,7 @@ try_move_up_l1:
     sub PLAYER_SPEED_Y
     ld (playery),a
 
-    
+    call increment_score1   
     
     ret
 
@@ -171,7 +165,7 @@ try_move_down_l1:
     add a,PLAYER_SPEED_Y
     ld (playery),a
 
-    
+    call increment_score1
 
     ret
 ;
@@ -219,8 +213,7 @@ player_check_collision_cars:
 
     ; ;else, we collided....
     call setborderpink
-    ld a,PLAYER_DEAD
-    ld (player_state),a
+    call set_state_dead
     
     ret
 plyr_chk_coll_cars_next:
@@ -265,14 +258,156 @@ player_check_collision_shop:
 
 
 
-player_check_level_complete_l1:
-    ld a,(skis_got)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+drawplayer_l1:    
+    ld a,(collision_detected_player_shop)
     cp TRUE
-    ret nz
-    ld a,(playery)
-    cp PLAYER_MIN_Y+4
-    ret nc
-    jp begin_level_2
+    ret z
+    ld a,(player_direction)
+    cp UP
+    jp z, drawplayer_l1_up
+    cp DOWN
+    jp z, drawplayer_l1_down
+    cp LEFT
+    jp z, drawplayer_l1_left
+    cp RIGHT
+    jp z, drawplayer_l1_right
+drawplayer_l1_up:
+    ld a,(player_current_frame)
+    cp 0
+    jp z,dpu0_l1
+    cp 1
+    jp z,dpu1_l1
+    cp 2
+    jp z,dpu2_l1
+    cp 3
+    jp z,dpu3_l1
+dpu0_l1:
+    ld bc,playersprite_up
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpu1_l1:
+    ld bc,playersprite_up+48
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpu2_l1:
+    ld bc,playersprite_up
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpu3_l1:
+    ld bc,playersprite_up+96
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+drawplayer_l1_down:
+    ld a,(player_current_frame)
+    cp 0
+    jp z,dpd0_l1
+    cp 1
+    jp z,dpd1_l1
+    cp 2
+    jp z,dpd2_l1
+    cp 3
+    jp z,dpd3_l1
+dpd0_l1:
+    ld bc,playersprite_down
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpd1_l1:
+    ld bc,playersprite_down+48
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpd2_l1:
+    ld bc,playersprite_down
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpd3_l1:
+    ld bc,playersprite_down+96
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+drawplayer_l1_left:
+    ld a,(player_current_frame)
+    cp 0
+    jp z,dpl0_l1
+    cp 1
+    jp z,dpl1_l1
+    cp 2
+    jp z,dpl2_l1
+    cp 3
+    jp z,dpl3_l1
+dpl0_l1:
+    ld bc,playersprite_left
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpl1_l1:
+    ld bc,playersprite_left+48
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpl2_l1:
+    ld bc,playersprite_left
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpl3_l1:
+    ld bc,playersprite_left+96
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+drawplayer_l1_right:
+    ld a,(player_current_frame)
+    cp 0
+    jp z,dpr0_l1
+    cp 1
+    jp z,dpr1_l1
+    cp 2
+    jp z,dpr2_l1
+    cp 3
+    jp z,dpr3_l1
+dpr0_l1:
+    ld bc,playersprite_right
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpr1_l1:
+    ld bc,playersprite_right+48
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpr2_l1:
+    ld bc,playersprite_right
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+dpr3_l1:
+    ld bc,playersprite_right+96
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l1_end
+drawplayer_l1_end:
+    call skip_to_next_frame
     ret
-
-

@@ -2,11 +2,11 @@ ENTRY_POINT equ 0x9800
 
     org ENTRY_POINT
 
-    call setborderblue
-    ld a,COLOUR_BLACK
-    call 0x229B
+    call setborderdefault
     call 0xDAF
-
+    ; ld b,DEFAULT_SCREEN_COLOURS
+    ; ld hl,ATTRIBUTE_MEMORY_START
+    ; call paint_base_attributes
 
 begin_level_0:
     call mainmenu_init
@@ -37,7 +37,7 @@ main:
     cp LEVEL_02
     call z, l2_update
     
-    call increment_score1
+   
     
     ld a,(skis_got)
     cp TRUE
