@@ -23,27 +23,37 @@ l2_update:
 l2_draw:
     call player_draw
 
+    
+
     ld b,NUM_FLAGS
     ld ix,flag_y_positions
-    ld iy,flag_x_positions
+    ld c,flag_x_positions
     call l2_draw_flags
- 
+
+
     ret
 
 
 ;B=num flags
+;c=flags x
 ;IX=flags y
 ;IY=flags x
 l2_draw_flags:
     ld l,(ix)
     ld h,(ix+1)
     call draw_flag
+    ld l,(ix)
+    ld h,(ix+1)
+    call draw_flag_pair
     inc ix
     inc ix
-    inc iy
-    inc iy
+    ; ld a,c
+    ; inc a
+    ; ld c,a
     djnz l2_draw_flags
     ret
+
+
 
 paint_background_l2:
     ld hl,ATTRIBUTE_MEMORY_START
