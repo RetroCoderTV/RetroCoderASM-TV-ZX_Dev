@@ -7,14 +7,61 @@ FLAG_START_GAP equ 6
 FLAG_MIN_GAP equ 3
 
 flag_current_gap equ 5
-NUM_FLAGS equ 6
+
+
+
+FLAG_MIN_X equ 4
+FLAG_MAX_X equ 16
+
+
+SKI_UNIT equ 16
+previous_flag_x db 0
+current_flag_x db 0
+
+NUM_FLAGS equ 20
 flag_y_positions:
-    dw 128
-    dw 144
-    dw 160
-    dw 176
-    dw 256
-    dw 400 
+    dw SKI_UNIT*11
+    dw SKI_UNIT*16
+    dw SKI_UNIT*21
+    dw SKI_UNIT*26
+    dw SKI_UNIT*28
+    dw SKI_UNIT*30
+    dw SKI_UNIT*40
+    dw SKI_UNIT*42
+    dw SKI_UNIT*44
+    dw SKI_UNIT*46
+    dw SKI_UNIT*50
+    dw SKI_UNIT*52
+    dw SKI_UNIT*80
+    dw SKI_UNIT*81
+    dw SKI_UNIT*82
+    dw SKI_UNIT*83
+    dw SKI_UNIT*84
+    dw SKI_UNIT*85
+    dw SKI_UNIT*258
+    dw SKI_UNIT*300
+    
+flag_x_positions:
+    db 16
+    db 16
+    db 16
+    db 16
+    db 15
+    db 14
+    db 8
+    db 8
+    db 8
+    db 8
+    db 6
+    db 6
+    db 10
+    db 11
+    db 12
+    db 13
+    db 13
+    db 13
+    db 6
+    db 6
 ; 
 
 
@@ -38,6 +85,35 @@ flagsprite:
     db %00011000
 ;
 
+
+spawn_first_flag
+    call rand
+    and %00001111 ;and 15
+    add a,1
+    cp FLAG_MIN_X
+    jp c, spawn_first_flag
+
+    ld (current_flag_x),a
+
+    ret
+
+
+
+
+;IX=flag
+;HL=flag y
+move_flag:
+    ld a,h
+    or l
+    ret z ;ret if y=0
+    push bc
+    ld bc,PLAYER_SPEED_Y
+    sbc hl,bc
+    pop bc
+    ret
+
+
+
 ;HL=(flag y)
 draw_flag:
     xor a
@@ -49,7 +125,7 @@ draw_flag:
     cp 0
     ret z
     ld e,l
-    ld a,8
+    ld a,(iy)
     ld d,a
     push bc
     ld bc,flagsprite
@@ -58,3 +134,5 @@ draw_flag:
     ret
 ;
     
+
+

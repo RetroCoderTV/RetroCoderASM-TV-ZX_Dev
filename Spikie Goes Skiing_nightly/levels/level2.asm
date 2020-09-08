@@ -25,18 +25,24 @@ l2_draw:
 
     ld b,NUM_FLAGS
     ld ix,flag_y_positions
-    call l2_flags_loop
+    ld iy,flag_x_positions
+    call l2_draw_flags
  
     ret
 
 
-l2_flags_loop:
+;B=num flags
+;IX=flags y
+;IY=flags x
+l2_draw_flags:
     ld l,(ix)
     ld h,(ix+1)
     call draw_flag
     inc ix
     inc ix
-    djnz l2_flags_loop
+    inc iy
+    inc iy
+    djnz l2_draw_flags
     ret
 
 paint_background_l2:

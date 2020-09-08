@@ -33,6 +33,10 @@ player_update_l2:
 ;
 
 plyr_upd_skiing_l2:
+    ld ix,flag_y_positions
+    ld b,NUM_FLAGS
+    call move_flags
+
     ld a,(keypressed_A)
     cp 1
     call z,turn_left_l2
@@ -41,9 +45,23 @@ plyr_upd_skiing_l2:
     cp 1
     call z,try_move_right_l2
 
-    call player_move_flags_l2
+    
     ret
 ;
+
+;IX=flags
+;B=num flags
+move_flags:
+    ld l,(ix)
+    ld h,(ix+1)
+    call move_flag
+    ld (ix),l
+    ld (ix+1),h
+    inc ix
+    inc ix
+    djnz move_flags
+    ret
+
 
 
 turn_left_l2:
@@ -75,29 +93,6 @@ try_move_right_l2:
     ret
 ;
 
-player_move_flags_l2:
-    ld b,NUM_FLAGS
-    ld ix,flag_y_positions
-    call plyr_mov_flags
-    ret
-;
-
-plyr_mov_flags:
-    ld a,(ix)
-    or (ix+1)
-    jp z, plyr_move_flags_gonext
-    or a
-    ld h,(ix)
-    ld l,(ix+1)
-    ld de,PLAYER_SPEED_Y*256
-    sbc hl,de
-    ld (ix),h
-    ld (ix+1),l
-plyr_move_flags_gonext:
-    inc ix
-    inc ix
-    djnz plyr_mov_flags
-    ret
 
 
 drawplayer_l2:    
