@@ -32,6 +32,12 @@ l2_draw:
     ld de,flag_x_positions
     call l2_draw_flags
 
+    ld b,NUM_TREES
+    ld ix,tree_y_positions
+    ld de,tree_x_positions
+    call l2_draw_trees
+    ld a,0
+
 
     ret
 
@@ -39,7 +45,6 @@ l2_draw:
 ;B=num flags
 ;de=flags x
 ;IX=flags y
-;IY=flags x
 l2_draw_flags:
     ld l,(ix)
     ld h,(ix+1)
@@ -53,6 +58,18 @@ l2_draw_flags:
     djnz l2_draw_flags
     ret
 
+;B=num trees
+;de=trees x
+;IX=trees y
+l2_draw_trees:
+    ld l,(ix)
+    ld h,(ix+1)
+    call draw_tree
+    inc ix
+    inc ix
+    inc de
+    djnz l2_draw_trees
+    ret
 
 
 paint_background_l2:

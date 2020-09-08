@@ -149,6 +149,66 @@ do_paint:
 
 
 
+;DE=xy
+;B=colour
+paint_sprite_1_2:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-4
+    ret nc
+    ld a,e
+    cp 192-7 ; GAME_WINDOW_HEIGHT-3-1
+    ret nc
+    push de
+    srl e
+    srl e
+    srl e
+    ld hl,0
+    ld l,e
+    add hl,hl ;x2
+    add hl,hl ;x4
+    add hl,hl 
+    add hl,hl 
+    add hl,hl ;x32
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+
+    ld de,32
+    add hl,de
+
+    pop de
+    
+    ld a,e
+    cp 192-15
+    ret nc
+
+    ld a,(hl)
+    and %01111000
+    or b
+    ld (hl),a
+    
+
+
+    ret
+
+
+
+
+
+
+
 
 
 
@@ -338,10 +398,16 @@ paint_sprite_2_3:
     ld a,e
     cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
     ret nc
+    srl e
+    srl e
+    srl e ;/8
     ld hl,0
     ld l,e
     add hl,hl ;x2
     add hl,hl ;x4
+    add hl,hl ;
+    add hl,hl 
+    add hl,hl ;x32
     ld a,d
     sub BUFFER_SIDE_EXTRA
     ld d,0

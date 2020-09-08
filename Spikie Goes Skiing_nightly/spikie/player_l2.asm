@@ -50,6 +50,9 @@ plyr_upd_skiing_l2:
     ld ix,flag_y_positions
     ld b,NUM_FLAGS
     call move_flags
+    ld ix,tree_y_positions
+    ld b,NUM_TREES
+    call move_trees
 
     ld a,(keypressed_A)
     cp 1
@@ -121,6 +124,56 @@ pmf_fast:
     djnz move_flags
     ret
 ;
+
+
+;IX=trees
+;B=num trees
+move_trees:
+    ;switch between move speeds:
+    ld a,(player_direction)
+    cp DOWN
+    jp z, pmt_fast
+    cp DIAG_LEFT
+    jp z, pmt_medium
+    cp DIAG_RIGHT
+    jp z, pmt_medium
+    jp pmt_slow
+pmt_slow:
+    ld l,(ix)
+    ld h,(ix+1)
+    call move_tree_slow
+    ld (ix),l
+    ld (ix+1),h
+    inc ix
+    inc ix
+    djnz move_trees
+    ret
+pmt_medium:
+    ld l,(ix)
+    ld h,(ix+1)
+    call move_tree_medium
+    ld (ix),l
+    ld (ix+1),h
+    inc ix
+    inc ix
+    djnz move_trees
+    ret
+pmt_fast:
+    ld l,(ix)
+    ld h,(ix+1)
+    call move_tree_fast
+    ld (ix),l
+    ld (ix+1),h
+    inc ix
+    inc ix
+    djnz move_trees
+    ret
+;
+
+
+
+;keyboard input will call the 'turn' functions, which sets the player direction.
+;movement is based upon the direction and handled later
 turn_left_l2:
     ;UP not needed
     ;LEFT do nothing
@@ -151,6 +204,8 @@ turn_right_l2:
 ;
 
 
+;player moves in the direction he faces automatically
+;depending what way he faces, the speed differs
 player_move_left_l2:
     ld a,(playerx)
     cp PLAYER_MIN_X+1
@@ -196,7 +251,8 @@ player_move_diagright_l2:
 
 
 
-
+;draws the correct animation frame for the player
+;depending on direction (the ski level is not animated in any cycle)
 drawplayer_l2:    
     ld a,(player_direction)
     cp DIAG_LEFT

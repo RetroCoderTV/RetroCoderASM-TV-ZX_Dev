@@ -15,8 +15,6 @@ FLAG_MAX_X equ 16
 
 
 SKI_UNIT equ 16
-previous_flag_x db 0
-current_flag_x db 0
 
 NUM_FLAGS equ 20
 flag_y_positions:
@@ -37,9 +35,9 @@ flag_y_positions:
     dw SKI_UNIT*68
     dw SKI_UNIT*70
     dw SKI_UNIT*80
-    dw SKI_UNIT*81
     dw SKI_UNIT*82
-    dw SKI_UNIT*83
+    dw SKI_UNIT*84
+    dw SKI_UNIT*86
     
 flag_x_positions:
     db 16
@@ -84,18 +82,6 @@ flagsprite:
     db %00011000
     db %00011000
 ;
-
-
-spawn_first_flag
-    call rand
-    and %00001111 ;and 15
-    add a,1
-    cp FLAG_MIN_X
-    jp c, spawn_first_flag
-
-    ld (current_flag_x),a
-
-    ret
 
 
 ;IX=flag
@@ -157,7 +143,11 @@ draw_flag:
     
     push bc 
     ld bc,flagsprite
+    push de
     call drawsprite8_16
+    pop de
+    ld b,FLAG_COLOUR_L
+    call paint_sprite_1_2
     pop bc
     pop de
     
@@ -189,7 +179,11 @@ draw_flag_pair:
     
     push bc 
     ld bc,flagsprite
+    push de
     call drawsprite8_16
+    pop de
+    ld b,FLAG_COLOUR_R
+    call paint_sprite_1_2
     pop bc
     pop de
     

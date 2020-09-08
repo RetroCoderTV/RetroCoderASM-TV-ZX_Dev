@@ -67,6 +67,7 @@ game_state db LEVEL_01
     include 'levels\level1.asm'
     include 'levels\level2.asm'
     include 'sprites\skiflags.asm'
+    include 'sprites\skitrees.asm'
     include 'sprites\vehicles.asm'
     include 'spikie\player.asm'
     include 'spikie\player_l1.asm'
