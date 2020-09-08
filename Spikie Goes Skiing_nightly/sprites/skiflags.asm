@@ -20,48 +20,48 @@ current_flag_x db 0
 
 NUM_FLAGS equ 20
 flag_y_positions:
-    dw SKI_UNIT*0
-    dw SKI_UNIT*1
-    dw SKI_UNIT*2
-    dw SKI_UNIT*3
-    dw SKI_UNIT*4
-    dw SKI_UNIT*5
-    dw SKI_UNIT*6
-    dw SKI_UNIT*7
-    dw SKI_UNIT*8
-    dw SKI_UNIT*9
     dw SKI_UNIT*10
-    dw SKI_UNIT*11
     dw SKI_UNIT*12
-    dw SKI_UNIT*13
     dw SKI_UNIT*14
-    dw SKI_UNIT*15
-    dw SKI_UNIT*16
-    dw SKI_UNIT*17
-    dw SKI_UNIT*18
-    dw SKI_UNIT*19
+    dw SKI_UNIT*24
+    dw SKI_UNIT*26
+    dw SKI_UNIT*28
+    dw SKI_UNIT*40
+    dw SKI_UNIT*44
+    dw SKI_UNIT*48
+    dw SKI_UNIT*50
+    dw SKI_UNIT*60
+    dw SKI_UNIT*62
+    dw SKI_UNIT*64
+    dw SKI_UNIT*66
+    dw SKI_UNIT*68
+    dw SKI_UNIT*70
+    dw SKI_UNIT*80
+    dw SKI_UNIT*81
+    dw SKI_UNIT*82
+    dw SKI_UNIT*83
     
 flag_x_positions:
-    db 6
-    db 8
-    db 10
-    db 12
-    db 14
     db 16
-    db 18
     db 16
+    db 16
+    db 6
+    db 6
+    db 6
+    db 7
+    db 8
+    db 9
+    db 10
+    db 16
+    db 15
     db 14
     db 12
+    db 11
     db 10
+    db 6
+    db 7
     db 8
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
+    db 9
 ; 
 
 
@@ -98,20 +98,41 @@ spawn_first_flag
     ret
 
 
-
-
 ;IX=flag
 ;HL=flag y
-move_flag:
+move_flag_slow:
     ld a,h
     or l
     ret z ;ret if y=0
     push bc
-    ld bc,PLAYER_SPEED_Y
+    ld bc,PLAYER_SKI_SPEED_SLOW
     sbc hl,bc
     pop bc
     ret
 
+;IX=flag
+;HL=flag y
+move_flag_medium:
+    ld a,h
+    or l
+    ret z ;ret if y=0
+    push bc
+    ld bc,PLAYER_SKI_SPEED_MEDIUM
+    sbc hl,bc
+    pop bc
+    ret
+
+;IX=flag
+;HL=flag y
+move_flag_fast:
+    ld a,h
+    or l
+    ret z ;ret if y=0
+    push bc
+    ld bc,PLAYER_SKI_SPEED_FAST
+    sbc hl,bc
+    pop bc
+    ret
 
 
 ;HL=(flag y)

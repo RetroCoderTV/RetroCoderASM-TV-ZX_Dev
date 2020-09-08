@@ -1,5 +1,15 @@
 mainmenu_init:
-    ld a,22
+
+    ld a,ASCII_INK
+    rst 16
+    ld a,6 ;ink
+    rst 16
+    ld a,ASCII_PAPER
+    rst 16
+    ld a,1 ;paper
+    rst 16
+
+    ld a,ASCII_AT
     rst 16
     ld a,4
     rst 16
@@ -9,7 +19,7 @@ mainmenu_init:
     ld bc,eo_title_string-title_string
     call 8252
 
-    ld a,22
+    ld a,ASCII_AT
     rst 16
     ld a,6
     rst 16

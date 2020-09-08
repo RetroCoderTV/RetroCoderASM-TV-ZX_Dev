@@ -1,6 +1,9 @@
 ;Character Set
 ASCII_ZERO equ 0x30
 ASCII_SPACE equ 0x20
+
+ASCII_INK equ 0x10
+ASCII_PAPER equ 0x11
 ASCII_AT equ 0x16
 ASCII_ERASE equ 0xd2
 

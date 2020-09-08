@@ -5,7 +5,7 @@ player_init_l2:
     ld (playery),a
     ld a,L2_PLAYER_START_FACING
     ld (player_direction),a
-    call set_state_skiing
+    call set_state_skiingwaiting
     ret
 ;
 
@@ -24,6 +24,8 @@ player_update_l2:
     call check_keys
    
     ld a,(player_state)
+    cp SKIING_WAITING
+    call z, plyr_upd_skiingwaiting_l2
     cp SKIING
     call z, plyr_upd_skiing_l2
     ld a,(player_state)
@@ -31,6 +33,18 @@ player_update_l2:
     call z, plyr_upd_dead_l2
     ret
 ;
+
+
+plyr_upd_skiingwaiting_l2:
+    ld a,(keypressed_S)
+    cp TRUE
+    call z,set_state_skiing
+    ret
+;
+
+
+
+
 
 plyr_upd_skiing_l2:
     ld ix,flag_y_positions
@@ -43,8 +57,23 @@ plyr_upd_skiing_l2:
 
     ld a,(keypressed_D)
     cp 1
-    call z,try_move_right_l2
+    call z,turn_right_l2
 
+    ld a,(player_direction)
+    cp LEFT
+    call z,player_move_left_l2
+
+    ld a,(player_direction)
+    cp DIAG_LEFT
+    call z,player_move_diagleft_l2
+
+    ld a,(player_direction)
+    cp RIGHT
+    call z,player_move_right_l2
+
+    ld a,(player_direction)
+    cp DIAG_RIGHT
+    call z,player_move_diagright_l2
     
     ret
 ;
@@ -52,18 +81,46 @@ plyr_upd_skiing_l2:
 ;IX=flags
 ;B=num flags
 move_flags:
+    ;switch between move speeds:
+    ld a,(player_direction)
+    cp DOWN
+    jp z, pmf_fast
+    cp DIAG_LEFT
+    jp z, pmf_medium
+    cp DIAG_RIGHT
+    jp z, pmf_medium
+    jp pmf_slow
+pmf_slow:
     ld l,(ix)
     ld h,(ix+1)
-    call move_flag
+    call move_flag_slow
     ld (ix),l
     ld (ix+1),h
     inc ix
     inc ix
     djnz move_flags
     ret
-
-
-
+pmf_medium:
+    ld l,(ix)
+    ld h,(ix+1)
+    call move_flag_medium
+    ld (ix),l
+    ld (ix+1),h
+    inc ix
+    inc ix
+    djnz move_flags
+    ret
+pmf_fast:
+    ld l,(ix)
+    ld h,(ix+1)
+    call move_flag_fast
+    ld (ix),l
+    ld (ix+1),h
+    inc ix
+    inc ix
+    djnz move_flags
+    ret
+;
 turn_left_l2:
     ;UP not needed
     ;LEFT do nothing
@@ -78,7 +135,7 @@ turn_left_l2:
     jp z,set_direction_down
     ret
 ;
-try_move_right_l2:
+turn_right_l2:
     ;UP not needed
     ;RIGHT do nothing
     ld a,(player_direction)
@@ -92,6 +149,51 @@ try_move_right_l2:
     jp z,set_direction_right
     ret
 ;
+
+
+player_move_left_l2:
+    ld a,(playerx)
+    cp PLAYER_MIN_X+1
+    ret c
+    sub PLAYER_SPEED_X
+    ld (playerx),a
+    ret
+
+player_move_diagleft_l2:
+    ld a,(playerx)
+    cp PLAYER_MIN_X+1
+    ret c
+    sub PLAYER_SPEED_X*2
+    ld (playerx),a
+    ret
+
+player_move_right_l2:
+    ld a,(playerx)
+    cp PLAYER_MAX_X-1
+    ret nc
+    add a,PLAYER_SPEED_X
+    ld (playerx),a
+    ret
+
+player_move_diagright_l2:
+    ld a,(playerx)
+    cp PLAYER_MAX_X-1
+    ret nc
+    add a,PLAYER_SPEED_X*2
+    ld (playerx),a
+    
+    ret
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,16 @@
-draw_ui:
-    ;; CASH!!! 
+init_ui_labels:
+    ld a,ASCII_INK
+    rst 16
+    ld a,6 ;ink
+    rst 16
+    ld a,ASCII_PAPER
+    rst 16
+    ld a,1 ;paper
+    rst 16
 
     ld a,ASCII_AT
     rst 16
-    xor a
+    ld a,CASH_LABEL_Y
     rst 16
     ld a,CASH_LABEL_X
     rst 16
@@ -13,7 +20,23 @@ draw_ui:
 
     ld a,ASCII_AT
     rst 16
-    ld a,1
+    ld a,SCORE_LABEL_Y
+    rst 16
+    ld a,SCORE_LABEL_X
+    rst 16
+    ld de,score_string
+    ld bc,eo_score_string-score_string
+    call 8252
+
+    ret
+
+init_ui_numbers:
+
+   
+
+    ld a,ASCII_AT
+    rst 16
+    ld a,CASH_LABEL_Y+1
     rst 16
     ld a,26
     rst 16
@@ -23,7 +46,7 @@ draw_ui:
    
     ld a,ASCII_AT
     rst 16
-    ld a,1
+    ld a,CASH_LABEL_Y+1
     rst 16
     ld a,27
     rst 16
@@ -33,7 +56,7 @@ draw_ui:
 
     ld a,ASCII_AT
     rst 16
-    ld a,1
+    ld a,CASH_LABEL_Y+1
     rst 16
     ld a,28
     rst 16
@@ -43,7 +66,7 @@ draw_ui:
    
     ld a,ASCII_AT
     rst 16
-    ld a,1
+    ld a,CASH_LABEL_Y+1
     rst 16
     ld a,29
     rst 16
@@ -54,16 +77,10 @@ draw_ui:
 
 
     ;;POINTS::
+
+ 
     
-    ld a,ASCII_AT
-    rst 16
-    ld a,3
-    rst 16
-    ld a,SCORE_LABEL_X
-    rst 16
-    ld de,score_string
-    ld bc,eo_score_string-score_string
-    call 8252
+    
 
 
     ld a,ASCII_AT
@@ -126,6 +143,7 @@ draw_ui:
     add a,ASCII_ZERO
     rst 16    
 
+
     ret
 
 ;
@@ -135,6 +153,15 @@ draw_ui:
 ;DE=yx
 ;HL=score_pointer
 draw_digit:
+    ld a,ASCII_INK
+    rst 16
+    ld a,6 ;ink
+    rst 16
+    ld a,ASCII_PAPER
+    rst 16
+    ld a,1 ;paper
+    rst 16
+
     ld a,ASCII_AT
     rst 16
     ld a,d
@@ -145,6 +172,8 @@ draw_digit:
     add a,ASCII_ZERO
     rst 16   
 
+    
+    
     ret
 ; 
 
@@ -302,6 +331,7 @@ drawskiicon:
 
 skis_got db 0
 
+CASH_LABEL_Y equ 1
 CASH_LABEL_X equ 26
 cash_string db 'CASH'
 eo_cash_string equ $
@@ -312,9 +342,12 @@ cash_100   db 0
 cash_1000  db 0
 
 
-SCORE_LABEL_X equ 25
 
-SCORE_Y equ 4
+SCORE_LABEL_Y equ 4
+SCORE_LABEL_X equ 25
+SCORE_Y equ SCORE_LABEL_Y+1
+
+
 SCORE_1_X equ 30
 SCORE_10_X equ 29
 SCORE_100_X equ 28

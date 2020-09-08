@@ -52,12 +52,15 @@ shop_sprite:
 ;
 
 l1_start:
+    call init_ui_labels
     call paint_background_l1
-    call draw_ui
+    call init_ui_numbers
+    
     call player_init_l1
     ret
 
 l1_update:
+    call increment_score1
     call spawn_vehicle_left_1
     call spawn_vehicle_left_2
     call spawn_vehicle_left_3

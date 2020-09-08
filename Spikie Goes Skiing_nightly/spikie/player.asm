@@ -11,21 +11,21 @@ PLAYER_MAX_X equ BUFFER_WINDOW_WIDTH-PLAYER_WIDTH-1
 PLAYER_MIN_Y equ 4
 PLAYER_MAX_Y equ 192-24
 
+PLAYER_SPEED_X equ 1
+PLAYER_SPEED_Y equ 8
+PLAYER_SKI_SPEED_FAST equ 8
+PLAYER_SKI_SPEED_MEDIUM equ 4
+PLAYER_SKI_SPEED_SLOW equ 2
+
 player_direction db DOWN
 player_state db NO_SKI
 player_current_frame db 0
 player_anim_timer db 0
 playery db 0
 playerx db 12
-; player_targetpos_x db 0
-; player_targetpos_y db 0
-
-PLAYER_SPEED_X equ 1
-PLAYER_SPEED_Y equ 8
-
-collision_detected_player_solid db FALSE
 collision_detected_player_shop db FALSE
 
+;;;;;;;;;;; sprite data ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
 ; line based output of pixel data:
@@ -386,7 +386,6 @@ playersprite_dl_ski:
     db %01001001, %00100000
     db %01110001, %11000000
 ;
-
 playersprite_dr_ski:
     db %00101010, %10000000
     db %00111111, %11000000
@@ -413,7 +412,6 @@ playersprite_dr_ski:
     db %00000100, %10010010
     db %00000011, %10001110
 ;
-
 playersprite_r_ski:
     db %10101010, %00000000
     db %11111111, %00000000
@@ -440,8 +438,6 @@ playersprite_r_ski:
     db %01111000, %00000010
     db %11111111, %11111100
 ;
-
-
 playersprite_l_ski:
     db %00000000, %01010101
     db %00000000, %11111111
@@ -468,7 +464,6 @@ playersprite_l_ski:
     db %01000000, %00011110
     db %00111111, %11111111
 ;
-
 playersprite_dead_ski:
     db %00000000, %00000000
     db %00001001, %00100000
@@ -496,6 +491,10 @@ playersprite_dead_ski:
     db %00100000, %00001000
 ;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;public update loop for the player
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 player_update:
     ld a,(game_state)
     cp LEVEL_01
@@ -506,6 +505,9 @@ player_update:
     ret
 ;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;public draw loop for the player
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 player_draw:
     call plyr_paint
     ld a,(game_state)
@@ -567,6 +569,10 @@ set_state_withski:
     ld (player_state),a
     ret
 
+set_state_skiingwaiting:
+    ld a,SKIING_WAITING
+    ld (player_state),a
+    ret
 set_state_skiing:
     ld a,SKIING
     ld (player_state),a

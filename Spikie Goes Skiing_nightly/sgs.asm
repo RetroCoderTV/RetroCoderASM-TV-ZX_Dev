@@ -4,9 +4,9 @@ ENTRY_POINT equ 0x9800
 
     call setborderdefault
     call 0xDAF
-    ; ld b,DEFAULT_SCREEN_COLOURS
-    ; ld hl,ATTRIBUTE_MEMORY_START
-    ; call paint_base_attributes
+    ld b,DEFAULT_SCREEN_COLOURS
+    ld hl,ATTRIBUTE_MEMORY_START
+    call paint_base_attributes
 
 begin_level_0:
     call mainmenu_init
@@ -66,7 +66,7 @@ game_state db LEVEL_01
     include 'levels\level0.asm'
     include 'levels\level1.asm'
     include 'levels\level2.asm'
-    include 'sprites\flaggy.asm'
+    include 'sprites\skiflags.asm'
     include 'sprites\vehicles.asm'
     include 'spikie\player.asm'
     include 'spikie\player_l1.asm'

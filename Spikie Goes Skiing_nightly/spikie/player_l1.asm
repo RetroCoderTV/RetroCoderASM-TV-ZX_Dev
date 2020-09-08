@@ -151,7 +151,7 @@ try_move_up_l1:
     sub PLAYER_SPEED_Y
     ld (playery),a
 
-    call increment_score1   
+    ; call increment_score1   
     
     ret
 
@@ -165,7 +165,7 @@ try_move_down_l1:
     add a,PLAYER_SPEED_Y
     ld (playery),a
 
-    call increment_score1
+    ; call increment_score1
 
     ret
 ;

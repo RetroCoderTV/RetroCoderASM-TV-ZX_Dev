@@ -2,6 +2,8 @@ L2_PLAYER_START_FACING equ DOWN
 L2_PLAYER_START_X equ 13
 L2_PLAYER_START_Y equ 16   
 
+L2_PLAYER_START_STATE equ SKIING_WAITING
+
 
 
 
@@ -35,7 +37,7 @@ l2_draw:
 
 
 ;B=num flags
-;d=flags x
+;de=flags x
 ;IX=flags y
 ;IY=flags x
 l2_draw_flags:

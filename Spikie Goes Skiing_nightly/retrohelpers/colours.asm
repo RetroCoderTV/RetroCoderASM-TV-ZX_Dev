@@ -25,8 +25,6 @@ ATTRIBUTE_MEMORY_START equ 0x5800
 ATTRIBUTE_MEMORY_END_UB equ 0x5B
 ATTRIBUTE_MEMORY_LENGTH equ 0x300
 
-DEFAULT_SCREEN_COLOURS equ %00000011 ;black paper, pink ink
-
 setborderblue:
     ld a,COLOUR_BLUE
     call 0x229B
@@ -335,7 +333,7 @@ paint_sprite_2_3:
     cp BUFFER_SIDE_EXTRA
     ret c
     ld a,d
-    cp BUFFER_WINDOW_WIDTH-4
+    cp BUFFER_WINDOW_WIDTH-3
     ret nc
     ld a,e
     cp 192-23 ; GAME_WINDOW_HEIGHT-3-1
