@@ -118,39 +118,6 @@ move_tree_fast:
     ret
 
 
-; ;HL=(tree y)
-; draw_tree:
-;     xor a
-;     cp h
-;     ret nz
-;     ld a,l
-;     cp TREE_START_Y+1
-;     ret nc
-;     or a ;cp 0 same
-;     ret z
-
-;     push de
-    
-    
-;     ld a,(de)
-;     ld e,l
-;     ld d,a
-
-    
-    
-;     push bc 
-;     ld bc,treesprite
-;     call drawsprite16_24
-
-;     pop bc
-;     pop de
-    
-;     ret
-; ;
-    
-
-
-;THIS VERSION COLOURS TREE WHILST DRAWING IT
 ;HL=(tree y)
 draw_tree:
     xor a
@@ -164,13 +131,10 @@ draw_tree:
 
     push de
     
-    
     ld a,(de)
     ld e,l
     ld d,a
 
-    
-    
     push bc 
     ld bc,treesprite
     push de

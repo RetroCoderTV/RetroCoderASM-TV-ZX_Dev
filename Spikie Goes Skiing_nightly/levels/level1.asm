@@ -60,23 +60,18 @@ l1_start:
     ret
 
 l1_update:
-    call increment_score1
     call spawn_vehicle_left_1
     call spawn_vehicle_left_2
     call spawn_vehicle_left_3
-
 
     call spawn_vehicle_right_1
     call spawn_vehicle_right_2
     call spawn_vehicle_right_3
 
-    
-
     call vehicles_update
 
     call player_update
 
-    
 
     call l1_draw
     ret

@@ -121,6 +121,7 @@ pmf_fast:
     ld (ix+1),h
     inc ix
     inc ix
+    call increment_score1
     djnz move_flags
     ret
 ;

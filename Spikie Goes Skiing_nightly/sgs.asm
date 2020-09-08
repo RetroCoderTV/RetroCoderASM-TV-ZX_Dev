@@ -49,9 +49,6 @@ main:
     jp main
 
 
-
-
-
 game_state db LEVEL_01
 
     include 'retrohelpers\colours.asm'
