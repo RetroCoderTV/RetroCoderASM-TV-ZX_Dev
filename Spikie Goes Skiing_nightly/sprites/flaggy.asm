@@ -43,17 +43,17 @@ flag_y_positions:
     
 flag_x_positions:
     db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
-    db 6
+    db 8
+    db 10
+    db 12
+    db 14
+    db 16
+    db 18
+    db 16
+    db 14
+    db 12
+    db 10
+    db 8
     db 6
     db 6
     db 6
@@ -125,15 +125,20 @@ draw_flag:
     or a ;cp 0 same
     ret z
 
-    push bc
+    push de
+    
+    
+    ld a,(de)
     ld e,l
-    ld a,c
     ld d,a
-    pop bc
+
+    
+    
     push bc 
     ld bc,flagsprite
     call drawsprite8_16
     pop bc
+    pop de
     
     ret
 ;
@@ -151,17 +156,21 @@ draw_flag_pair:
     ret z
 
 
-      
-    push bc
+    push de
+    
+    
+    ld a,(de)
+    add a,4
     ld e,l
-    ld a,c
-    add a,1
     ld d,a
-    pop bc
+
+    
+    
     push bc 
     ld bc,flagsprite
     call drawsprite8_16
     pop bc
+    pop de
     
     ret
 ;

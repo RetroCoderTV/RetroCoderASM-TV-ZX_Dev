@@ -27,7 +27,7 @@ l2_draw:
 
     ld b,NUM_FLAGS
     ld ix,flag_y_positions
-    ld c,flag_x_positions
+    ld de,flag_x_positions
     call l2_draw_flags
 
 
@@ -35,7 +35,7 @@ l2_draw:
 
 
 ;B=num flags
-;c=flags x
+;d=flags x
 ;IX=flags y
 ;IY=flags x
 l2_draw_flags:
@@ -47,9 +47,7 @@ l2_draw_flags:
     call draw_flag_pair
     inc ix
     inc ix
-    ; ld a,c
-    ; inc a
-    ; ld c,a
+    inc de
     djnz l2_draw_flags
     ret
 
