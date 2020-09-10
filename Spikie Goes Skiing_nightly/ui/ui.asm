@@ -350,7 +350,7 @@ drawskiicon:
 
 ;;;; DATA ;;;;;;;;;;
 
-skis_got db 0
+
 
 cash_string db 'CASH'
 eo_cash_string equ $

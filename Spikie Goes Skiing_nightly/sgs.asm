@@ -18,6 +18,12 @@ begin_level_1:
     call l1_start
     jp main
 
+begin_level_1_withski:
+    ld a,LEVEL_01
+    ld (game_state),a
+    call l1_start_withski
+    jp main
+
 begin_level_2:
     ld a,LEVEL_02
     ld (game_state),a
@@ -39,7 +45,7 @@ main:
     
    
     
-    ld a,(skis_got)
+    ld a,(has_ski)
     cp TRUE
     call z, drawskiicon
 

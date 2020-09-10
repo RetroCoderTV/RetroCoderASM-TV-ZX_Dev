@@ -10,6 +10,10 @@ SHOP_DOOR_OFFSET equ 1
 L1_PLAYER_START_FACING equ DOWN
 L1_PLAYER_START_X equ 8
 L1_PLAYER_START_Y equ 0
+L1_PLAYER_START_X_WITHSKI equ 4
+L1_PLAYER_START_Y_WITHSKI equ 168
+L1_PLAYER_START_FACING_WITHSKI equ UP
+L1_PLAYER_START_STATE_WITHSKI equ WITH_SKI
 
 roadline_sprite:
     db %00000000
@@ -58,6 +62,15 @@ l1_start:
     
     call player_init_l1
     ret
+
+l1_start_withski:
+
+    call paint_background_l1
+    call player_start_l1_withski
+    ret
+
+
+
 
 l1_update:
     call spawn_vehicle_left_1

@@ -5,9 +5,25 @@ player_init_l1:
     ld (playery),a
     ld a,L1_PLAYER_START_FACING
     ld (player_direction),a
+    ; todo cash init
+    ; score 0 init
     ret
+
+player_start_l1_withski:
+    ld a,L1_PLAYER_START_X_WITHSKI
+    ld (playerx),a
+    ld a,L1_PLAYER_START_Y_WITHSKI
+    ld (playery),a
+    ld a,L1_PLAYER_START_FACING_WITHSKI
+    ld (player_direction),a
+    ld a,L1_PLAYER_START_STATE_WITHSKI
+    ld (player_state),a
+    ret
+
+
+    
 player_check_level_complete_l1:
-    ld a,(skis_got)
+    ld a,(has_ski)
     cp TRUE
     ret nz
     ld a,(playery)
@@ -19,7 +35,7 @@ player_check_level_complete_l1:
 player_update_l1:
     call player_check_level_complete_l1
     call check_keys
-    call player_check_collision_shop
+    
     
     ld a,(player_state)
     cp NO_SKI
@@ -30,7 +46,10 @@ player_update_l1:
     ld a,(player_state)
     cp PLAYER_DEAD
     call z, plyr_upd_dead_l1
-    
+
+
+    call player_check_collision_shop
+
     ; ld ix,vehicles_r_1
     ; call player_check_collision_cars
     ; ld ix,vehicles_r_2
@@ -108,6 +127,23 @@ plyr_upd_withski_l1:
     ld a,(keypressed_D)
     cp 1
     call z,try_move_right_l1
+
+    ld a,(collision_detected_player_shop)
+    cp TRUE
+    ret z
+
+    ld bc,playersprite_ski_icon
+    ld a,(playerx)
+    sub PLAYER_SKI_ICON_OFFSET_X
+    ld d,a
+    ld a,(playery)
+    ld e,a
+    push de
+    call drawsprite8_16
+    pop de
+    ld b,FLAG_COLOUR_L
+    call paint_sprite_1_2
+
     ret
 
 
@@ -246,18 +282,21 @@ player_check_collision_shop:
     ld a,SHOP_Y
     cp b
     ret nz
-
     
     ld a,TRUE
     ld (collision_detected_player_shop),a
+    
 
-    ld a,(skis_got)
+    ld a,(has_ski)
     cp TRUE
     ret z
     
     ld a,TRUE
-    ld (skis_got),a
-
+    ld (has_ski),a
+    ld a,WITH_SKI ;todo (try remove bool hasski)
+    ld (player_state),a
+    
+    
     call decrease_cash
 
     ret

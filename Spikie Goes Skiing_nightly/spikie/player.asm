@@ -17,6 +17,8 @@ PLAYER_SKI_SPEED_FAST equ 8
 PLAYER_SKI_SPEED_MEDIUM equ 4
 PLAYER_SKI_SPEED_SLOW equ 2
 
+PLAYER_SKI_ICON_OFFSET_X equ 1
+
 player_direction db DOWN
 player_state db NO_SKI
 player_current_frame db 0
@@ -24,6 +26,8 @@ player_anim_timer db 0
 playery db 0
 playerx db 12
 collision_detected_player_shop db FALSE
+
+has_ski db 0
 
 ;;;;;;;;;;; sprite data ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -489,6 +493,25 @@ playersprite_dead_ski:
     db %10001000, %00100010
     db %01010000, %00010100
     db %00100000, %00001000
+;
+playersprite_ski_icon:
+    db %01100110
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    ;
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %11111111
 ;
 
 

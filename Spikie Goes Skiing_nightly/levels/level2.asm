@@ -3,13 +3,25 @@ L2_PLAYER_START_X equ 13
 L2_PLAYER_START_Y equ 16   
 
 L2_PLAYER_START_STATE equ SKIING_WAITING
+L2_END_FLAG_X equ 11
+L2_END_FLAG_Y equ 192-32
+
+L2_END_FLAG_W equ 5
+L2_END_FLAG_H equ 2
 
 
 
 
 l2_start:
+    di
+    call reset_flags_y
+    call reset_trees_y
+    ei
     call paint_background_l2
     call player_init_l2
+
+    
+
     ret
 
 l2_update:

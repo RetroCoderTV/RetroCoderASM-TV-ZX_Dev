@@ -1,4 +1,14 @@
+player_distance_travelled_l2 dw 0
+
+
+
+
 player_init_l2:
+    xor a
+    ld hl,player_distance_travelled_l2
+    ld (hl),a
+    inc hl
+    ld (hl),a
     ld a,L2_PLAYER_START_X
     ld (playerx),a
     ld a,L2_PLAYER_START_Y
@@ -53,6 +63,32 @@ plyr_upd_skiing_l2:
     ld ix,tree_y_positions
     ld b,NUM_TREES
     call move_trees
+    ld a,(player_direction)
+    cp LEFT
+    call z,increment_distance_slow
+
+    ld a,(player_direction)
+    cp DIAG_LEFT
+    call z,increment_distance_medium
+
+    ld a,(player_direction)
+    cp RIGHT
+    call z,increment_distance_slow
+
+    ld a,(player_direction)
+    cp DIAG_RIGHT
+    call z,increment_distance_medium
+
+    ld a,(player_direction)
+    cp DOWN
+    call z,increment_distance_fast
+
+    ld de,(player_distance_travelled_l2)      ;a is high byte???
+    ld a,d
+    cp 8 ;end of level is 2048                ;is high byte >= 16? if so its higher than endflag
+    call nc, do_finish_line
+  
+    
 
     ld a,(keypressed_A)
     cp 1
@@ -61,6 +97,8 @@ plyr_upd_skiing_l2:
     ld a,(keypressed_D)
     cp 1
     call z,turn_right_l2
+
+    
 
     ld a,(player_direction)
     cp LEFT
@@ -77,9 +115,117 @@ plyr_upd_skiing_l2:
     ld a,(player_direction)
     cp DIAG_RIGHT
     call z,player_move_diagright_l2
+
+
+
     
     ret
 ;
+
+increment_distance_slow:
+    ld hl,(player_distance_travelled_l2)
+    ld bc,PLAYER_SKI_SPEED_SLOW
+    add hl,bc
+    ld (player_distance_travelled_l2),hl
+    ret
+increment_distance_medium:
+    ld hl,(player_distance_travelled_l2)
+    ld bc,PLAYER_SKI_SPEED_MEDIUM
+    add hl,bc
+    ld (player_distance_travelled_l2),hl
+    ret
+increment_distance_fast:
+    ld hl,(player_distance_travelled_l2)
+    ld bc,PLAYER_SKI_SPEED_FAST
+    add hl,bc
+    ld (player_distance_travelled_l2),hl
+    ret
+
+do_finish_line:
+    ld bc,endflagsprite
+    ld d,L2_END_FLAG_X
+    ld e,L2_END_FLAG_Y
+    call drawsprite8_16
+    ld bc,endflagsprite
+    ld d,L2_END_FLAG_X+1
+    ld e,L2_END_FLAG_Y
+    call drawsprite8_16
+    ld bc,endflagsprite
+    ld d,L2_END_FLAG_X+2
+    ld e,L2_END_FLAG_Y
+    call drawsprite8_16
+    
+
+    call player_check_collision_endline
+
+
+    call player_move_at_end
+
+
+    ret
+
+
+
+player_move_at_end:
+    ld a,(playery)
+    cp PLAYER_MAX_Y
+    ret nc
+    ;switch between move speeds:
+    ld a,(player_direction)
+    cp DOWN
+    jp z, pme_fast
+    cp DIAG_LEFT
+    jp z, pme_medium
+    cp DIAG_RIGHT
+    jp z, pme_medium
+    jp pme_slow
+pme_slow:
+    ld a,(playery)
+    add a,PLAYER_SKI_SPEED_SLOW
+    ld (playery),a
+    ret
+pme_medium:
+    ld a,(playery)
+    add a,PLAYER_SKI_SPEED_MEDIUM
+    ld (playery),a
+    ret
+pme_fast:
+    ld a,(playery)
+    add a,PLAYER_SKI_SPEED_FAST
+    ld (playery),a
+    ret
+
+
+
+player_check_collision_endline:
+    ld a,L2_END_FLAG_X
+    ld b,a
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    cp b
+    ret c
+
+    ld a,(playerx)
+    ld b,a
+    ld a, L2_END_FLAG_X
+    add a,L2_END_FLAG_W
+    cp b
+    ret c
+
+    ld a,L2_END_FLAG_Y
+    ld b,a
+    ld a,(playery)
+    add a,PLAYER_HEIGHT
+    cp b
+    ret c
+
+    call setborderpink
+    jp begin_level_1_withski
+    
+
+    ret
+
+
 
 ;IX=flags
 ;B=num flags
@@ -110,7 +256,7 @@ pmf_medium:
     ld (ix),l
     ld (ix+1),h
     inc ix
-    inc ix
+    inc ix   
     djnz move_flags
     ret
 pmf_fast:
@@ -120,7 +266,7 @@ pmf_fast:
     ld (ix),l
     ld (ix+1),h
     inc ix
-    inc ix
+    inc ix   
     call increment_score1
     djnz move_flags
     ret
