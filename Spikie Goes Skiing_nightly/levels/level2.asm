@@ -13,10 +13,8 @@ L2_END_FLAG_H equ 2
 
 
 l2_start:
-    di
     call reset_flags_y
     call reset_trees_y
-    ei
     call paint_background_l2
     call player_init_l2
 

@@ -57,6 +57,10 @@ plyr_upd_skiingwaiting_l2:
 
 
 plyr_upd_skiing_l2:
+    ld hl,tree_y_positions
+    ld de,tree_x_positions
+    call player_check_collision_trees  
+
     ld ix,flag_y_positions
     ld b,NUM_FLAGS
     call move_flags
@@ -66,6 +70,8 @@ plyr_upd_skiing_l2:
     ld a,(player_direction)
     cp LEFT
     call z,increment_distance_slow
+
+     
 
     ld a,(player_direction)
     cp DIAG_LEFT
@@ -85,7 +91,7 @@ plyr_upd_skiing_l2:
 
     ld de,(player_distance_travelled_l2)      ;a is high byte???
     ld a,d
-    cp 8 ;end of level is 2048                ;is high byte >= 16? if so its higher than endflag
+    cp 4 ;end of level is 1024                ;is high byte >= 4? if so its higher than endflag
     call nc, do_finish_line
   
     
@@ -116,9 +122,6 @@ plyr_upd_skiing_l2:
     cp DIAG_RIGHT
     call z,player_move_diagright_l2
 
-
-
-    
     ret
 ;
 
@@ -442,6 +445,79 @@ drawplayer_l2_end:
 
 
 
+
+
+  ; ld a,ASCII_AT
+    ; rst 16
+    ; ld a,CASH_LABEL_Y+8
+    ; rst 16
+    ; ld a,CASH_LABEL_X
+    ; rst 16
+    ; ld b,0
+    ; ld c,(hl)
+    ; call 11563
+    ; call 11747
+
+
+;hl=trees y
+;de=trees x
+player_check_collision_trees:
+  
+    call setborderdefault
+
+    ld a,(hl)
+    inc hl
+    or (hl)
+    dec hl
+    jp z,pcct_gonext ;if High AND low bytes=00 , go next
+
+    inc hl ;move to high byte
+    ld a,(hl) ;take its value
+    dec hl ;move back
+    cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
+    ret nz ; return if high byte != 0
+
+    ld a,(de) ;get x pos value
+    cp 255 ; check for 255 (end of array)
+    ret z ; return if equal
+
+    ld a,(playerx) ;player x
+    ld b,a ;B=player x
+    ld a,(de) ;A=tree X
+    add a,TREE_WIDTH ;+=tree width
+    cp b ; tree right side < player left side ?
+    jp c, pcct_gonext ;if a < b gonext
+
+    ld a,(de) ;tree x
+    ld b,a ;B=tree x
+    ld a,(playerx) ;p x
+    add a,PLAYER_WIDTH ;+= width
+    cp b ; if player right side < tree left, 
+    jp c, pcct_gonext ; then go next
+
+    ld a,(hl) ;A= lower byte, tree Y (we only care about lower byte because upper byte must be zero already)
+    ld b,a ;B= tree y
+    ld a,(playery) 
+    add a,PLAYER_HEIGHT ;A= player feet
+    cp b ; is player feet < tree top?
+    jp c, pcct_gonext ;if yes, go next
+
+    ld a,(playery) 
+    ld b,a ; B= player head
+    ld a,(hl)
+    add a,TREE_HEIGHT ; A=tree bottom
+    cp b ;is tree bottom < player head
+    jp c, pcct_gonext ;if so go next
+
+    ;if here, we collided with a tree....
+    call setborderpink
+    ; call kill player
+    ret
+pcct_gonext:
+    inc de ;inc once for 8bit value
+    inc hl 
+    inc hl ;twice for 16bit
+    jp player_check_collision_trees ;jump to next tree
 
 
 
