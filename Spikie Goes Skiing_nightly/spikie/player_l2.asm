@@ -74,10 +74,6 @@ plyr_upd_skiing_l2:
     cp LEFT
     call z,increment_distance_slow
 
-    
-
-    
-
     ld a,(player_direction)
     cp DIAG_LEFT
     call z,increment_distance_medium
@@ -99,8 +95,6 @@ plyr_upd_skiing_l2:
     cp 4 ;end of level is 1024                ;is high byte >= 4? if so its higher than endflag
     call nc, do_finish_line
   
-    
-
     ld a,(keypressed_A)
     cp 1
     call z,turn_left_l2
@@ -127,14 +121,12 @@ plyr_upd_skiing_l2:
     cp DIAG_RIGHT
     call z,player_move_diagright_l2
 
-
-
-    di
+    ; di
     ld b,NUM_TREES
     ld hl,tree_y_positions
     ld de,tree_x_positions
     call player_check_collision_trees 
-    ei
+    ; ei
 
     ret
 ;
@@ -507,14 +499,14 @@ player_check_collision_trees:
 
 
 
-    ; push bc   
-    ; ld a,(playery) 
-    ; ld b,a 
-    ; ld a,(hl) 
-    ; add a,TREE_HEIGHT
-    ; cp b 
-    ; pop bc
-    ; jp c, pcct_gonext 
+    push bc   
+    ld a,(playery) 
+    ld b,a 
+    ld a,(hl) 
+    add a,TREE_HEIGHT
+    cp b 
+    pop bc
+    jp c, pcct_gonext 
 
     push bc
     ld a,(hl) 
