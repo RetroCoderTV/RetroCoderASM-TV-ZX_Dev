@@ -191,8 +191,8 @@ draw_tree:
     ld b,TREE_COLOUR ;B=colour
     call paint_sprite_2_3 ;do painting
 
-    pop bc ;retrieve BC
-    pop de ;retrieve original DE
+    pop bc ;retrieve iterator (NUM TREES) to B
+    pop de ;retrieve treesx pointer to DE
     
     ret
 ;
