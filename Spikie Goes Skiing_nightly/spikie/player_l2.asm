@@ -576,16 +576,17 @@ player_check_collision_flaggate:
     ld a,(playerx) ;player x
     ld b,a ;B=player x
     ld a,(de) ;A=f X
-    add a,6 ;+=gap width
+    add a,4 ;+=gap width
     cp b ; tree right side < player left side ?
     pop bc
     jp c, pccf_gonext ;if a < b gonext
 
     push bc
-    ld a,(de) ;tree x
-    ld b,a ;B=tree x
+    ld a,(de) ;flag x
+    add a,1 ;flag width
+    ld b,a 
     ld a,(playerx) ;p x
-    add a,PLAYER_WIDTH/2 ;+= width
+    sub 1 ;player half width
     cp b ; if player right side < tree left, 
     pop bc
     jp c, pccf_gonext ; then go next
@@ -609,9 +610,8 @@ player_check_collision_flaggate:
     jp c, pccf_gonext 
     
     ;if here, we collided with a tree....
-
-    call setbordergreen
-    
+    call setbordergreen 
+    call increment_score100
     ret
 pccf_gonext:
     inc de ;inc once for 8bit value
@@ -631,7 +631,6 @@ pccf_gonext:
 kill_player:
     call setborderpink
 
-    
     ld a,PLAYER_DEAD
     ld (player_state),a
 
