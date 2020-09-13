@@ -42,12 +42,12 @@ player_update_l2:
    
     ld a,(player_state)
     cp SKIING_WAITING
-    call z, plyr_upd_skiingwaiting_l2
+    jp z, plyr_upd_skiingwaiting_l2
     cp SKIING
-    call z, plyr_upd_skiing_l2
+    jp z, plyr_upd_skiing_l2
     ld a,(player_state)
     cp PLAYER_DEAD
-    call z, plyr_upd_dead_l2
+    jp z, plyr_upd_dead_l2
     ret
 ;
 
@@ -126,9 +126,7 @@ plyr_upd_skiing_l2:
     ld hl,tree_y_positions
     ld de,tree_x_positions
     call player_check_collision_trees 
-    ei
-
-    di
+    
     ld b,NUM_FLAGS
     ld hl,flag_y_positions
     ld de,flag_x_positions
@@ -488,7 +486,7 @@ player_check_collision_trees:
     ld a,(hl) ;take its value
     dec hl ;move back
     cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
-    ret nz ; return if high byte != 0
+    jp nz,pcct_gonext; return if high byte != 0
 
     push bc   
     ld a,(playerx) ;player x
@@ -572,7 +570,7 @@ player_check_collision_flaggate:
     ld a,(hl) ;take its value
     dec hl ;move back
     cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
-    ret nz ; return if high byte != 0
+    jp nz,pccf_gonext ; return if high byte != 0   
 
     push bc   
     ld a,(playerx) ;player x
@@ -592,8 +590,6 @@ player_check_collision_flaggate:
     pop bc
     jp c, pccf_gonext ; then go next
 
-
-
     push bc   
     ld a,(playery) 
     ld b,a 
@@ -612,7 +608,6 @@ player_check_collision_flaggate:
     pop bc
     jp c, pccf_gonext 
     
-
     ;if here, we collided with a tree....
 
     call setbordergreen
@@ -624,7 +619,6 @@ pccf_gonext:
     inc hl ;twice for 16bit
     djnz player_check_collision_flaggate ;jump to next tree
     ret
-
 
 
 
