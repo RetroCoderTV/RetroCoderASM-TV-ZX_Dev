@@ -8,12 +8,14 @@ SHOP_W equ 6
 SHOP_H equ 24
 SHOP_DOOR_OFFSET equ 1
 L1_PLAYER_START_FACING equ DOWN
+L1_PLAYER_START_STATE equ NO_SKI
 L1_PLAYER_START_X equ 8
 L1_PLAYER_START_Y equ 0
 L1_PLAYER_START_X_WITHSKI equ 4
 L1_PLAYER_START_Y_WITHSKI equ 168
 L1_PLAYER_START_FACING_WITHSKI equ UP
 L1_PLAYER_START_STATE_WITHSKI equ WITH_SKI
+
 
 roadline_sprite:
     db %00000000
@@ -64,12 +66,14 @@ l1_start:
     ret
 
 l1_start_withski:
-
     call paint_background_l1
     call player_start_l1_withski
     ret
 
-
+l1_start_noski:
+    call paint_background_l1
+    call player_start_l1_noski
+    ret
 
 
 l1_update:

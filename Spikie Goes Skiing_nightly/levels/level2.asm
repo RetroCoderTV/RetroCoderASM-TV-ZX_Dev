@@ -1,6 +1,6 @@
 L2_PLAYER_START_FACING equ DOWN
 L2_PLAYER_START_X equ 13
-L2_PLAYER_START_Y equ 16   
+L2_PLAYER_START_Y equ 32   
 
 L2_PLAYER_START_STATE equ SKIING_WAITING
 L2_END_FLAG_X equ 11
@@ -23,9 +23,7 @@ l2_start:
     ret
 
 l2_update:
-    call player_update
-
-    
+    call player_update 
 
     call l2_draw
     ret

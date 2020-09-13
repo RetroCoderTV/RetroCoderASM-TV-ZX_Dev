@@ -24,6 +24,12 @@ begin_level_1_withski:
     call l1_start_withski
     jp main
 
+begin_level_1_noski:
+    ld a,LEVEL_01
+    ld (game_state),a
+    call l1_start_noski
+    jp main
+
 begin_level_2:
     ld a,LEVEL_02
     ld (game_state),a

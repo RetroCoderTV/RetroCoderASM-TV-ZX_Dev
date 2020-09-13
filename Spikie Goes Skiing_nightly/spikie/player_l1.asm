@@ -20,8 +20,21 @@ player_start_l1_withski:
     ld (player_state),a
     ret
 
+player_start_l1_noski:
+    xor a
+    ld (has_ski),a
+    ld a,L1_PLAYER_START_X
+    ld (playerx),a
+    ld a,L1_PLAYER_START_Y
+    ld (playery),a
+    ld a,L1_PLAYER_START_FACING
+    ld (player_direction),a
+    ld a,L1_PLAYER_START_STATE
+    ld (player_state),a
+    ret
 
-    
+
+;victory
 player_check_level_complete_l1:
     ld a,(has_ski)
     cp TRUE

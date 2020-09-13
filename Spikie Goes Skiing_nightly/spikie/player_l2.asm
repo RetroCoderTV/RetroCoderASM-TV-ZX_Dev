@@ -25,7 +25,14 @@ player_check_level_complete_l2:
 ;
 
 plyr_upd_dead_l2:  
-    ;todo
+    call setborderred
+    ld a,(keypressed_S)
+    cp TRUE
+    jp z,begin_level_1_noski
+    
+
+
+    call setborderdefault
     ret
 ;
 
@@ -57,10 +64,6 @@ plyr_upd_skiingwaiting_l2:
 
 
 plyr_upd_skiing_l2:
-    ld hl,tree_y_positions
-    ld de,tree_x_positions
-    call player_check_collision_trees  
-
     ld ix,flag_y_positions
     ld b,NUM_FLAGS
     call move_flags
@@ -71,7 +74,9 @@ plyr_upd_skiing_l2:
     cp LEFT
     call z,increment_distance_slow
 
-     
+    
+
+    
 
     ld a,(player_direction)
     cp DIAG_LEFT
@@ -121,6 +126,15 @@ plyr_upd_skiing_l2:
     ld a,(player_direction)
     cp DIAG_RIGHT
     call z,player_move_diagright_l2
+
+
+
+    di
+    ld b,NUM_TREES
+    ld hl,tree_y_positions
+    ld de,tree_x_positions
+    call player_check_collision_trees 
+    ei
 
     ret
 ;
@@ -403,7 +417,10 @@ player_move_diagright_l2:
 
 ;draws the correct animation frame for the player
 ;depending on direction (the ski level is not animated in any cycle)
-drawplayer_l2:    
+drawplayer_l2:
+    ld a,(player_state)
+    cp PLAYER_DEAD
+    jp z,dp_dead    
     ld a,(player_direction)
     cp DIAG_LEFT
     jp z, drawplayer_l2_diag_left
@@ -415,6 +432,11 @@ drawplayer_l2:
     jp z, drawplayer_l2_left
     cp RIGHT
     jp z, drawplayer_l2_right
+dp_dead:
+    ld bc,playersprite_dead_ski
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l2_end
 drawplayer_l2_diag_left:
     ld bc,playersprite_dl_ski
     ld de,(playery)
@@ -445,26 +467,14 @@ drawplayer_l2_end:
 
 
 
-
-
-  ; ld a,ASCII_AT
-    ; rst 16
-    ; ld a,CASH_LABEL_Y+8
-    ; rst 16
-    ; ld a,CASH_LABEL_X
-    ; rst 16
-    ; ld b,0
-    ; ld c,(hl)
-    ; call 11563
-    ; call 11747
-
-
+;B=num trees
 ;hl=trees y
 ;de=trees x
 player_check_collision_trees:
-  
-    call setborderdefault
-
+    ld a,(player_state)
+    cp SKIING
+    ret nz 
+    ;;;; temporarily commented this out, but is ok as I moved player Y to 32 when skiing instead of 16
     ld a,(hl)
     inc hl
     or (hl)
@@ -477,53 +487,69 @@ player_check_collision_trees:
     cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
     ret nz ; return if high byte != 0
 
-    ld a,(de) ;get x pos value
-    cp 255 ; check for 255 (end of array)
-    ret z ; return if equal
-
+    push bc   
     ld a,(playerx) ;player x
     ld b,a ;B=player x
     ld a,(de) ;A=tree X
     add a,TREE_WIDTH ;+=tree width
     cp b ; tree right side < player left side ?
+    pop bc
     jp c, pcct_gonext ;if a < b gonext
 
+    push bc
     ld a,(de) ;tree x
     ld b,a ;B=tree x
     ld a,(playerx) ;p x
     add a,PLAYER_WIDTH ;+= width
     cp b ; if player right side < tree left, 
+    pop bc
     jp c, pcct_gonext ; then go next
 
-    ld a,(hl) ;A= lower byte, tree Y (we only care about lower byte because upper byte must be zero already)
-    ld b,a ;B= tree y
-    ld a,(playery) 
-    add a,PLAYER_HEIGHT ;A= player feet
-    cp b ; is player feet < tree top?
-    jp c, pcct_gonext ;if yes, go next
 
+
+    ; push bc   
+    ; ld a,(playery) 
+    ; ld b,a 
+    ; ld a,(hl) 
+    ; add a,TREE_HEIGHT
+    ; cp b 
+    ; pop bc
+    ; jp c, pcct_gonext 
+
+    push bc
+    ld a,(hl) 
+    ld b,a 
     ld a,(playery) 
-    ld b,a ; B= player head
-    ld a,(hl)
-    add a,TREE_HEIGHT ; A=tree bottom
-    cp b ;is tree bottom < player head
-    jp c, pcct_gonext ;if so go next
+    add a,PLAYER_HEIGHT 
+    cp b 
+    pop bc
+    jp c, pcct_gonext 
+    
 
     ;if here, we collided with a tree....
-    call setborderpink
-    ; call kill player
+
+    call kill_player
+    
     ret
 pcct_gonext:
     inc de ;inc once for 8bit value
     inc hl 
     inc hl ;twice for 16bit
-    jp player_check_collision_trees ;jump to next tree
+    djnz player_check_collision_trees ;jump to next tree
+    ret
 
 
 
 
 
+kill_player:
+    call setborderpink
 
+    
+    ld a,PLAYER_DEAD
+    ld (player_state),a
 
+    call setborderdefault
+    ret
 
 

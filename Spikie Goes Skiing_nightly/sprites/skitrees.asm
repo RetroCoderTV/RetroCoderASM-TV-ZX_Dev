@@ -63,9 +63,7 @@ tree_x_positions:
     db 18
     db 22
     db 18
-    db 255
 ; 
-
 
 reset_trees_y:
     ld hl,tree_y_positions
@@ -171,12 +169,12 @@ move_tree_fast:
 draw_tree:
     xor a
     cp h
-    ret nz
+    ret nz ;if H!=0 return
     ld a,l
     cp TREE_START_Y+1
-    ret nc
+    ret nc ;if tree top >= TREE MAX Y, return
     or a ;cp 0 same
-    ret z
+    ret z ;if tree top == 0 , return
 
     push de
     
