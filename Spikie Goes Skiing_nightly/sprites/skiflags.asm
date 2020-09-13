@@ -6,7 +6,7 @@ FLAG_START_Y equ 176
 FLAG_START_GAP equ 6
 FLAG_MIN_GAP equ 3
 
-flag_current_gap equ 5
+flag_current_gap equ 4
 
 
 
@@ -228,17 +228,15 @@ draw_flag_pair:
     or a ;cp 0 same
     ret z
 
-
     push de
     
-    
     ld a,(de)
-    add a,4
+    ld d,a
+    ld a,6
+    add a,d
     ld e,l
     ld d,a
 
-    
-    
     push bc 
     ld bc,flagsprite
     push de
