@@ -121,12 +121,19 @@ plyr_upd_skiing_l2:
     cp DIAG_RIGHT
     call z,player_move_diagright_l2
 
-    ; di
+    di
     ld b,NUM_TREES
     ld hl,tree_y_positions
     ld de,tree_x_positions
     call player_check_collision_trees 
-    ; ei
+    ei
+
+    di
+    ld b,NUM_FLAGS
+    ld hl,flag_y_positions
+    ld de,flag_x_positions
+    call player_check_collision_flaggate
+    ei
 
     ret
 ;
@@ -463,10 +470,6 @@ drawplayer_l2_end:
 
 
 
-;;; NOTE TO VIEWERS: The problem seemed with these collisions seemed to be caused
-;;; when we allowed the player to partly go off screen. So it seems if the X position was an odd
-;;; number it broke the code. So we wasted lots of hours worrying about the 16-bit Y pos value :D
-;;; My temp/quick fix was to restrict the player movement by an additional 1 cell each side.
 ;B=num trees
 ;hl=trees y
 ;de=trees x
@@ -550,76 +553,77 @@ pcct_gonext:
 
 
 
-; ;B=num trees
-; ;hl=flags y
-; ;de=flags x
-; player_check_collision_flaggate:
-;     ld a,(player_state)
-;     cp SKIING
-;     ret nz 
-;     ;;;; temporarily commented this out, but is ok as I moved player Y to 32 when skiing instead of 16
-;     ld a,(hl)
-;     inc hl
-;     or (hl)
-;     dec hl
-;     jp z,pcct_gonext ;if High AND low bytes=00 , go next
+;B=num trees
+;hl=flags y
+;de=flags x
+player_check_collision_flaggate:
+    call setborderdefault
+    ld a,(player_state)
+    cp SKIING
+    ret nz 
+    
+    ld a,(hl)
+    inc hl
+    or (hl)
+    dec hl
+    jp z,pccf_gonext ;if High AND low bytes=00 , go next
 
-;     inc hl ;move to high byte
-;     ld a,(hl) ;take its value
-;     dec hl ;move back
-;     cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
-;     ret nz ; return if high byte != 0
+    inc hl ;move to high byte
+    ld a,(hl) ;take its value
+    dec hl ;move back
+    cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
+    ret nz ; return if high byte != 0
 
-;     push bc   
-;     ld a,(playerx) ;player x
-;     ld b,a ;B=player x
-;     ld a,(de) ;A=tree X
-;     add a,TREE_WIDTH ;+=tree width
-;     cp b ; tree right side < player left side ?
-;     pop bc
-;     jp c, pcct_gonext ;if a < b gonext
+    push bc   
+    ld a,(playerx) ;player x
+    ld b,a ;B=player x
+    ld a,(de) ;A=f X
+    add a,6 ;+=gap width
+    cp b ; tree right side < player left side ?
+    pop bc
+    jp c, pccf_gonext ;if a < b gonext
 
-;     push bc
-;     ld a,(de) ;tree x
-;     ld b,a ;B=tree x
-;     ld a,(playerx) ;p x
-;     add a,PLAYER_WIDTH ;+= width
-;     cp b ; if player right side < tree left, 
-;     pop bc
-;     jp c, pcct_gonext ; then go next
+    push bc
+    ld a,(de) ;tree x
+    ld b,a ;B=tree x
+    ld a,(playerx) ;p x
+    add a,PLAYER_WIDTH/2 ;+= width
+    cp b ; if player right side < tree left, 
+    pop bc
+    jp c, pccf_gonext ; then go next
 
 
 
-;     push bc   
-;     ld a,(playery) 
-;     ld b,a 
-;     ld a,(hl) 
-;     add a,TREE_HEIGHT
-;     cp b 
-;     pop bc
-;     jp c, pcct_gonext 
+    push bc   
+    ld a,(playery) 
+    ld b,a 
+    ld a,(hl) 
+    add a,FLAG_HEIGHT
+    cp b 
+    pop bc
+    jp c, pccf_gonext 
 
-;     push bc
-;     ld a,(hl) 
-;     ld b,a 
-;     ld a,(playery) 
-;     add a,PLAYER_HEIGHT 
-;     cp b 
-;     pop bc
-;     jp c, pcct_gonext 
+    push bc
+    ld a,(hl) 
+    ld b,a 
+    ld a,(playery) 
+    add a,PLAYER_HEIGHT 
+    cp b 
+    pop bc
+    jp c, pccf_gonext 
     
 
-;     ;if here, we collided with a tree....
+    ;if here, we collided with a tree....
 
-;     call kill_player
+    call setbordergreen
     
-;     ret
-; pcct_gonext:
-;     inc de ;inc once for 8bit value
-;     inc hl 
-;     inc hl ;twice for 16bit
-;     djnz player_check_collision_trees ;jump to next tree
-;     ret
+    ret
+pccf_gonext:
+    inc de ;inc once for 8bit value
+    inc hl 
+    inc hl ;twice for 16bit
+    djnz player_check_collision_flaggate ;jump to next tree
+    ret
 
 
 
