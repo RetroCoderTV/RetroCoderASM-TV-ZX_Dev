@@ -165,7 +165,8 @@ move_tree_fast:
     ret
 
 
-;HL=(tree y)
+;DE=trees x
+;HL=(trees y)
 draw_tree:
     xor a
     cp h
@@ -176,22 +177,22 @@ draw_tree:
     or a ;cp 0 same
     ret z ;if tree top == 0 , return
 
-    push de
-    
-    ld a,(de)
+    push de ;save DE to stack, so we can use throughout the loop
+     
+    ld a,(de) ;A=tree x pos
     ld e,l
-    ld d,a
+    ld d,a ;D=tree x , E=tree y
 
     push bc 
-    ld bc,treesprite
-    push de
+    ld bc,treesprite ;BC=sprite data
+    push de ;save position to stack
     call drawsprite16_24
-    pop de
-    ld b,TREE_COLOUR
-    call paint_sprite_2_3
+    pop de ;retrieve position
+    ld b,TREE_COLOUR ;B=colour
+    call paint_sprite_2_3 ;do painting
 
-    pop bc
-    pop de
+    pop bc ;retrieve BC
+    pop de ;retrieve original DE
     
     ret
 ;
