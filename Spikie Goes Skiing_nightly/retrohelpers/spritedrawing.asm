@@ -8569,6 +8569,272 @@ drawsprite48_24:
 
 
 
+;;Window Width of 24....
+;INPUTS:
+;wwidth=24
+;BC=sprite pointer
+;DE=xy
+drawsprite40_8:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push bc
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop bc
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9654,3 +9920,332 @@ drawsprite48_32:
     ld a,(bc)
     ld (hl),a
     ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;DE=xy
+draw_endpole_l_8_16:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+;DE=xy
+draw_endpole_r_8_16:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+
+    ret
+

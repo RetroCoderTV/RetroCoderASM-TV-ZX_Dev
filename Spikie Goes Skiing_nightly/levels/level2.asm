@@ -7,7 +7,7 @@ L2_END_FLAG_X equ 11
 L2_END_FLAG_Y equ 192-32
 
 L2_END_FLAG_W equ 5
-L2_END_FLAG_H equ 2
+L2_END_FLAG_H equ 3
 
 
 

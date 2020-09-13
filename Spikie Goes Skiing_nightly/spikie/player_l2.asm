@@ -159,20 +159,17 @@ do_finish_line:
     ld bc,endflagsprite
     ld d,L2_END_FLAG_X
     ld e,L2_END_FLAG_Y
-    call drawsprite8_16
-    ld bc,endflagsprite
-    ld d,L2_END_FLAG_X+1
-    ld e,L2_END_FLAG_Y
-    call drawsprite8_16
-    ld bc,endflagsprite
-    ld d,L2_END_FLAG_X+2
-    ld e,L2_END_FLAG_Y
-    call drawsprite8_16
-    
+    call drawsprite40_8
+
+    ld d,L2_END_FLAG_X
+    ld e,L2_END_FLAG_Y+8
+    call draw_endpole_l_8_16
+
+    ld d,L2_END_FLAG_X+4
+    ld e,L2_END_FLAG_Y+8
+    call draw_endpole_r_8_16
 
     call player_check_collision_endline
-
-
     call player_move_at_end
 
 
@@ -467,7 +464,7 @@ drawplayer_l2_end:
 
 
 
-
+;Moz once again found the solution!!
 ;B=num trees
 ;hl=trees y
 ;de=trees x
@@ -475,7 +472,7 @@ player_check_collision_trees:
     ld a,(player_state)
     cp SKIING
     ret nz 
-    ;;;; temporarily commented this out, but is ok as I moved player Y to 32 when skiing instead of 16
+
     ld a,(hl)
     inc hl
     or (hl)
@@ -506,8 +503,6 @@ player_check_collision_trees:
     pop bc
     jp c, pcct_gonext ; then go next
 
-
-
     push bc   
     ld a,(playery) 
     ld b,a 
@@ -528,7 +523,6 @@ player_check_collision_trees:
     
 
     ;if here, we collided with a tree....
-
     call kill_player
     
     ret
@@ -538,13 +532,6 @@ pcct_gonext:
     inc hl ;twice for 16bit
     djnz player_check_collision_trees ;jump to next tree
     ret
-
-
-
-
-
-
-
 
 
 
@@ -576,17 +563,15 @@ player_check_collision_flaggate:
     ld a,(playerx) ;player x
     ld b,a ;B=player x
     ld a,(de) ;A=f X
-    add a,4 ;+=gap width
+    add a,6 ;+=gap width
     cp b ; tree right side < player left side ?
     pop bc
     jp c, pccf_gonext ;if a < b gonext
 
     push bc
     ld a,(de) ;flag x
-    add a,1 ;flag width
     ld b,a 
     ld a,(playerx) ;p x
-    sub 1 ;player half width
     cp b ; if player right side < tree left, 
     pop bc
     jp c, pccf_gonext ; then go next
