@@ -9,28 +9,33 @@ ENTRY_POINT equ 0x9800
     call paint_base_attributes
 
 begin_level_0:
+    call setborderdefault
     call mainmenu_init
     jp mainmenu_update
     
 begin_level_1:
+    call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
     call l1_start
     jp main
 
 begin_level_1_withski:
+    call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
     call l1_start_withski
     jp main
 
 begin_level_1_noski:
+    call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
     call l1_start_noski
     jp main
 
 begin_level_2:
+    call setborderdefault
     ld a,LEVEL_02
     ld (game_state),a
     call l2_start

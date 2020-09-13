@@ -25,14 +25,14 @@ player_check_level_complete_l2:
 ;
 
 plyr_upd_dead_l2:  
-    call setborderred
+
     ld a,(keypressed_S)
     cp TRUE
     jp z,begin_level_1_noski
     
 
 
-    call setborderdefault
+    
     ret
 ;
 
@@ -459,6 +459,14 @@ drawplayer_l2_end:
 
 
 
+
+
+
+
+;;; NOTE TO VIEWERS: The problem seemed with these collisions seemed to be caused
+;;; when we allowed the player to partly go off screen. So it seems if the X position was an odd
+;;; number it broke the code. So we wasted lots of hours worrying about the 16-bit Y pos value :D
+;;; My temp/quick fix was to restrict the player movement by an additional 1 cell each side.
 ;B=num trees
 ;hl=trees y
 ;de=trees x
