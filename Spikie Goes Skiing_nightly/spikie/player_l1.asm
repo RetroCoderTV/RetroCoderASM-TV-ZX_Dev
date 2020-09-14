@@ -82,32 +82,36 @@ player_update_l1:
 plyr_upd_dead_l1:  
     ld a,FALSE
     ld (has_ski),a
-    call setborderred
-    call sync
-    call sync
-    call sync
-    call sync
-    call sync
-    call sync
-    call sync
-    call sync
-    call sync
+
+
+    ld a,(keypressed_F)
+    cp TRUE
+    call z, plyr_newlife_l1
+    
+    ret
+
+plyr_newlife_l1:
+    ld a,FALSE
+    ld (collision_detected_player_car),a 
+
     ld a,(cash_10)
-    cp 0
-    ;jp z, game_over_screen
     dec a
     ld (cash_10),a
+    call init_ui_numbers
+
     ld a,4
     ld (playerx),a
     xor a
     ld (playery),a
-
     call set_state_noski
-    
     call set_direction_down
+
+    call sound_G_0_25
+    call sound_G_0_125
+    call sound_G_0_25
+
     call setborderdefault
     ret
-
 
 
 plyr_upd_noski_l1:
@@ -268,8 +272,14 @@ player_check_collision_cars_l:
     jp c, plyr_chk_coll_cars_next_l
 
     ; ;else, we collided....
+    ld a,(collision_detected_player_car)
+    cp TRUE
+    ret z
+
+    ld a,TRUE
+    ld (collision_detected_player_car),a 
     call setborderpink
-    call set_state_dead
+    call kill_player
     
     ret
 plyr_chk_coll_cars_next_l:
@@ -323,8 +333,15 @@ player_check_collision_cars_r:
     jp c, plyr_chk_coll_cars_next_r
 
     ; ;else, we collided....
+    ld a,(collision_detected_player_car)
+    cp TRUE
+    ret z
+
+    ld a,TRUE
+    ld (collision_detected_player_car),a 
+
     call setborderpink
-    call set_state_dead
+    call kill_player
     
     ret
 plyr_chk_coll_cars_next_r:
@@ -373,6 +390,10 @@ player_check_collision_shop:
     ld (player_state),a
     call decrease_cash
 
+    call sound_A_0_25
+    call sound_B_0_25
+    call sound_F_0_25
+
     ret
 
 
@@ -395,6 +416,9 @@ player_check_collision_shop:
 
 
 drawplayer_l1:    
+    ld a,(player_state)
+    cp PLAYER_DEAD
+    jp z,dp_dead_l1
     ld a,(collision_detected_player_shop)
     cp TRUE
     ret z
@@ -407,6 +431,11 @@ drawplayer_l1:
     jp z, drawplayer_l1_left
     cp RIGHT
     jp z, drawplayer_l1_right
+dp_dead_l1:
+    ld bc,playersprite_dead_road
+    ld de,(playery)
+    call drawplayer16_24
+    jp drawplayer_l2_end
 drawplayer_l1_up:
     ld a,(player_current_frame)
     cp 0

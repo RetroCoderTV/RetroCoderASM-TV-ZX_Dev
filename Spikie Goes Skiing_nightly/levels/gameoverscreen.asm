@@ -1,10 +1,13 @@
 gameover_init:
     ; todo: find a way to clear screen
-
+    call 0xDAF
     ld de,gameover_string
     ld bc,eo_gameover_string-gameover_string
     call 8252
-
+    
+    call sound_GSharp_0_25
+    call sound_G_0_5
+    call sound_G_0_375
  
 
     ret

@@ -29,11 +29,12 @@ check_keys:
     call nz, reset_F_Held
 
     xor a
+    ld (keypressed_F),a
     ld (keypressed_W),a
     ld (keypressed_A),a
     ld (keypressed_S),a
     ld (keypressed_D),a
-    ld (keypressed_F),a
+    
 
     ld bc,65022 ;ASDFG
     in a,(c)

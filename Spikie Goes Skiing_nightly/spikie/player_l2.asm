@@ -19,25 +19,17 @@ player_init_l2:
     ret
 ;
 
-player_check_level_complete_l2:
-    ;todo 
-    ret
-;
+
 
 plyr_upd_dead_l2:  
-
-    ld a,(keypressed_S)
+    ld a,(keypressed_F)
     cp TRUE
     jp z,begin_level_1_noski
-    
-
-
     
     ret
 ;
 
 player_update_l2:
-    call player_check_level_complete_l2
     call check_keys
    
     ld a,(player_state)
@@ -416,7 +408,7 @@ player_move_diagright_l2:
 drawplayer_l2:
     ld a,(player_state)
     cp PLAYER_DEAD
-    jp z,dp_dead    
+    jp z,dp_dead_l2    
     ld a,(player_direction)
     cp DIAG_LEFT
     jp z, drawplayer_l2_diag_left
@@ -428,7 +420,7 @@ drawplayer_l2:
     jp z, drawplayer_l2_left
     cp RIGHT
     jp z, drawplayer_l2_right
-dp_dead:
+dp_dead_l2:
     ld bc,playersprite_dead_ski
     ld de,(playery)
     call drawplayer16_24

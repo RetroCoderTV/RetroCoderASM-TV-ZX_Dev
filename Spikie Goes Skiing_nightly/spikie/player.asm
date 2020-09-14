@@ -26,6 +26,7 @@ player_anim_timer db 0
 playery db 0
 playerx db 12
 collision_detected_player_shop db FALSE
+collision_detected_player_car db FALSE
 
 has_ski db 0
 
@@ -513,6 +514,32 @@ playersprite_ski_icon:
     db %10011001
     db %11111111
 ;
+playersprite_dead_road:
+    db %00010010, %00100000
+    db %00011011, %00110000
+    db %00011111, %11111000
+    db %01111011, %10111110
+    db %00111000, %00111100
+    db %00010010, %10001000
+    db %00010000, %00001100
+    db %01110011, %11000110
+    db %01011010, %01000111
+    db %11111000, %00011111
+    db %11111111, %11111110
+    db %11001100, %01100110
+    db %11111100, %01111110
+    db %11001110, %11100111
+    db %11000110, %11000101
+    db %11000111, %11000101
+    db %11111111, %11111101
+    db %11101110, %11101101
+    db %11111101, %01111001
+    db %01111110, %11101111
+    db %01001110, %11100110
+    db %01110010, %10010110
+    db %00110011, %10001100
+    db %00111111, %11111100
+;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -638,13 +665,16 @@ set_direction_diagright:
 
 kill_player:
     call setborderred
-
-    ld a,(cash_10)
-    cp 0 ;or a faster?
-    jp z, begin_gameover
-
     ld a,PLAYER_DEAD
     ld (player_state),a
+    call player_draw
+
+    
+    ld a,(cash_10)
+    or a ;cp 0...
+    jp z, begin_gameover
+
+    
 
     call setborderdefault
     ret

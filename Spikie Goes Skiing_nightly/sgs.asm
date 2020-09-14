@@ -12,46 +12,39 @@
 ENTRY_POINT equ 0x9800
 
     org ENTRY_POINT
+    
+    call 0xDAF
 
-    call setborderdefault
    
+    
+
+begin_level_0:
+    call setborderdefault
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
-
-begin_level_0:
- 
-    call setborderdefault
     call mainmenu_init
     jp mainmenu_update
     
 begin_level_1:
- 
-    call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
     call l1_start
     jp main
 
 begin_level_1_withski:
-
-    call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
     call l1_start_withski
     jp main
 
 begin_level_1_noski:
-  
-    call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
     call l1_start_noski
     jp main
 
 begin_level_2:
-
-    call setborderdefault
     ld a,LEVEL_02
     ld (game_state),a
     call l2_start
@@ -77,12 +70,6 @@ main:
     call z, l1_update
     cp LEVEL_02
     call z, l2_update
-    
-   
-    
-    ld a,(has_ski)
-    cp TRUE
-    call z, drawskiicon
 
     
     call drawgamewindow
@@ -99,6 +86,7 @@ game_state db LEVEL_01
     include 'retrohelpers\randomnumbers.asm'
     include 'retrohelpers\spritedrawing.asm'
     include 'retrohelpers\sgsconstants.asm'
+    include 'retrohelpers\sounds.asm'
     include 'retrohelpers\texttools.asm'
     include 'retrohelpers\vsync.asm'
     include 'levels\level0.asm'
@@ -108,6 +96,7 @@ game_state db LEVEL_01
     include 'sprites\skiflags.asm'
     include 'sprites\skitrees.asm'
     include 'sprites\vehicles.asm'
+    include 'sprites\menusprites.asm'
     include 'spikie\player.asm'
     include 'spikie\player_l1.asm'
     include 'spikie\player_l2.asm'

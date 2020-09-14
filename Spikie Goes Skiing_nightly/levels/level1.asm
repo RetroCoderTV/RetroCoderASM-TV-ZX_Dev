@@ -58,24 +58,59 @@ shop_sprite:
 ;
 
 l1_start:
-    call randomise_all_car_timers
+    call 0xDAF
+    call setborderdefault
+    ld b,DEFAULT_SCREEN_COLOURS
+    ld hl,ATTRIBUTE_MEMORY_START
+    call paint_base_attributes
     call init_ui_labels
-    call paint_background_l1
     call init_ui_numbers
+    
+    call randomise_all_car_timers
+    
+    call paint_background_l1
+    
     
     call player_init_l1
 
+    call sound_GSharp_0_25
+    call sound_G_0_5
+    call sound_G_0_375
 
     ret
 
 l1_start_withski:
+    call 0xDAF
+    call setborderdefault
+    ld b,DEFAULT_SCREEN_COLOURS
+    ld hl,ATTRIBUTE_MEMORY_START
+    call paint_base_attributes
+    call init_ui_labels
+    call init_ui_numbers
+
     call paint_background_l1
     call player_start_l1_withski
+
+    call sound_GSharp_0_25
+    call sound_G_0_5
+    call sound_G_0_375
     ret
 
 l1_start_noski:
+    call 0xDAF
+    call setborderdefault
+    ld b,DEFAULT_SCREEN_COLOURS
+    ld hl,ATTRIBUTE_MEMORY_START
+    call paint_base_attributes
+    call init_ui_labels
+    call init_ui_numbers
+
     call paint_background_l1
     call player_start_l1_noski
+
+    call sound_GSharp_0_25
+    call sound_G_0_5
+    call sound_G_0_375
     ret
 
 

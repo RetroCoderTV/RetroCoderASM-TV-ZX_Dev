@@ -37,6 +37,8 @@
 ;NOTES:
 ;DE = Duration = Frequency * Seconds
 ;HL = Pitch = 437500 / Frequency - 30.125
+
+
 sound_GSharp_0_25: ;GSharp, 0.25 seconds
     ld hl,497 ;sound pitch
     ld de,208 ;sound 'duration'

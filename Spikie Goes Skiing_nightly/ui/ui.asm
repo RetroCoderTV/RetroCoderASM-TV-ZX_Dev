@@ -1,11 +1,11 @@
 init_ui_labels:
     ld a,ASCII_INK
     rst 16
-    ld a,6 ;ink
+    ld a,2 ;ink
     rst 16
     ld a,ASCII_PAPER
     rst 16
-    ld a,1 ;paper
+    ld a,5 ;paper
     rst 16
 
     ld a,ASCII_AT
@@ -31,8 +31,14 @@ init_ui_labels:
     ret
 
 init_ui_numbers:
-
-   
+    ld a,ASCII_INK
+    rst 16
+    ld a,0 ;ink
+    rst 16
+    ld a,ASCII_PAPER
+    rst 16
+    ld a,7 ;paper
+    rst 16
 
     ld a,ASCII_AT
     rst 16
@@ -149,7 +155,6 @@ init_ui_numbers:
 ;DE=yx
 ;HL=value pointer
 draw_digit:
-    di
     ld a,ASCII_AT
     rst 16
     ld a,d
@@ -159,7 +164,6 @@ draw_digit:
     ld a,(hl)
     add a,ASCII_ZERO
     rst 16   
-    ei
     ret
 ; 
 
@@ -318,17 +322,6 @@ increment_score100000:
     call draw_digit
     ret
 
-
-drawskiicon:
-    ld a,22
-    rst 16
-    ld a,8
-    rst 16
-    ld a,27
-    rst 16
-    ld a,'*'
-    rst 16
-    ret
 
 
 
