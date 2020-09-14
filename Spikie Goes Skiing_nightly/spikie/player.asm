@@ -12,7 +12,7 @@ PLAYER_MIN_Y equ 4
 PLAYER_MAX_Y equ 192-24
 
 PLAYER_SPEED_X equ 1
-PLAYER_SPEED_Y equ 8
+PLAYER_SPEED_Y equ 4
 PLAYER_SKI_SPEED_FAST equ 8
 PLAYER_SKI_SPEED_MEDIUM equ 4
 PLAYER_SKI_SPEED_SLOW equ 2
@@ -635,3 +635,17 @@ set_direction_diagright:
     ld a,DIAG_RIGHT
     ld (player_direction),a
     ret
+
+kill_player:
+    call setborderred
+
+    ld a,(cash_10)
+    cp 0 ;or a faster?
+    jp z, begin_gameover
+
+    ld a,PLAYER_DEAD
+    ld (player_state),a
+
+    call setborderdefault
+    ret
+

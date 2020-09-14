@@ -63,23 +63,25 @@ player_update_l1:
 
     call player_check_collision_shop
 
-    ; ld ix,vehicles_r_1
-    ; call player_check_collision_cars
-    ; ld ix,vehicles_r_2
-    ; call player_check_collision_cars
-    ; ld ix,vehicles_r_3
-    ; call player_check_collision_cars
+    ld ix,vehicles_r_1
+    call player_check_collision_cars_r
+    ld ix,vehicles_r_2
+    call player_check_collision_cars_r
+    ld ix,vehicles_r_3
+    call player_check_collision_cars_r
 
-    ; ld ix,vehicles_l_1
-    ; call player_check_collision_cars
-    ; ld ix,vehicles_l_2
-    ; call player_check_collision_cars
-    ; ld ix,vehicles_l_3
-    ; call player_check_collision_cars
+    ld ix,vehicles_l_1
+    call player_check_collision_cars_l
+    ld ix,vehicles_l_2
+    call player_check_collision_cars_l
+    ld ix,vehicles_l_3
+    call player_check_collision_cars_l
 
     ret
 
 plyr_upd_dead_l1:  
+    ld a,FALSE
+    ld (has_ski),a
     call setborderred
     call sync
     call sync
@@ -99,7 +101,9 @@ plyr_upd_dead_l1:
     ld (playerx),a
     xor a
     ld (playery),a
+
     call set_state_noski
+    
     call set_direction_down
     call setborderdefault
     ret
@@ -224,51 +228,110 @@ try_move_down_l1:
 
 ;INPUT:
 ;IX=cars
-player_check_collision_cars:
+player_check_collision_cars_l:
     ld a,(ix)
     cp 255
     ret z
     cp VEH_DEAD
-    jp z, plyr_chk_coll_cars_next
+    jp z, plyr_chk_coll_cars_next_l
 
 
     ld a,(playerx)
     ld b,a
     ld a,(ix+1)
+    add a,(ix+3)
+    sub 1
     cp b
-    jp c, plyr_chk_coll_cars_next
+    jp c, plyr_chk_coll_cars_next_l
 
     ld a,(ix+1)
     ld b,a
     ld a,(playerx)
     add a,PLAYER_WIDTH
     cp b
-    jp c, plyr_chk_coll_cars_next
+    jp c, plyr_chk_coll_cars_next_l
 
 
     ld a,(playery)
+    add a,8
     ld b,a
     ld a,(ix+2)
     add a,(ix+4)
     cp b
-    jp c, plyr_chk_coll_cars_next
+    jp c, plyr_chk_coll_cars_next_l
     
     ld a,(ix+2)
     ld b,a
     ld a,(playery)
-    add a,PLAYER_HEIGHT
+    add a,18
     cp b
-    jp c, plyr_chk_coll_cars_next
+    jp c, plyr_chk_coll_cars_next_l
 
     ; ;else, we collided....
     call setborderpink
     call set_state_dead
     
     ret
-plyr_chk_coll_cars_next:
+plyr_chk_coll_cars_next_l:
     ld de,VEH_DATA_LENGTH
     add ix,de
-    jp player_check_collision_cars
+    jp player_check_collision_cars_l
+
+
+
+
+
+;INPUT:
+;IX=cars
+player_check_collision_cars_r:
+    ld a,(ix)
+    cp 255
+    ret z
+    cp VEH_DEAD
+    jp z, plyr_chk_coll_cars_next_r
+
+
+    ld a,(playerx)
+    ld b,a
+    ld a,(ix+1)
+    add a,(ix+3)
+    sub 1
+    cp b
+    jp c, plyr_chk_coll_cars_next_r
+
+    ld a,(ix+1)
+    ld b,a
+    ld a,(playerx)
+    add a,PLAYER_WIDTH
+    cp b
+    jp c, plyr_chk_coll_cars_next_r
+
+
+    ld a,(playery)
+    add a,8
+    ld b,a
+    ld a,(ix+2)
+    add a,(ix+4)
+    cp b
+    jp c, plyr_chk_coll_cars_next_r
+    
+    ld a,(ix+2)
+    ld b,a
+    ld a,(playery)
+    add a,18
+    cp b
+    jp c, plyr_chk_coll_cars_next_r
+
+    ; ;else, we collided....
+    call setborderpink
+    call set_state_dead
+    
+    ret
+plyr_chk_coll_cars_next_r:
+    ld de,VEH_DATA_LENGTH
+    add ix,de
+    jp player_check_collision_cars_r
+
 
 
 
@@ -308,8 +371,6 @@ player_check_collision_shop:
     ld (has_ski),a
     ld a,WITH_SKI ;todo (try remove bool hasski)
     ld (player_state),a
-    
-    
     call decrease_cash
 
     ret

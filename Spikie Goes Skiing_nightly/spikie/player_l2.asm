@@ -169,7 +169,7 @@ do_finish_line:
     ld e,L2_END_FLAG_Y+8
     call draw_endpole_r_8_16
 
-    call player_check_collision_endline
+    call player_reachs_end
     call player_move_at_end
 
 
@@ -208,31 +208,33 @@ pme_fast:
 
 
 
-player_check_collision_endline:
+player_reachs_end:
+    ld a,L2_END_FLAG_Y+8
+    ld b,a
+    ld a,(playery)
+    cp b
+    jp nc, check_endgate_hit
+    
+    ret
+
+
+check_endgate_hit:
     ld a,L2_END_FLAG_X
     ld b,a
     ld a,(playerx)
-    add a,PLAYER_WIDTH
     cp b
-    ret c
-
+    jp c,kill_player
+    
     ld a,(playerx)
     ld b,a
     ld a, L2_END_FLAG_X
-    add a,L2_END_FLAG_W
+    add a,L2_END_FLAG_W-PLAYER_WIDTH
     cp b
-    ret c
+    jp c,kill_player
 
-    ld a,L2_END_FLAG_Y
-    ld b,a
-    ld a,(playery)
-    add a,PLAYER_HEIGHT
-    cp b
-    ret c
-
-    call setborderpink
+    ;player is inside the finish gate
+    call setbordergreen
     jp begin_level_1_withski
-    
 
     ret
 
@@ -559,22 +561,6 @@ player_check_collision_flaggate:
     cp 0 ;is high byte == 0 ? ;or a is quicker than cp 0
     jp nz,pccf_gonext ; return if high byte != 0   
 
-    push bc   
-    ld a,(playerx) ;player x
-    ld b,a ;B=player x
-    ld a,(de) ;A=f X
-    add a,6 ;+=gap width
-    cp b ; tree right side < player left side ?
-    pop bc
-    jp c, pccf_gonext ;if a < b gonext
-
-    push bc
-    ld a,(de) ;flag x
-    ld b,a 
-    ld a,(playerx) ;p x
-    cp b ; if player right side < tree left, 
-    pop bc
-    jp c, pccf_gonext ; then go next
 
     push bc   
     ld a,(playery) 
@@ -593,6 +579,27 @@ player_check_collision_flaggate:
     cp b 
     pop bc
     jp c, pccf_gonext 
+
+    push bc   
+    ld a,(playerx) ;player x
+    ld b,a ;B=player x
+    ld a,(flag_current_gap)
+    ld c,a
+    ld a,(de) ;A=f X
+    add a,c;+=gap width
+    cp b ; tree right side < player left side ?
+    pop bc
+    jp c, pccf_gonext ;if a < b gonext
+
+    push bc
+    ld a,(de) ;flag x
+    ld b,a 
+    ld a,(playerx) ;p x
+    cp b ; if player right side < tree left, 
+    pop bc
+    jp c, pccf_gonext ; then go next
+
+   
     
     ;if here, we collided with a tree....
     call setbordergreen 
@@ -612,14 +619,5 @@ pccf_gonext:
 
 
 
-
-kill_player:
-    call setborderpink
-
-    ld a,PLAYER_DEAD
-    ld (player_state),a
-
-    call setborderdefault
-    ret
 
 

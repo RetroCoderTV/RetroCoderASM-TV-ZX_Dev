@@ -1,19 +1,32 @@
+
+; better car spawns *
+; gate collision (one shot, hit/miss) **
+; loading screen
+; main title graphics
+; game over screen *
+; end of ski slope **
+; end of level pause
+; reduction of cash/game over fix *
+; UI Bug?
+
 ENTRY_POINT equ 0x9800
 
     org ENTRY_POINT
 
     call setborderdefault
-    call 0xDAF
+   
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
 
 begin_level_0:
+ 
     call setborderdefault
     call mainmenu_init
     jp mainmenu_update
     
 begin_level_1:
+ 
     call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
@@ -21,6 +34,7 @@ begin_level_1:
     jp main
 
 begin_level_1_withski:
+
     call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
@@ -28,6 +42,7 @@ begin_level_1_withski:
     jp main
 
 begin_level_1_noski:
+  
     call setborderdefault
     ld a,LEVEL_01
     ld (game_state),a
@@ -35,12 +50,21 @@ begin_level_1_noski:
     jp main
 
 begin_level_2:
+
     call setborderdefault
     ld a,LEVEL_02
     ld (game_state),a
     call l2_start
     jp main
     
+
+begin_gameover:
+  
+    call setborderred
+    ld a,GAME_OVER
+    ld (game_state),a
+    call gameover_init
+    jp gameover_main
     
 main:   
     
@@ -80,6 +104,7 @@ game_state db LEVEL_01
     include 'levels\level0.asm'
     include 'levels\level1.asm'
     include 'levels\level2.asm'
+    include 'levels\gameoverscreen.asm'
     include 'sprites\skiflags.asm'
     include 'sprites\skitrees.asm'
     include 'sprites\vehicles.asm'

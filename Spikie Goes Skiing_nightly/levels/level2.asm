@@ -9,17 +9,11 @@ L2_END_FLAG_Y equ 192-32
 L2_END_FLAG_W equ 5
 L2_END_FLAG_H equ 3
 
-
-
-
 l2_start:
     call reset_flags_y
     call reset_trees_y
     call paint_background_l2
     call player_init_l2
-
-    
-
     ret
 
 l2_update:

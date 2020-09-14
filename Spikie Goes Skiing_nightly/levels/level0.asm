@@ -1,5 +1,4 @@
 mainmenu_init:
-
     ld a,ASCII_INK
     rst 16
     ld a,6 ;ink

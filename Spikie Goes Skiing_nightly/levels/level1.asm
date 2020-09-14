@@ -1,6 +1,6 @@
 L1_WHITELINE_Y equ 96
 L1_WHITELINE_X equ 2
-SPAWN_CHANCE_1 equ 249
+SPAWN_CHANCE_1 equ 150
 SPAWN_CHANCE_2 equ 245
 SHOP_X equ 11
 SHOP_Y equ 192-24
@@ -58,11 +58,14 @@ shop_sprite:
 ;
 
 l1_start:
+    call randomise_all_car_timers
     call init_ui_labels
     call paint_background_l1
     call init_ui_numbers
     
     call player_init_l1
+
+
     ret
 
 l1_start_withski:
@@ -77,13 +80,50 @@ l1_start_noski:
 
 
 l1_update:
-    call spawn_vehicle_left_1
-    call spawn_vehicle_left_2
-    call spawn_vehicle_left_3
+    ld a,(veh_spawn_timer_l1)
+    dec a
+    ld (veh_spawn_timer_l1),a
+    ld a,(veh_spawn_timer_l2)
+    dec a
+    ld (veh_spawn_timer_l2),a
+    ld a,(veh_spawn_timer_l3)
+    dec a
+    ld (veh_spawn_timer_l3),a
 
-    call spawn_vehicle_right_1
-    call spawn_vehicle_right_2
-    call spawn_vehicle_right_3
+    ld a,(veh_spawn_timer_r1)
+    dec a
+    ld (veh_spawn_timer_r1),a
+    ld a,(veh_spawn_timer_r2)
+    dec a
+    ld (veh_spawn_timer_r2),a
+    ld a,(veh_spawn_timer_r3)
+    dec a
+    ld (veh_spawn_timer_r3),a
+
+    ld a,(veh_spawn_timer_l1)
+    cp 0
+    call z, spawn_vehicle_left_1
+
+    ld a,(veh_spawn_timer_l2)
+    cp 0
+    call z, spawn_vehicle_left_2
+
+    ld a,(veh_spawn_timer_l3)
+    cp 0
+    call z, spawn_vehicle_left_3
+
+    ld a,(veh_spawn_timer_r1)
+    cp 0
+    call z, spawn_vehicle_right_1
+    
+    ld a,(veh_spawn_timer_r2)
+    cp 0
+    call z, spawn_vehicle_right_2
+
+    ld a,(veh_spawn_timer_r3)
+    cp 0
+    call z, spawn_vehicle_right_3
+
 
     call vehicles_update
 

@@ -27,9 +27,11 @@ vehicles_r_1:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_r_2:
+    db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
@@ -39,9 +41,11 @@ vehicles_r_3:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_l_1:
+    db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
@@ -51,13 +55,25 @@ vehicles_l_2:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_l_3:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
+    db VEH_DEAD,0,0,0,0,0,0,0
     db 255
+
+
+
+
+veh_spawn_timer_r1 db 69
+veh_spawn_timer_r2 db 69
+veh_spawn_timer_r3 db 69
+veh_spawn_timer_l1 db 69
+veh_spawn_timer_l2 db 69
+veh_spawn_timer_l3 db 69
 
 
 
@@ -205,60 +221,93 @@ sprite_truck_l:
     db %00000000, %00000110, %00000000, %00011000, %00000000, %00001100, %01100000
 ;
 
+;Outputs:
+;A=interval between 20-63
+get_random_spawn_interval:
+    call rand
+    and %00011111
+    cp 10
+    jp c, get_random_spawn_interval
+    ret
+
+
+
+randomise_all_car_timers:
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_l1),a
+    
+    ld (veh_spawn_timer_l2),a
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_l3),a
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_r1),a
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_r2),a
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_r3),a
+    ret
+
+
 
 spawn_vehicle_right_1:
-    call rand
-    cp SPAWN_CHANCE_1
-    ret c
     ld ix,vehicles_r_1
     ld b,VEH_LANE_R_1
     call spwn_veh_r
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_r1),a
     ret
 
 spawn_vehicle_right_2:
-    call rand
-    cp SPAWN_CHANCE_1
-    ret c
     ld ix,vehicles_r_2
     ld b,VEH_LANE_R_2
     call spwn_veh_r
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_r2),a
     ret
 
 spawn_vehicle_right_3:
-    call rand
-    cp SPAWN_CHANCE_1
-    ret c
     ld ix,vehicles_r_3
     ld b,VEH_LANE_R_3
     call spwn_veh_r
+    
+    call get_random_spawn_interval
+    ld (veh_spawn_timer_r3),a
     ret
 
 
 spawn_vehicle_left_1:
-    call rand
-    cp SPAWN_CHANCE_1
-    ret c
     ld ix,vehicles_l_1
     ld b,VEH_LANE_L_1
     call spwn_veh_l
+    call rand
+    and %00011111
+    ld (veh_spawn_timer_l1),a
+
     ret
 
 spawn_vehicle_left_2:
-    call rand
-    cp SPAWN_CHANCE_1
-    ret c
     ld ix,vehicles_l_2
     ld b,VEH_LANE_L_2
     call spwn_veh_l
+    call rand
+    and %00011111
+    ld (veh_spawn_timer_l2),a
     ret
 
 spawn_vehicle_left_3:
-    call rand
-    cp SPAWN_CHANCE_1
-    ret c
     ld ix,vehicles_l_3
     ld b,VEH_LANE_L_3
     call spwn_veh_l
+    call rand
+    and %00011111
+    ld (veh_spawn_timer_l3),a
     ret
 
 

@@ -149,15 +149,7 @@ init_ui_numbers:
 ;DE=yx
 ;HL=value pointer
 draw_digit:
-    ld a,ASCII_INK
-    rst 16
-    ld a,6 ;ink
-    rst 16
-    ld a,ASCII_PAPER
-    rst 16
-    ld a,1 ;paper
-    rst 16
-
+    di
     ld a,ASCII_AT
     rst 16
     ld a,d
@@ -167,16 +159,9 @@ draw_digit:
     ld a,(hl)
     add a,ASCII_ZERO
     rst 16   
-    
+    ei
     ret
 ; 
-
-
-
-
-
-
-
 
 decrease_cash:
     ld a,(cash_10)

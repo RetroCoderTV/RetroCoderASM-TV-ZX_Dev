@@ -6,7 +6,7 @@ FLAG_START_Y equ 176
 FLAG_START_GAP equ 6
 FLAG_MIN_GAP equ 3
 
-flag_current_gap equ 4
+flag_current_gap db 6
 
 
 
@@ -248,7 +248,7 @@ draw_flag_pair:
     
     ld a,(de)
     ld d,a
-    ld a,6
+    ld a,(flag_current_gap)
     add a,d
     ld e,l
     ld d,a
