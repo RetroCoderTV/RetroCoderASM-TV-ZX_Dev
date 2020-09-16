@@ -1,7 +1,11 @@
+;release canditate v01
 
-; better car spawns *
-; gate collision (one shot, hit/miss) **
-; loading screen --
+;compromises:
+; no loading screen!
+; main menu is horrible!
+; sounds a crap!
+; perhaps needs a couple extra sounds at some points
+; car sounds? (whilst game is playing -is it possible?)
 
 
 
