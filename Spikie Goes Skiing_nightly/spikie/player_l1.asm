@@ -128,9 +128,8 @@ plyr_newlife_l1:
     call set_state_noski
     call set_direction_down
 
-    call sound_G_0_25
-    call sound_G_0_125
-    call sound_G_0_25
+    call sound_GSharp_0_25
+    call sound_A_0_25
 
     ld a,GAME_BORDER_COLOUR
     call 0x229B
@@ -416,7 +415,6 @@ player_check_collision_shop:
 
     call sound_A_0_25
     call sound_B_0_25
-    call sound_F_0_25
 
     ret
 

@@ -57,39 +57,39 @@ sound_B_0_25:
     call 0x3b5 ;ROM beeper routine
     ret
 
-sound_F_0_25:
-    ld hl,87 ;sound pitch
-    ld de,1223 ;sound 'duration'
-    call 0x3b5 ;ROM beeper routine
-    ret
+; sound_F_0_25:
+;     ld hl,87 ;sound pitch
+;     ld de,1223 ;sound 'duration'
+;     call 0x3b5 ;ROM beeper routine
+;     ret
 
-sound_F_0_50:
-    ld hl,176 ;sound pitch
-    ld de,856 ;sound 'duration'
-    call 0x3b5 ;ROM beeper routine
-    ret
+; sound_F_0_50:
+;     ld hl,176 ;sound pitch
+;     ld de,856 ;sound 'duration'
+;     call 0x3b5 ;ROM beeper routine
+;     ret
 
-sound_G_0_125: ;G, 0.125secs
-    ld hl,49 ;sound pitch
-    ld de,1086 ;sound 'duration'
-    call 0x3b5 ;ROM beeper routine
-    ret
+; sound_G_0_125: ;G, 0.125secs
+;     ld hl,49 ;sound pitch
+;     ld de,1086 ;sound 'duration'
+;     call 0x3b5 ;ROM beeper routine
+;     ret
 
-sound_G_0_25: ;G, 0.25secs
-    ld hl,98 ;sound pitch
-    ld de,1086 ;sound 'duration'
-    call 0x3b5 ;ROM beeper routine
-    ret
+; sound_G_0_25: ;G, 0.25secs
+;     ld hl,98 ;sound pitch
+;     ld de,1086 ;sound 'duration'
+;     call 0x3b5 ;ROM beeper routine
+;     ret
 
-sound_G_0_375: ;G, 0.375secs
-    ld hl,147 ;sound pitch
-    ld de,1086 ;sound 'duration'
-    call 0x3b5 ;ROM beeper routine
-    ret
+; sound_G_0_375: ;G, 0.375secs
+;     ld hl,147 ;sound pitch
+;     ld de,1086 ;sound 'duration'
+;     call 0x3b5 ;ROM beeper routine
+;     ret
 
-sound_G_0_5: ;G, 0.5secs
-    ld hl,196 ;sound pitch
-    ld de,1086 ;sound 'duration'
-    call 0x3b5 ;ROM beeper routine
-    ret
+; sound_G_0_5: ;G, 0.5secs
+;     ld hl,196 ;sound pitch
+;     ld de,1086 ;sound 'duration'
+;     call 0x3b5 ;ROM beeper routine
+;     ret
 

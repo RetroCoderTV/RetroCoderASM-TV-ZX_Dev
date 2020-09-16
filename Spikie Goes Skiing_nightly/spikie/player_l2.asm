@@ -232,16 +232,9 @@ skilevel_completed:
     ld a,(current_spawn_chance)
     cp MAX_SPAWN_CHANCE
     jp nc, begin_level_1_withski
-    inc a
-    inc a
-    inc a
-    inc a
-    inc a
-    inc a
-    inc a
-    inc a
-    inc a
-    inc a ; added 10 to currentspawnchance
+    ld b,a
+    ld a,SPAWN_CHANCE_INCREASE_AMOUNT
+    add a,b
     ld (current_spawn_chance),a
 
     ld a,(flag_current_gap)

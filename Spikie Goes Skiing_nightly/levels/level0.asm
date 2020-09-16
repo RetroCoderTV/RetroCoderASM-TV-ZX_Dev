@@ -49,8 +49,14 @@ mainmenu_init:
     ld d,PRESSKEY_Y
     ld e,PRESSKEY_X
     call GetCharAddr
-    ld de,presskey_string
+    ld de,f_string
     call PrintStr   
+    ld bc,15616
+    ld d,PRESSKEY_Y+1
+    ld e,PRESSKEY_X
+    call GetCharAddr
+    ld de,i_string
+    call PrintStr  
 
     ld bc,15616
     ld d,RETROSTRING_Y
@@ -70,6 +76,10 @@ mainmenu_update:
 
 
     call check_keys
+
+    ld a,(keypressed_I)
+    cp TRUE
+    jp z,instructions_start
 
     ld a,(keypressed_F)
     cp TRUE
@@ -102,6 +112,7 @@ MENU_CAR_2_X equ 17
 MENU_CAR_2_Y equ 82
 
 
-title_string db 'SPIKIE GOES..',0
+title_string db 'SPIKIE GOES...',0
 retro_string db 0x7F,' RetroCoder TV 2020',0
-presskey_string db 'PRESS F TO START',0
+f_string db 'F - START GAME',0 
+i_string db 'I - INSTRUCTIONS',0

@@ -1,7 +1,9 @@
 L1_WHITELINE_Y equ 96
 L1_WHITELINE_X equ 2
 SPAWN_CHANCE_1 equ 150
-MAX_SPAWN_CHANCE equ 240 ;nearer to 255 means more likely to spawn
+SPAWN_CHANCE_INCREASE_AMOUNT equ 20
+MAX_SPAWN_CHANCE equ 230 ;nearer to 255 means more likely to spawn
+current_spawn_chance db 100 ;255 is highest amount of spawns.
 SHOP_X equ 11
 SHOP_Y equ 192-24
 SHOP_W equ 6
@@ -16,7 +18,7 @@ L1_PLAYER_START_Y_WITHSKI equ 168
 L1_PLAYER_START_FACING_WITHSKI equ UP
 L1_PLAYER_START_STATE_WITHSKI equ WITH_SKI
 
-current_spawn_chance db 50 ;255 is highest amount of spawns.
+
 
 roadline_sprite:
     db %00000000
