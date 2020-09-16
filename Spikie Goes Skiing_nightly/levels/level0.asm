@@ -82,7 +82,7 @@ mainmenu_update:
 ;;;; DATA ;;;;;;;;;;
 
 
-RETROSTRING_X equ 0
+RETROSTRING_X equ 12
 RETROSTRING_Y equ 23
 PRESSKEY_X equ 4
 PRESSKEY_Y equ 4
