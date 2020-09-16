@@ -419,25 +419,7 @@ drawplayer16_24:
     ld de,BUFFER_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
 
 ;;Window Width of 24....
 ;INPUTS:
@@ -532,7 +514,7 @@ drawsprite8_8:
 
     
     ret
-
+;
 
 ;;Window Width of 24....
 ;INPUTS:
@@ -635,25 +617,171 @@ drawsprite8_8_shiftleft1:
 
     
     ret
+;
 
 
 
 
 
+;;Window Width of 24....
+;INPUTS:
+;wwidth=24
+;BC=sprite pointer
+;DE=xy
+drawsprite8_16:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push bc
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop bc
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,7
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc bc    
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de ;increment HL pointer by wwidth
+    ;0,7
+    ld a,(bc)
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    
+    ret
+;
 
 
 
@@ -780,40 +908,7 @@ drawsprite16_8:
     ld a,(bc)
     ld (hl),a
     ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
 
 
 
@@ -1099,7 +1194,7 @@ drawsprite16_16:
     or d
     ld (hl),a
     ret
-
+;
 
 
 
@@ -1135,11 +1230,15 @@ drawsprite16_24:
     ;start drawing bytes...
     ;0,0
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,0
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1147,11 +1246,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer by wwidth
     ;0,1
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,1
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1159,11 +1262,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,2
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,2
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1171,11 +1278,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,3
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,3
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1183,11 +1294,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,4
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,4
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1195,11 +1310,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,5
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,5
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1207,11 +1326,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,6
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,6
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1219,11 +1342,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,7
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,7
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1231,11 +1358,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,8
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,8
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1243,11 +1374,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,9
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,9
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1255,11 +1390,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,10
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,10
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1267,11 +1406,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,11
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,11
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1279,11 +1422,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,12
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,12
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1291,11 +1438,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,13
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,13
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1303,11 +1454,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,14
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,14
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1315,11 +1470,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,15
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,15
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1327,11 +1486,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,16
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,16
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1339,11 +1502,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,17
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,17
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1351,11 +1518,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,18
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,18
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1363,11 +1534,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,19
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,19
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1375,11 +1550,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,20
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,20
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1387,11 +1566,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,21
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,21
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1399,11 +1582,15 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,22
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,22
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1411,25 +1598,22 @@ drawsprite16_24:
     add hl,de ;increment HL pointer 
     ;0,23
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,23
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
     ld de,BUFFER_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ret
-
-
-
-
-
-
-
-
+;
 
 
 ;INPUTS:
@@ -1971,593 +2155,544 @@ drawsprite16_32:
     ld de,BUFFER_WINDOW_WIDTH-1
     add hl,de ;increment HL pointer 
     ret
+;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;Window Width of 24....
-;INPUTS:
-;wwidth=24
-;BC=sprite pointer
-;DE=xy
-drawspritedesks:
-    ld hl,0
-    ld a,e
-    ld l,a
-    add hl,hl ;HL= y*2
-    add hl,hl ;HL= y*4
-    push de
-    push hl
-    pop de ;DE=y*4
-    add hl,hl ;HL= y*8
-    push bc
-    push hl
-    pop bc ;BC=y*8
-    add hl,hl
-    add hl,bc ;HL=y*24
-    add hl,de ;HL=y*28
-    pop bc
-    pop de
-    ld e,d
-    ld d,0
-    add hl,de ;HL+=x
-    ld de,GAME_WINDOW_START
-    add hl,de ;HL+=memstart
-    ;start drawing bytes...
-    ;0,0
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,0
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,0
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,0
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,1
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,1
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,1
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,1
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,2
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,2
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,2
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,2
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,3
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,3
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,3
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,3
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,4
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,4
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,4
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,4
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,5
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,5
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,5
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,5
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,6
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,6
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,6
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,6
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,7
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,7
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,7
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,7
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,8
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,8
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,8
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,8
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,9
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,9
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,9
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,9
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,10
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,10
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,10
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,10
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,11
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,11
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,11
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,11
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,12
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,12
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,12
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,12
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,13
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,13
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,13
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,13
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,14
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,14
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,14
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,14
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,15
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,16
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,17
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,18
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,19
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,20
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,21
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,22
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,23
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ret
-
+; ;;Window Width of 24....
+; ;INPUTS:
+; ;wwidth=24
+; ;BC=sprite pointer
+; ;DE=xy
+; drawspritedesks:
+;     ld hl,0
+;     ld a,e
+;     ld l,a
+;     add hl,hl ;HL= y*2
+;     add hl,hl ;HL= y*4
+;     push de
+;     push hl
+;     pop de ;DE=y*4
+;     add hl,hl ;HL= y*8
+;     push bc
+;     push hl
+;     pop bc ;BC=y*8
+;     add hl,hl
+;     add hl,bc ;HL=y*24
+;     add hl,de ;HL=y*28
+;     pop bc
+;     pop de
+;     ld e,d
+;     ld d,0
+;     add hl,de ;HL+=x
+;     ld de,GAME_WINDOW_START
+;     add hl,de ;HL+=memstart
+;     ;start drawing bytes...
+;     ;0,0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,0
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,0
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,0
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,1
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,1
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,1
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,2
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,2
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,2
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,3
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,3
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,3
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,4
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,4
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,4
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,5
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,5
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,5
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,6
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,6
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,6
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,7
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,7
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,7
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,8
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,8
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,8
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,9
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,9
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,9
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,10
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,10
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,10
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,10
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,11
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,11
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,11
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,11
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,12
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,12
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,12
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,12
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,13
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,13
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,13
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,13
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,14
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,14
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,14
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,14
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,15
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,16
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,17
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,18
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,19
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,20
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,21
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,22
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,23
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ret
+; ;
 
 
 
@@ -3069,49 +3204,7 @@ drawsprite32_16:
     or d
     ld (hl),a
     ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
 
 
 
@@ -3649,37 +3742,7 @@ drawsprite32_24:
     ld a,(bc)
     ld (hl),a
     ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
 
 
 
@@ -4763,59 +4826,7 @@ drawsprite24_64:
     ld a,(bc)
     ld (hl),a
     ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
 
 
 
@@ -6448,683 +6459,634 @@ drawsprite16_128:
     ld a,(bc)
     ld (hl),a
     ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-drawdoorframe:
-    ld hl,0
-    ld a,e
-    ld l,a
-    add hl,hl ;HL= y*2
-    add hl,hl ;HL= y*4
-    add hl,hl ;HL= y*8
-    push bc
-    push hl
-    pop bc ;BC=y*8
-    add hl,hl
-    add hl,bc ;HL=y*24
-    pop bc
-    ld e,d
-    ld d,0
-    add hl,de ;HL+=x
-    ld de,GAME_WINDOW_START
-    add hl,de ;HL+=memstart
-    ;start drawing bytes...
-
-    ;0,0
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,1
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,2
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,3
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,4
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,5
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,6
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,7
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    ;1,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;2,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-
-
-
-    ;sideframes
-    ;1
-    ;0,0
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,1
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,2
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,3
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,4
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,5
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,6
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,7
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-
-
-    ;2
-    ;0,0
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,1
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,2
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,3
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,4
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,5
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,6
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,7
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-
-
-    ;3
-    ;0,0
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,1
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,2
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,3
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,4
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,5
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,6
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,7
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-
-
-
-    ;4
-    ;0,0
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,1
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,2
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,3
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,4
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,5
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,6
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-    ;0,7
-    ld a,(bc)
-    ld (hl),a 
-    inc bc
-    inc hl
-    inc hl
-    inc hl
-    ;3,
-    ld a,(bc)
-    ld (hl),a
-    inc bc
-    ld de,BUFFER_WINDOW_WIDTH-3
-    add hl,de ;increment HL pointer by wwidth
-
-
-
-    ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
+
+
+
+
+; drawdoorframe:
+;     ld hl,0
+;     ld a,e
+;     ld l,a
+;     add hl,hl ;HL= y*2
+;     add hl,hl ;HL= y*4
+;     add hl,hl ;HL= y*8
+;     push bc
+;     push hl
+;     pop bc ;BC=y*8
+;     add hl,hl
+;     add hl,bc ;HL=y*24
+;     pop bc
+;     ld e,d
+;     ld d,0
+;     add hl,de ;HL+=x
+;     ld de,GAME_WINDOW_START
+;     add hl,de ;HL+=memstart
+;     ;start drawing bytes...
+
+;     ;0,0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+
+
+
+;     ;sideframes
+;     ;1
+;     ;0,0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+
+
+;     ;2
+;     ;0,0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+
+
+;     ;3
+;     ;0,0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+
+
+
+;     ;4
+;     ;0,0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     inc hl
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     ld de,BUFFER_WINDOW_WIDTH-3
+;     add hl,de ;increment HL pointer by wwidth
+
+
+
+;     ret
 
 
 
@@ -8254,6 +8216,272 @@ drawsprite48_24:
 
 
 
+;;Window Width of 24....
+;INPUTS:
+;wwidth=24
+;BC=sprite pointer
+;DE=xy
+drawsprite40_8:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push bc
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop bc
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-4
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9339,3 +9567,6349 @@ drawsprite48_32:
     ld a,(bc)
     ld (hl),a
     ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;DE=xy
+draw_endpole_l_8_16:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_L
+    ld d,(hl)
+    or d
+    ld (hl),a 
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+;DE=xy
+draw_endpole_r_8_16:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+    inc hl
+    ld de,BUFFER_WINDOW_WIDTH-1
+    add hl,de
+
+    ld a,END_POLE_R
+    ld d,(hl)
+    or d
+    ld (hl),a 
+
+    ret
+
+
+;DE=xy
+;ixl=pole byte
+drawpole8_16:
+    push bc
+
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+
+    pop bc
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ld (hl),c
+    ld de,BUFFER_WINDOW_WIDTH
+    add hl,de
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+drawsprite72_48:
+    push bc
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+
+    pop bc
+    
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+    
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;8
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;9
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+    
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;8
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;9
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+    
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;8
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;9
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+    
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;8
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;9
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;0
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;1
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;2
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;3
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;4
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;5
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+
+    ;0,0    ;;;;;;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    ld de,BUFFER_WINDOW_WIDTH-8
+    add hl,de ;increment HL pointer by wwidth
+    
+    ;0,0    ;;;;;;7
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;1,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;2,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;3,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;4,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;5,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;6
+    ld a,(bc)
+    ld (hl),a 
+    inc bc
+    inc hl
+    ;7,
+    ld a,(bc)
+    ld (hl),a
+    inc bc
+    inc hl
+    ;8,
+    ld a,(bc)
+    ld (hl),a
+    ret
+
+
+
+
+
+; ;;Window Width of 24....
+; ;INPUTS:
+; ;wwidth=24
+; ;BC=sprite pointer
+; ;DE=xy
+; drawsprite88_64:
+;     ld hl,0
+;     ld a,e
+;     ld l,a
+;     add hl,hl ;HL= y*2
+;     add hl,hl ;HL= y*4
+;     push de
+;     push hl
+;     pop de ;DE=y*4
+;     add hl,hl ;HL= y*8
+;     push bc
+;     push hl
+;     pop bc ;BC=y*8
+;     add hl,hl
+;     add hl,bc ;HL=y*24
+;     add hl,de ;HL=y*28
+;     pop bc
+;     pop de
+;     ld e,d
+;     ld d,0
+;     add hl,de ;HL+=x
+;     ld de,GAME_WINDOW_START
+;     add hl,de ;HL+=memstart
+;     ;start drawing bytes...
+;     ;0,0    ;;;;;;0
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+    
+    
+
+
+
+
+
+
+
+;     ;0,0    ;;;;;;10
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;     ;0,0    ;;;;;;20
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+;     ;0,0    ;;;;;;30
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+;     ;0,0    ;;;;;;40
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+    
+    
+
+
+
+
+;     ;0,0    ;;;;;;50
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;3
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;4
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;5
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;7
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;8
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;9
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+    
+    
+
+
+
+
+
+
+
+;     ;0,0    ;;;;;;50
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;1
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc 
+;     ld de,BUFFER_WINDOW_WIDTH-10
+;     add hl,de ;increment HL pointer by wwidth
+;     ;0,0    ;;;;;;2
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;1,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;2,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;3,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;4,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;5,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;6
+;     ld a,(bc)
+;     ld (hl),a 
+;     inc bc
+;     inc hl
+;     ;7,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;8,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;9,
+;     ld a,(bc)
+;     ld (hl),a
+;     inc bc
+;     inc hl
+;     ;10,
+;     ld a,(bc)
+;     ld (hl),a
+;     ret

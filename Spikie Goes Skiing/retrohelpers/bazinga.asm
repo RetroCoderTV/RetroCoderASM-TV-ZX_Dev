@@ -1,137 +1,137 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Name:		GetPixelAddr
-;
-;	Desc:		Get screen pixel from x, y
-;				x = 0 to 255; y = 0 to 191
-;
-;	Input:		DE = y, x coords in pixels (d=y)
-;
-;	Output: 	HL = Screen address
-;				A  = Pixel position
-;
-;	Clobbers: 	A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-GetPixelAddr:
-	ld		a, e			; use copy of x coord
-	rrca					; divide by 8
-	rrca
-	rrca
-	and		31				; mask rotated in bits
-	ld		h, a			; store in h
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;	Name:		GetPixelAddr
+; ;
+; ;	Desc:		Get screen pixel from x, y
+; ;				x = 0 to 255; y = 0 to 191
+; ;
+; ;	Input:		DE = y, x coords in pixels (d=y)
+; ;
+; ;	Output: 	HL = Screen address
+; ;				A  = Pixel position
+; ;
+; ;	Clobbers: 	A
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; GetPixelAddr:
+; 	ld		a, e			; use copy of x coord
+; 	rrca					; divide by 8
+; 	rrca
+; 	rrca
+; 	and		31				; mask rotated in bits
+; 	ld		h, a			; store in h
 	
-	ld 		a, d			; get y
-	rla						; rotate y3 to y5 into position
-	rla
-	and 	224				; and isolate
-	or 		h				; merge x (copy)
-	ld 		l, a			; store in l
+; 	ld 		a, d			; get y
+; 	rla						; rotate y3 to y5 into position
+; 	rla
+; 	and 	224				; and isolate
+; 	or 		h				; merge x (copy)
+; 	ld 		l, a			; store in l
 	
-	ld 		a, d			; get y
-	rra						; rotate y7 and y6 into position-1
-	rra
-	or 		128				; bring in high bit
-	rra						; rotate y7 and y6 into position
-	xor 	d				; merge lower 3 bits of y for y0 to y2
-	and 	248
-	xor 	d
-	ld 		h, a			; store in h
+; 	ld 		a, d			; get y
+; 	rra						; rotate y7 and y6 into position-1
+; 	rra
+; 	or 		128				; bring in high bit
+; 	rra						; rotate y7 and y6 into position
+; 	xor 	d				; merge lower 3 bits of y for y0 to y2
+; 	and 	248
+; 	xor 	d
+; 	ld 		h, a			; store in h
 	
-	ld		a, e			; get pixel position
-	and		7
+; 	ld		a, e			; get pixel position
+; 	and		7
 
-	ret
+; 	ret
 	
 	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Name:		GetScreenAddr
-;
-;	Desc:		Get screen byte from x, y
-;				x = 0 to 31; y = 0 to 191
-;
-;	Input:		DE = y, x coords in pixels (d=y)
-;
-;	Output: 	HL = Screen address
-;
-;	Clobbers: 	A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-GetScreenAddr:
-	ld 		a, d			; get y
-	rla						; rotate y3 to y5 into position
-	rla
-	and 	224				; and isolate
-	or 		e				; merge x
-	ld 		l, a			; store in l
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;	Name:		GetScreenAddr
+; ;
+; ;	Desc:		Get screen byte from x, y
+; ;				x = 0 to 31; y = 0 to 191
+; ;
+; ;	Input:		DE = y, x coords in pixels (d=y)
+; ;
+; ;	Output: 	HL = Screen address
+; ;
+; ;	Clobbers: 	A
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; GetScreenAddr:
+; 	ld 		a, d			; get y
+; 	rla						; rotate y3 to y5 into position
+; 	rla
+; 	and 	224				; and isolate
+; 	or 		e				; merge x
+; 	ld 		l, a			; store in l
 	
-	ld 		a, d			; get y
-	rra						; rotate y7 and y6 into position-1
-	rra
-	or 		128				; bring in high bit
-	rra						; rotate y7 and y6 into position
-	xor 	d				; merge lower 3 bits of y for y0 to y2
-	and 	248
-	xor 	d
-	ld 		h, a			; store in h
+; 	ld 		a, d			; get y
+; 	rra						; rotate y7 and y6 into position-1
+; 	rra
+; 	or 		128				; bring in high bit
+; 	rra						; rotate y7 and y6 into position
+; 	xor 	d				; merge lower 3 bits of y for y0 to y2
+; 	and 	248
+; 	xor 	d
+; 	ld 		h, a			; store in h
 
-	ret
+; 	ret
 
 	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Name:		IncY
-;
-;	Desc:		Get next screen y down
-;
-;	Input:		HL = Current screen address
-;
-;	Output: 	HL = Next y line down
-;
-;	Clobbers: 	A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-IncY:
-	inc 	h				; move down 1 line
-	ld 		a, h
-	and 	7				; test if still in char block
-	ret 	nz				; just return if so
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;	Name:		IncY
+; ;
+; ;	Desc:		Get next screen y down
+; ;
+; ;	Input:		HL = Current screen address
+; ;
+; ;	Output: 	HL = Next y line down
+; ;
+; ;	Clobbers: 	A
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; IncY:
+; 	inc 	h				; move down 1 line
+; 	ld 		a, h
+; 	and 	7				; test if still in char block
+; 	ret 	nz				; just return if so
 	
-	ld 		a, l			; if not...
-	add		a, 32			; get next char block
-	ld 		l, a
-	ret 	c				; return if in new third
+; 	ld 		a, l			; if not...
+; 	add		a, 32			; get next char block
+; 	ld 		l, a
+; 	ret 	c				; return if in new third
 	
-	ld 		a, h			; if not....
-	sub		8				; go back a third
-	ld 		h, a
+; 	ld 		a, h			; if not....
+; 	sub		8				; go back a third
+; 	ld 		h, a
 	
-	ret
+; 	ret
 	
 	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Name:		DecY
-;
-;	Desc:		Get next screen y up
-;
-;	Input:		HL = Current screen address
-;
-;	Output: 	HL = Next y line up
-;
-;	Clobbers: 	A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
-DecY:
-	dec 	h				; move up 1 line
-	ld 		a, h
-	and 	7				; isolate 0 - 7
-	cp		7				; are we at end of a char?
-	ret 	nz				; return if not
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;	Name:		DecY
+; ;
+; ;	Desc:		Get next screen y up
+; ;
+; ;	Input:		HL = Current screen address
+; ;
+; ;	Output: 	HL = Next y line up
+; ;
+; ;	Clobbers: 	A
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+; DecY:
+; 	dec 	h				; move up 1 line
+; 	ld 		a, h
+; 	and 	7				; isolate 0 - 7
+; 	cp		7				; are we at end of a char?
+; 	ret 	nz				; return if not
 	
-	ld 		a, l			; if so...
-	sub 	32				; get next char block
-	ld 		l, a
-	ret 	c				; return if in new third
+; 	ld 		a, l			; if so...
+; 	sub 	32				; get next char block
+; 	ld 		l, a
+; 	ret 	c				; return if in new third
 	
-	ld 		a, h			; if not...
-	add		a, 8			; go back a third
-	ld 		h, a
+; 	ld 		a, h			; if not...
+; 	add		a, 8			; go back a third
+; 	ld 		h, a
 	
-	ret
+; 	ret
 	
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -163,60 +163,60 @@ GetCharAddr:
 	ret
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Name:		GetAttrAddr
-;
-;	Desc:		Get attr byte from screen addr
-;
-;	Input:		HL = Screen byte address
-;
-;	Output: 	HL = Attr address
-;
-;	Clobbers: 	A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-GetAttrAddr:
-	ld		a, h			; get high byte of screen addr
-	rra						; rotate bits 3 and 4 of screen addr
-	rra						; (screen third bits)
-	rra						; into first 2 bits of h
-	and		3				; and isolate them
-	or		$58				; set attr start
-	ld		h, a			; store attr address
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;	Name:		GetAttrAddr
+; ;
+; ;	Desc:		Get attr byte from screen addr
+; ;
+; ;	Input:		HL = Screen byte address
+; ;
+; ;	Output: 	HL = Attr address
+; ;
+; ;	Clobbers: 	A
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; GetAttrAddr:
+; 	ld		a, h			; get high byte of screen addr
+; 	rra						; rotate bits 3 and 4 of screen addr
+; 	rra						; (screen third bits)
+; 	rra						; into first 2 bits of h
+; 	and		3				; and isolate them
+; 	or		$58				; set attr start
+; 	ld		h, a			; store attr address
 	
-	ret
+; 	ret
 
 	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	Name:		GetAttrXY
-;
-;	Desc:		Get attr byte from x, y
-;				x = 0 to 31; y = 0 to 24
-;
-;	Input:		DE = y, x coords in chars (d=y)
-;
-;	Output: 	HL = Attr address
-;
-;	Clobbers: 	A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-GetAttrXY:
-	ld	h, AttrTbl / 256
-	ld	a, d
-	add a, a
-	ld	l, a
-	ld	a, (hl)
-	inc l
-	ld	h, (hl)
-	or	e
-	ld	l, a
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;	Name:		GetAttrXY
+; ;
+; ;	Desc:		Get attr byte from x, y
+; ;				x = 0 to 31; y = 0 to 24
+; ;
+; ;	Input:		DE = y, x coords in chars (d=y)
+; ;
+; ;	Output: 	HL = Attr address
+; ;
+; ;	Clobbers: 	A
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; GetAttrXY:
+; 	ld	h, AttrTbl / 256
+; 	ld	a, d
+; 	add a, a
+; 	ld	l, a
+; 	ld	a, (hl)
+; 	inc l
+; 	ld	h, (hl)
+; 	or	e
+; 	ld	l, a
 	
-	ret
+; 	ret
 
-org ($ + 255) / 256 * 256	; align to 256 bytes
+; org ($ + 255) / 256 * 256	; align to 256 bytes
 
-AttrTbl:
-	REPT 24, y
-		dw	0x5800+32*y
-	ENDM
+; AttrTbl:
+; 	REPT 24, y
+; 		dw	0x5800+32*y
+; 	ENDM
 
 
 ; GetAttrXY:

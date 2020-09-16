@@ -3,36 +3,34 @@ PLAYER_HEIGHT equ 24 ;in lines
 PLAYER_BOUNDING_BOX_OFFSET_X equ 1
 PLAYER_BOUNDING_BOX_OFFSET_Y equ 15
 PLAYER_BOUNDING_BOX_HEIGHT equ 5
-
 PLAYER_FRAME_SIZE equ 48
+PLAYER_INK_COLOUR equ %01000010
 
-PLAYER_MIN_X equ 2
-PLAYER_MAX_X equ BUFFER_WINDOW_WIDTH-PLAYER_WIDTH-1
+PLAYER_MIN_X equ 3
+PLAYER_MAX_X equ BUFFER_WINDOW_WIDTH-PLAYER_WIDTH-3
 PLAYER_MIN_Y equ 4
 PLAYER_MAX_Y equ 192-24
+
+PLAYER_SPEED_X equ 1
+PLAYER_SPEED_Y equ 4
+PLAYER_SKI_SPEED_FAST equ 8
+PLAYER_SKI_SPEED_MEDIUM equ 4
+PLAYER_SKI_SPEED_SLOW equ 2
+
+PLAYER_SKI_ICON_OFFSET_X equ 1
 
 player_direction db DOWN
 player_state db NO_SKI
 player_current_frame db 0
-
 player_anim_timer db 0
-player_attack_timer db 0
-
 playery db 0
 playerx db 12
-
-player_targetpos_x db 0
-player_targetpos_y db 0
-
-PLAYER_SPEED_X equ 1
-PLAYER_SPEED_Y equ 8
-
-collision_detected_player_solid db FALSE
 collision_detected_player_shop db FALSE
+collision_detected_player_car db FALSE
 
+has_ski db 0
 
-PLAYER_INK_COLOUR equ %01000010
-
+;;;;;;;;;;; sprite data ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 24 pixels (= 2 x 3 characters)
 ; line based output of pixel data:
@@ -340,22 +338,393 @@ playersprite_right:
     db %00010101, %00100000
     db %00001000, %10010000
     db %00000000, %01110000
-
-
 ;
+playersprite_down_ski:
+    db %00010101, %01010000
+    db %00011111, %11110000
+    db %01011000, %00110010
+    db %01011010, %10110010
+    db %01001000, %00100010
+    db %01000101, %10100010
+    db %01011110, %01111010
+    db %01111111, %11111110
+    db %01111100, %01111110
+    db %11011100, %01110011
+    db %11111100, %01111111
+    db %11111110, %11111111
+    db %01001110, %11110010
+    db %01001111, %11110010
+    db %01111111, %11111110
+    db %00001110, %11100000
+    db %00001100, %01100000
+    db %00001110, %11100000
+    db %00001110, %11100000
+    db %00001010, %10100000
+    db %00001010, %10100000
+    db %00001010, %10100000
+    db %00001010, %10100000
+    db %00001110, %11100000
+;
+playersprite_dl_ski:
+    db %00000001, %01010100
+    db %00000011, %11111100
+    db %00000010, %00001100
+    db %00000011, %01001101
+    db %00000010, %00001001
+    db %00000001, %11001010
+    db %00000111, %00011110
+    db %00001111, %11111110
+    db %00011111, %00011111
+    db %00010111, %00011101
+    db %00011111, %00011101
+    db %00011111, %10111111
+    db %00010111, %10110011
+    db %00010111, %11110010
+    db %00001111, %11111110
+    db %00000011, %10111100
+    db %00000011, %10011000
+    db %00000011, %10111100
+    db %00000111, %10111100
+    db %00001001, %00100100
+    db %00010010, %01001000
+    db %00100100, %10010000
+    db %01001001, %00100000
+    db %01110001, %11000000
+;
+playersprite_dr_ski:
+    db %00101010, %10000000
+    db %00111111, %11000000
+    db %00110000, %01000000
+    db %10110010, %11000000
+    db %10010000, %01000000
+    db %01010011, %10000000
+    db %01111000, %11100000
+    db %01111111, %11110000
+    db %11111000, %11111000
+    db %10111000, %11101000
+    db %10111000, %11111000
+    db %11111101, %11111000
+    db %11001101, %11101000
+    db %01001111, %11101000
+    db %01111111, %11110000
+    db %00111101, %11000000
+    db %00011001, %11000000
+    db %00111101, %11000000
+    db %00111101, %11100000
+    db %00100100, %10010000
+    db %00010010, %01001000
+    db %00001001, %00100100
+    db %00000100, %10010010
+    db %00000011, %10001110
+;
+playersprite_r_ski:
+    db %10101010, %00000000
+    db %11111111, %00000000
+    db %11110001, %00000000
+    db %11101011, %00000000
+    db %01100001, %00000000
+    db %01101110, %00000000
+    db %01100011, %11111110
+    db %11111111, %10110010
+    db %11001011, %11111110
+    db %11111011, %00000100
+    db %01111011, %00000100
+    db %01111111, %00000100
+    db %11111111, %00000100
+    db %11111111, %00000100
+    db %11111111, %00000100
+    db %01110111, %00000100
+    db %01110111, %00001110
+    db %01110111, %00000000
+    db %11111111, %11111111
+    db %01110111, %10000001
+    db %01111111, %11111110
+    db %11111111, %11111111
+    db %01111000, %00000010
+    db %11111111, %11111100
+;
+playersprite_l_ski:
+    db %00000000, %01010101
+    db %00000000, %11111111
+    db %00000000, %10001111
+    db %00000000, %11010111
+    db %00000000, %10000110
+    db %00000000, %01110110
+    db %01111111, %11000110
+    db %01001101, %11111111
+    db %01111111, %11011111
+    db %00100000, %11010011
+    db %00100000, %11011110
+    db %00100000, %11111110
+    db %00100000, %11111111
+    db %00100000, %11111111
+    db %00100000, %11111111
+    db %00100000, %11101110
+    db %01110000, %11101110
+    db %00000000, %11101110
+    db %11111111, %11111111
+    db %10000001, %11101110
+    db %01111111, %11111110
+    db %11111111, %11111111
+    db %01000000, %00011110
+    db %00111111, %11111111
+;
+playersprite_dead_ski:
+    db %00000000, %00000000
+    db %00001001, %00100000
+    db %00101101, %10110000
+    db %00111101, %10110000
+    db %00111111, %11110000
+    db %00011000, %00110000
+    db %00011010, %10110000
+    db %00001000, %00100000
+    db %11101011, %10100111
+    db %10011011, %10111001
+    db %10001000, %00110001
+    db %01000111, %11100010
+    db %00100011, %11000100
+    db %01110001, %10001110
+    db %11101011, %00010111
+    db %11001110, %00110011
+    db %00001100, %01110000
+    db %00001000, %10110000
+    db %00010001, %00010000
+    db %00100010, %10001000
+    db %01000100, %01000100
+    db %10001000, %00100010
+    db %01010000, %00010100
+    db %00100000, %00001000
+;
+playersprite_ski_icon:
+    db %01100110
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    ;
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %10011001
+    db %11111111
+;
+playersprite_dead_road:
+    db %00010010, %00100000
+    db %00011011, %00110000
+    db %00011111, %11111000
+    db %01111011, %10111110
+    db %00111000, %00111100
+    db %00010010, %10001000
+    db %00010000, %00001100
+    db %01110011, %11000110
+    db %01011010, %01000111
+    db %11111000, %00011111
+    db %11111111, %11111110
+    db %11001100, %01100110
+    db %11111100, %01111110
+    db %11001110, %11100111
+    db %11000110, %11000101
+    db %11000111, %11000101
+    db %11111111, %11111101
+    db %11101110, %11101101
+    db %11111101, %01111001
+    db %01111110, %11101111
+    db %01001110, %11100110
+    db %01110010, %10010110
+    db %00110011, %10001100
+    db %00111111, %11111100
+;
+
+
+
+; This here was the amount of bytes it took to go over the allowed memory. Therefore the memory used by our video buffer has to be subtracted from the total size of program
+    ; db %00010010, %00100000
+    ; db %00011011, %00110000
+    ; db %00011111, %11111000
+    ; db %01111011, %10111110
+    ; db %00111000, %00111100
+    ; db %00010010, %10001000
+    ; db %00010000, %00001100
+    ; db %01110011, %11000110
+    ; db %01011010, %01000111
+    ; db %11111000, %00011111
+    ; db %11111111, %11111110
+    ; db %11001100, %01100110
+    ; db %11111100, %01111110
+    ; db %11001110, %11100111
+    ; db %11000110, %11000101
+    ; db %11000111, %11000101
+    ; db %11111111, %11111101
+    ; db %11101110, %11101101
+    ; db %11111101, %01111001
+    ; db %01111110, %11101111
+    ; db %01001110, %11100110
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ;  db %00010010, %00100000
+    ; db %00011011, %00110000
+    ; db %00011111, %11111000
+    ; db %01111011, %10111110
+    ; db %00111000, %00111100
+    ; db %00010010, %10001000
+    ; db %00010000, %00001100
+    ; db %01110011, %11000110
+    ; db %01011010, %01000111
+    ; db %11111000, %00011111
+    ; db %11111111, %11111110
+    ; db %11001100, %01100110
+    ; db %11111100, %01111110
+    ; db %11001110, %11100111
+    ; db %11000110, %11000101
+    ; db %11000111, %11000101
+    ; db %11111111, %11111101
+    ; db %11101110, %11101101
+    ; db %11111101, %01111001
+    ; db %01111110, %11101111
+    ; db %01001110, %11100110
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %01110011, %11000110
+    ; db %01011010, %01000111
+    ; db %11111000, %00011111
+    ; db %11111111, %11111110
+    ; db %11001100, %01100110
+    ; db %11111100, %01111110
+    ; db %11001110, %11100111
+    ; db %11000110, %11000101
+    ; db %11000111, %11000101
+    ; db %11111111, %11111101
+    ; db %11101110, %11101101
+    ; db %11111101, %01111001
+    ; db %01111110, %11101111
+    ; db %01001110, %11100110
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %01110011, %11000110
+    ; db %01011010, %01000111
+    ; db %11111000, %00011111
+    ; db %11111111, %11111110
+    ; db %11001100, %01100110
+    ; db %11111100, %01111110
+    ; db %11001110, %11100111
+    ; db %11000110, %11000101
+    ; db %11000111, %11000101
+    ; db %11111111, %11111101
+    ; db %11101110, %11101101
+    ; db %11111101, %01111001
+    ; db %01111110, %11101111
+    ; db %01001110, %11100110
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+
+    ; db %11111000, %00011111
+    ; db %11111111, %11111110
+    ; db %11001100, %01100110
+    ; db %11111100, %01111110
+    ; db %11001110, %11100111
+    ; db %11000110, %11000101
+    ; db %11000111, %11000101
+    ; db %11111111, %11111101
+    ; db %11101110, %11101101
+    ; db %11111101, %01111001
+    ; db %01111110, %11101111
+    ; db %01001110, %11100110
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %01110011, %11000110
+    ; db %01011010, %01000111
+    ; db %11111000, %00011111
+    ; db %11111111, %11111110
+    ; db %11001100, %01100110
+    ; db %11111100, %01111110
+    ; db %11001110, %11100111
+    ; db %11000110, %11000101
+    ; db %11000111, %11000101
+    ; db %11111111, %11111101
+    ; db %11101110, %11101101
+    ; db %11111101, %01111001
+    ; db %01111110, %11101111
+    ; db %01001110, %11100110
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %01110010, %10010110
+    ; db %00110011, %10001100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+    ; db %00111111, %11111100
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;public update loop for the player
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 player_update:
     ld a,(game_state)
     cp LEVEL_01
     call z,player_update_l1
     ld a,(game_state)
-    ; cp LEVEL_02
-    ; call z,player_update_l2
+    cp LEVEL_02
+    call z,player_update_l2
     ret
 ;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;public draw loop for the player
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 player_draw:
     call plyr_paint
-    call drawplayer
+    ld a,(game_state)
+    cp LEVEL_01
+    call z,drawplayer_l1
+    ld a,(game_state)
+    cp LEVEL_02
+    call z,drawplayer_l2
     ret
 ;
 
@@ -364,155 +733,6 @@ plyr_paint:
     ld de,(playery)
     call paint_sprite_2_3
     ret
-
-
-
-
-drawplayer:    
-    ld a,(collision_detected_player_shop)
-    cp TRUE
-    ret z
-    ld a,(player_direction)
-    cp UP
-    jp z, drawplayer_up
-    cp DOWN
-    jp z, drawplayer_down
-    cp LEFT
-    jp z, drawplayer_left
-    cp RIGHT
-    jp z, drawplayer_right
-drawplayer_up:
-    ld a,(player_current_frame)
-    cp 0
-    jp z,dpu0
-    cp 1
-    jp z,dpu1
-    cp 2
-    jp z,dpu2
-    cp 3
-    jp z,dpu3
-dpu0:
-    ld bc,playersprite_up
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpu1:
-    ld bc,playersprite_up+48
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpu2:
-    ld bc,playersprite_up
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpu3:
-    ld bc,playersprite_up+96
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_down:
-    ld a,(player_current_frame)
-    cp 0
-    jp z,dpd0
-    cp 1
-    jp z,dpd1
-    cp 2
-    jp z,dpd2
-    cp 3
-    jp z,dpd3
-dpd0:
-    ld bc,playersprite_down
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpd1:
-    ld bc,playersprite_down+48
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpd2:
-    ld bc,playersprite_down
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpd3:
-    ld bc,playersprite_down+96
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_left:
-    ld a,(player_current_frame)
-    cp 0
-    jp z,dpl0
-    cp 1
-    jp z,dpl1
-    cp 2
-    jp z,dpl2
-    cp 3
-    jp z,dpl3
-dpl0:
-    ld bc,playersprite_left
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpl1:
-    ld bc,playersprite_left+48
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpl2:
-    ld bc,playersprite_left
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpl3:
-    ld bc,playersprite_left+96
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_right:
-    ld a,(player_current_frame)
-    cp 0
-    jp z,dpr0
-    cp 1
-    jp z,dpr1
-    cp 2
-    jp z,dpr2
-    cp 3
-    jp z,dpr3
-dpr0:
-    ld bc,playersprite_right
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpr1:
-    ld bc,playersprite_right+48
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpr2:
-    ld bc,playersprite_right
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-dpr3:
-    ld bc,playersprite_right+96
-    ld de,(playery)
-    call drawplayer16_24
-    jp drawplayer_end
-drawplayer_end:
-    call skip_to_next_frame
-    ret
-
-
-
-
-
-
-
-
-
 
 skip_to_next_frame:
     ld a,(player_current_frame)
@@ -558,8 +778,67 @@ set_state_withski:
     ld (player_state),a
     ret
 
+set_state_skiingwaiting:
+    ld a,SKIING_WAITING
+    ld (player_state),a
+    ret
+set_state_skiing:
+    ld a,SKIING
+    ld (player_state),a
+    ret
 
+set_state_dead:
+    ld a,PLAYER_DEAD
+    ld (player_state),a
+    ret
 
+set_direction_up:
+    ld a,UP
+    ld (player_direction),a
+    ret
 
+set_direction_down:
+    ld a,DOWN
+    ld (player_direction),a
+    ret
 
+set_direction_left:
+    ld a,LEFT
+    ld (player_direction),a
+    ret
+
+set_direction_right:
+    ld a,RIGHT
+    ld (player_direction),a
+    ret
+
+set_direction_diagleft:
+    ld a,DIAG_LEFT
+    ld (player_direction),a
+    ret
+    
+set_direction_diagright:
+    ld a,DIAG_RIGHT
+    ld (player_direction),a
+    ret
+
+kill_player:
+    ld a,COLOUR_RED
+    call 0x229B
+    ld a,PLAYER_DEAD
+    ld (player_state),a
+
+  
+
+    
+    ld a,(cash_10)
+    or a ;cp 0...
+    jp z, begin_gameover
+
+    
+
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
+
+    ret
 

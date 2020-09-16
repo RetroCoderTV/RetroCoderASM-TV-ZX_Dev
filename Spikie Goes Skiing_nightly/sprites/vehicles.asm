@@ -294,7 +294,6 @@ spwn_veh_r:
     add ix,de
     jp spwn_veh_r
 spwn_veh_r_do_spawn:
-    ; do random colour (?)
     call rand
     and %00000111
     cp 0
@@ -302,10 +301,13 @@ spwn_veh_r_do_spawn:
     cp 7
     jp z, spwn_veh_r_do_spawn
     ld (ix+7),a
+
+    ld a,(current_spawn_chance)
+    ld d,a
     call rand
-    cp FIFTY50
+    cp d ;replaced 'FIFTY50' with variable spawnchance here.
     jp c, spwn_veh_now_r
-    ret ;todo is this right?
+    ret 
 spwn_veh_now_r:
     call rand
     cp FIFTY50
@@ -392,17 +394,13 @@ spwn_veh_l_do_spawn:
     cp 7
     jp z, spwn_veh_l_do_spawn
     ld (ix+7),a
+
+    ld a,(current_spawn_chance)
+    ld d,a
     call rand
-    cp FIFTY50
+    cp d ;replaced 'FIFTY50' with variable spawnchance here.
     jp c, spwn_veh_now_l
-    
-    call rand
-    cp FIFTY50
-    push af
-    call c,spwn_saloon_l
-    pop af
-    call nc,spwn_bike_l
-    ret
+    ret 
 spwn_veh_now_l:
     call rand
     cp FIFTY50

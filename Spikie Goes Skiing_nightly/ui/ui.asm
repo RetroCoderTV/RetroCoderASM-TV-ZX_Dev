@@ -278,8 +278,7 @@ increment_score100000:
 
 
 
-cash_string db 'CASH'
-eo_cash_string db 0
+cash_string db 'CASH',0
 CASH_LABEL_Y equ 1
 CASH_LABEL_X equ 26
 CASH_Y equ CASH_LABEL_Y+1
@@ -308,8 +307,7 @@ SCORE_1000_X equ 27
 SCORE_10000_X equ 26
 SCORE_100000_X equ 25
 
-score_string db 'POINTS'
-score_string_end db 0
+score_string db 'POINTS',0
 
 score_1     db 0
 score_10    db 0

@@ -2,12 +2,12 @@
 ; better car spawns *
 ; gate collision (one shot, hit/miss) **
 ; loading screen --
-; main title graphics *
-; game over screen *
-; end of ski slope **
-; end of level pause *
-; reduction of cash/game over fix *
-; UI Bug? !!!
+
+
+
+
+
+
 
 
 ENTRY_POINT equ 0x9800
@@ -65,8 +65,6 @@ main:
     
     call cleargamewindow 
     
-    call sync 
-
     ld a,(game_state)
     cp LEVEL_01
     call z, l1_update
