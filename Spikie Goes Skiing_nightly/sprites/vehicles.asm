@@ -76,8 +76,6 @@ veh_spawn_timer_l2 db 69
 veh_spawn_timer_l3 db 69
 
 
-
-
 ; ASM data file from a ZX-Paintbrush picture with 16 x 16 pixels (= 2 x 2 characters)
 ; line based output of pixel data:
 sprite_bike_r:
@@ -192,35 +190,6 @@ sprite_saloon_l:
     db %00000000, %00110000, %00000000, %00011000
 ;
 
-; ASM data file from a ZX-Paintbrush picture with 56 x 24 pixels (= 7 x 3 characters)
-; line based output of pixel data:
-sprite_truck_l:
-    db %00000000, %01111111, %11111111, %11111111, %11111111, %11100000, %00000000
-    db %00000110, %01110000, %00000000, %00000000, %00000000, %00011000, %00000000
-    db %00000100, %01001100, %11100000, %01110000, %11111101, %11100110, %00000000
-    db %00000100, %01000011, %00111111, %11111100, %01110011, %10111001, %10000000
-    db %00000100, %00000000, %11001110, %00000111, %00011100, %00001110, %01100000
-    db %00000111, %11100000, %00110011, %10000001, %11000111, %00000011, %10011000
-    db %00001111, %11111000, %00001100, %00000000, %00000000, %00000000, %00000110
-    db %00001111, %11111110, %00000011, %11111111, %11111111, %11111111, %11111111
-    db %00011111, %11111111, %10000010, %00000000, %00000000, %00000000, %00000001
-    db %00011001, %11111111, %11100010, %11001110, %11101100, %11100000, %11110101
-    db %00011000, %01111111, %11111010, %10101100, %01001010, %10100000, %01010101
-    db %00011000, %01111111, %11111010, %11001000, %01001100, %11100000, %01010101
-    db %00111000, %01111001, %11111010, %10101110, %01001010, %00000000, %01001001
-    db %00111100, %01110001, %11111010, %00000000, %00000000, %00011101, %10000001
-    db %01111111, %11110001, %11111010, %00000001, %11011101, %10011001, %01000001
-    db %11111111, %11110001, %11111010, %00000001, %00010101, %01010001, %10000001
-    db %11011111, %11111111, %11111010, %00000001, %11011101, %10011101, %01000001
-    db %10001111, %11111111, %11111010, %00000000, %00000000, %00000000, %00000001
-    db %11011101, %11111111, %11111110, %00000011, %11111111, %11111111, %11111111
-    db %01111000, %11111001, %11011011, %11111100, %00000000, %00000000, %00001000
-    db %00111101, %11100110, %01111000, %00011000, %00000000, %00001100, %01101100
-    db %00001111, %11101111, %01111000, %00111100, %00000000, %00011110, %11110110
-    db %00000011, %11101111, %01111000, %00111100, %00000000, %00011110, %11110010
-    db %00000000, %00000110, %00000000, %00011000, %00000000, %00001100, %01100000
-;
-
 ;Outputs:
 ;A=interval between 20-63
 get_random_spawn_interval:
@@ -325,7 +294,8 @@ spwn_veh_r:
     add ix,de
     jp spwn_veh_r
 spwn_veh_r_do_spawn:
-    ld a,r
+    ; do random colour (?)
+    call rand
     and %00000111
     cp 0
     jp z, spwn_veh_r_do_spawn
@@ -335,8 +305,9 @@ spwn_veh_r_do_spawn:
     call rand
     cp FIFTY50
     jp c, spwn_veh_now_r
+    ret ;todo is this right?
 spwn_veh_now_r:
-    ld a,r
+    call rand
     cp FIFTY50
     push af
     call c,spwn_saloon_r
@@ -361,7 +332,7 @@ spwn_bike_r:
     ld (ix+3),a
     ld a,VEH_BIKE_HEIGHT
     ld (ix+4),a
-    ld a,r
+    call rand
     cp FIFTY50
     call c, spwn_set_bike_speed_half
     call nc, spwn_set_bike_speed_full
@@ -397,7 +368,7 @@ spwn_truck_r:
 
 
 spawn_vehicle_left:
-    ld a,r
+    call rand
     cp SPAWN_CHANCE_1
     ret c
     ld ix,vehicles_l_1
@@ -425,7 +396,7 @@ spwn_veh_l_do_spawn:
     cp FIFTY50
     jp c, spwn_veh_now_l
     
-    ld a,r
+    call rand
     cp FIFTY50
     push af
     call c,spwn_saloon_l
@@ -433,7 +404,7 @@ spwn_veh_l_do_spawn:
     call nc,spwn_bike_l
     ret
 spwn_veh_now_l:
-    ld a,r
+    call rand
     cp FIFTY50
     push af
     call c,spwn_saloon_l
@@ -458,7 +429,7 @@ spwn_bike_l:
     ld (ix+3),a
     ld a,VEH_BIKE_HEIGHT
     ld (ix+4),a
-    ld a,r
+    call rand
     cp FIFTY50
     call c, spwn_set_bike_speed_half
     call nc, spwn_set_bike_speed_full
@@ -476,7 +447,7 @@ spwn_saloon_l:
     ld (ix+3),a
     ld a,VEH_SALOON_HEIGHT
     ld (ix+4),a
-    ld a,r
+    call rand
     cp FIFTY50
     call c, spwn_set_saloon_speed_half
     call nc, spwn_set_saloon_speed_full

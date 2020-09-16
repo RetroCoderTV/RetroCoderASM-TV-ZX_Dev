@@ -25,32 +25,6 @@ ATTRIBUTE_MEMORY_START equ 0x5800
 ATTRIBUTE_MEMORY_END_UB equ 0x5B
 ATTRIBUTE_MEMORY_LENGTH equ 0x300
 
-setborderblue:
-    ld a,COLOUR_BLUE
-    call 0x229B
-    ret
-
-setborderpink:
-    ld a,COLOUR_PINK
-    call 0x229B
-    ret
-
-setbordergreen:
-    ld a,COLOUR_GREEN
-    call 0x229B
-    ret
-
-setborderred:
-    ld a,COLOUR_RED
-    call 0x229B
-    ret
-
-setborderdefault:
-    ld a,GAME_BORDER_COLOUR
-    call 0x229B
-    ret
-
-
 ;HL=0x5800
 ;b=colour
 paint_base_attributes:
@@ -119,9 +93,6 @@ paint_line:
     inc de
     djnz paint_line
     ret
-
-
-
 
 
 ;HL=exact cell in attri mem

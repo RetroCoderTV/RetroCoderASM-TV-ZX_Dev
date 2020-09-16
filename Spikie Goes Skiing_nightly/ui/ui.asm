@@ -1,169 +1,115 @@
 init_ui_labels:
-    ld a,ASCII_INK
-    rst 16
-    ld a,2 ;ink
-    rst 16
-    ld a,ASCII_PAPER
-    rst 16
-    ld a,5 ;paper
-    rst 16
-
-    ld a,ASCII_AT
-    rst 16
-    ld a,CASH_LABEL_Y
-    rst 16
-    ld a,CASH_LABEL_X
-    rst 16
+    ld bc,15616
+    ld d,CASH_LABEL_Y
+    ld e,CASH_LABEL_X
+    call GetCharAddr
     ld de,cash_string
-    ld bc,eo_cash_string-cash_string
-    call 8252
+    call PrintStr
 
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_LABEL_Y
-    rst 16
-    ld a,SCORE_LABEL_X
-    rst 16
+    ld bc,15616
+    ld d,SCORE_LABEL_Y
+    ld e,SCORE_LABEL_X
+    call GetCharAddr
     ld de,score_string
-    ld bc,eo_score_string-score_string
-    call 8252
+    call PrintStr
 
     ret
 
 init_ui_numbers:
-    ld a,ASCII_INK
-    rst 16
-    ld a,0 ;ink
-    rst 16
-    ld a,ASCII_PAPER
-    rst 16
-    ld a,7 ;paper
-    rst 16
-
-    ld a,ASCII_AT
-    rst 16
-    ld a,CASH_LABEL_Y+1
-    rst 16
-    ld a,CASH_1000_X
-    rst 16
+    ld bc,15616
+    ld d,CASH_Y
+    ld e,CASH_1000_X
+    call GetCharAddr
     ld a,(cash_1000)
     add a,ASCII_ZERO
-    rst 16
-   
-    ld a,ASCII_AT
-    rst 16
-    ld a,CASH_LABEL_Y+1
-    rst 16
-    ld a,CASH_100_X
-    rst 16
+    call PrintChar
+
+    ld bc,15616
+    ld d,CASH_Y
+    ld e,CASH_100_X
+    call GetCharAddr
     ld a,(cash_100)
     add a,ASCII_ZERO
-    rst 16    
+    call PrintChar
 
-    ld a,ASCII_AT
-    rst 16
-    ld a,CASH_LABEL_Y+1
-    rst 16
-    ld a,CASH_10_X
-    rst 16
+    ld bc,15616
+    ld d,CASH_Y
+    ld e,CASH_10_X
+    call GetCharAddr
     ld a,(cash_10)
     add a,ASCII_ZERO
-    rst 16
-   
-    ld a,ASCII_AT
-    rst 16
-    ld a,CASH_LABEL_Y+1
-    rst 16
-    ld a,CASH_1_X
-    rst 16
+    call PrintChar
+
+    ld bc,15616
+    ld d,CASH_Y
+    ld e,CASH_1_X
+    call GetCharAddr
     ld a,(cash_1)
     add a,ASCII_ZERO
-    rst 16    
-
-
+    call PrintChar
 
     ;;POINTS::
 
-
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_Y
-    rst 16
-    ld a,SCORE_100000_X
-    rst 16
+    ld bc,15616
+    ld d,SCORE_Y
+    ld e,SCORE_100000_X
+    call GetCharAddr
     ld a,(score_100000)
     add a,ASCII_ZERO
-    rst 16
+    call PrintChar
 
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_Y
-    rst 16
-    ld a,SCORE_10000_X
-    rst 16
+    ld bc,15616
+    ld d,SCORE_Y
+    ld e,SCORE_10000_X
+    call GetCharAddr
     ld a,(score_10000)
     add a,ASCII_ZERO
-    rst 16
-   
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_Y
-    rst 16
-    ld a,SCORE_1000_X
-    rst 16
+    call PrintChar
+
+    ld bc,15616
+    ld d,SCORE_Y
+    ld e,SCORE_1000_X
+    call GetCharAddr
     ld a,(score_1000)
     add a,ASCII_ZERO
-    rst 16    
+    call PrintChar
 
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_Y
-    rst 16
-    ld a,SCORE_100_X
-    rst 16
+    ld bc,15616
+    ld d,SCORE_Y
+    ld e,SCORE_100_X
+    call GetCharAddr
     ld a,(score_100)
     add a,ASCII_ZERO
-    rst 16
-   
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_Y
-    rst 16
-    ld a,SCORE_10_X
-    rst 16
+    call PrintChar
+
+    ld bc,15616
+    ld d,SCORE_Y
+    ld e,SCORE_10_X
+    call GetCharAddr
     ld a,(score_10)
     add a,ASCII_ZERO
-    rst 16    
+    call PrintChar
 
-    ld a,ASCII_AT
-    rst 16
-    ld a,SCORE_Y
-    rst 16
-    ld a,SCORE_1_X
-    rst 16
+    ld bc,15616
+    ld d,SCORE_Y
+    ld e,SCORE_1_X
+    call GetCharAddr
     ld a,(score_1)
     add a,ASCII_ZERO
-    rst 16    
-
+    call PrintChar
 
     ret
-
 ;
 
-
-
 ;DE=yx
-;HL=value pointer
+;A=(value)
 draw_digit:
-    ld a,ASCII_AT
-    rst 16
-    ld a,d
-    rst 16
-    ld a,e
-    rst 16
-    ld a,(hl)
+    ld bc,15616
+    push af
+    call GetCharAddr
+    pop af
     add a,ASCII_ZERO
-    rst 16   
+    call PrintChar  
     ret
 ; 
 
@@ -171,12 +117,14 @@ decrease_cash:
     ld a,(cash_10)
     cp 0
     ret z
+
+    ld a,(cash_10)
     dec a
     ld (cash_10),a
 
     ld d,CASH_Y
     ld e,CASH_10_X
-    ld hl,cash_10
+    ld a,(cash_10)
     call draw_digit
     ret
 
@@ -206,7 +154,7 @@ increment_score1:
     
     ld d,SCORE_Y
     ld e,SCORE_1_X
-    ld hl,score_1
+    ld a,(score_1)
     call draw_digit
     ret
 reset_score_1:
@@ -215,7 +163,7 @@ reset_score_1:
     ld (score_1),a
     ld d,SCORE_Y
     ld e,SCORE_1_X
-    ld hl,score_1
+    ld a,(score_1)
     call draw_digit
     ret
 
@@ -227,7 +175,7 @@ increment_score10:
     ld (score_10),a
     ld d,SCORE_Y
     ld e,SCORE_10_X
-    ld hl,score_10
+    ld a,(score_10)
     call draw_digit
     ret
 
@@ -237,7 +185,7 @@ reset_score10:
     ld (score_10),a
     ld d,SCORE_Y
     ld e,SCORE_10_X
-    ld hl,score_10
+    ld a,(score_10)
     call draw_digit
     
     ret
@@ -250,7 +198,7 @@ increment_score100:
     ld (score_100),a
     ld d,SCORE_Y
     ld e,SCORE_100_X
-    ld hl,score_100
+    ld a,(score_100)
     call draw_digit
     ret
 
@@ -260,7 +208,7 @@ reset_score100:
     ld (score_100),a
     ld d,SCORE_Y
     ld e,SCORE_100_X
-    ld hl,score_100
+    ld a,(score_100)
     call draw_digit
     
     ret
@@ -273,7 +221,7 @@ increment_score1000:
     ld (score_1000),a
     ld d,SCORE_Y
     ld e,SCORE_1000_X
-    ld hl,score_1000
+    ld a,(score_1000)
     call draw_digit
     ret
 
@@ -283,7 +231,7 @@ reset_score1000:
     ld (score_1000),a
     ld d,SCORE_Y
     ld e,SCORE_1000_X
-    ld hl,score_1000
+    ld a,(score_1000)
     call draw_digit
     
     ret
@@ -296,7 +244,7 @@ increment_score10000:
     ld (score_10000),a
     ld d,SCORE_Y
     ld e,SCORE_10000_X
-    ld hl,score_10000
+    ld a,(score_10000)
     call draw_digit
     ret
 
@@ -306,7 +254,7 @@ reset_score10000:
     ld (score_10000),a
     ld d,SCORE_Y
     ld e,SCORE_10000_X
-    ld hl,score_10000
+    ld a,(score_10000)
     call draw_digit  
     ret
 
@@ -318,12 +266,12 @@ increment_score100000:
     ld (score_100000),a
     ld d,SCORE_Y
     ld e,SCORE_100000_X
-    ld hl,score_100000
+    ld a,(score_100000)
     call draw_digit
     ret
 
 
-
+    
 
 
 ;;;; DATA ;;;;;;;;;;
@@ -331,7 +279,7 @@ increment_score100000:
 
 
 cash_string db 'CASH'
-eo_cash_string equ $
+eo_cash_string db 0
 CASH_LABEL_Y equ 1
 CASH_LABEL_X equ 26
 CASH_Y equ CASH_LABEL_Y+1
@@ -361,7 +309,7 @@ SCORE_10000_X equ 26
 SCORE_100000_X equ 25
 
 score_string db 'POINTS'
-eo_score_string equ $
+score_string_end db 0
 
 score_1     db 0
 score_10    db 0

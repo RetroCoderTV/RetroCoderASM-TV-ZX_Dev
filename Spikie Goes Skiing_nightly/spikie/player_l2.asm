@@ -51,10 +51,6 @@ plyr_upd_skiingwaiting_l2:
     ret
 ;
 
-
-
-
-
 plyr_upd_skiing_l2:
     ld ix,flag_y_positions
     ld b,NUM_FLAGS
@@ -225,7 +221,6 @@ check_endgate_hit:
     jp c,kill_player
 
     ;player is inside the finish gate
-    call setbordergreen
     jp begin_level_1_withski
 
     ret
@@ -235,6 +230,7 @@ check_endgate_hit:
 ;IX=flags
 ;B=num flags
 move_flags:
+    push bc
     ;switch between move speeds:
     ld a,(player_direction)
     cp DOWN
@@ -252,6 +248,7 @@ pmf_slow:
     ld (ix+1),h
     inc ix
     inc ix
+    pop bc
     djnz move_flags
     ret
 pmf_medium:
@@ -261,7 +258,8 @@ pmf_medium:
     ld (ix),l
     ld (ix+1),h
     inc ix
-    inc ix   
+    inc ix  
+    pop bc 
     djnz move_flags
     ret
 pmf_fast:
@@ -273,6 +271,7 @@ pmf_fast:
     inc ix
     inc ix   
     call increment_score1
+    pop bc
     djnz move_flags
     ret
 ;
@@ -536,7 +535,6 @@ pcct_gonext:
 ;hl=flags y
 ;de=flags x
 player_check_collision_flaggate:
-    call setborderdefault
     ld a,(player_state)
     cp SKIING
     ret nz 
@@ -594,7 +592,6 @@ player_check_collision_flaggate:
    
     
     ;if here, we collided with a tree....
-    call setbordergreen 
     call increment_score100
     ret
 pccf_gonext:

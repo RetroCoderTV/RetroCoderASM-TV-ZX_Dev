@@ -93,32 +93,3 @@ sound_G_0_5: ;G, 0.5secs
     call 0x3b5 ;ROM beeper routine
     ret
 
-
-;JINGLES
-sound_jingle_dontyouforgetaboutme: 
-    call sound_B_0_25
-    ld b,2 ;pause length
-    call pause_loop
-    call sound_G_0_375
-    ld b,6 ;pause length
-    call pause_loop
-    call sound_G_0_25
-    ld b,2
-    call pause_loop
-    call sound_F_0_50
-    ; ld b,1
-    ; call pause_loop
-    call sound_G_0_25
-    ld b,1
-    call pause_loop
-    call sound_A_0_25
-    ld b,1
-    call pause_loop
-    call sound_G_0_375
-    ret
-
-;B=frames to pause for
-pause_loop:
-    halt
-    djnz pause_loop
-    ret

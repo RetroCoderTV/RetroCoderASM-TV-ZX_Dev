@@ -11,7 +11,8 @@ L2_END_FLAG_H equ 3
 
 l2_start:
     call 0xDAF
-    call setborderdefault
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
@@ -23,9 +24,9 @@ l2_start:
     call paint_background_l2
     call player_init_l2
 
-    call sound_GSharp_0_25
-    call sound_G_0_5
-    call sound_G_0_375
+    ; call sound_GSharp_0_25
+    ; call sound_G_0_5
+    ; call sound_G_0_375
     ret
 
 l2_update:

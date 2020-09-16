@@ -1,13 +1,14 @@
 
 ; better car spawns *
 ; gate collision (one shot, hit/miss) **
-; loading screen
-; main title graphics
+; loading screen --
+; main title graphics *
 ; game over screen *
 ; end of ski slope **
-; end of level pause
+; end of level pause *
 ; reduction of cash/game over fix *
-; UI Bug?
+; UI Bug? !!!
+
 
 ENTRY_POINT equ 0x9800
 
@@ -15,11 +16,11 @@ ENTRY_POINT equ 0x9800
     
     call 0xDAF
 
-   
     
 
 begin_level_0:
-    call setborderdefault
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
@@ -53,7 +54,8 @@ begin_level_2:
 
 begin_gameover:
   
-    call setborderred
+    ld a,COLOUR_RED
+    call 0x229B
     ld a,GAME_OVER
     ld (game_state),a
     call gameover_init
@@ -71,14 +73,16 @@ main:
     cp LEVEL_02
     call z, l2_update
 
-    
+
     call drawgamewindow
+ 
     
     jp main
 
 
 game_state db LEVEL_01
 
+    include 'retrohelpers\bazinga.asm'
     include 'retrohelpers\colours.asm'
     include 'retrohelpers\constants.asm'
     include 'retrohelpers\doublebuffering.asm'

@@ -58,8 +58,22 @@ shop_sprite:
 ;
 
 l1_start:
+    ld a,NO_SKI
+    ld (player_state),a
+
+    ld a,3 ;player starting lives
+    ld (cash_10),a
+    xor a
+    ld (score_1),a
+    ld (score_10),a
+    ld (score_100),a
+    ld (score_1000),a
+    ld (score_10000),a
+    ld (score_100000),a
+
     call 0xDAF
-    call setborderdefault
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
@@ -73,15 +87,18 @@ l1_start:
     
     call player_init_l1
 
-    call sound_GSharp_0_25
-    call sound_G_0_5
-    call sound_G_0_375
+    
+
+    ; call sound_GSharp_0_25
+    ; call sound_G_0_5
+    ; call sound_G_0_375
 
     ret
 
 l1_start_withski:
     call 0xDAF
-    call setborderdefault
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
@@ -91,14 +108,15 @@ l1_start_withski:
     call paint_background_l1
     call player_start_l1_withski
 
-    call sound_GSharp_0_25
-    call sound_G_0_5
-    call sound_G_0_375
+    ; call sound_GSharp_0_25
+    ; call sound_G_0_5
+    ; call sound_G_0_375
     ret
 
 l1_start_noski:
     call 0xDAF
-    call setborderdefault
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
     ld b,DEFAULT_SCREEN_COLOURS
     ld hl,ATTRIBUTE_MEMORY_START
     call paint_base_attributes
@@ -108,9 +126,9 @@ l1_start_noski:
     call paint_background_l1
     call player_start_l1_noski
 
-    call sound_GSharp_0_25
-    call sound_G_0_5
-    call sound_G_0_375
+    ; call sound_GSharp_0_25
+    ; call sound_G_0_5
+    ; call sound_G_0_375
     ret
 
 
@@ -158,6 +176,9 @@ l1_update:
     ld a,(veh_spawn_timer_r3)
     cp 0
     call z, spawn_vehicle_right_3
+
+
+
 
 
     call vehicles_update

@@ -63,28 +63,6 @@ flagsprite:
     db %00011000
 ;
 
-; endflagsprite:
-;     db %11111111
-;     db %11111111
-;     db %11111111
-;     db %11111111
-;     db %11111111
-;     db %11111111
-;     db %11111111
-;     db %11111111
-;     ;
-;     db %00011000
-;     db %00011000
-;     db %00011000
-;     db %00011000
-;     db %00011000
-;     db %00011000
-;     db %00011000
-;     db %00011000
-;     ;
-; ;
-
-
 
 ; ASM data file from a ZX-Paintbrush picture with 40 x 8 pixels (= 5 x 1 characters)
 ; line based output of pixel data:

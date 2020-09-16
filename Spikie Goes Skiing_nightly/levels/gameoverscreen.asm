@@ -1,9 +1,12 @@
 gameover_init:
     ; todo: find a way to clear screen
-    call 0xDAF
+    
+    ld bc,15616
+    ld d,GAMEOVER_STRING_Y
+    ld e,GAMEOVER_STRING_X
+    call GetCharAddr
     ld de,gameover_string
-    ld bc,eo_gameover_string-gameover_string
-    call 8252
+    call PrintStr
     
     call sound_GSharp_0_25
     call sound_G_0_5
@@ -26,7 +29,11 @@ gameover_main:
 
 ;;;; DATA ;;;;;;;;;;
 
+GAMEOVER_STRING_X equ 2
+GAMEOVER_STRING_Y equ 5
+gameover_string db 'GAME OVER. W TO QUIT'
+gostring_end db 0
 
-gameover_string db 0xD,0xD,0x20,0x20,0x20,'GAME OVER',0xD,0x20,0x20,0x20,'PRESS W'
-eo_gameover_string equ $
+
+
 

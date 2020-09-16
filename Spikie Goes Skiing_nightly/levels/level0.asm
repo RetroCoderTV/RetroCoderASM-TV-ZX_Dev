@@ -1,8 +1,8 @@
 mainmenu_init:
-    ld d,MENU_SHOP_X
-    ld e,MENU_SHOP_Y
-    ld bc,shop_sprite
-    call drawsprite48_24
+    ; ld d,MENU_SHOP_X
+    ; ld e,MENU_SHOP_Y
+    ; ld bc,shop_sprite
+    ; call drawsprite48_24
 
     ld d,MENU_SPIKIE_X
     ld e,MENU_SPIKIE_Y
@@ -43,52 +43,27 @@ mainmenu_init:
     call drawgamewindow
 
 
-    ld a,ASCII_INK
-    rst 16
-    ld a,6 ;ink
-    rst 16
-    ld a,ASCII_PAPER
-    rst 16
-    ld a,1 ;paper
-    rst 16
-
-    ld a,ASCII_AT
-    rst 16
-    ld a,TITLE_Y
-    rst 16
-    ld a,TITLE_X
-    rst 16
+    ld bc,15616
+    ld d,TITLE_Y
+    ld e,TITLE_X
+    call GetCharAddr
     ld de,title_string
-    ld bc,eo_title_string-title_string
-    call 8252
+    call PrintStr
 
-    ld a,ASCII_AT
-    rst 16
-    ld a,PRESSKEY_Y
-    rst 16
-    ld a,PRESSKEY_X
-    rst 16
+    ld bc,15616
+    ld d,PRESSKEY_Y
+    ld e,PRESSKEY_X
+    call GetCharAddr
     ld de,presskey_string
-    ld bc,eo_presskey_string-presskey_string
-    call 8252
+    call PrintStr   
 
-    
-
-
-   
-
-
-    ld a,ASCII_AT
-    rst 16
-    ld a,RETROSTRING_Y
-    rst 16
-    ld a,RETROSTRING_X
-    rst 16
+    ld bc,15616
+    ld d,RETROSTRING_Y
+    ld e,RETROSTRING_X
+    call GetCharAddr
     ld de,retro_string
-    ld bc,eo_retro_string-retro_string
-    call 8252
+    call PrintStr   
 
-    call sound_jingle_dontyouforgetaboutme
     ret
 
 mainmenu_update:
@@ -129,9 +104,11 @@ MENU_CAR_2_Y equ 100
 
 
 title_string db 'SPIKIE GOES..'
-eo_title_string equ $
+title_string_end db 0
 
-retro_string db 0x7f,' RetroCoder TV 2020'
-eo_retro_string equ $
+
+retro_string db 0x7F,' RetroCoder TV 2020'
+retro_string_end db 0
+
 presskey_string db 'PRESS F TO START'
-eo_presskey_string equ $
+presskey_string_end db 0

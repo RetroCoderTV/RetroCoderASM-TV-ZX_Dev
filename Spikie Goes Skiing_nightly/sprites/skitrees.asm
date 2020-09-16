@@ -46,9 +46,11 @@ TREEY9 equ 872
 TREEY10 equ 888
 TREEY11 equ 920
 
-NUM_TREES equ 11
+TREEY12 equ 400
+
+NUM_TREES equ 12
 tree_y_positions:
-    ds 11*2
+    ds 12*2
 ;
     
 tree_x_positions:
@@ -63,6 +65,7 @@ tree_x_positions:
     db 18
     db 22
     db 18
+    db 13
 ; 
 
 reset_trees_y:
@@ -118,6 +121,11 @@ reset_trees_y:
     ld (hl),d
     inc hl
     ld de,TREEY11
+    ld (hl),e
+    inc hl
+    ld (hl),d
+    inc hl
+    ld de,TREEY12
     ld (hl),e
     inc hl
     ld (hl),d

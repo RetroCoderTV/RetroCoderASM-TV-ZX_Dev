@@ -42,10 +42,13 @@ player_check_level_complete_l1:
     ld a,(playery)
     cp PLAYER_MIN_Y+4
     ret nc
+    call increment_score100
     jp begin_level_2
     ret
 
 player_update_l1:
+    
+
     call player_check_level_complete_l1
     call check_keys
     
@@ -77,6 +80,12 @@ player_update_l1:
     ld ix,vehicles_l_3
     call player_check_collision_cars_l
 
+    ld a,(has_ski)
+    cp TRUE
+    ret z
+    ld a,(cash_10)
+    or a
+    jp z, begin_gameover
     ret
 
 plyr_upd_dead_l1:  
@@ -94,10 +103,8 @@ plyr_newlife_l1:
     ld a,FALSE
     ld (collision_detected_player_car),a 
 
-    ld a,(cash_10)
-    dec a
-    ld (cash_10),a
-    call init_ui_numbers
+    call decrease_cash
+   
 
     ld a,4
     ld (playerx),a
@@ -110,7 +117,8 @@ plyr_newlife_l1:
     call sound_G_0_125
     call sound_G_0_25
 
-    call setborderdefault
+    ld a,GAME_BORDER_COLOUR
+    call 0x229B
     ret
 
 
@@ -208,7 +216,7 @@ try_move_up_l1:
     sub PLAYER_SPEED_Y
     ld (playery),a
 
-    call increment_score1   
+    call increment_score1
     
     ret
 
@@ -278,7 +286,7 @@ player_check_collision_cars_l:
 
     ld a,TRUE
     ld (collision_detected_player_car),a 
-    call setborderpink
+
     call kill_player
     
     ret
@@ -339,8 +347,6 @@ player_check_collision_cars_r:
 
     ld a,TRUE
     ld (collision_detected_player_car),a 
-
-    call setborderpink
     call kill_player
     
     ret
@@ -389,6 +395,9 @@ player_check_collision_shop:
     ld a,WITH_SKI ;todo (try remove bool hasski)
     ld (player_state),a
     call decrease_cash
+    call increment_score1000
+
+
 
     call sound_A_0_25
     call sound_B_0_25
