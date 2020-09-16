@@ -5,8 +5,6 @@ player_init_l1:
     ld (playery),a
     ld a,L1_PLAYER_START_FACING
     ld (player_direction),a
-    ; todo cash init
-    ; score 0 init
     ret
 
 player_start_l1_withski:

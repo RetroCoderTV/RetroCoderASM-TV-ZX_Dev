@@ -1,5 +1,6 @@
 gameover_init:
     ; todo: find a way to clear screen
+    call 0xDAF
     
     ld bc,15616
     ld d,GAMEOVER_STRING_Y

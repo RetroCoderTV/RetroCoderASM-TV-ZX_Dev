@@ -103,12 +103,10 @@ MENU_CAR_2_Y equ 100
 
 
 
-title_string db 'SPIKIE GOES..'
-title_string_end db 0
+title_string db 'SPIKIE GOES..',0
 
 
-retro_string db 0x7F,' RetroCoder TV 2020'
-retro_string_end db 0
 
-presskey_string db 'PRESS F TO START'
-presskey_string_end db 0
+retro_string db 0x7F,' RetroCoder TV 2020',0
+
+presskey_string db 'PRESS F TO START',0
