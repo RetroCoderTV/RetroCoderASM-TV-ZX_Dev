@@ -40,5 +40,6 @@ WITH_SKI equ 1
 SKIING_WAITING equ 2
 SKIING equ 3
 PLAYER_DEAD equ 4
+RING_WALK equ 5 ; just a funny name intended for the 'walk-on' at the start of game
 
 

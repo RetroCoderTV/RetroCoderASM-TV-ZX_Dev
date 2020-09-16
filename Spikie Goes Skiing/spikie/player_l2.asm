@@ -220,11 +220,37 @@ check_endgate_hit:
     cp b
     jp c,kill_player
 
+    
+
     ;player is inside the finish gate
-    jp begin_level_1_withski
+    jp skilevel_completed
 
     ret
 
+
+skilevel_completed: 
+    ld a,(current_spawn_chance)
+    cp MAX_SPAWN_CHANCE
+    jp nc, begin_level_1_withski
+    inc a
+    inc a
+    inc a
+    inc a
+    inc a
+    inc a
+    inc a
+    inc a
+    inc a
+    inc a ; added 10 to currentspawnchance
+    ld (current_spawn_chance),a
+
+    ld a,(flag_current_gap)
+    cp FLAG_MIN_GAP+1
+    jp c, begin_level_1_withski
+    dec a
+    ld (flag_current_gap),a ;flag gap -= 1
+
+    jp begin_level_1_withski
 
 
 ;IX=flags

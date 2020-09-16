@@ -1,13 +1,15 @@
+
 player_init_l1:
-    ld a,L1_PLAYER_START_X
+    ld a,BUFFER_WINDOW_WIDTH
     ld (playerx),a
-    ld a,L1_PLAYER_START_Y
+    xor a
     ld (playery),a
-    ld a,L1_PLAYER_START_FACING
+    ld a,RIGHT
     ld (player_direction),a
     ret
 
 player_start_l1_withski:
+    call sound_A_0_25
     ld a,L1_PLAYER_START_X_WITHSKI
     ld (playerx),a
     ld a,L1_PLAYER_START_Y_WITHSKI
@@ -19,6 +21,7 @@ player_start_l1_withski:
     ret
 
 player_start_l1_noski:
+    call sound_B_0_25
     xor a
     ld (has_ski),a
     ld a,L1_PLAYER_START_X
@@ -27,7 +30,7 @@ player_start_l1_noski:
     ld (playery),a
     ld a,L1_PLAYER_START_FACING
     ld (player_direction),a
-    ld a,L1_PLAYER_START_STATE
+    ld a,NO_SKI
     ld (player_state),a
     ret
 
@@ -60,6 +63,9 @@ player_update_l1:
     ld a,(player_state)
     cp PLAYER_DEAD
     call z, plyr_upd_dead_l1
+    ld a,(player_state)
+    cp RING_WALK
+    call z, plyr_do_ringwalk_l1
 
 
     call player_check_collision_shop
@@ -84,6 +90,17 @@ player_update_l1:
     ld a,(cash_10)
     or a
     jp z, begin_gameover
+    ret
+
+
+plyr_do_ringwalk_l1:
+    ld a,(playerx)
+    cp L1_PLAYER_START_X
+    jp z,player_start_l1_noski
+
+  
+
+    call try_move_left_l1
     ret
 
 plyr_upd_dead_l1:  
