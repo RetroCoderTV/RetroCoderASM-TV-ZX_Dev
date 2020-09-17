@@ -3,6 +3,6 @@
  
  All lessons uploaded to youtube: https://www.youtube.com/c/RetroCoderTV
  
- Shown live on Twitch: https://twitch.tv/retrocoderasm
+ Shown live on Twitch: https://twitch.tv/retrocodertv
  
  Like, Subscribe, Follow and all that good stuff!!
