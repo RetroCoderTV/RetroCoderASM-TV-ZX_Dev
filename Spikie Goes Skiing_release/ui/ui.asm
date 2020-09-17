@@ -128,23 +128,6 @@ decrease_cash:
     call draw_digit
     ret
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 increment_score1:
     ld a,(score_1)
     inc a

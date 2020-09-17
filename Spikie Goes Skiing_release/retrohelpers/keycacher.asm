@@ -21,6 +21,8 @@ keypressed_D db FALSE
 
 keypressed_F db FALSE
 keypressed_F_Held db FALSE
+keypressed_I db FALSE
+keypressed_Q db FALSE
 
 check_keys:
     ld a,(keypressed_F)
@@ -29,11 +31,13 @@ check_keys:
     call nz, reset_F_Held
 
     xor a
-    ld (keypressed_F),a
     ld (keypressed_W),a
     ld (keypressed_A),a
     ld (keypressed_S),a
     ld (keypressed_D),a
+    ld (keypressed_F),a
+    ld (keypressed_I),a
+    ld (keypressed_Q),a
     
 
     ld bc,65022 ;ASDFG
@@ -57,9 +61,20 @@ check_keys:
     ld bc,64510 ;QWERT
     in a,(c)
     rra ;Q
+    push af
+    call nc, set_Q
+    pop af
     rra ;W
     push af
     call nc, set_W
+    pop af
+    ld bc,57342 ;POIUY
+    in a,(c)
+    rra ;P
+    rra ;O
+    rra ;I
+    push af
+    call nc, set_I
     pop af
 
 
@@ -100,6 +115,19 @@ set_F_Held:
 reset_F_Held:
     xor a
     ld (keypressed_F_Held),a
+    ret
+
+
+
+set_I:
+    ld a,TRUE
+    ld (keypressed_I),a
+    ret
+
+
+set_Q:
+    ld a,TRUE
+    ld (keypressed_Q),a
     ret
 
     

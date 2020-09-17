@@ -3,15 +3,12 @@
 ;compromises:
 ; no loading screen!
 ; main menu is horrible!
-; sounds a crap!
+; sounds are even worse!
 ; perhaps needs a couple extra sounds at some points
 ; car sounds? (whilst game is playing -is it possible?)
 
-
-
-
-
-
+;known bugs:
+;die on level 2. restarts level 2
 
 
 ENTRY_POINT equ 0x9800
@@ -93,12 +90,11 @@ game_state db LEVEL_01
     include 'retrohelpers\spritedrawing.asm'
     include 'retrohelpers\sgsconstants.asm'
     include 'retrohelpers\sounds.asm'
-    include 'retrohelpers\texttools.asm'
-    include 'retrohelpers\vsync.asm'
     include 'levels\level0.asm'
     include 'levels\level1.asm'
     include 'levels\level2.asm'
     include 'levels\gameoverscreen.asm'
+    include 'levels\instructionsscreen.asm'
     include 'sprites\skiflags.asm'
     include 'sprites\skitrees.asm'
     include 'sprites\vehicles.asm'

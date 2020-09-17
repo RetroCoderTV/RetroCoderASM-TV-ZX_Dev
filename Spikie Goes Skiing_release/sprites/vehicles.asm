@@ -27,42 +27,42 @@ vehicles_r_1:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0,0
+    ; db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_r_2:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0,0
+    ; db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_r_3:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0,0
+    ; db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_l_1:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0,0
+    ; db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_l_2:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0,0
+    ; db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 vehicles_l_3:
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
     db VEH_DEAD,0,0,0,0,0,0,0
-    db VEH_DEAD,0,0,0,0,0,0,0
+    ; db VEH_DEAD,0,0,0,0,0,0,0
     db 255
 
 

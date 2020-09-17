@@ -24,9 +24,7 @@ l2_start:
     call paint_background_l2
     call player_init_l2
 
-    ; call sound_GSharp_0_25
-    ; call sound_G_0_5
-    ; call sound_G_0_375
+    call sound_B_0_25
     ret
 
 l2_update:

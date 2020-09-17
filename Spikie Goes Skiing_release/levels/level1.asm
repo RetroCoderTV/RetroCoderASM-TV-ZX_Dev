@@ -1,7 +1,10 @@
 L1_WHITELINE_Y equ 96
 L1_WHITELINE_X equ 2
 SPAWN_CHANCE_1 equ 150
-MAX_SPAWN_CHANCE equ 240 ;nearer to 255 means more likely to spawn
+SPAWN_CHANCE_INCREASE_AMOUNT equ 20
+MAX_SPAWN_CHANCE equ 230 ;nearer to 255 means more likely to spawn
+current_spawn_chance db 140 ;255 is highest amount of spawns.
+DEFAULT_SECONDARY_SPAWN_CHANCE equ 100
 SHOP_X equ 11
 SHOP_Y equ 192-24
 SHOP_W equ 6
@@ -16,7 +19,7 @@ L1_PLAYER_START_Y_WITHSKI equ 168
 L1_PLAYER_START_FACING_WITHSKI equ UP
 L1_PLAYER_START_STATE_WITHSKI equ WITH_SKI
 
-current_spawn_chance db 50 ;255 is highest amount of spawns.
+
 
 roadline_sprite:
     db %00000000
@@ -59,8 +62,17 @@ shop_sprite:
 ;
 
 l1_start:
+    ld a,DEFAULT_SECONDARY_SPAWN_CHANCE
+    ld (current_spawn_chance),a
+
+    ld a,LEVEL_01
+    ld (game_state),a
+
     ld a,RING_WALK
     ld (player_state),a
+
+    ld a,FALSE
+    ld (has_ski),a
 
     ld a,3 ;player starting lives
     ld (cash_10),a
@@ -90,9 +102,7 @@ l1_start:
 
     
 
-    ; call sound_GSharp_0_25
-    ; call sound_G_0_5
-    ; call sound_G_0_375
+    call sound_GSharp_0_25
 
     ret
 
@@ -109,9 +119,7 @@ l1_start_withski:
     call paint_background_l1
     call player_start_l1_withski
 
-    ; call sound_GSharp_0_25
-    ; call sound_G_0_5
-    ; call sound_G_0_375
+    call sound_GSharp_0_25
     ret
 
 l1_start_noski:
@@ -127,9 +135,8 @@ l1_start_noski:
     call paint_background_l1
     call player_start_l1_noski
 
-    ; call sound_GSharp_0_25
-    ; call sound_G_0_5
-    ; call sound_G_0_375
+    call sound_GSharp_0_25
+
     ret
 
 
@@ -198,13 +205,13 @@ l1_update:
 
 
 l1_draw:
-  
+    call player_draw
+    call l1_draw_shop
 
     call vehicles_draw
     call l1_draw_whitelines
 
-    call player_draw
-    call l1_draw_shop
+    
 
 
     ret
