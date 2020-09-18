@@ -22,12 +22,14 @@ main
 main_update:
     call player_update
     call bullets_update
+    call level_update
     ret
 
 
 
 main_draw:
     call cleargamewindow
+    call enemies_draw
     call player_draw
     call bullets_draw
     call drawgamewindow
@@ -46,5 +48,7 @@ main_draw:
     include 'retrohelpers\spritedrawing.asm'
     include 'player\player.asm'
     include 'bullet.asm'
+    include 'level.asm'
+    include 'enemies.asm'
 
     end ENTRY_POINT

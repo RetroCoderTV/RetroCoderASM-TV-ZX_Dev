@@ -1,5 +1,9 @@
+
+; ASM data file from a ZX-Paintbrush picture with 8 x 2 pixels 
+; line based output of pixel data:
 bulletsprite:
-    db 255,255
+    db %10101010
+    db %01010101
 
 
 BULLET_Y_OFFSET equ PLAYER_HEIGHT/2
@@ -59,7 +63,7 @@ bmove_start:
     cp MAX_X
     jp c, bmove_next
 
-    ld (ix),FALSE
+    ld (ix),FALSE ;kill bullet
 bmove_next:
     ld de,BULLET_DATA_LENGTH
     add ix,de
