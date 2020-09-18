@@ -49,21 +49,12 @@ espawn_start:
 
     ld a,6
     call 0x229b
-    ret
+    ret ;get out from loop, so that only 1 is spawned
 
 espawn_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de
     jp espawn_start
-
-
-
-
-
-; enemies_update:
-;     call update_enemies
-;     ret
-
 
 
 enemies_draw:
@@ -88,6 +79,7 @@ de_start:
     ld de,0 ;ensure de=0
     ld e,(ix+1) ;d=current step
     add hl,de ;move HL forward number of steps
+    
     ld d,(hl) ;e=y pos from flightpattern
     push hl
     inc hl
@@ -106,9 +98,6 @@ de_start:
     ld a,(ix+1)
     add a,2
     ld (ix+1),a
-
-
-    
 de_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de

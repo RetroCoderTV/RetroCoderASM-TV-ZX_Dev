@@ -1,7 +1,7 @@
 playery db 192/2
 playerx db 4
 
-player_distance_travelled dw %0000000100000000
+
 
 PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 8
