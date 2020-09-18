@@ -46,9 +46,7 @@ espawn_start:
 
     ld (ix),SAUCER
     ld (ix+1),0 ;steps=0
-
-    ld a,6
-    call 0x229b
+    call sound_A_0_25
     ret ;get out from loop, so that only 1 is spawned
 
 espawn_next:
@@ -80,10 +78,13 @@ de_start:
     ld e,(ix+1) ;d=current step
     add hl,de ;move HL forward number of steps
     
-    ld d,(hl) ;e=y pos from flightpattern
+    ld d,(hl) ;d=x pos from flightpattern
     push hl
     inc hl
-    ld e,(hl) ;d=x pos 
+    ld e,(hl) ;e=y pos 
+    ld a,(wave_y_offset)
+    add a,e
+    ld e,a
     ld bc,enemysprite_1 ;bc=sprite
     call drawsprite16_8
 
@@ -107,6 +108,4 @@ de_next:
 ;IX=the enemy
 kill_enemy:
     ld (ix),DEAD
-    ld a,7
-    call 0x229B
     ret

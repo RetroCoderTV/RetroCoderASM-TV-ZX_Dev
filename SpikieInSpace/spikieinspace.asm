@@ -4,7 +4,7 @@ ENTRY_POINT equ 0x9800
 
     call 0xDAF
 
-    ld a,2
+    ld a,0
     call 0x229B
 
 program_start:
@@ -20,6 +20,7 @@ main
 
 
 main_update:
+    halt
     call player_update
     call bullets_update
     call level_update
@@ -50,5 +51,13 @@ main_draw:
     include 'bullet.asm'
     include 'level.asm'
     include 'enemies.asm'
+program_end:
+    call sound_A_0_25
+    call sound_B_0_25
+    call sound_GSharp_0_25
+    call sound_B_0_25
+    call sound_A_0_25
+
+
 
     end ENTRY_POINT
