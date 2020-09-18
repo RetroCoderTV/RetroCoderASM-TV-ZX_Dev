@@ -49,9 +49,12 @@ main_draw:
     include 'retrohelpers\spritedrawing.asm'
     include 'player\player.asm'
     include 'bullet.asm'
-    include 'level.asm'
+    include 'levels\level_manager.asm'
+    include 'levels\level_1.asm'
     include 'enemies.asm'
 program_end:
+    ld a,2
+    call 0x229b
     call sound_A_0_25
     call sound_B_0_25
     call sound_GSharp_0_25
