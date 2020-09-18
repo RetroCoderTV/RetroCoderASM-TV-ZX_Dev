@@ -71,8 +71,6 @@ flightpattern_2:
 
 
 level_update:
-    
-
     ;check players distance
     ld hl,(level_timer)
     ld a,h ;compare high byte to P starts (pattern starts)
@@ -95,71 +93,50 @@ level_update:
 
     
 
-
-
 spawnwave1:
+    ;set y offset
     ld a,145
     ld (wave_y_offset),a
 
-    ; ld hl,(level_timer)
-    ld a,l ;compare low byte to see when exactly to spawn each of the 5 enemies
-    cp ENEMY_SPAWN_INTERVAL*0
-    jp z, spawnenemy_0
-    cp ENEMY_SPAWN_INTERVAL*1
-    jp z, spawnenemy_1
-    cp ENEMY_SPAWN_INTERVAL*2
-    jp z, spawnenemy_2
-    cp ENEMY_SPAWN_INTERVAL*3
-    jp z, spawnenemy_3
-    cp ENEMY_SPAWN_INTERVAL*4
-    jp z, spawnenemy_4
-    
-    ret
-
-spawnwave2:
-    ld a,30
-    ld (wave_y_offset),a 
+    ;set current pattern variable
+    ld hl,flightpattern_1
+    ld (current_pattern),hl
 
     ld hl,(level_timer)
     ld a,l ;compare low byte to see when exactly to spawn each of the 5 enemies
     cp ENEMY_SPAWN_INTERVAL*0
-    jp z, spawnenemy_0
+    jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*1
-    jp z, spawnenemy_1
+    jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*2
-    jp z, spawnenemy_2
+    jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*3
-    jp z, spawnenemy_3
+    jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*4
-    jp z, spawnenemy_4
-
+    jp z, enemy_spawn
+    
     ret
 
+spawnwave2:
+    ;set y offset
+    ld a,30
+    ld (wave_y_offset),a
 
+    ;set current pattern variable
+    ld hl,flightpattern_1
+    ld (current_pattern),hl
 
-spawnenemy_0:
-    ld hl,flightpattern_1
-    ld (current_pattern),hl
-    call enemy_spawn
-    ret
+    ld hl,(level_timer)
+    ld a,l ;compare low byte to see when exactly to spawn each of the 5 enemies
+    cp ENEMY_SPAWN_INTERVAL*0
+    jp z, enemy_spawn
+    cp ENEMY_SPAWN_INTERVAL*1
+    jp z, enemy_spawn
+    cp ENEMY_SPAWN_INTERVAL*2
+    jp z, enemy_spawn
+    cp ENEMY_SPAWN_INTERVAL*3
+    jp z, enemy_spawn
+    cp ENEMY_SPAWN_INTERVAL*4
+    jp z, enemy_spawn
 
-spawnenemy_1:
-    ld hl,flightpattern_1
-    ld (current_pattern),hl
-    call enemy_spawn
-    ret
-spawnenemy_2:
-    ld hl,flightpattern_1
-    ld (current_pattern),hl
-    call enemy_spawn
-    ret
-spawnenemy_3:
-    ld hl,flightpattern_1
-    ld (current_pattern),hl
-    call enemy_spawn
-    ret
-spawnenemy_4:
-    ld hl,flightpattern_1
-    ld (current_pattern),hl
-    call enemy_spawn
     ret
