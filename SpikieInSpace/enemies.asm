@@ -46,7 +46,7 @@ espawn_start:
 
     ld (ix),SAUCER
     ld (ix+1),0 ;steps=0
-    call sound_A_0_25
+    
     ret ;get out from loop, so that only 1 is spawned
 
 espawn_next:
