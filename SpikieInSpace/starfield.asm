@@ -45,6 +45,7 @@ stars:
     db ALIVE,0,0,%00000010
     db ALIVE,0,0,%10000000
     db ALIVE,0,0,%00000000
+    
     db 255
 STARS_DATA_LENGTH equ 4
 
@@ -78,7 +79,7 @@ spwnstar_start:
     and %01111111
     ld b,a
     call rand
-    and %00011111
+    and %00111111
     add a,b
     ld (ix+2),a
     ld (ix+3),NEW_STAR
