@@ -3,6 +3,7 @@ DEAD equ 0
 SAUCER equ 1
 FALCON equ 2
 BOBHEAD equ 3
+ALIVE equ 69
 
 
 ENEMY_W equ 2 ;cells

@@ -19,6 +19,58 @@
 
 
 
+;;Window Width of 24....
+;INPUTS:
+;wwidth=24
+;IX=current star
+;DE=xy
+drawstarsprite:
+    ld hl,0
+    ld a,e
+    ld l,a
+    add hl,hl ;HL= y*2
+    add hl,hl ;HL= y*4
+    push de
+    push hl
+    pop de ;DE=y*4
+    add hl,hl ;HL= y*8
+    push bc
+    push hl
+    pop bc ;BC=y*8
+    add hl,hl
+    add hl,bc ;HL=y*24
+    add hl,de ;HL=y*28
+    pop bc
+    pop de
+    ld e,d
+    ld d,0
+    add hl,de ;HL+=x
+    ld de,GAME_WINDOW_START
+    add hl,de ;HL+=memstart
+    ;start drawing bytes...
+    ;0,0
+    ld a,(ix+3)
+    ld (hl),a
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

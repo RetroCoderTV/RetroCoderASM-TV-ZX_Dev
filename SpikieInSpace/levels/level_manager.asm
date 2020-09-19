@@ -114,7 +114,7 @@ update_wave:
     jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*4
     jp z, enemy_spawn
-    cp ENEMY_SPAWN_INTERVAL*6
+    cp ENEMY_SPAWN_INTERVAL*7
     jp z, wormhole_destroy
     ret
 

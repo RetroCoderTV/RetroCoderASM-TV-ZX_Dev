@@ -25,6 +25,7 @@ keypressed_I db FALSE
 keypressed_Q db FALSE
 keypressed_O db FALSE
 keypressed_P db FALSE
+keypressed_Space db FALSE
 
 check_keys:
     ld a,(keypressed_F)
@@ -42,6 +43,7 @@ check_keys:
     ld (keypressed_Q),a
     ld (keypressed_O),a
     ld (keypressed_P),a
+    ld (keypressed_Space),a
     
 
     ld bc,65022 ;ASDFG
@@ -89,6 +91,12 @@ check_keys:
     call nc, set_I
     pop af
 
+    ld bc,32766
+    in a,(c)
+    rra
+    push af
+    call nc, set_Space
+    pop af
 
 
     ret
@@ -152,4 +160,7 @@ set_P:
     ld (keypressed_P),a
     ret
 
-    
+set_Space:
+    ld a,TRUE
+    ld (keypressed_Space),a
+    ret

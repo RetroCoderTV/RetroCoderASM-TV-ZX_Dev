@@ -4,11 +4,11 @@ ENTRY_POINT equ 0x9800
 
     call 0xDAF
 
-    ld a,0
+    ld a,1
     call 0x229B
 
 program_start:
-
+    call starfield_init
     jp main
 
 
@@ -24,13 +24,14 @@ main_update:
     call player_update
     call bullets_update
     call level_update
-    ; call wormhole_update
+    call starfield_update
     ret
 
 
 
 main_draw:
     call cleargamewindow
+    call starfield_draw
     call enemies_draw
     call player_draw
     call bullets_draw
@@ -55,6 +56,8 @@ main_draw:
     include 'levels\level_1.asm'
     include 'objects\enemies.asm'
     include 'objects\wormhole.asm'
+    include 'starfield.asm'
+
 program_end:
     ld a,2
     call 0x229b

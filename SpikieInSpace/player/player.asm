@@ -76,7 +76,7 @@ player_update:
     call z,player_move_right
 
 
-    ld a,(keypressed_F)
+    ld a,(keypressed_Space)
     cp TRUE
     call z,player_fire_bullet
 
