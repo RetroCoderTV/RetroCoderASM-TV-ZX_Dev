@@ -24,6 +24,7 @@ main_update:
     call player_update
     call bullets_update
     call level_update
+    ; call wormhole_update
     ret
 
 
@@ -33,6 +34,7 @@ main_draw:
     call enemies_draw
     call player_draw
     call bullets_draw
+    call wormhole_draw
     call drawgamewindow
 
     ret
@@ -48,10 +50,11 @@ main_draw:
     include 'retrohelpers\sounds.asm'
     include 'retrohelpers\spritedrawing.asm'
     include 'player\player.asm'
-    include 'bullet.asm'
+    include 'objects\bullet.asm'
     include 'levels\level_manager.asm'
     include 'levels\level_1.asm'
-    include 'enemies.asm'
+    include 'objects\enemies.asm'
+    include 'objects\wormhole.asm'
 program_end:
     ld a,2
     call 0x229b

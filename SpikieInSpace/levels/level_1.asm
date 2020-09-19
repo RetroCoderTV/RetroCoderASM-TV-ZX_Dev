@@ -18,7 +18,7 @@ L1_WAVE_17_START equ 24
 L1_WAVE_18_START equ 25
 L1_WAVE_19_START equ 26
 L1_WAVE_20_START equ 27
-L1_LEVEL_END equ 35
+L1_LEVEL_END equ 28
 
 
 
@@ -57,6 +57,8 @@ setoffset:
     ld a,L1_SPAWNSLOT_TOP
     ld (wave_y_offset),a
     ld a,h ;compare high byte to P starts (pattern starts)
+    cp L1_LEVEL_END
+    jp z,program_end
     cp L1_WAVE_1_START
     ret z
     cp L1_WAVE_3_START
@@ -108,9 +110,11 @@ setoffset:
     cp L1_WAVE_19_START
     ret z
 
-    jp spawnwave_end
 
-;D=level timer (high byte)
+
+    jp increment_timer
+
+;H=level timer (high byte)
 setpattern:
     push hl
     ld hl,flightpattern_1

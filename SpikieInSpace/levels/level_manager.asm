@@ -7,8 +7,6 @@ level_timer dw 0
 current_pattern dw 0
 wave_y_offset db 0
 
-
-
 flightpattern_1:
     db 26,0
     db 26,0
@@ -84,33 +82,30 @@ flightpattern_2:
 
 
 level_update:
-    call spawnwave
-
-    ;increment timer
+    call update_wave
+increment_timer:
     ld hl,(level_timer)
     ld de,LEVEL_TIMER_SPEED_FACTOR
     add hl,de 
     ld (level_timer),hl
+
     
     ret
 
-
-
-spawnwave:
-    ld a,(level_timer)
-    cp L1_LEVEL_END
-    jp z,program_end
+update_wave:
     ld hl,(level_timer)
     ld a,h
     cp 0
     ret z
     call setoffset
+    ld hl,(level_timer)
     call setpattern 
+    
 
     ld hl,(level_timer)
     ld a,l ;compare low byte to see when exactly to spawn each of the 5 enemies
     cp ENEMY_SPAWN_INTERVAL*0
-    jp z, enemy_spawn
+    jp z, spawnfirst
     cp ENEMY_SPAWN_INTERVAL*1
     jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*2
@@ -119,7 +114,14 @@ spawnwave:
     jp z, enemy_spawn
     cp ENEMY_SPAWN_INTERVAL*4
     jp z, enemy_spawn
+    cp ENEMY_SPAWN_INTERVAL*6
+    jp z, wormhole_destroy
+    ret
 
-spawnwave_end:
+spawnfirst:
+    push hl
+    call wormhole_spawn
+    pop hl
+    jp enemy_spawn
     ret
 
