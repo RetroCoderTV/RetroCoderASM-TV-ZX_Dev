@@ -85,7 +85,11 @@ spwnstar_start:
     ld (ix),TRUE
 spwnstar_next:
     ;Update...
-    sla (ix+3) ;rotate star sprite bits left
+    call rand
+    and %00000001
+    add a,1
+    ld b,a
+    call move_star
 
     ld a,(ix+3)
     cp %00000000
@@ -95,6 +99,13 @@ spwnstar_next:
     ld de,STARS_DATA_LENGTH
     add ix,de
     jp spwnstar_start
+
+
+;B=move amount
+move_star:
+    sla (ix+3)
+    djnz move_star
+    ret
 
 kill_star:
     ld (ix),DEAD
