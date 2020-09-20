@@ -30,27 +30,27 @@ L1_SPAWNSLOT_BOTTOM equ 110
 
 
 
-;wave offsets:
-; wave 1=TOP     / 1
-; wave 2=BOTTOM    / 1
-; wave 3=TOP     / 2
-; wave 4=BOTTOM    / 2
-; wave 5=MID     / 2
-; wave 6=MID     / 1
-; wave 7=TOP     / 1
-; wave 8=TOP     / 1
-; wave 9=BOTTOM     / 1
-; wave 10=BOTTOM     / 1
-; wave 11=MID     / 1
-; wave 12=MID     / 1
-; wave 13=TOP     / 1
-; wave 14=TOP     / 1
-; wave 15=TOP     / 1
-; wave 16=BOTTOM     / 1
-; wave 17=BOTTOM     / 1
-; wave 18=BOTTOM     / 1
-; wave 19=MID     / 1
-; wave 20=MID     / 1
+; wave # | slot | pattern
+; 1     TOP         1
+; 2     BOTTOM      1
+; 3     TOP         2
+; 4     BOTTOM      2    
+; 5     MID         1
+; 6     MID         1
+; 7     TOP         1
+; 8     TOP         3
+; 9     BOTTOM      2
+; 10    BOTTOM      2
+; 11    MID         3
+; 12    MID         2
+; 13    TOP         1
+; 14    BOTTOM      3
+; 15    TOP         2
+; 16    BOTTOM      2
+; 17    BOTTOM      2
+; 18    BOTTOM      3 
+; 19    MID         2
+; 20    MID         3
 ;INPUTS:
 ;H=(level timer)
 setoffset:
