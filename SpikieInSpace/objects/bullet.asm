@@ -14,6 +14,9 @@ bullets_player:
     db FALSE,0,0,0,0
     db FALSE,0,0,0,0
     db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
     db 255
 BULLET_DATA_LENGTH equ 5
 
@@ -43,8 +46,6 @@ bullets_draw:
     ld ix,bullets_player
     call drawbullets
     ret
-
-
 
 bullets_move:
     ld ix,bullets_player
@@ -93,3 +94,7 @@ drawbullet:
     ret
 
 
+;HL=bullet
+bullet_kill:
+    ld (hl),FALSE
+    ret

@@ -47,17 +47,15 @@ cleargamewindow:
 
 
 
-clr_window:  
-    ld a,h
-    cp GAME_WINDOW_END_UB
-    ret z
-    xor a
-    ld (hl),a
-    inc hl
-    jp clr_window
 
 
-
+clr_window: 
+    ld de,GAME_WINDOW_START + 1 
+    ld bc,GAME_WINDOW_LENGTH 
+    ld (hl),0 
+    ldir 
+    ret
+   
 
 
 

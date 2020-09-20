@@ -38,14 +38,13 @@ stars:
     db ALIVE,0,0,%10000000
     db ALIVE,0,0,%01000000
     db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00010000
+    db ALIVE,0,0,%00010000 
     db ALIVE,0,0,%00001000
     db ALIVE,0,0,%00010000
     db ALIVE,0,0,%00000001
     db ALIVE,0,0,%00000010
     db ALIVE,0,0,%10000000
     db ALIVE,0,0,%00000000
-    
     db 255
 STARS_DATA_LENGTH equ 4
 
@@ -66,21 +65,16 @@ spwnstar_start:
     ret z
     cp DEAD
     jp nz, spwnstar_next
-
+spwnstar_randx:
     call rand
-    and %00001111
-    ld b,a
-    call rand
-    and %00000111
-    add a,b
+    cp 24
+    jp nc, spwnstar_randx
     add a,BUFFER_SIDE_EXTRA
     ld (ix+1),a
+spwnstar_randy:
     call rand
-    and %01111111
-    ld b,a
-    call rand
-    and %00111111
-    add a,b
+    cp 192
+    jp nc, spwnstar_randy
     ld (ix+2),a
     ld (ix+3),NEW_STAR
     ld (ix),TRUE

@@ -1,8 +1,10 @@
-playery db 192/2
-playerx db 4
 
 
+player_isalive db TRUE
 
+
+PLAYER_SPAWN_X equ 5
+PLAYER_SPAWN_Y equ 50
 PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 8
 PLAYER_HEIGHT equ 24
@@ -11,7 +13,8 @@ PLAYER_WIDTH equ 2
 
 
 
-
+playery db PLAYER_SPAWN_Y
+playerx db PLAYER_SPAWN_X
 
 
 
@@ -43,7 +46,7 @@ playersprite:
     db %00100000, %00000100
     db %00111111, %11111100
     db %00011111, %11111000
-
+;
 
 
 
@@ -58,6 +61,16 @@ player_game_start:
 
 player_update:
     call check_keys
+
+    ld a,(player_isalive)
+    cp FALSE
+    push af
+    call z, playerdead_update
+    pop af
+    ret z
+
+
+    
 
     ld a,(keypressed_Q)
     cp TRUE
@@ -85,7 +98,19 @@ player_update:
 
 
 
+playerdead_update:
+    ld a,(keypressed_Space)
+    cp TRUE
+    call z,player_respawn
+    ret
+
+
+
+
 player_draw:
+    ld a,(player_isalive)
+    cp TRUE
+    ret nz
     ld de,(playery)
     ld bc,playersprite
     call drawsprite16_24
@@ -149,3 +174,31 @@ pfb_next:
     ld de,BULLET_DATA_LENGTH
     add ix,de
     jp pfb_startloop
+
+
+
+
+
+
+
+
+
+
+
+player_respawn:
+    ld a,TRUE
+    ld (player_isalive),a
+    ld a,PLAYER_SPAWN_X
+    ld (playerx),a
+    ld a,PLAYER_SPAWN_Y
+    ld (playery),a
+    ret
+
+player_kill:
+    ld a,(player_isalive)
+    cp TRUE
+    ret nz
+    call decrease_lives
+    ld a,FALSE
+    ld (player_isalive),a
+    ret

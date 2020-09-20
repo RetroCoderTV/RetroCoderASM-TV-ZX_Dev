@@ -9,6 +9,8 @@ ENTRY_POINT equ 0x9800
 
 program_start:
     call starfield_init
+    call init_ui_labels
+    call refresh_ui_numbers
     jp main
 
 
@@ -20,8 +22,12 @@ main
 
 
 main_update:
-    halt
+    
     call player_update
+    ld a,(player_isalive)
+    cp FALSE
+    ret z
+
     call bullets_update
     call level_update
     call starfield_update
@@ -30,6 +36,10 @@ main_update:
 
 
 main_draw:
+    ld a,(player_isalive)
+    cp FALSE
+    ret z
+    
     call cleargamewindow
     call starfield_draw
     call enemies_draw
@@ -57,6 +67,8 @@ main_draw:
     include 'objects\enemies.asm'
     include 'objects\wormhole.asm'
     include 'starfield.asm'
+    include 'ui\ui.asm'
+
 
 program_end:
     ld a,2
