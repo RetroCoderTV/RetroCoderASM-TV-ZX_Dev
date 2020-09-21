@@ -101,7 +101,7 @@ player_update:
 playerdead_update:
     ld a,(keypressed_Space)
     cp TRUE
-    call z,player_respawn
+    call z, level_restart
     ret
 
 

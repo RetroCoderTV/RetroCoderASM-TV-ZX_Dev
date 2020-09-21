@@ -58,15 +58,14 @@ espawn_next:
 
 
 
-enemies_draw:
-    ld a,1
-    call 0x229b
-    call draw_enemies
+enemies_update:
+    push ix
+    ld ix,enemies
+    call upd_start
+    pop ix
     ret
 
-draw_enemies:
-    ld ix,enemies
-de_start:
+upd_start:
     ld a,(ix)
     cp 255
     ret z
@@ -91,8 +90,6 @@ de_start:
     ld e,a
     ld (ix+1),d ;store x pos
     ld (ix+2),e ; store y pos
-    ld bc,enemysprite_1 ;bc=sprite
-    call drawsprite16_8
     call check_collision_enemy_bullet
     call check_collision_enemy_player
 
@@ -111,13 +108,58 @@ de_start:
 de_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de
-    jp de_start
+    jp upd_start
+
+
+
+
+
+
+enemies_draw:
+    push ix
+    ld ix,enemies
+    call drw_enemies_start
+    pop ix
+    ret
+
+drw_enemies_start:
+    ld a,(ix)
+    cp 255
+    ret z
+    cp DEAD
+    jp z,drw_enemies_next
+    
+    ld d,(ix+1)
+    ld e,(ix+2)
+    ld bc,enemysprite_1
+    call drawsprite16_8
+drw_enemies_next:
+    ld de,ENEMY_DATA_LENGTH
+    add ix,de
+    jp drw_enemies_start
+
+
+
+
 
 
 ;IX=the enemy
 kill_enemy:
     ld (ix),DEAD
     ret
+
+
+kill_all_enemies:
+    ld ix,enemies
+killallenemies_start:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld (ix),DEAD
+    ld de,ENEMY_DATA_LENGTH
+    add ix,de
+    jp killallenemies_start
+    
 
 
 ;IX=enemy
@@ -151,6 +193,7 @@ check_collision_enemy_player:
     ret c
 
     ;if here, collision....
+    call kill_enemy
     call player_kill
 
     ret
@@ -208,9 +251,6 @@ chkcoll_eb_start:
     jp c, chkcoll_eb_next
 
     ;here is a collision....
-    ld a,5
-    call 0x229b
-
     call kill_enemy
     call bullet_kill
     

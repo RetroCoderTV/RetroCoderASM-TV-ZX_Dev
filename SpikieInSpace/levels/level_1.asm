@@ -23,34 +23,34 @@ L1_LEVEL_END equ 28
 
 
 ;enemy spawn slots
-L1_SPAWNSLOT_TOP equ 0
-L1_SPAWNSLOT_MIDDLE equ 35
-L1_SPAWNSLOT_BOTTOM equ 110
+L1_SPAWNSLOT_TOP equ 15
+L1_SPAWNSLOT_MIDDLE equ 90
+L1_SPAWNSLOT_BOTTOM equ 140
 
 
 
 
 ; wave # | slot | pattern
-; 1     TOP         1
-; 2     BOTTOM      1
-; 3     TOP         2
-; 4     BOTTOM      2    
-; 5     MID         1
-; 6     MID         1
-; 7     TOP         1
-; 8     TOP         3
-; 9     BOTTOM      2
-; 10    BOTTOM      2
-; 11    MID         3
-; 12    MID         2
-; 13    TOP         1
-; 14    BOTTOM      3
-; 15    TOP         2
-; 16    BOTTOM      2
-; 17    BOTTOM      2
-; 18    BOTTOM      3 
-; 19    MID         2
-; 20    MID         3
+; 1     TOP         WAVE
+; 2     BOTTOM      ZAG
+; 3     TOP         ZIG
+; 4     BOTTOM      ZAG    
+; 5     MID         WAVE
+; 6     MID         WAVE
+; 7     TOP         WAVE
+; 8     TOP         ZIG
+; 9     BOTTOM      ZAG
+; 10    BOTTOM      ZAG
+; 11    MID         ZAG
+; 12    MID         ZIG
+; 13    TOP         WAVE
+; 14    BOTTOM      ZAG
+; 15    TOP         ZIG
+; 16    BOTTOM      WAVE
+; 17    BOTTOM      WAVE
+; 18    BOTTOM      ZAG 
+; 19    MID         WAVE
+; 20    MID         ZAG
 ;INPUTS:
 ;H=(level timer)
 setoffset:
@@ -69,30 +69,8 @@ setoffset:
     ret z
     cp L1_WAVE_13_START
     ret z
-    cp L1_WAVE_14_START
-    ret z
     cp L1_WAVE_15_START
     ret z
-
-    ld a,L1_SPAWNSLOT_BOTTOM
-    ld (wave_y_offset),a
-    ld a,h
-    cp L1_WAVE_2_START
-    ret z
-    cp L1_WAVE_4_START
-    ret z
-    cp L1_WAVE_9_START
-    ret z
-    cp L1_WAVE_10_START
-    ret z
-    cp L1_WAVE_16_START
-    ret z
-    cp L1_WAVE_17_START
-    ret z
-    cp L1_WAVE_18_START
-    ret z
-
-    ;if neither of the above, default to middle
 
     ld a,L1_SPAWNSLOT_MIDDLE
     ld (wave_y_offset),a
@@ -107,40 +85,91 @@ setoffset:
     ret z
     cp L1_WAVE_19_START
     ret z
-    cp L1_WAVE_19_START
+    cp L1_WAVE_20_START
     ret z
 
-
+    ld a,L1_SPAWNSLOT_BOTTOM
+    ld (wave_y_offset),a
+    ld a,h
+    cp L1_WAVE_2_START
+    ret z
+    cp L1_WAVE_4_START
+    ret z
+    cp L1_WAVE_9_START
+    ret z
+    cp L1_WAVE_10_START
+    ret z
+    cp L1_WAVE_14_START
+    ret z
+    cp L1_WAVE_16_START
+    ret z
+    cp L1_WAVE_17_START
+    ret z
+    cp L1_WAVE_18_START
+    ret z
 
     jp increment_timer
 
 ;H=level timer (high byte)
 setpattern:
     push hl
-    ld hl,flightpattern_1
+    ld hl,flightpattern_wave
     ld (current_pattern),hl
     pop hl
     ld a,h ;compare high byte to P starts (pattern starts)
     cp L1_WAVE_1_START
     ret z
-    cp L1_WAVE_2_START
+    cp L1_WAVE_1_START
     ret z
+    cp L1_WAVE_5_START
+    ret z
+    cp L1_WAVE_6_START
+    ret z
+    cp L1_WAVE_7_START
+    ret z
+    cp L1_WAVE_13_START
+    ret z
+    cp L1_WAVE_16_START
+    ret z
+    cp L1_WAVE_17_START
+    ret z
+    cp L1_WAVE_19_START
+    ret z
+    cp L1_WAVE_20_START
+    ret z
+    
 
     push hl
-    ld hl,flightpattern_2
+    ld hl,flightpattern_zig
     ld (current_pattern),hl
     pop hl
-    ld a,h
-    cp L1_WAVE_2_START
-    ret z
     cp L1_WAVE_3_START
+    ret z
+    cp L1_WAVE_8_START
+    ret z
+    cp L1_WAVE_11_START
+    ret z
+    cp L1_WAVE_12_START
+    ret z
+    cp L1_WAVE_15_START
+    ret z
+    
+    push hl
+    ld hl,flightpattern_zag
+    ld (current_pattern),hl
+    pop hl
+    cp L1_WAVE_2_START
     ret z
     cp L1_WAVE_4_START
     ret z
-
-    ;temp: default to 1
-    ld hl,flightpattern_1
-    ld (current_pattern),hl
+    cp L1_WAVE_10_START
+    ret z
+    cp L1_WAVE_14_START
+    ret z
+    cp L1_WAVE_18_START
+    ret z
+    
+    
 
     ret
 

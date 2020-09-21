@@ -13,9 +13,6 @@ bullets_player:
     db FALSE,0,0,0,0
     db FALSE,0,0,0,0
     db FALSE,0,0,0,0
-    db FALSE,0,0,0,0
-    db FALSE,0,0,0,0
-    db FALSE,0,0,0,0
     db 255
 BULLET_DATA_LENGTH equ 5
 

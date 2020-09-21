@@ -24,13 +24,16 @@ main
 main_update:
     
     call player_update
+    
+    
     ld a,(player_isalive)
     cp FALSE
     ret z
-
+    
     call bullets_update
     call level_update
     call starfield_update
+    call enemies_update
     ret
 
 
@@ -42,10 +45,11 @@ main_draw:
     
     call cleargamewindow
     call starfield_draw
-    call enemies_draw
+    
     call player_draw
     call bullets_draw
-    call wormhole_draw
+    call enemies_draw
+    ; call wormhole_draw
     call drawgamewindow
 
     ret
@@ -65,7 +69,7 @@ main_draw:
     include 'levels\level_manager.asm'
     include 'levels\level_1.asm'
     include 'objects\enemies.asm'
-    include 'objects\wormhole.asm'
+    ; include 'objects\wormhole.asm'
     include 'starfield.asm'
     include 'ui\ui.asm'
 
