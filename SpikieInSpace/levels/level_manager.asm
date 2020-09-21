@@ -6,6 +6,7 @@ LEVEL_TIMER_SPEED_FACTOR equ 4
 level_timer dw 0
 current_pattern dw 0
 wave_y_offset db 0
+current_enemy_spritetype dw 0
 
 
 flightpattern_wave:
@@ -143,7 +144,10 @@ update_wave:
     ret z
     call setoffset
     ld hl,(level_timer)
+    push hl
     call setpattern 
+    pop hl
+    call setenemysprite
     
 
     ld hl,(level_timer)

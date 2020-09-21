@@ -2,19 +2,19 @@ ENTRY_POINT equ 0x9800
 
     org ENTRY_POINT
 
-    call 0xDAF
-
-    ld a,1
-    call 0x229B
+    
 
 program_start:
-    call starfield_init
+    call 0xDAF
+    ld a,1
+    call 0x229B
+    call starfield_paint
     call init_ui_labels
     call refresh_ui_numbers
     jp main
 
 
-main
+main:
     call main_update
     call main_draw
     jp main
@@ -22,10 +22,8 @@ main
 
 
 main_update:
-    
     call player_update
-    
-    
+        
     ld a,(player_isalive)
     cp FALSE
     ret z
@@ -45,7 +43,6 @@ main_draw:
     
     call cleargamewindow
     call starfield_draw
-    
     call player_draw
     call bullets_draw
     call enemies_draw
@@ -82,6 +79,7 @@ program_end:
     call sound_GSharp_0_25
     call sound_B_0_25
     call sound_A_0_25
+    
 
 
 

@@ -1,30 +1,22 @@
-;enemy types
-DEAD equ 0
-SAUCER equ 1
-FALCON equ 2
-BOBHEAD equ 3
-ALIVE equ 69
-
 
 ENEMY_W equ 2 ;cells
 ENEMY_H equ 8 ;pixels/lines
 
 
-
 ;type,x,y,current step,colour
 enemies:
-    db DEAD,0,0,0
-    db DEAD,0,0,0
-    db DEAD,0,0,0
-    db DEAD,0,0,0
-    db DEAD,0,0,0
+    db FALSE,0,0,0
+    db FALSE,0,0,0
+    db FALSE,0,0,0
+    db FALSE,0,0,0
+    db FALSE,0,0,0
     db 255
 ENEMY_DATA_LENGTH equ 4
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 8 pixels (= 2 x 1 characters)
 ; line based output of pixel data:
-enemysprite_1:
+enemysprite_saucer:
     db %00000011, %11000000
     db %00000100, %00100000
     db %00001011, %00010000
@@ -34,8 +26,19 @@ enemysprite_1:
     db %11111111, %11111111
     db %00001111, %11110000
 ;
+enemysprite_arrow:
+    db %00011111, %00111110
+    db %00111101, %11110010
+    db %01111001, %11110100
+    db %11110001, %11111111
+    db %11110001, %11111111
+    db %01111001, %11110100
+    db %00111101, %11110010
+    db %00011111, %00111110
+;
 
 
+;B=Enemy Type
 enemy_spawn:
     ld ix,enemies
 espawn_start:
@@ -43,10 +46,10 @@ espawn_start:
     cp 255
     ret z
     
-    cp DEAD
+    cp FALSE
     jp nz, espawn_next
 
-    ld (ix),SAUCER
+    ld (ix),TRUE
     ld (ix+3),0 ;steps=0
     
     ret ;get out from loop, so that only 1 is spawned
@@ -71,7 +74,7 @@ upd_start:
     cp 255
     ret z
 
-    cp DEAD
+    cp FALSE
     jp z, de_next
 
     ;point HL at correct flight pattern
@@ -91,17 +94,9 @@ upd_start:
     ld e,a
     ld (ix+1),d ;store x pos
     ld (ix+2),e ;store y pos
-    push de
+    
     call check_collision_enemy_bullet
     call check_collision_enemy_player
-ue_getrandcolour:
-    call rand
-    and 7
-    cp 0
-    jp z, ue_getrandcolour
-    ld b,a
-    pop de
-    call paint_sprite_1_2
 
     pop hl
     ld a,(hl)
@@ -132,13 +127,24 @@ drw_enemies_start:
     ld a,(ix)
     cp 255
     ret z
-    cp DEAD
+    cp FALSE
     jp z,drw_enemies_next
     
     ld d,(ix+1)
     ld e,(ix+2)
-    ld bc,enemysprite_1
+    push de
+    ld bc,(current_enemy_spritetype)
     call drawsprite16_8
+ue_getrandcolour:
+    call rand
+    and 7
+    cp 0 ;if black, do again
+    jp z, ue_getrandcolour
+    cp 7 ;if white, do again
+    jp z, ue_getrandcolour
+    ld b,a
+    pop de
+    call paint_sprite_2_2
 drw_enemies_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de
@@ -151,7 +157,7 @@ drw_enemies_next:
 
 ;IX=the enemy
 kill_enemy:
-    ld (ix),DEAD
+    ld (ix),FALSE
     ret
 
 
@@ -161,7 +167,7 @@ killallenemies_start:
     ld a,(ix)
     cp 255
     ret z
-    ld (ix),DEAD
+    ld (ix),FALSE
     ld de,ENEMY_DATA_LENGTH
     add ix,de
     jp killallenemies_start
@@ -200,7 +206,7 @@ check_collision_enemy_player:
 
     ;if here, collision....
     call kill_enemy
-    call player_kill
+    ; call player_kill
 
     ret
 
@@ -213,7 +219,7 @@ chkcoll_eb_start:
     ld a,(hl)
     cp 255
     ret z
-    cp DEAD
+    cp FALSE
     jp z,chkcoll_eb_next
 
     ld a,(ix+1) 

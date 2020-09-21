@@ -28,29 +28,27 @@ L1_SPAWNSLOT_MIDDLE equ 90
 L1_SPAWNSLOT_BOTTOM equ 140
 
 
-
-
-; wave # | slot | pattern | sprite
-; 1     TOP         WAVE     
-; 2     BOTTOM      ZAG
-; 3     TOP         ZIG
-; 4     BOTTOM      ZAG    
-; 5     MID         WAVE
-; 6     MID         WAVE
-; 7     TOP         WAVE
-; 8     TOP         ZIG
-; 9     BOTTOM      ZAG
-; 10    BOTTOM      ZAG
-; 11    MID         ZAG
-; 12    MID         ZIG
-; 13    TOP         WAVE
-; 14    BOTTOM      ZAG
-; 15    TOP         ZIG
-; 16    BOTTOM      WAVE
-; 17    BOTTOM      WAVE
-; 18    BOTTOM      ZAG 
-; 19    MID         WAVE
-; 20    MID         ZAG
+; wave # | slot | pattern |     sprite
+; 1     TOP         WAVE        SAUCER
+; 2     BOTTOM      ZAG         SAUCER
+; 3     TOP         ZIG         SAUCER
+; 4     BOTTOM      ZAG         SAUCER
+; 5     MID         WAVE        ARROW
+; 6     MID         WAVE        ARROW
+; 7     TOP         WAVE        SAUCER
+; 8     TOP         ZIG         SAUCER
+; 9     BOTTOM      ZAG         ARROW
+; 10    BOTTOM      ZAG         ARROW
+; 11    MID         ZAG         ARROW
+; 12    MID         ZIG         ARROW
+; 13    TOP         WAVE        SAUCER
+; 14    BOTTOM      ZAG         SAUCER
+; 15    TOP         ZIG         SAUCER
+; 16    BOTTOM      WAVE        ARROW
+; 17    BOTTOM      WAVE        SAUCER
+; 18    BOTTOM      ZAG         ARROW
+; 19    MID         WAVE        ARROW
+; 20    MID         ZAG         ARROW
 ;INPUTS:
 ;H=(level timer)
 setoffset:
@@ -174,3 +172,34 @@ setpattern:
     ret
 
 
+setenemysprite:
+    push hl
+    ld hl,enemysprite_saucer
+    ld (current_enemy_spritetype),hl
+    pop hl
+    ld a,h
+    cp L1_WAVE_1_START
+    ret z
+    cp L1_WAVE_2_START
+    ret z
+    cp L1_WAVE_3_START
+    ret z
+    cp L1_WAVE_4_START
+    ret z
+    cp L1_WAVE_7_START
+    ret z
+    cp L1_WAVE_8_START
+    ret z
+    cp L1_WAVE_13_START
+    ret z
+    cp L1_WAVE_14_START
+    ret z
+    cp L1_WAVE_15_START
+    ret z
+    cp L1_WAVE_17_START
+    ret z
+
+    ld hl,enemysprite_arrow
+    ld (current_enemy_spritetype),hl
+    
+    ret

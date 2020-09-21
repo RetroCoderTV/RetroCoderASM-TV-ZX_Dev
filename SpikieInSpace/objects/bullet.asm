@@ -88,6 +88,7 @@ drawbullet:
     push de
     ld bc,bulletsprite
     call drawsprite8_2
+ 
     pop de
     ld b,BULLET_COLOUR
     call paint_sprite_1_1

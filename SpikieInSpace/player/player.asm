@@ -2,7 +2,7 @@
 
 player_isalive db TRUE
 
-
+PLAYER_COLOUR equ %01000011
 PLAYER_SPAWN_X equ 5
 PLAYER_SPAWN_Y equ 50
 PLAYER_SPEED_X equ 1
@@ -112,8 +112,12 @@ player_draw:
     cp TRUE
     ret nz
     ld de,(playery)
+    push de
     ld bc,playersprite
     call drawsprite16_24
+    pop de
+    ld b,PLAYER_COLOUR
+    call paint_sprite_2_4
     ret
 
 
@@ -131,7 +135,7 @@ player_move_up:
     ret
 player_move_down:
     ld a,(playery)
-    cp MAX_Y
+    cp MAX_Y-1
     ret nc
     
     add a,PLAYER_SPEED_Y
@@ -139,7 +143,7 @@ player_move_down:
     ret
 player_move_left:
     ld a,(playerx)
-    cp MIN_X
+    cp MIN_X+1
     ret c
 
     sub PLAYER_SPEED_X

@@ -3,52 +3,52 @@ STARFIELD_ATTRIBUTES equ %00000110
 NEW_STAR equ %00000001
 
 
-;isAlive,x,y,star-byte
+;isalive,x,y,star-byte
 stars:
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%01000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00001000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00000001
-    db ALIVE,0,0,%00000010
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%01000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00001000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00000001
-    db ALIVE,0,0,%00000010
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%01000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00001000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00000001
-    db ALIVE,0,0,%00000010
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%01000000
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00010000 
-    db ALIVE,0,0,%00001000
-    db ALIVE,0,0,%00010000
-    db ALIVE,0,0,%00000001
-    db ALIVE,0,0,%00000010
-    db ALIVE,0,0,%10000000
-    db ALIVE,0,0,%00000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%01000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00001000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00000001
+    db TRUE,0,0,%00000010
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%01000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00001000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00000001
+    db TRUE,0,0,%00000010
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%01000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00001000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00000001
+    db TRUE,0,0,%00000010
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%01000000
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00010000 
+    db TRUE,0,0,%00001000
+    db TRUE,0,0,%00010000
+    db TRUE,0,0,%00000001
+    db TRUE,0,0,%00000010
+    db TRUE,0,0,%10000000
+    db TRUE,0,0,%00000000
     db 255
 STARS_DATA_LENGTH equ 4
 
-starfield_init:
+starfield_paint:
     ld hl,0x5800
     ld b,STARFIELD_ATTRIBUTES
     call paint_base_attributes
@@ -63,7 +63,7 @@ spwnstar_start:
     ld a,(ix)
     cp 255
     ret z
-    cp DEAD
+    cp FALSE
     jp nz, spwnstar_next
 spwnstar_randx:
     call rand
@@ -103,7 +103,7 @@ move_star:
     ret
 
 kill_star:
-    ld (ix),DEAD
+    ld (ix),FALSE
     ret
     
 
@@ -113,7 +113,7 @@ sfd_start:
     ld a,(ix)
     cp 255
     ret z
-    cp DEAD
+    cp FALSE
     jp z,sfd_next
 
     ld d,(ix+1)

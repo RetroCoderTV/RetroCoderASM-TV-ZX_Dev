@@ -17,7 +17,7 @@ FIFTY50 equ 128
 MIN_X equ 2
 MAX_X equ 26-2
 MIN_Y equ 4
-MAX_Y equ 192-24
+MAX_Y equ 191-30
 
 ;Directions
 UP equ 0
