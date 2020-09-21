@@ -5,7 +5,7 @@ bulletsprite:
     db %10101010
     db %01010101
 
-
+BULLET_COLOUR equ %01000100
 BULLET_Y_OFFSET equ PLAYER_HEIGHT/2
 BULLET_SPEED equ 2
 ;isAlive,x,y,speed,power
@@ -56,6 +56,7 @@ bmove_start:
     add a,BULLET_SPEED
     ld (ix+1),a
 
+
     cp MAX_X
     jp c, bmove_next
 
@@ -84,8 +85,12 @@ db_next:
 drawbullet:
     ld d,(ix+1)
     ld e,(ix+2)
+    push de
     ld bc,bulletsprite
     call drawsprite8_2
+    pop de
+    ld b,BULLET_COLOUR
+    call paint_sprite_1_1
     ret
 
 

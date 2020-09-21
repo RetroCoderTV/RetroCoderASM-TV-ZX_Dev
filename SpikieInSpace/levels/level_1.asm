@@ -30,8 +30,8 @@ L1_SPAWNSLOT_BOTTOM equ 140
 
 
 
-; wave # | slot | pattern
-; 1     TOP         WAVE
+; wave # | slot | pattern | sprite
+; 1     TOP         WAVE     
 ; 2     BOTTOM      ZAG
 ; 3     TOP         ZIG
 ; 4     BOTTOM      ZAG    

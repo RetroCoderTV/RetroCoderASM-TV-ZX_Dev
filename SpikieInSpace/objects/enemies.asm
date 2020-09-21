@@ -10,7 +10,8 @@ ENEMY_W equ 2 ;cells
 ENEMY_H equ 8 ;pixels/lines
 
 
-;type,x,y,current step
+
+;type,x,y,current step,colour
 enemies:
     db DEAD,0,0,0
     db DEAD,0,0,0
@@ -89,9 +90,18 @@ upd_start:
     add a,e
     ld e,a
     ld (ix+1),d ;store x pos
-    ld (ix+2),e ; store y pos
+    ld (ix+2),e ;store y pos
+    push de
     call check_collision_enemy_bullet
     call check_collision_enemy_player
+ue_getrandcolour:
+    call rand
+    and 7
+    cp 0
+    jp z, ue_getrandcolour
+    ld b,a
+    pop de
+    call paint_sprite_1_2
 
     pop hl
     ld a,(hl)
@@ -104,15 +114,11 @@ upd_start:
     
     ld a,(ix+3)
     add a,2
-    ld (ix+3),a ;step += 2
+    ld (ix+3),a ;step+=2
 de_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de
     jp upd_start
-
-
-
-
 
 
 enemies_draw:
