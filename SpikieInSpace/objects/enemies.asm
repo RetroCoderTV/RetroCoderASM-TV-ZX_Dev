@@ -43,7 +43,7 @@ enemy_spawn:
     ld a,(boss_1_isalive)
     cp TRUE
     ret z
-    
+
     ld ix,enemies
 espawn_start:
     ld a,(ix)
@@ -271,9 +271,7 @@ chkcoll_eb_start:
     call bullet_kill
     
     ret
-
-
 chkcoll_eb_next:
-    ld de,BULLET_DATA_LENGTH ;minus 2 because we inc hl twice
+    ld de,BULLET_DATA_LENGTH 
     add hl,de
     jp chkcoll_eb_start

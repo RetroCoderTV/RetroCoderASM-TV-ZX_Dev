@@ -4,13 +4,13 @@ BOSS_1_SPAWN_X equ 21
 BOSS_1_SPAWN_Y equ 20
 
 BOSS_1_MIN_Y equ 20
-BOSS_1_MAX_Y equ 150
+BOSS_1_MAX_Y equ 140
 
 BOSS_1_MIN_X equ 3
 
 
-BOSS_1_SPEED_Y equ 8
-BOSS_1_SPEED_X equ 1
+BOSS_1_SPEED_Y equ 12
+BOSS_1_SPEED_X equ 2
 
 BOSS_1_WIDTH equ 2
 BOSS_1_HEIGHT equ 32
@@ -91,8 +91,6 @@ boss_1_update:
     cp TRUE
     ret nz
 
-    
-
 
 
     ld a,(boss_1_isattacking)
@@ -111,8 +109,7 @@ boss_1_update:
     cp DOWN
     call z, boss_1_move_down
 
-   
-    call boss_1_check_collision_player
+
     ret
 
 boss_1_update_attacking:
@@ -124,7 +121,6 @@ boss_1_update_attacking:
     cp RIGHT
     call z,boss_1_move_right
 
-    call boss_1_check_collision_player
     
     ret
 
@@ -265,9 +261,13 @@ boss_1_check_collision_player:
     ret c
 
     ;collision...
-    ; call player_kill
-    xor a
-    call 0x229b
+    call player_kill
 
 
     ret
+;
+
+
+
+
+

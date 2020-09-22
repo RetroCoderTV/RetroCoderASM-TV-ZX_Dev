@@ -16,6 +16,8 @@ bullets_player:
     db 255
 BULLET_DATA_LENGTH equ 5
 
+BULLET_WIDTH equ 1
+
 
 ;ix=current bullet
 bullets_spawn:
@@ -48,14 +50,14 @@ bmove_start:
     ld a,(ix)
     cp 255
     ret z
-    
-    cp 0
+    cp FALSE
     jp z, bmove_next
+
+    call check_collision_bullet_boss1
 
     ld a,(ix+1)
     add a,BULLET_SPEED
     ld (ix+1),a
-
 
     cp MAX_X
     jp c, bmove_next
@@ -99,3 +101,51 @@ drawbullet:
 bullet_kill:
     ld (hl),FALSE
     ret
+
+
+
+
+
+
+
+
+
+
+
+;IX=bullet
+check_collision_bullet_boss1:
+    ld a,(ix+1) 
+    ld b,a ;B=bullet x
+    ld a,(boss1_x)
+    add a,BOSS_1_WIDTH
+    cp b
+    ret c
+
+    ld a,(boss1_x)
+    ld b,a
+    ld a,(ix+1) 
+    add a,2 ;add bullet width A=bullet right side
+    cp b
+    ret c
+
+    ld a,(boss1_y)
+    ld b,a
+    ld a,(ix+2)
+    add a,8 ;add bullet height    
+    cp b
+    ret c
+
+    ld a,(ix+2)
+    ld b,a ;B=bullet top
+    ld a,(boss1_y)
+    add a,BOSS_1_HEIGHT
+    cp b
+    ret c
+
+    ;if here, collision....
+    call bullet_kill
+    ld a,FALSE
+    ld (boss_1_isalive),a
+
+    ret
+

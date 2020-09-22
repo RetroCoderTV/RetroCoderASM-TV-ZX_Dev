@@ -25,13 +25,13 @@ main_update:
     ld a,3
     call 0x229b
     call player_update
-    
+    call bullets_update
         
     ld a,(player_isalive)
     cp FALSE
     ret z
     
-    call bullets_update
+    
     call level_update
     call starfield_update
     call enemies_update
