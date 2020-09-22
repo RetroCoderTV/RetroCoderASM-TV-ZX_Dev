@@ -214,9 +214,9 @@ GetCharAddr:
 ; org ($ + 255) / 256 * 256	; align to 256 bytes
 
 ; AttrTbl:
-; 	REPT 24, y
+; 	DUP 24, y
 ; 		dw	0x5800+32*y
-; 	ENDM
+; 	EDUP
 
 
 ; GetAttrXY:
@@ -266,12 +266,12 @@ PrintChar:
 	
 	push	de			; save screen address
 
-REPT 7
+	DUP 7
 	ld		a, (hl)		; get char byte
 	ld		(de), a		; store on screen
 	inc		d			; next screen line
 	inc		hl			; next char byte
-ENDM	
+	EDUP	
 	ld		a, (hl)
 	ld		(de), a
 	
@@ -294,18 +294,18 @@ ENDM
 ;
 ;	Clobbers: 	A, HL, DE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-PrintStr:	PROC
-	LOCAL NotAt, loop
+PrintStr:	MODULE bazproc
+;	LOCAL NotAt, loop
 	
 	ex		de, hl		; consistency with other routines
 	
-loop:
+bazproc.loop:
 	ld		a, (hl)		; load char and test for 0
 	or		a
 	ret		z			; return if finished
 	
 	cp		22			; AT directive?
-	jr		nz, NotAt	; print string if not
+	jr		nz, bazproc.NotAt	; print string if not
 	
 	inc		hl
 	ld		d, (hl)		; otherwise load de with coords
@@ -320,7 +320,7 @@ loop:
 	inc		hl
 	ld		a, (hl)		; and get next char
 	
-NotAt:
+bazproc.NotAt:
 	sub		32			; get char pos (space is 0)
 	
 	push	hl			; save position in string
@@ -335,12 +335,12 @@ NotAt:
 	
 	push	de			; save screen pos
 	
-REPT 7
+	DUP 7
 	ld		a, (hl)		; get char byte
 	ld		(de), a		; store on screen
 	inc		d			; next screen line
 	inc		hl			; next char byte
-ENDM
+	EDUP
 	ld		a, (hl)
 	ld		(de), a
 	
@@ -350,9 +350,9 @@ ENDM
 	pop		hl			; restore string pos and point to next char
 	inc		hl
 	
-	jr		loop		; loop until done
+	jr		bazproc.loop		; loop until done
 	
-ENDP
+	ENDMODULE
 
 
 
@@ -362,20 +362,6 @@ ENDP
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-;rand
 
 rand:
     ld        hl, 0xA280       ; yw -> zt
