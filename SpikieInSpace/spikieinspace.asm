@@ -22,7 +22,10 @@ main:
 
 
 main_update:
+    ld a,3
+    call 0x229b
     call player_update
+    
         
     ld a,(player_isalive)
     cp FALSE
@@ -32,6 +35,7 @@ main_update:
     call level_update
     call starfield_update
     call enemies_update
+    call boss_1_update
     ret
 
 
@@ -46,6 +50,7 @@ main_draw:
     call player_draw
     call bullets_draw
     call enemies_draw
+    call boss_1_draw
     ; call wormhole_draw
     call drawgamewindow
 
@@ -63,6 +68,7 @@ main_draw:
     include 'retrohelpers\spritedrawing.asm'
     include 'player\player.asm'
     include 'objects\bullet.asm'
+    include 'objects\boss_1.asm'
     include 'levels\level_manager.asm'
     include 'levels\level_1.asm'
     include 'objects\enemies.asm'

@@ -40,6 +40,10 @@ enemysprite_arrow:
 
 ;B=Enemy Type
 enemy_spawn:
+    ld a,(boss_1_isalive)
+    cp TRUE
+    ret z
+    
     ld ix,enemies
 espawn_start:
     ld a,(ix)

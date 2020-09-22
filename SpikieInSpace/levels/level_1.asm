@@ -56,7 +56,10 @@ setoffset:
     ld (wave_y_offset),a
     ld a,h ;compare high byte to P starts (pattern starts)
     cp L1_LEVEL_END
-    jp z,program_end
+    push af
+    call z,boss_1_spawn
+    pop af
+    ret z
     cp L1_WAVE_1_START
     ret z
     cp L1_WAVE_3_START
@@ -106,7 +109,11 @@ setoffset:
     cp L1_WAVE_18_START
     ret z
 
-    jp increment_timer
+    ld a,h
+    cp L1_LEVEL_END
+    jp c, increment_timer
+
+    ret
 
 ;H=level timer (high byte)
 setpattern:

@@ -70,7 +70,7 @@ player_update:
     ret z
 
 
-    
+    call boss_1_check_collision_player
 
     ld a,(keypressed_Q)
     cp TRUE
