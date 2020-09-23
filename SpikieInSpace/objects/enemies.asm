@@ -3,15 +3,20 @@ ENEMY_W equ 2 ;cells
 ENEMY_H equ 8 ;pixels/lines
 
 
-;type,x,y,current step,colour
+
+
+ENEMY_HP_SAUCER equ 2
+ENEMY_HP_ARROW equ 3
+
+;isAlive,x,y,current step,colour
 enemies:
-    db FALSE,0,0,0
-    db FALSE,0,0,0
-    db FALSE,0,0,0
-    db FALSE,0,0,0
-    db FALSE,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
     db 255
-ENEMY_DATA_LENGTH equ 4
+ENEMY_DATA_LENGTH equ 5
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 8 pixels (= 2 x 1 characters)
@@ -55,6 +60,13 @@ espawn_start:
 
     ld (ix),TRUE
     ld (ix+3),0 ;steps=0
+    ld hl,(current_enemy_spritetype)
+    ld (ix+4),ENEMY_HP_SAUCER
+    ld a,h
+    cp %00011111 ;arrow types first byte of sprite
+    ret nz
+    ld (ix+4),ENEMY_HP_ARROW
+    ret
     
     ret ;get out from loop, so that only 1 is spawned
 
@@ -62,8 +74,6 @@ espawn_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de
     jp espawn_start
-
-
 
 
 enemies_update:
@@ -154,28 +164,6 @@ drw_enemies_next:
     add ix,de
     jp drw_enemies_start
 
-
-
-
-
-
-;IX=the enemy
-kill_enemy:
-    ld (ix),FALSE
-    ret
-
-
-kill_all_enemies:
-    ld ix,enemies
-killallenemies_start:
-    ld a,(ix)
-    cp 255
-    ret z
-    ld (ix),FALSE
-    ld de,ENEMY_DATA_LENGTH
-    add ix,de
-    jp killallenemies_start
-    
 
 
 ;IX=enemy
@@ -272,8 +260,7 @@ chkcoll_eb_start:
     jp c, chkcoll_eb_next
 
     ;here is a collision....
-    call kill_enemy
-    call increment_score10
+    call enemy_take_hit
     call bullet_kill
     
     ret
@@ -281,3 +268,42 @@ chkcoll_eb_next:
     ld de,BULLET_DATA_LENGTH 
     add hl,de
     jp chkcoll_eb_start
+
+
+
+
+
+
+enemy_take_hit:
+    push ix
+    call sound_GSharp_0_05
+    pop ix
+    dec (ix+4)
+    ld a,(ix+4)
+    cp 0
+    call z,kill_enemy
+    
+    ret
+
+
+
+
+
+;IX=the enemy
+kill_enemy:
+    ld (ix),FALSE
+    call increment_score10
+    ret
+
+
+kill_all_enemies:
+    ld ix,enemies
+killallenemies_start:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld (ix),FALSE
+    ld de,ENEMY_DATA_LENGTH
+    add ix,de
+    jp killallenemies_start
+    

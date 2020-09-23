@@ -11,15 +11,16 @@ PLAYER_SPEED_Y equ 8
 PLAYER_HEIGHT equ 24
 PLAYER_WIDTH equ 2
 
-
-
-
 playery db PLAYER_SPAWN_Y
 playerx db PLAYER_SPAWN_X
 
 player_shield_active db FALSE
 player_shield_time dw 0x0000
 PLAYER_SHIELD_MAX_TIME equ 0x01
+
+
+
+
 
 
 

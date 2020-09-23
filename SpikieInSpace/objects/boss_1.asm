@@ -22,6 +22,10 @@ boss_1_isattacking db TRUE
 
 boss_1_direction db LEFT
 
+BOSS_1_MAX_HP equ 50
+
+boss_1_health db 50
+
 
 
 
@@ -261,8 +265,7 @@ boss_1_check_collision_player:
     ret c
 
     ;collision...
-    ld a,FALSE
-    ld (boss_1_isalive),a 
+    call kill_boss_1
 
     call player_kill
 
@@ -274,3 +277,30 @@ boss_1_check_collision_player:
 
 
 
+
+boss_1_take_hit:
+    call sound_GSharp_0_05
+
+    
+    ld a,(boss_1_health)
+    dec a
+    ld (boss_1_health),a
+
+    ld a,(boss_1_health)
+    cp 0
+    call z,kill_boss_1
+    
+    ret
+
+
+
+
+
+
+kill_boss_1:
+    ld a,FALSE
+    ld (boss_1_isalive),a 
+    call increment_score10000
+
+    call begin_shop
+    ret

@@ -3,8 +3,8 @@ P1_START equ 1
 P2_START equ 2
 ENEMY_SPAWN_INTERVAL equ 16 ;frames between each enemy spawn (during wave)
 LEVEL_TIMER_SPEED_FACTOR equ 4
-; level_timer dw 0x1B00
-level_timer dw 0x0000
+level_timer dw 0x1B00
+; level_timer dw 0x0000
 current_pattern dw 0x0000
 wave_y_offset db 0
 current_enemy_spritetype dw 0x0000

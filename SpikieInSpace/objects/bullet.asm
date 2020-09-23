@@ -13,6 +13,11 @@ bullets_player:
     db FALSE,0,0,0,0
     db FALSE,0,0,0,0
     db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
+    db FALSE,0,0,0,0
     db 255
 BULLET_DATA_LENGTH equ 5
 
@@ -148,10 +153,7 @@ check_collision_bullet_boss1:
 
     ;if here, collision....
     call bullet_kill
-    ld a,FALSE
-    ld (boss_1_isalive),a
-
-    call begin_shop
+    call boss_1_take_hit
 
 
     ret
