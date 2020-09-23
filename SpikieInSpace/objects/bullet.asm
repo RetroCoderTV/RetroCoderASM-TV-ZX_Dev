@@ -114,6 +114,10 @@ bullet_kill:
 
 ;IX=bullet
 check_collision_bullet_boss1:
+    ld a,(boss_1_isalive)
+    cp FALSE
+    ret z
+
     ld a,(ix+1) 
     ld b,a ;B=bullet x
     ld a,(boss1_x)
@@ -146,6 +150,9 @@ check_collision_bullet_boss1:
     call bullet_kill
     ld a,FALSE
     ld (boss_1_isalive),a
+
+    call begin_shop
+
 
     ret
 

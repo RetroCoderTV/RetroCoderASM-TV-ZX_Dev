@@ -73,7 +73,7 @@ boss_1_spawn:
     cp TRUE
     ret z
 
-    call sound_A_0_25
+    ; call sound_A_0_25
 
     ld a,TRUE
     ld (boss_1_isalive),a
@@ -261,6 +261,9 @@ boss_1_check_collision_player:
     ret c
 
     ;collision...
+    ld a,FALSE
+    ld (boss_1_isalive),a 
+
     call player_kill
 
 

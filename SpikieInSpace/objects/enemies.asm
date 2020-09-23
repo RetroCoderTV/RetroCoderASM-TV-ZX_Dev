@@ -206,11 +206,16 @@ check_collision_enemy_player:
     ld a,(playery)
     add a,PLAYER_HEIGHT
     cp b
-    ret c
+    ret c 
 
     ;if here, collision....
     call kill_enemy
-    ; call player_kill
+    
+    ld a,(player_shield_active)
+    cp TRUE
+    ret z
+
+    call player_kill
 
     ret
 
@@ -268,6 +273,7 @@ chkcoll_eb_start:
 
     ;here is a collision....
     call kill_enemy
+    call increment_score10
     call bullet_kill
     
     ret

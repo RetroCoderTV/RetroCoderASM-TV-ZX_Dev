@@ -8,8 +8,34 @@ program_start:
     call 0xDAF
     ld a,1
     call 0x229B
+    call mainmenu_start
+    jp mainmenu_update
+
+begin_game:
+    call 0xDAF
+    ld a,1
+    call 0x229B
     call starfield_paint
     call init_ui_labels
+    call refresh_ui_numbers
+    jp main
+
+
+begin_shop:
+    call 0xDAF
+    ld a,6
+    call 0x229B
+    call starfield_paint
+    call init_ui_labels
+    call refresh_ui_numbers
+    call shopmenu_start
+    jp shopmenu_update
+    
+begin_level_2:
+    call 0xDAF
+    ld a,1
+    call 0x229B
+    call starfield_paint
     call refresh_ui_numbers
     jp main
 
@@ -69,12 +95,15 @@ main_draw:
     include 'player\player.asm'
     include 'objects\bullet.asm'
     include 'objects\boss_1.asm'
+    include 'levels\mainmenu.asm'
+    include 'levels\shop.asm'
     include 'levels\level_manager.asm'
     include 'levels\level_1.asm'
     include 'objects\enemies.asm'
     ; include 'objects\wormhole.asm'
     include 'starfield.asm'
     include 'ui\ui.asm'
+    
 
 STACK_SIZE: equ 10    ; in words
 stack_bottom:

@@ -18,6 +18,18 @@ init_ui_labels:
     ld de,lives_string
     call PrintStr
 
+    ld d,UI_SMART_BOMBS_LABEL_Y
+    ld e,UI_SMART_BOMBS_LABEL_X
+    call GetCharAddr
+    ld de,ui_smart_bombs_string
+    call PrintStr
+
+    ld d,UI_SHIELD_LABEL_Y
+    ld e,UI_SHIELD_LABEL_X
+    call GetCharAddr
+    ld de,shield_string
+    call PrintStr
+
     ret
 
 refresh_ui_numbers:
@@ -110,6 +122,27 @@ refresh_ui_numbers:
     add a,ASCII_ZERO
     call PrintChar
 
+
+    ;SMART BOMBS:
+
+    ld d,UI_SMART_BOMBS_Y
+    ld e,UI_SMART_BOMBS_1_X
+    call GetCharAddr
+    ld a,(player_smartbombs)
+    add a,ASCII_ZERO
+    call PrintChar
+
+
+    ;SHIELDS:
+
+    ld d,UI_SHIELD_Y
+    ld e,UI_SHIELD_1_X
+    call GetCharAddr
+    ld a,(player_shields)
+    add a,ASCII_ZERO
+    call PrintChar
+    
+
     ret
 ;
 
@@ -126,17 +159,17 @@ draw_digit:
 ; 
 
 decrease_cash:
-    ld a,(cash_10)
+    ld a,(cash_1000)
     cp 0
     ret z
 
-    ld a,(cash_10)
+    ld a,(cash_1000)
     dec a
-    ld (cash_10),a
+    ld (cash_1000),a
 
     ld d,CASH_Y
-    ld e,CASH_10_X
-    ld a,(cash_10)
+    ld e,CASH_1000_X
+    ld a,(cash_1000)
     call draw_digit
     ret
 
@@ -282,8 +315,88 @@ increment_score100000:
     ret
 
 
-    
+  
 
+increment_smartbombs:
+    ld a,(cash_1000)
+    cp UI_SMART_BOMB_PRICE
+    ret c
+
+    ld a,(player_smartbombs)
+    cp PLAYER_MAX_SMARTBOMBS
+    ret z
+    inc a
+    ld (player_smartbombs),a
+    call decrease_cash
+
+    ld d,UI_SMART_BOMBS_Y
+    ld e,UI_SMART_BOMBS_1_X
+    ld a,(player_smartbombs)
+    call draw_digit
+    ret
+
+decrement_smartbombs:
+    ld a,(player_smartbombs)
+    cp 0
+    ret z
+    dec a
+    ld (player_smartbombs),a
+
+    ld d,UI_SMART_BOMBS_Y
+    ld e,UI_SMART_BOMBS_1_X
+    ld a,(player_smartbombs)
+    call draw_digit
+    ret
+
+
+increment_lives:
+    ld a,(cash_1000) ;todo change price
+    cp UI_LIFE_PRICE
+    ret c
+
+    ld a,(lives_1)
+    cp PLAYER_MAX_LIVES
+    ret z
+    inc a
+    ld (lives_1),a
+    call decrease_cash
+
+    ld d,LIVES_Y
+    ld e,LIVES_1_X
+    ld a,(lives_1)
+    call draw_digit
+    ret
+
+increment_shields:
+    ld a,(cash_1000) ;todo change price
+    cp UI_SHIELD_PRICE
+    ret c
+
+    ld a,(player_shields)
+    cp PLAYER_MAX_SHEILDS
+    ret z
+    inc a
+    ld (player_shields),a
+    call decrease_cash ;todo: fix cash
+
+    ld d,UI_SHIELD_Y
+    ld e,UI_SHIELD_1_X
+    ld a,(player_shields)
+    call draw_digit
+    ret
+
+decrement_shields:
+    ld a,(player_shields)
+    cp 0
+    ret z
+    dec a
+    ld (player_shields),a
+
+    ld d,UI_SHIELD_Y
+    ld e,UI_SHIELD_1_X
+    ld a,(player_shields)
+    call draw_digit
+    ret
 
 ;;;; DATA ;;;;;;;;;;
 
@@ -301,10 +414,10 @@ CASH_10000_X equ 25
 
 
 cash_1     db 0
-cash_10    db 3
+cash_10    db 0
 cash_100   db 0
-cash_1000  db 0
-cash_10000  db 0
+cash_1000  db 9
+cash_10000  db 9
 
 
 
@@ -336,9 +449,38 @@ LIVES_LABEL_Y equ 7
 LIVES_LABEL_X equ 25
 LIVES_Y equ LIVES_LABEL_Y+1
 LIVES_1_X equ 29
+UI_LIFE_PRICE equ 1 ;x1000
 
 lives_string db 'LIVES',0
 lives_1 db 5
+
+
+
+UI_SMART_BOMBS_LABEL_Y equ 10
+UI_SMART_BOMBS_LABEL_X equ 25
+UI_SMART_BOMBS_Y equ UI_SMART_BOMBS_LABEL_Y+1
+UI_SMART_BOMBS_1_X equ 29
+ui_smart_bombs_string db 'NUKES',0
+UI_SMART_BOMB_PRICE equ 1 ; x1000
+player_smartbombs db 1
+PLAYER_MAX_SMARTBOMBS equ 3
+PLAYER_MAX_LIVES equ 9
+
+
+
+shield_string db 'SHIELD',0
+UI_SHIELD_LABEL_Y equ 13
+UI_SHIELD_LABEL_X equ 25
+UI_SHIELD_Y equ UI_SHIELD_LABEL_Y+1
+UI_SHIELD_1_X equ 29
+UI_SHIELD_PRICE equ 1 ;x1000
+player_shields db 1
+PLAYER_MAX_SHEILDS equ 3
+
+
+
+
+
 
 
 

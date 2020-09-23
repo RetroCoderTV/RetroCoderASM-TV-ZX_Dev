@@ -110,7 +110,7 @@
                 "reverseDebugInstructionCount": 1000000,
                 "spotCount": 10  
             },
-            "startAutomatically": false,
+            "startAutomatically": true,
             "skipInterrupt": true,
             "commandsAfterLaunch": [
                 "-logpoint enable",

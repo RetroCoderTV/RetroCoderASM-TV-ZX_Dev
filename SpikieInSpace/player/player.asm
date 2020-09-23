@@ -2,7 +2,8 @@
 
 player_isalive db TRUE
 
-PLAYER_COLOUR equ %01000011
+PLAYER_COLOUR equ %01000110
+PLAYER_COLOUR_SHIELDED equ %01000011
 PLAYER_SPAWN_X equ 5
 PLAYER_SPAWN_Y equ 50
 PLAYER_SPEED_X equ 1
@@ -15,6 +16,10 @@ PLAYER_WIDTH equ 2
 
 playery db PLAYER_SPAWN_Y
 playerx db PLAYER_SPAWN_X
+
+player_shield_active db FALSE
+player_shield_time dw 0x0000
+PLAYER_SHIELD_MAX_TIME equ 0x01
 
 
 
@@ -52,6 +57,8 @@ playersprite:
 
 
 
+
+
 player_game_start:
     ret
 
@@ -68,6 +75,10 @@ player_update:
     call z, playerdead_update
     pop af
     ret z
+
+    ld a,(player_shield_active)
+    cp TRUE
+    call z, player_increment_shield_timer
 
 
     call boss_1_check_collision_player
@@ -93,9 +104,43 @@ player_update:
     cp TRUE
     call z,player_fire_bullet
 
+    ld a,(keypressed_F)
+    cp TRUE
+    call z,player_fire_smartbomb
+
+    ld a,(keypressed_S)
+    cp TRUE
+    call z,player_activate_shield
 
     ret
 
+
+player_increment_shield_timer:
+    ld hl,(player_shield_time)
+    inc hl
+    ld (player_shield_time),hl
+
+    ld a,h
+    cp PLAYER_SHIELD_MAX_TIME
+    ret c
+
+    ld a,FALSE
+    ld (player_shield_active),a
+    ret
+
+player_activate_shield:
+    ld a,(player_shield_active)
+    cp TRUE
+    ret z
+
+    ld a,TRUE
+    ld (player_shield_active),a
+
+    call decrement_shields
+
+    ld hl,player_shield_time
+    ld (hl),0
+    ret
 
 
 playerdead_update:
@@ -116,13 +161,25 @@ player_draw:
     ld bc,playersprite
     call drawsprite16_24
     pop de
+    ld a,(player_shield_active)
+    cp TRUE
+    push af
+    call z,player_paint_shielded
+    pop af
+    call nz,player_paint
+
+
+    ret
+
+;DE=xy
+player_paint:
     ld b,PLAYER_COLOUR
     call paint_sprite_2_4
     ret
-
-
-
-
+player_paint_shielded:
+    ld b,PLAYER_COLOUR_SHIELDED
+    call paint_sprite_2_4
+    ret
 
 
 player_move_up:
@@ -180,6 +237,24 @@ pfb_next:
     jp pfb_startloop
 
 
+
+player_fire_smartbomb:
+    ld a,(keypressed_F_Held)
+    cp TRUE
+    ret z
+
+    ld a,(player_smartbombs)
+    cp 0
+    ret z
+
+    ld a,0
+    call 0x229b
+
+    call decrement_smartbombs
+    call kill_all_enemies
+
+
+    ret
 
 
 
