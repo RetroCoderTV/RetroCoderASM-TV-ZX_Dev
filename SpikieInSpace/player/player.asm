@@ -1,11 +1,13 @@
+PLAYER_SPAWN_X equ 5
+PLAYER_SPAWN_Y equ 50
+PLAYER_START_NUKES equ 1
+PLAYER_START_LIVES equ 5
+PLAYER_START_SHIELDS equ 1
 
-
-player_isalive db TRUE
 
 PLAYER_COLOUR equ %01000110
 PLAYER_COLOUR_SHIELDED equ %01000011
-PLAYER_SPAWN_X equ 5
-PLAYER_SPAWN_Y equ 50
+
 PLAYER_SPEED_X equ 1
 PLAYER_SPEED_Y equ 8
 PLAYER_HEIGHT equ 24
@@ -14,12 +16,16 @@ PLAYER_WIDTH equ 2
 playery db PLAYER_SPAWN_Y
 playerx db PLAYER_SPAWN_X
 
+; player_shield_active db TRUE
 player_shield_active db FALSE
 player_shield_time dw 0x0000
+; PLAYER_SHIELD_MAX_TIME equ 0xFF
 PLAYER_SHIELD_MAX_TIME equ 0x01
 
+player_cashwave db FALSE
 
 
+player_isalive db TRUE
 
 
 
@@ -260,7 +266,17 @@ player_fire_smartbomb:
 
 
 
-
+player_spawn_inlevel:
+    ld a,TRUE
+    ld (player_isalive),a
+    ld a,PLAYER_SPAWN_X
+    ld (playerx),a
+    ld a,PLAYER_SPAWN_Y
+    ld (playery),a
+    ld a,FALSE
+    ld (player_cashwave),a
+    
+    ret
 
 
 
@@ -272,13 +288,21 @@ player_respawn:
     ld (playerx),a
     ld a,PLAYER_SPAWN_Y
     ld (playery),a
+    ld a,FALSE
+    ld (player_cashwave),a
+    ld a,PLAYER_START_SHIELDS
+    ld (player_shields),a
+    ld a,PLAYER_START_LIVES
+    ld (lives_1),a
+    ld a,PLAYER_START_NUKES
+    ld (player_smartbombs),a
     ret
 
 player_kill:
     ld a,(player_isalive)
     cp TRUE
     ret nz
-    call decrease_lives
+    call decrement_lives
     ld a,FALSE
     ld (player_isalive),a
     ret

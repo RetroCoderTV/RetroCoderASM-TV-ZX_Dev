@@ -3,11 +3,15 @@ P1_START equ 1
 P2_START equ 2
 ENEMY_SPAWN_INTERVAL equ 16 ;frames between each enemy spawn (during wave)
 LEVEL_TIMER_SPEED_FACTOR equ 4
-level_timer dw 0x1B00
-; level_timer dw 0x0000
+; level_timer dw 0x1B00
+level_timer dw 0x0000
 current_pattern dw 0x0000
 wave_y_offset db 0
 current_enemy_spritetype dw 0x0000
+current_level db 1
+
+
+boss_alive db 0
 
 
 flightpattern_wave:
@@ -50,9 +54,7 @@ flightpattern_wave:
     db 02,16
     db 01,16
     db 00,16
-
-
-
+;
 flightpattern_zig:
     db 26,0
     db 25,0
@@ -128,9 +130,33 @@ level_restart:
 
     ret
 
+level_nextlevel:
+    push de
+    ld de,0
+    ld (level_timer),de
+    ld (current_pattern),de
+    xor a
+    ld (wave_y_offset),a
+
+    call kill_all_enemies
+    call player_spawn_inlevel
+
+    pop de
+
+    ret
+
 
 level_update:
-    call update_wave
+    ld a,(boss_alive)
+    cp TRUE
+    ret z
+    ld a,(current_level)
+    cp 1
+    push af
+    call z, update_wave_level_1
+    pop af
+    cp 2
+    call z, update_wave_level_2
 increment_timer:
     ld hl,(level_timer)
     ld de,LEVEL_TIMER_SPEED_FACTOR
@@ -138,20 +164,35 @@ increment_timer:
     ld (level_timer),hl
     ret
 
-update_wave:
+update_wave_level_1:
     ld hl,(level_timer)
     ld a,h
     cp 0
     ret z
-    call setoffset
+    call l1_setoffset
     ld hl,(level_timer)
     push hl
-    call setpattern 
+    call l1_setpattern 
     pop hl
-    call setenemysprite
-    
+    call l1_setenemysprite
+    call update_wave_dospawns
+    ret
 
+update_wave_level_2:
+    ld hl,(level_timer)
+    ld a,h
+    cp 0
+    ret z
+    call l2_setoffset
+    ld hl,(level_timer)
+    push hl
+    call l2_setpattern 
+    pop hl
+    call l2_setenemysprite
+    call update_wave_dospawns
+    ret
 
+update_wave_dospawns:
     ld hl,(level_timer)
     ld a,l ;compare low byte to see when exactly to spawn each of the 5 enemies
     cp ENEMY_SPAWN_INTERVAL*0
@@ -172,6 +213,14 @@ spawnfirst:
     ; push hl
     ; call wormhole_spawn
     ; pop hl
+    ld a,(player_cashwave)
+    cp TRUE
+    call z,increment_cash1000
+
+    ld a,TRUE
+    ld (player_cashwave),a
+
     jp enemy_spawn
+    
     ret
 

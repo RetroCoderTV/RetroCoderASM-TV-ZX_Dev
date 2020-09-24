@@ -32,7 +32,6 @@ bullets_spawn:
     add a,BULLET_Y_OFFSET
     ld (ix+2),a
 
-
     ld (ix),TRUE
     ret
 

@@ -24,8 +24,8 @@ L1_LEVEL_END equ 28
 
 ;enemy spawn slots
 L1_SPAWNSLOT_TOP equ 15
-L1_SPAWNSLOT_MIDDLE equ 90
-L1_SPAWNSLOT_BOTTOM equ 140
+L1_SPAWNSLOT_MIDDLE equ 95
+L1_SPAWNSLOT_BOTTOM equ 130
 
 
 ; wave # | slot | pattern |     sprite
@@ -51,7 +51,7 @@ L1_SPAWNSLOT_BOTTOM equ 140
 ; 20    MID         ZAG         ARROW
 ;INPUTS:
 ;H=(level timer)
-setoffset:
+l1_setoffset:
     ld a,L1_SPAWNSLOT_TOP
     ld (wave_y_offset),a
     ld a,h ;compare high byte to P starts (pattern starts)
@@ -116,7 +116,7 @@ setoffset:
     ret
 
 ;H=level timer (high byte)
-setpattern:
+l1_setpattern:
     push hl
     ld hl,flightpattern_wave
     ld (current_pattern),hl
@@ -179,7 +179,7 @@ setpattern:
     ret
 
 
-setenemysprite:
+l1_setenemysprite:
     push hl
     ld hl,enemysprite_saucer
     ld (current_enemy_spritetype),hl

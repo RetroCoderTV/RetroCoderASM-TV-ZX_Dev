@@ -32,11 +32,15 @@ begin_shop:
     jp shopmenu_update
     
 begin_level_2:
+    ld a,2
+    ld (current_level),a
     call 0xDAF
     ld a,1
     call 0x229B
     call starfield_paint
+    call init_ui_labels
     call refresh_ui_numbers
+    call level_nextlevel
     jp main
 
 
@@ -99,6 +103,7 @@ main_draw:
     include 'levels\shop.asm'
     include 'levels\level_manager.asm'
     include 'levels\level_1.asm'
+    include 'levels\level_2.asm'
     include 'objects\enemies.asm'
     ; include 'objects\wormhole.asm'
     include 'starfield.asm'

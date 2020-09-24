@@ -158,35 +158,190 @@ draw_digit:
     ret
 ; 
 
-decrease_cash:
-    ld a,(cash_1000)
-    cp 0
-    ret z
 
+
+
+
+
+
+
+
+
+
+
+increment_cash1:
+    ld a,(cash_1)
+    inc a
+    ld (cash_1),a 
+    cp 9
+    jp z, reset_cash_1
+    
+    ld d,CASH_Y
+    ld e,CASH_1_X
+    ld a,(cash_1)
+    call draw_digit
+    ret
+reset_cash_1:
+    call increment_cash10
+    xor a
+    ld (cash_1),a
+    ld d,CASH_Y
+    ld e,CASH_1_X
+    ld a,(cash_1)
+    call draw_digit
+    ret
+
+increment_cash10:
+    ld a,(cash_10)
+    cp 9
+    jp nc,reset_cash10
+    inc a
+    ld (cash_10),a
+    ld d,CASH_Y
+    ld e,CASH_10_X
+    ld a,(cash_10)
+    call draw_digit
+    ret
+
+reset_cash10:
+    call increment_cash100
+    xor a
+    ld (cash_10),a
+    ld d,CASH_Y
+    ld e,CASH_10_X
+    ld a,(cash_10)
+    call draw_digit
+    
+    ret
+
+increment_cash100:
+    ld a,(cash_100)
+    cp 9
+    jp z,reset_cash100
+    inc a
+    ld (cash_100),a
+    ld d,CASH_Y
+    ld e,CASH_100_X
+    ld a,(cash_100)
+    call draw_digit
+    ret
+
+reset_cash100:
+    call increment_cash1000
+    xor a
+    ld (cash_100),a
+    ld d,CASH_Y
+    ld e,CASH_100_X
+    ld a,(cash_100)
+    call draw_digit
+    
+    ret
+
+increment_cash1000:
     ld a,(cash_1000)
-    dec a
+    cp 9
+    jp z,reset_cash1000
+    inc a
     ld (cash_1000),a
-
     ld d,CASH_Y
     ld e,CASH_1000_X
     ld a,(cash_1000)
     call draw_digit
     ret
 
-decrease_lives:
-    ld a,(lives_1)
-    cp 0
+reset_cash1000:
+    call increment_cash10000
+    xor a
+    ld (cash_1000),a
+    ld d,CASH_Y
+    ld e,CASH_1000_X
+    ld a,(cash_1000)
+    call draw_digit
+    
+    ret
+
+increment_cash10000:
+    ld a,(cash_10000)
+    cp 9
     ret z
-
-    ld a,(lives_1)
-    dec a
-    ld (lives_1),a
-
-    ld d,LIVES_Y
-    ld e,LIVES_1_X
-    ld a,(lives_1)
+    inc a
+    ld (cash_10000),a
+    ld d,CASH_Y
+    ld e,CASH_10000_X
+    ld a,(cash_10000)
     call draw_digit
     ret
+
+
+
+
+
+
+
+
+decrement_cash100:
+    ld a,(cash_100)
+    cp 0
+    jp z,dec_reset_cash100
+    dec a
+    ld (cash_100),a
+    ld d,CASH_Y
+    ld e,CASH_100_X
+    ld a,(cash_100)
+    call draw_digit
+    ret
+
+dec_reset_cash100:
+    call decrement_cash1000
+    ld a,9
+    ld (cash_100),a
+    ld d,CASH_Y
+    ld e,CASH_100_X
+    ld a,(cash_100)
+    call draw_digit
+    ret
+
+decrement_cash1000:
+    ld a,(cash_1000)
+    cp 0
+    jp z,dec_reset_cash1000
+    dec a
+    ld (cash_1000),a
+    ld d,CASH_Y
+    ld e,CASH_1000_X
+    ld a,(cash_1000)
+    call draw_digit
+    ret
+
+dec_reset_cash1000:
+    call decrement_cash10000
+    ld a,9
+    ld (cash_1000),a
+    ld d,CASH_Y
+    ld e,CASH_1000_X
+    ld a,(cash_1000)
+    call draw_digit
+    
+    ret
+
+decrement_cash10000:
+    ld a,(cash_10000)
+    cp 0
+    ret z
+    dec a
+    ld (cash_10000),a
+    ld d,CASH_Y
+    ld e,CASH_10000_X
+    ld a,(cash_10000)
+    call draw_digit
+    ret
+
+
+
+
+
+
+
 
 
 increment_score1:
@@ -320,14 +475,15 @@ increment_score100000:
 increment_smartbombs:
     ld a,(cash_1000)
     cp UI_SMART_BOMB_PRICE
-    ret c
+    call c,check_cash_10000
+    ret z
 
     ld a,(player_smartbombs)
     cp PLAYER_MAX_SMARTBOMBS
     ret z
     inc a
     ld (player_smartbombs),a
-    call decrease_cash
+    call decrement_cash1000
 
     ld d,UI_SMART_BOMBS_Y
     ld e,UI_SMART_BOMBS_1_X
@@ -352,14 +508,30 @@ decrement_smartbombs:
 increment_lives:
     ld a,(cash_1000) ;todo change price
     cp UI_LIFE_PRICE
-    ret c
+    call c,check_cash_10000
+    ret z
 
     ld a,(lives_1)
     cp PLAYER_MAX_LIVES
     ret z
     inc a
     ld (lives_1),a
-    call decrease_cash
+    call decrement_cash1000
+
+    ld d,LIVES_Y
+    ld e,LIVES_1_X
+    ld a,(lives_1)
+    call draw_digit
+    ret
+
+decrement_lives:
+    ld a,(lives_1)
+    cp 0
+    ret z
+
+    ld a,(lives_1)
+    dec a
+    ld (lives_1),a
 
     ld d,LIVES_Y
     ld e,LIVES_1_X
@@ -370,20 +542,27 @@ increment_lives:
 increment_shields:
     ld a,(cash_1000) ;todo change price
     cp UI_SHIELD_PRICE
-    ret c
-
+    call c,check_cash_10000
+    ret z
     ld a,(player_shields)
     cp PLAYER_MAX_SHEILDS
     ret z
     inc a
     ld (player_shields),a
-    call decrease_cash ;todo: fix cash
+    call decrement_cash1000 
 
     ld d,UI_SHIELD_Y
     ld e,UI_SHIELD_1_X
     ld a,(player_shields)
     call draw_digit
     ret
+
+check_cash_10000:
+    ld a,(cash_10000)
+    cp 0
+    ret
+    
+
 
 decrement_shields:
     ld a,(player_shields)
@@ -416,8 +595,8 @@ CASH_10000_X equ 25
 cash_1     db 0
 cash_10    db 0
 cash_100   db 0
-cash_1000  db 9
-cash_10000  db 9
+cash_1000  db 0
+cash_10000  db 0
 
 
 
@@ -452,7 +631,7 @@ LIVES_1_X equ 29
 UI_LIFE_PRICE equ 1 ;x1000
 
 lives_string db 'LIVES',0
-lives_1 db 5
+lives_1 db 7
 
 
 

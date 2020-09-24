@@ -81,6 +81,7 @@ boss_1_spawn:
 
     ld a,TRUE
     ld (boss_1_isalive),a
+    ld (boss_alive),a
 
     ld a,BOSS_1_SPAWN_X
     ld (boss1_x),a
@@ -265,7 +266,7 @@ boss_1_check_collision_player:
     ret c
 
     ;collision...
-    call kill_boss_1
+    call destroy_boss_1
 
     call player_kill
 
@@ -279,7 +280,7 @@ boss_1_check_collision_player:
 
 
 boss_1_take_hit:
-    call sound_GSharp_0_05
+    ; call sound_GSharp_0_05
 
     
     ld a,(boss_1_health)
@@ -296,11 +297,19 @@ boss_1_take_hit:
 
 
 
+destroy_boss_1:
+    ld a,FALSE
+    ld (boss_1_isalive),a 
+    ld (boss_alive),a
+    
+    ret
 
 kill_boss_1:
     ld a,FALSE
     ld (boss_1_isalive),a 
+    ld (boss_alive),a
     call increment_score10000
+    call increment_cash10000
 
     call begin_shop
     ret

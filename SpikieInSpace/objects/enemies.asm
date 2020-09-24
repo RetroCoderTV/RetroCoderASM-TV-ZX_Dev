@@ -116,7 +116,7 @@ upd_start:
     ld a,(hl)
     cp 0
     push af
-    call z,kill_enemy
+    call z,destroy_enemy
     pop af
     jp z,de_next
 
@@ -276,7 +276,7 @@ chkcoll_eb_next:
 
 enemy_take_hit:
     push ix
-    call sound_GSharp_0_05
+    ; call sound_GSharp_0_05
     pop ix
     dec (ix+4)
     ld a,(ix+4)
@@ -293,7 +293,14 @@ enemy_take_hit:
 kill_enemy:
     ld (ix),FALSE
     call increment_score10
+    call increment_cash100
     ret
+destroy_enemy:
+    ld (ix),FALSE
+    ld a,FALSE
+    ld (player_cashwave),a
+    ret
+
 
 
 kill_all_enemies:

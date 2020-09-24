@@ -11,6 +11,7 @@
 shop_title_string db 'WELCOME TO KWIK-E-MOON',0
 SHOP_TITLE_X equ 1
 SHOP_TITLE_Y equ 1
+exit_string db 'EXIT',0
 
 
 ;smartbomb string is stored in UI.asm
@@ -18,6 +19,7 @@ SHOP_ITEMS_LABEL_X equ 10
 SHOP_NUKES_LABEL_Y equ 5
 SHOP_LIFE_LABEL_Y equ 6
 SHOP_SHIELD_LABEL_Y equ 7
+SHOP_EXIT_LABEL_Y equ 10
 
 
 
@@ -52,6 +54,12 @@ shopmenu_start:
     ld e,SHOP_ITEMS_LABEL_X
     call GetCharAddr
     ld de, shield_string
+    call PrintStr
+
+    ld d,SHOP_EXIT_LABEL_Y
+    ld e,SHOP_ITEMS_LABEL_X
+    call GetCharAddr
+    ld de,exit_string
     call PrintStr
 
 
@@ -118,7 +126,7 @@ move_selector_down:
     ret z
 
     ld a,(selector_y)
-    cp SHOP_SHIELD_LABEL_Y; bottom of list
+    cp SHOP_EXIT_LABEL_Y; bottom of list
     ret nc
 
     ;delete char before moving down
@@ -154,5 +162,16 @@ try_selection:
     call z, increment_lives
     pop af
     cp SHOP_SHIELD_LABEL_Y
+    push af
     call z, increment_shields
+    pop af
+    cp SHOP_EXIT_LABEL_Y
+    call z, shop_goto_next_level
     ret
+
+shop_goto_next_level:
+    ld a,(current_level)
+    cp 1
+    jp z,begin_level_2
+
+    
