@@ -260,6 +260,10 @@ drw_enemies_next:
 
 ;IX=enemy
 check_collision_enemy_player:
+    ld a,(ix+1)
+    cp 0
+    ret z 
+
     ld a,(ix+1) 
     ld b,a ;B=enemy x
     ld a,(playerx)
@@ -352,8 +356,9 @@ chkcoll_eb_start:
     jp c, chkcoll_eb_next
 
     ;here is a collision....
-    call enemy_take_hit
     call bullet_kill
+    call enemy_take_hit
+    
     
     ret
 chkcoll_eb_next:

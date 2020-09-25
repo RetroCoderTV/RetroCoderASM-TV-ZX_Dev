@@ -1,4 +1,6 @@
-    org 0x9800
+ENTRY_POINT equ 0x9800    
+    
+    org ENTRY_POINT
 
 
     DEVICE ZXSPECTRUM48

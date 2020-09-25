@@ -2,6 +2,7 @@ ENEMY_HP_SQUID equ 10
 
 SQUID_SPAWN_TOP_Y equ 0
 SQUID_SPAWN_BOTTOM_Y equ 170
+SQUID_SPAWN_MIN_X equ 12
 
 squid_is_alive db FALSE
 squid_y db 0
@@ -24,7 +25,7 @@ enemysprite_squid:
     db %00010001, %10001000
     db %00101010, %01010100
 ;
-squid_colour db 4
+squid_colour db %01000011
 
 
 spawn_squid:
@@ -47,8 +48,9 @@ spawnsquid_randcolour:
     call nc, ss_set_bottom
 ss_getrandx:
     call rand
-    cp 25 ;right edge of screen minus squid width
+    cp GAME_WINDOW_WIDTH/2 ;right edge of screen minus squid width
     jp nc,ss_getrandx
+    add a,GAME_WINDOW_WIDTH/2
     ld (squid_x),a
     ld a,TRUE
     ld (squid_is_alive),a
@@ -193,12 +195,6 @@ squid_draw:
     pop de
     call paint_sprite_2_2
     ret
-
-
-
-
-
-
 
 
 

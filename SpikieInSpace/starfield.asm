@@ -32,19 +32,6 @@ stars:
     db TRUE,0,0,%00001000
     db TRUE,0,0,%00010000
     db TRUE,0,0,%00000001
-    db TRUE,0,0,%00000010
-    db TRUE,0,0,%10000000
-    db TRUE,0,0,%00000000
-    db TRUE,0,0,%10000000
-    db TRUE,0,0,%01000000
-    db TRUE,0,0,%10000000
-    db TRUE,0,0,%00010000 
-    db TRUE,0,0,%00001000
-    db TRUE,0,0,%00010000
-    db TRUE,0,0,%00000001
-    db TRUE,0,0,%00000010
-    db TRUE,0,0,%10000000
-    db TRUE,0,0,%00000000
     db 255
 STARS_DATA_LENGTH equ 4
 
@@ -85,13 +72,6 @@ spwnstar_randy:
     ld (ix+2),a
     ld (ix+3),NEW_STAR
     ld (ix),TRUE
-    ;;;;;;;; colour the star...
-    call rand
-    and 7 ;random ink-only colour
-    ld b,a
-    ld d,(ix+1)
-    ld e,(ix+2)
-    call paint_sprite_1_1
 spwnstar_next:
     ;Update...
     call rand
@@ -133,6 +113,14 @@ sfd_start:
     ld d,(ix+1)
     ld e,(ix+2)
     call drawstarsprite
+
+    ;;;;;;;; colour the star...
+    call rand
+    and 7 ;random ink-only colour
+    ld b,a
+    ld d,(ix+1)
+    ld e,(ix+2)
+    call paint_sprite_1_1
 sfd_next:
     ld de,STARS_DATA_LENGTH
     add ix,de

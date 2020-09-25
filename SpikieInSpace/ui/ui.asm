@@ -1,4 +1,4 @@
-UI_COLOURS equ %01011110
+UI_COLOURS equ %01010100
 
 ui_init:
     ld hl,0x5800
@@ -79,6 +79,12 @@ refresh_ui_numbers:
     call GetCharAddr
     ld a,(cash_1)
     add a,ASCII_ZERO
+    call PrintChar
+
+    ld d,CASH_Y
+    ld e,CASH_1_X+1
+    call GetCharAddr
+    ld a,'M'
     call PrintChar
 
     ;;POINTS::
