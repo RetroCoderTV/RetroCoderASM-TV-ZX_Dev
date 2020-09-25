@@ -180,13 +180,6 @@ draw_digit:
 
 
 
-
-
-
-
-
-
-
 increment_cash1:
     ld a,(cash_1)
     inc a
@@ -289,9 +282,6 @@ increment_cash10000:
     ld a,(cash_10000)
     call draw_digit
     ret
-
-
-
 
 
 

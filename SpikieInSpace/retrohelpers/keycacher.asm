@@ -31,6 +31,11 @@ keypressed_Space db FALSE
 keypressed_Space_Held db FALSE
 
 check_keys:
+    push af
+
+
+
+    
     ld a,(keypressed_F)
     cp TRUE
     call z, set_F_Held
@@ -116,6 +121,10 @@ check_keys:
     call nc, set_Space
     pop af
 
+
+
+
+    pop af
 
     ret
 

@@ -188,8 +188,10 @@ upd_start:
     add hl,de ;move HL forward number of steps
     
     push hl
+    push ix
     call check_collision_enemy_bullet
     call check_collision_enemy_player
+    pop ix
     pop hl
 
     ld d,(hl) ;d=x pos from flightpattern
@@ -356,7 +358,8 @@ chkcoll_eb_start:
     jp c, chkcoll_eb_next
 
     ;here is a collision....
-    call bullet_kill
+    ld a,FALSE
+    ld (hl),a
     call enemy_take_hit
     
     
@@ -389,7 +392,7 @@ enemy_take_hit:
 kill_enemy:
     ld (ix),FALSE
     call increment_score10
-    call increment_cash100
+    call increment_cash10
     ret
 destroy_enemy:
     ld (ix),FALSE

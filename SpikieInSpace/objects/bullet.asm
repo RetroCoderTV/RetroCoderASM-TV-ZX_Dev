@@ -54,6 +54,7 @@ bmove_start:
     cp FALSE
     jp z, bmove_next
 
+ 
     call check_collision_bullet_boss1
     call check_collision_bullet_squid
 
@@ -76,7 +77,7 @@ drawbullets:
     cp 255
     ret z
 
-    cp 0
+    cp FALSE
     jp z, db_next
 
     call drawbullet
@@ -94,15 +95,13 @@ drawbullet:
     call drawsprite8_2
  
     pop de
+    ld a,d
+    cp GAME_WINDOW_WIDTH+BUFFER_SIDE_EXTRA+1
+    ret nc
     ld b,BULLET_COLOUR
     call paint_sprite_1_1
     ret
 
-
-;HL=bullet
-bullet_kill:
-    ld (hl),FALSE
-    ret
 
 
 
@@ -161,9 +160,9 @@ check_collision_bullet_boss1:
     ret c
 
     ;if here, collision....
-    call bullet_kill
+    
     call boss_1_take_hit
-
+    ;call bullet_kill
 
     ret
 
@@ -212,7 +211,7 @@ check_collision_bullet_squid:
     ret c
 
     ;if here, collision....
-    call bullet_kill
+    ld (ix),FALSE
     call kill_squid ;todo: squid take hit
 
 

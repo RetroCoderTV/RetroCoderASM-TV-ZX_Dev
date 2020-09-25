@@ -350,7 +350,7 @@ kill_boss_1:
     ld (boss_1_isalive),a 
     ld (boss_alive),a
     call increment_score10000
-    call increment_cash10000
+    call increment_cash1000
 
     call kill_all_bullets
     jp begin_shop

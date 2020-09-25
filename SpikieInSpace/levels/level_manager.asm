@@ -9,15 +9,15 @@ SQUID_SPAWN_INTERVAL equ 2
 
 
 
-; level_timer dw 0x3600
-level_timer dw 0x0000
+level_timer dw 0x3600
+; level_timer dw 0x0000
 current_pattern dw 0x0000
 wave_y_offset db 0
 current_enemy_spritetype dw 0x0000
 current_level db 1
 
 
-boss_alive db 0
+boss_alive db 0 ;rem: global boss_alive AND specific boss_X_alive bools. (Sorry bad coding lol)
 
 
 flightpattern_wave:
@@ -197,6 +197,9 @@ level_restart:
     ld a,FALSE
     ld (squid_is_alive),a
 
+    ld a,TRUE
+    ld (squid_enabled),a
+
     pop de
 
     ret
@@ -294,6 +297,59 @@ update_wave_dosquids_l1:
     pop af
     cp SQUID_SPAWN_INTERVAL*2
     push af
+    call z,enable_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*3
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*4
+    push af
+    call z,enable_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*8
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*9
+    push af
+    call z,enable_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*13
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*14
+    push af
+    call z,enable_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*15
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*16
+    push af
+    call z,enable_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*17
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*18
+    push af
+    call z,spawn_squid
+    pop af
+    ret
+
+update_wave_dosquids_l2:
+    ld hl,(level_timer)
+    ld a,h
+    cp SQUID_SPAWN_INTERVAL*1
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*2
+    push af
     call z,spawn_squid
     pop af
     cp SQUID_SPAWN_INTERVAL*3
@@ -338,30 +394,13 @@ update_wave_dosquids_l1:
     pop af
     ret
 
-update_wave_dosquids_l2:
-    ld hl,(level_timer)
-    ld a,h
-    cp SQUID_SPAWN_INTERVAL*1
-    call z,spawn_squid
-    cp SQUID_SPAWN_INTERVAL*1
-    call z,spawn_squid
-    cp SQUID_SPAWN_INTERVAL*1
-    call z,spawn_squid
-    cp SQUID_SPAWN_INTERVAL*1
-    call z,spawn_squid
-    cp SQUID_SPAWN_INTERVAL*1
-    call z,spawn_squid
-    cp SQUID_SPAWN_INTERVAL*1
-    call z,spawn_squid
-    ret
-
 spawnfirst:
     ; push hl
     ; call wormhole_spawn
     ; pop hl
     ld a,(player_cashwave)
     cp TRUE
-    call z,increment_cash1000
+    call z,increment_cash100
 
     ld a,TRUE
     ld (player_cashwave),a

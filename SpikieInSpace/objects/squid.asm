@@ -26,9 +26,14 @@ enemysprite_squid:
     db %00101010, %01010100
 ;
 squid_colour db %01000011
-
+squid_enabled db TRUE
 
 spawn_squid:
+    ld a,(squid_enabled)
+    cp TRUE
+    ret nz
+    ld a,FALSE
+    ld (squid_enabled),a
     ld a,(squid_is_alive)
     cp TRUE
     ret z
@@ -166,6 +171,9 @@ squid_move_left:
 destroy_squid:
     ld a,FALSE
     ld (squid_is_alive),a
+
+    ld a,TRUE
+    ld (squid_enabled),a
     ret
 
 kill_squid:
@@ -175,7 +183,10 @@ kill_squid:
     ret
 
 
-
+enable_squid:
+    ld a,TRUE
+    ld (squid_enabled),a
+    ret
 
 
 
@@ -237,6 +248,7 @@ check_collision_squid_player:
     cp TRUE
     ret z
 
+    call sound_GSharp_0_25
     call player_kill
 
     ret

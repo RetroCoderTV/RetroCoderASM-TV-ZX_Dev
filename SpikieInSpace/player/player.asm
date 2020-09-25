@@ -223,6 +223,9 @@ player_activate_shield:
 
 
 playerdead_update:
+    ld a,(keypressed_Space_Held)
+    cp TRUE
+    ret z
     ld a,(keypressed_Space)
     cp TRUE
     call z, level_restart

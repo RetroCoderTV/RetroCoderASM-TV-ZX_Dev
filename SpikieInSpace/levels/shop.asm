@@ -1,13 +1,3 @@
-;Shop.
-;sells the following:
-;Nukes
-;Life
-;Forcefield
-;Apple
-;Flowers
-
-
-
 shop_title_string db 'WELCOME TO KWIK-E-MOON',0
 SHOP_TITLE_X equ 1
 SHOP_TITLE_Y equ 1
