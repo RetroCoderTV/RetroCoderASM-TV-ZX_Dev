@@ -631,7 +631,7 @@ LIVES_1_X equ 29
 UI_LIFE_PRICE equ 1 ;x1000
 
 lives_string db 'LIVES',0
-lives_1 db 7
+lives_1 db PLAYER_START_LIVES
 
 
 

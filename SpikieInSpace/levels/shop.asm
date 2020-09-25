@@ -151,6 +151,8 @@ try_selection:
     ld a,(keypressed_Space_Held)
     cp TRUE
     ret z
+
+    call sound_GSharp_0_05
     
     ld a,(selector_y)
     cp SHOP_NUKES_LABEL_Y

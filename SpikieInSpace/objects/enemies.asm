@@ -7,6 +7,11 @@ ENEMY_H equ 8 ;pixels/lines
 
 ENEMY_HP_SAUCER equ 2
 ENEMY_HP_ARROW equ 3
+ENEMY_HP_TFIGHTER equ 4
+ENEMY_HP_WING equ 5
+ENEMY_HP_INVADER equ 1
+ENEMY_HP_SPERM equ 2
+
 
 ;isAlive,x,y,current step,colour
 enemies:
@@ -17,6 +22,12 @@ enemies:
     db FALSE,0,0,0,0
     db 255
 ENEMY_DATA_LENGTH equ 5
+
+
+
+
+
+
 
 
 ; ASM data file from a ZX-Paintbrush picture with 16 x 8 pixels (= 2 x 1 characters)
@@ -41,7 +52,47 @@ enemysprite_arrow:
     db %00111101, %11110010
     db %00011111, %00111110
 ;
+enemysprite_tfighter:
+    db %01000000, %00000010
+    db %11000011, %10000011
+    db %11000111, %11000011
+    db %11111100, %11111111
+    db %11111111, %11111111
+    db %11000111, %11000011
+    db %11000011, %10000011
+    db %01000000, %00000010
+;
 
+enemysprite_wing:
+    db %10000011, %11000001
+    db %01000010, %01000010
+    db %01110001, %10001110
+    db %00111101, %10111100
+    db %00011111, %11111000
+    db %00001100, %00110000
+    db %00001000, %00010000
+    db %00001000, %00010000
+;
+enemysprite_invader:
+    db %00001000, %00100000
+    db %00000100, %01000000
+    db %01001111, %11100100
+    db %01011101, %01110100
+    db %01111111, %11111100
+    db %00011000, %00110000
+    db %00001011, %10100000
+    db %00000100, %01000000
+;
+enemysprite_sperm:
+    db %00000000, %00000000
+    db %00111000, %00000000
+    db %01111100, %11100000
+    db %11001111, %11110010
+    db %11001111, %00001100
+    db %01111100, %00000000
+    db %00111000, %00000000
+    db %00000000, %00000000
+;
 
 ;B=Enemy Type
 enemy_spawn:
@@ -58,22 +109,59 @@ espawn_start:
     cp FALSE
     jp nz, espawn_next
 
-    ld (ix),TRUE
+    ld (ix),TRUE ;alive=TRUE
     ld (ix+3),0 ;steps=0
+
+    ;set correct hp (based on spritetype)
     ld hl,(current_enemy_spritetype)
-    ld (ix+4),ENEMY_HP_SAUCER
-    ld a,h
-    cp %00011111 ;arrow types first byte of sprite
-    ret nz
-    ld (ix+4),ENEMY_HP_ARROW
-    ret
+    ld a,(hl) ;get first byte from sprite
+    cp %00000011  ;saucer? compares are done with 1st byte from each sprite
+    jp z,espawn_set_hp_saucer
+    cp %00011111 ;arrow?
+    jp z,espawn_set_hp_arrow
+    cp %01000000 ;tfighter?
+    jp z,espawn_set_hp_tfighter
+    cp %00001000
+    jp z,espawn_set_hp_invader
+    cp %10000011
+    jp z,espawn_set_hp_wing
+    cp %00000000
+    jp z,espawn_set_hp_sperm
     
-    ret ;get out from loop, so that only 1 is spawned
+    ; call sound_GSharp_0_05 ; should never get this far
+    ; ret ; not needed, unless there was a chance the sprite could be none of the above
 
 espawn_next:
     ld de,ENEMY_DATA_LENGTH
     add ix,de
     jp espawn_start
+
+
+espawn_set_hp_saucer:
+    ld (ix+4),ENEMY_HP_SAUCER
+    ret
+espawn_set_hp_arrow:
+    ld (ix+4),ENEMY_HP_ARROW
+    ret
+espawn_set_hp_tfighter:
+    ld (ix+4),ENEMY_HP_TFIGHTER
+    ret
+espawn_set_hp_invader:
+    ld (ix+4),ENEMY_HP_INVADER
+    ret
+espawn_set_hp_wing:
+    ld (ix+4),ENEMY_HP_WING
+    ret
+espawn_set_hp_sperm:
+    ld (ix+4),ENEMY_HP_SPERM
+    ret
+;
+
+
+
+
+
+
 
 
 enemies_update:
@@ -275,9 +363,8 @@ chkcoll_eb_next:
 
 
 enemy_take_hit:
-    push ix
-    ; call sound_GSharp_0_05
-    pop ix
+    ld a,1
+    call 0x229b
     dec (ix+4)
     ld a,(ix+4)
     cp 0

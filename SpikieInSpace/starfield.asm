@@ -1,4 +1,5 @@
-STARFIELD_ATTRIBUTES equ %00000110
+STARFIELD_COLOURS_L1 equ %01000110
+STARFIELD_COLOURS_L2 equ %01000110
 
 NEW_STAR equ %00000001
 
@@ -50,10 +51,19 @@ STARS_DATA_LENGTH equ 4
 
 starfield_paint:
     ld hl,0x5800
-    ld b,STARFIELD_ATTRIBUTES
+    ld a,(current_level)
+    cp 1 
+    jp z,sfpaint_l1
+    cp 2
+    jp z,sfpaint_l2
+sfpaint_l1:
+    ld b,STARFIELD_COLOURS_L1
     call paint_base_attributes
     ret
-   
+sfpaint_l2:
+    ld b,STARFIELD_COLOURS_L2
+    call paint_base_attributes
+    ret
 
 
 

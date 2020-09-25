@@ -5,7 +5,7 @@ PLAYER_START_LIVES equ 5
 PLAYER_START_SHIELDS equ 1
 
 
-PLAYER_COLOUR equ %01000110
+PLAYER_COLOUR equ %01000100
 PLAYER_COLOUR_SHIELDED equ %01000011
 
 PLAYER_SPEED_X equ 1
@@ -15,6 +15,10 @@ PLAYER_WIDTH equ 2
 
 playery db PLAYER_SPAWN_Y
 playerx db PLAYER_SPAWN_X
+
+
+playery_prev db PLAYER_SPAWN_Y
+playerx_prev db PLAYER_SPAWN_X
 
 ; player_shield_active db TRUE
 player_shield_active db FALSE
@@ -67,10 +71,47 @@ playersprite:
 
 
 player_game_start:
+    ld a,PLAYER_START_SHIELDS
+    ld (player_shields),a
+    ld a,PLAYER_START_LIVES
+    ld (lives_1),a
+    ld a,PLAYER_START_NUKES
+    ld (player_smartbombs),a
     ret
 
 
+player_spawn_inlevel:
+    ld a,TRUE
+    ld (player_isalive),a
+    ld a,PLAYER_SPAWN_X
+    ld (playerx),a
+    ld a,PLAYER_SPAWN_Y
+    ld (playery),a
+    ld a,FALSE
+    ld (player_cashwave),a
+    
+    ret
 
+player_respawn:
+    ld a,TRUE
+    ld (player_isalive),a
+    ld a,PLAYER_SPAWN_X
+    ld (playerx),a
+    ld a,PLAYER_SPAWN_Y
+    ld (playery),a
+    ld a,FALSE
+    ld (player_cashwave),a
+    
+    ret
+
+player_kill:
+    ld a,(player_isalive)
+    cp TRUE
+    ret nz
+    call decrement_lives
+    ld a,FALSE
+    ld (player_isalive),a
+    ret
 
 
 player_update:
@@ -89,6 +130,10 @@ player_update:
 
 
     call boss_1_check_collision_player
+
+    call rand
+    cp 33  ;chance to place new target for enemies to chase (0-255)
+    call c, player_set_prev_position
 
     ld a,(keypressed_Q)
     cp TRUE
@@ -120,6 +165,9 @@ player_update:
     call z,player_activate_shield
 
     ret
+
+
+
 
 
 player_increment_shield_timer:
@@ -188,6 +236,14 @@ player_paint_shielded:
     call paint_sprite_2_4
     ret
 
+
+
+player_set_prev_position:
+    ld a,(playery)
+    ld (playery_prev),a
+    ld a,(playerx)
+    ld (playerx_prev),a
+    ret
 
 player_move_up:
     ld a,(playery)
@@ -266,43 +322,3 @@ player_fire_smartbomb:
 
 
 
-player_spawn_inlevel:
-    ld a,TRUE
-    ld (player_isalive),a
-    ld a,PLAYER_SPAWN_X
-    ld (playerx),a
-    ld a,PLAYER_SPAWN_Y
-    ld (playery),a
-    ld a,FALSE
-    ld (player_cashwave),a
-    
-    ret
-
-
-
-
-player_respawn:
-    ld a,TRUE
-    ld (player_isalive),a
-    ld a,PLAYER_SPAWN_X
-    ld (playerx),a
-    ld a,PLAYER_SPAWN_Y
-    ld (playery),a
-    ld a,FALSE
-    ld (player_cashwave),a
-    ld a,PLAYER_START_SHIELDS
-    ld (player_shields),a
-    ld a,PLAYER_START_LIVES
-    ld (lives_1),a
-    ld a,PLAYER_START_NUKES
-    ld (player_smartbombs),a
-    ret
-
-player_kill:
-    ld a,(player_isalive)
-    cp TRUE
-    ret nz
-    call decrement_lives
-    ld a,FALSE
-    ld (player_isalive),a
-    ret

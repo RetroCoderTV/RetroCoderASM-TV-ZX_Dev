@@ -3,7 +3,13 @@ P1_START equ 1
 P2_START equ 2
 ENEMY_SPAWN_INTERVAL equ 16 ;frames between each enemy spawn (during wave)
 LEVEL_TIMER_SPEED_FACTOR equ 4
-; level_timer dw 0x1B00
+
+
+SQUID_SPAWN_INTERVAL equ 2
+
+
+
+; level_timer dw 0x3600
 level_timer dw 0x0000
 current_pattern dw 0x0000
 wave_y_offset db 0
@@ -68,11 +74,18 @@ flightpattern_zig:
     db 17,0
     db 16,0
     db 15,10
+    db 15,10
+    db 14,20
     db 14,20
     db 13,30
+    db 13,30
+    db 12,40
     db 12,40
     db 11,50
+    db 11,50
     db 10,40
+    db 10,40
+    db 9,30
     db 9,30
     db 8,20
     db 7,10
@@ -97,13 +110,22 @@ flightpattern_zag:
     db 17,40
     db 16,40
     db 15,30
+    db 15,30
+    db 14,20
     db 14,20
     db 13,10
+    db 13,10
+    db 12,0
     db 12,0
     db 11,-10
+    db 11,-10
+    db 10,-20
     db 10,-20
     db 9,-30
+    db 9,-30
     db 8,-20
+    db 8,-20
+    db 7,-10
     db 7,-10
     db 6,0
     db 5,0
@@ -112,6 +134,52 @@ flightpattern_zag:
     db 2,0
     db 1,0
     db 0,0
+;
+flightpattern_straight:
+    db 26,00
+    db 26,00
+    db 25,00
+    db 25,00
+    db 24,00
+    db 24,00
+    db 23,00
+    db 23,00
+    db 22,00
+    db 22,00
+    db 21,00
+    db 21,00
+    db 20,00
+    db 20,00
+    db 19,00
+    db 19,00
+    db 18,00
+    db 17,00
+    db 16,00
+    db 15,00
+    db 15,00
+    db 14,00
+    db 14,00
+    db 13,00
+    db 13,00
+    db 12,00
+    db 12,00
+    db 11,00
+    db 11,00
+    db 10,00
+    db 10,00
+    db 09,00
+    db 09,00
+    db 08,00
+    db 08,00
+    db 07,00
+    db 07,00
+    db 06,00
+    db 05,00
+    db 04,00
+    db 03,00
+    db 02,00
+    db 01,00
+    db 00,00
 ;
 
  
@@ -125,6 +193,9 @@ level_restart:
 
     call kill_all_enemies
     call player_respawn
+
+    ld a,FALSE
+    ld (squid_is_alive),a
 
     pop de
 
@@ -175,7 +246,9 @@ update_wave_level_1:
     call l1_setpattern 
     pop hl
     call l1_setenemysprite
+    call update_wave_dosquids_l1
     call update_wave_dospawns
+    
     ret
 
 update_wave_level_2:
@@ -189,7 +262,9 @@ update_wave_level_2:
     call l2_setpattern 
     pop hl
     call l2_setenemysprite
+    call update_wave_dosquids_l2
     call update_wave_dospawns
+    
     ret
 
 update_wave_dospawns:
@@ -207,6 +282,77 @@ update_wave_dospawns:
     jp z, enemy_spawn
     ; cp ENEMY_SPAWN_INTERVAL*7
     ; jp z, wormhole_destroy
+    ret
+
+
+update_wave_dosquids_l1:
+    ld hl,(level_timer)
+    ld a,h
+    cp SQUID_SPAWN_INTERVAL*1
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*2
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*3
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*4
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*8
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*10
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*13
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*14
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*15
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*16
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*17
+    push af
+    call z,spawn_squid
+    pop af
+    cp SQUID_SPAWN_INTERVAL*18
+    push af
+    call z,spawn_squid
+    pop af
+    ret
+
+update_wave_dosquids_l2:
+    ld hl,(level_timer)
+    ld a,h
+    cp SQUID_SPAWN_INTERVAL*1
+    call z,spawn_squid
+    cp SQUID_SPAWN_INTERVAL*1
+    call z,spawn_squid
+    cp SQUID_SPAWN_INTERVAL*1
+    call z,spawn_squid
+    cp SQUID_SPAWN_INTERVAL*1
+    call z,spawn_squid
+    cp SQUID_SPAWN_INTERVAL*1
+    call z,spawn_squid
+    cp SQUID_SPAWN_INTERVAL*1
+    call z,spawn_squid
     ret
 
 spawnfirst:

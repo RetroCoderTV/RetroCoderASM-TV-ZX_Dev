@@ -14,10 +14,19 @@ program_start:
 begin_game:
     call 0xDAF
     ld a,1
+    ld (current_level),a
     call 0x229B
     call starfield_paint
     call init_ui_labels
     call refresh_ui_numbers
+    call player_game_start
+
+    ;start of game jingle...
+    call sound_B_0_25
+    call sound_A_0_25
+    
+
+    
     jp main
 
 
@@ -66,6 +75,7 @@ main_update:
     call starfield_update
     call enemies_update
     call boss_1_update
+    call squid_update
     ret
 
 
@@ -81,6 +91,7 @@ main_draw:
     call bullets_draw
     call enemies_draw
     call boss_1_draw
+    call squid_draw
     ; call wormhole_draw
     call drawgamewindow
 
@@ -105,6 +116,7 @@ main_draw:
     include 'levels\level_1.asm'
     include 'levels\level_2.asm'
     include 'objects\enemies.asm'
+    include 'objects\squid.asm'
     ; include 'objects\wormhole.asm'
     include 'starfield.asm'
     include 'ui\ui.asm'

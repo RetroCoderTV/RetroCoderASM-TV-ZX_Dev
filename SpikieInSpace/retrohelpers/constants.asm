@@ -31,3 +31,11 @@ DIAG_RIGHT equ 5
 
 
 
+DEAD equ 0
+ALIVE equ 1
+
+
+
+TOP equ 0
+BOTTOM equ 1
+

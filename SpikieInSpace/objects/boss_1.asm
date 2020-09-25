@@ -1,12 +1,12 @@
 
-BOSS_1_COLOUR equ %01000101
-BOSS_1_SPAWN_X equ 21
+BOSS_1_COLOUR equ %01000100
+BOSS_1_SPAWN_X equ 26 ;start off the screen
 BOSS_1_SPAWN_Y equ 20
 
 BOSS_1_MIN_Y equ 20
 BOSS_1_MAX_Y equ 140
-
-BOSS_1_MIN_X equ 3
+BOSS_1_MIN_X equ 4
+BOSS_1_MAX_X equ 21
 
 
 BOSS_1_SPEED_Y equ 12
@@ -20,10 +20,11 @@ boss1_x db 0
 boss_1_isalive db FALSE
 boss_1_isattacking db TRUE
 
+
 boss_1_direction db LEFT
 
-BOSS_1_MAX_HP equ 50
 
+BOSS_1_MAX_HP equ 50
 boss_1_health db 50
 
 
@@ -32,43 +33,74 @@ boss_1_health db 50
 
 
 boss1_sprite:
-    db %00000111, %11000000
-    db %00011000, %00110000
-    db %00110000, %00011000
-    db %00111111, %11111000
-    db %00101010, %10101000
-    db %00101110, %11101000
-    db %00010011, %00010000
-    db %00010000, %00010000
-    ;
-    db %00001011, %10100000
-    db %00011100, %01110000
-    db %00111011, %10111000
-    db %01111010, %10111100
-    db %01111010, %10111100
-    db %01111010, %11111111
-    db %01011011, %10010101
-    db %01011011, %10010101
-    ;
-    db %01011011, %10010101
-    db %01011011, %10010101
-    db %01001011, %11100111
-    db %01001011, %10100100
-    db %00110111, %11011000
-    db %00010000, %00010000
-    db %00010000, %00010000
-    db %00010001, %10010000
-    ;
-    db %00010001, %00010000
-    db %00010001, %00010000
-    db %00010001, %00010000
-    db %00010001, %00010000
-    db %00010001, %00010000
-    db %00010001, %00010000
-    db %00111110, %11111000
-    db %01111100, %01111100
-
-
+    ; db %00000111, %11000000
+    ; db %00011000, %00110000
+    ; db %00110000, %00011000
+    ; db %00111111, %11111000
+    ; db %00101010, %10101000
+    ; db %00101110, %11101000
+    ; db %00010011, %00010000
+    ; db %00010000, %00010000
+    ; ;
+    ; db %00001011, %10100000
+    ; db %00011100, %01110000
+    ; db %00111011, %10111000
+    ; db %01111010, %10111100
+    ; db %01111010, %10111100
+    ; db %01111010, %11111111
+    ; db %01011011, %10010101
+    ; db %01011011, %10010101
+    ; ;
+    ; db %01011011, %10010101
+    ; db %01011011, %10010101
+    ; db %01001011, %11100111
+    ; db %01001011, %10100100
+    ; db %00110111, %11011000
+    ; db %00010000, %00010000
+    ; db %00010000, %00010000
+    ; db %00010001, %10010000
+    ; ;
+    ; db %00010001, %00010000
+    ; db %00010001, %00010000
+    ; db %00010001, %00010000
+    ; db %00010001, %00010000
+    ; db %00010001, %00010000
+    ; db %00010001, %00010000
+    ; db %00111110, %11111000
+    ; db %01111100, %01111100
+    db %00001000, %00000000
+    db %00001100, %00000000
+    db %00001110, %00000000
+    db %00001111, %00000000
+    db %00111111, %10000000
+    db %11111111, %11000000
+    db %00111111, %11100000
+    db %00001111, %11110000
+    db %00001111, %11111000
+    db %00001111, %11111100
+    db %00010001, %11111110
+    db %00111110, %01111111
+    db %01111111, %10001111
+    db %11110111, %11110001
+    db %11100111, %11111111
+    db %11000111, %11111111
+    db %11000111, %11111111
+    db %11100111, %11111111
+    db %11110111, %11110001
+    db %01111111, %10001111
+    db %00111110, %01111111
+    db %00010001, %11111110
+    db %00001111, %11111100
+    db %00001111, %11111000
+    db %00001111, %11110000
+    db %00111111, %11100000
+    db %11111111, %11000000
+    db %00111111, %10000000
+    db %00001111, %00000000
+    db %00001110, %00000000
+    db %00001100, %00000000
+    db %00001000, %00000000
+;
 
 
 
@@ -77,7 +109,12 @@ boss_1_spawn:
     cp TRUE
     ret z
 
-    ; call sound_A_0_25
+    call sound_A_0_25
+    call sound_GSharp_0_05
+    call sound_B_0_25
+    call sound_GSharp_0_05
+    call sound_A_0_25
+    call sound_GSharp_0_25
 
     ld a,TRUE
     ld (boss_1_isalive),a
@@ -88,6 +125,9 @@ boss_1_spawn:
 
     ld a,BOSS_1_SPAWN_Y
     ld (boss1_y),a
+
+    ld a,LEFT
+    ld (boss_1_direction),a
     ret
 
 
@@ -96,8 +136,7 @@ boss_1_update:
     cp TRUE
     ret nz
 
-
-
+    
     ld a,(boss_1_isattacking)
     cp TRUE
     jp z,boss_1_update_attacking
@@ -161,8 +200,8 @@ boss_1_move_left:
 
 boss_1_move_right:
     ld a,(boss1_x)
-    cp BOSS_1_SPAWN_X
-    jp nc, boss_1_startmovement
+    cp BOSS_1_MAX_X
+    jp nc, boss_1_startphase_updown
 
     add a,BOSS_1_SPEED_X
     ld (boss1_x),a
@@ -170,24 +209,30 @@ boss_1_move_right:
 
 
 boss_1_set_direction_up:
+    call sound_GSharp_0_05
     ld a,UP
     ld (boss_1_direction),a
     ret
 boss_1_set_direction_down:
+    call sound_GSharp_0_05
     ld a,DOWN
     ld (boss_1_direction),a
     ret
 
 boss_1_set_direction_left:
+    call sound_GSharp_0_05
     ld a,LEFT
     ld (boss_1_direction),a
     ret
 boss_1_set_direction_right:
+    call sound_GSharp_0_05
     ld a,RIGHT
     ld (boss_1_direction),a
     ret
 
 boss_1_set_attacking_true:
+    call sound_A_0_25
+    call sound_GSharp_0_25
     ld a,TRUE
     ld (boss_1_isattacking),a
     ret
@@ -208,7 +253,7 @@ boss_1_draw:
     call drawsprite16_32
     pop de
     ld b,BOSS_1_COLOUR
-    call paint_sprite_2_4
+    call paint_sprite_2_5
     ret
 
 
@@ -218,15 +263,11 @@ boss_1_startattack:
     call boss_1_set_attacking_true
     ret
 
-boss_1_startmovement:
+boss_1_startphase_updown:
     ld a,DOWN
     ld (boss_1_direction),a
     call boss_1_set_attacking_false
     ret
-
-
-
-
 
 boss_1_check_collision_player:
     ld a,(boss_1_isalive)
@@ -311,5 +352,6 @@ kill_boss_1:
     call increment_score10000
     call increment_cash10000
 
-    call begin_shop
+    call kill_all_bullets
+    jp begin_shop
     ret

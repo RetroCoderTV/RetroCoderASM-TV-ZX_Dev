@@ -58,6 +58,7 @@ bmove_start:
     jp z, bmove_next
 
     call check_collision_bullet_boss1
+    call check_collision_bullet_squid
 
     ld a,(ix+1)
     add a,BULLET_SPEED
@@ -109,6 +110,18 @@ bullet_kill:
 
 
 
+kill_all_bullets:
+    ld ix,bullets_player
+kab_start:
+    ld a,(ix)
+    cp 255
+    ret z
+    ld (ix),FALSE
+    ld de,BULLET_DATA_LENGTH
+    add ix,de
+    jp kab_start
+
+
 
 
 
@@ -157,3 +170,53 @@ check_collision_bullet_boss1:
 
     ret
 
+
+
+
+
+
+
+
+
+
+
+;IX=bullet
+check_collision_bullet_squid:
+    ld a,(squid_is_alive)
+    cp FALSE
+    ret z
+
+    ld a,(ix+1) 
+    ld b,a ;B=bullet x
+    ld a,(squid_x)
+    add a,2
+    cp b
+    ret c
+
+    ld a,(squid_x)
+    ld b,a
+    ld a,(ix+1) 
+    add a,2 ;add bullet width A=bullet right side
+    cp b
+    ret c
+
+    ld a,(squid_y)
+    ld b,a
+    ld a,(ix+2)
+    add a,8 ;add bullet height    
+    cp b
+    ret c
+
+    ld a,(ix+2)
+    ld b,a ;B=bullet top
+    ld a,(squid_y)
+    add a,8
+    cp b
+    ret c
+
+    ;if here, collision....
+    call bullet_kill
+    call kill_squid ;todo: squid take hit
+
+
+    ret

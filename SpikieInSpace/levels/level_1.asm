@@ -18,20 +18,40 @@ L1_WAVE_17_START equ 24
 L1_WAVE_18_START equ 25
 L1_WAVE_19_START equ 26
 L1_WAVE_20_START equ 27
-L1_LEVEL_END equ 28
+L1_WAVE_21_START equ 29 
+L1_WAVE_22_START equ 30
+L1_WAVE_23_START equ 32
+L1_WAVE_24_START equ 33
+L1_WAVE_25_START equ 36
+L1_WAVE_26_START equ 37
+L1_WAVE_27_START equ 38
+L1_WAVE_28_START equ 39
+L1_WAVE_29_START equ 40
+L1_WAVE_30_START equ 43
+L1_WAVE_31_START equ 44
+L1_WAVE_32_START equ 46
+L1_WAVE_33_START equ 47
+L1_WAVE_34_START equ 48
+L1_WAVE_35_START equ 49
+L1_WAVE_36_START equ 50
+L1_WAVE_37_START equ 52
+L1_WAVE_38_START equ 53
+L1_WAVE_39_START equ 55
+L1_WAVE_40_START equ 56
+L1_LEVEL_END equ 60
 
 
 
 ;enemy spawn slots
 L1_SPAWNSLOT_TOP equ 15
-L1_SPAWNSLOT_MIDDLE equ 95
-L1_SPAWNSLOT_BOTTOM equ 130
+L1_SPAWNSLOT_MIDDLE equ 85
+L1_SPAWNSLOT_BOTTOM equ 125
 
 
 ; wave # | slot | pattern |     sprite
-; 1     TOP         WAVE        SAUCER
-; 2     BOTTOM      ZAG         SAUCER
-; 3     TOP         ZIG         SAUCER
+; 1     TOP         STRAIGHT    INVADER
+; 2     BOTTOM      ZAG         INVADER
+; 3     TOP         ZIG         INVADER
 ; 4     BOTTOM      ZAG         SAUCER
 ; 5     MID         WAVE        ARROW
 ; 6     MID         WAVE        ARROW
@@ -46,9 +66,29 @@ L1_SPAWNSLOT_BOTTOM equ 130
 ; 15    TOP         ZIG         SAUCER
 ; 16    BOTTOM      WAVE        ARROW
 ; 17    BOTTOM      WAVE        SAUCER
-; 18    BOTTOM      ZAG         ARROW
-; 19    MID         WAVE        ARROW
-; 20    MID         ZAG         ARROW
+; 18    BOTTOM      ZAG         T
+; 19    MID         WAVE        T
+; 20    MID         ZAG         WING
+; 21     TOP         WAVE        INVADER
+; 22     BOTTOM      ZAG         T
+; 23     TOP         ZIG         T
+; 24     BOTTOM      ZAG         SPERM
+; 25     MID         WAVE        SPERM
+; 26     MID         WAVE        SPERM
+; 27     TOP         WAVE        SPERM
+; 28     TOP         ZIG         SAUCER
+; 29     BOTTOM      ZAG         ARROW
+; 30    BOTTOM      ZAG         T
+; 31    MID         ZAG         T
+; 32    MID         ZIG         ARROW
+; 33    TOP         WAVE        SAUCER
+; 34    BOTTOM      ZAG         INVADER
+; 35    TOP         ZIG         SAUCER
+; 36    BOTTOM      WAVE        ARROW
+; 37    BOTTOM      WAVE        SAUCER
+; 38    BOTTOM      ZAG         T
+; 39    MID         WAVE        WING
+; 40    MID         ZAG         WING
 ;INPUTS:
 ;H=(level timer)
 l1_setoffset:
@@ -72,6 +112,18 @@ l1_setoffset:
     ret z
     cp L1_WAVE_15_START
     ret z
+    cp L1_WAVE_21_START
+    ret z
+    cp L1_WAVE_23_START
+    ret z
+    cp L1_WAVE_27_START
+    ret z
+    cp L1_WAVE_28_START
+    ret z
+    cp L1_WAVE_33_START
+    ret z
+    cp L1_WAVE_35_START
+    ret z
 
     ld a,L1_SPAWNSLOT_MIDDLE
     ld (wave_y_offset),a
@@ -87,6 +139,18 @@ l1_setoffset:
     cp L1_WAVE_19_START
     ret z
     cp L1_WAVE_20_START
+    ret z
+    cp L1_WAVE_25_START
+    ret z
+    cp L1_WAVE_26_START
+    ret z
+    cp L1_WAVE_31_START
+    ret z
+    cp L1_WAVE_32_START
+    ret z
+    cp L1_WAVE_39_START
+    ret z
+    cp L1_WAVE_40_START
     ret z
 
     ld a,L1_SPAWNSLOT_BOTTOM
@@ -108,6 +172,22 @@ l1_setoffset:
     ret z
     cp L1_WAVE_18_START
     ret z
+    cp L1_WAVE_22_START
+    ret z
+    cp L1_WAVE_24_START
+    ret z
+    cp L1_WAVE_29_START
+    ret z
+    cp L1_WAVE_30_START
+    ret z
+    cp L1_WAVE_34_START
+    ret z
+    cp L1_WAVE_36_START
+    ret z
+    cp L1_WAVE_37_START
+    ret z
+    cp L1_WAVE_38_START
+    ret z
 
     ld a,h
     cp L1_LEVEL_END
@@ -122,10 +202,6 @@ l1_setpattern:
     ld (current_pattern),hl
     pop hl
     ld a,h ;compare high byte to P starts (pattern starts)
-    cp L1_WAVE_1_START
-    ret z
-    cp L1_WAVE_1_START
-    ret z
     cp L1_WAVE_5_START
     ret z
     cp L1_WAVE_6_START
@@ -142,7 +218,22 @@ l1_setpattern:
     ret z
     cp L1_WAVE_20_START
     ret z
-    
+    cp L1_WAVE_21_START
+    ret z
+    cp L1_WAVE_25_START
+    ret z
+    cp L1_WAVE_26_START
+    ret z
+    cp L1_WAVE_27_START
+    ret z
+    cp L1_WAVE_33_START
+    ret z
+    cp L1_WAVE_36_START
+    ret z
+    cp L1_WAVE_37_START
+    ret z
+    cp L1_WAVE_39_START
+    ret z
 
     push hl
     ld hl,flightpattern_zig
@@ -158,6 +249,14 @@ l1_setpattern:
     ret z
     cp L1_WAVE_15_START
     ret z
+    cp L1_WAVE_23_START
+    ret z
+    cp L1_WAVE_28_START
+    ret z
+    cp L1_WAVE_32_START
+    ret z
+    cp L1_WAVE_35_START
+    ret z
     
     push hl
     ld hl,flightpattern_zag
@@ -167,13 +266,38 @@ l1_setpattern:
     ret z
     cp L1_WAVE_4_START
     ret z
+    cp L1_WAVE_9_START
+    ret z
     cp L1_WAVE_10_START
     ret z
     cp L1_WAVE_14_START
     ret z
     cp L1_WAVE_18_START
     ret z
+    cp L1_WAVE_22_START
+    ret z
+    cp L1_WAVE_24_START
+    ret z
+    cp L1_WAVE_29_START
+    ret z
+    cp L1_WAVE_30_START
+    ret z
+    cp L1_WAVE_31_START
+    ret z
+    cp L1_WAVE_34_START
+    ret z
+    cp L1_WAVE_38_START
+    ret z
+    cp L1_WAVE_40_START
+    ret z
     
+    push hl
+    ld hl,flightpattern_straight
+    ld (current_pattern),hl
+    pop hl
+    ld a,h ;compare high byte to P starts (pattern starts)
+    cp L1_WAVE_1_START
+    ret z
     
 
     ret
@@ -185,12 +309,6 @@ l1_setenemysprite:
     ld (current_enemy_spritetype),hl
     pop hl
     ld a,h
-    cp L1_WAVE_1_START
-    ret z
-    cp L1_WAVE_2_START
-    ret z
-    cp L1_WAVE_3_START
-    ret z
     cp L1_WAVE_4_START
     ret z
     cp L1_WAVE_7_START
@@ -204,6 +322,76 @@ l1_setenemysprite:
     cp L1_WAVE_15_START
     ret z
     cp L1_WAVE_17_START
+    ret z
+    cp L1_WAVE_28_START
+    ret z
+    cp L1_WAVE_33_START
+    ret z
+    cp L1_WAVE_35_START
+    ret z
+    cp L1_WAVE_37_START
+    ret z
+
+    push hl
+    ld hl,enemysprite_tfighter
+    ld (current_enemy_spritetype),hl
+    pop hl
+    ld a,h
+    cp L1_WAVE_18_START
+    ret z
+    cp L1_WAVE_19_START
+    ret z
+    cp L1_WAVE_22_START
+    ret z
+    cp L1_WAVE_23_START
+    ret z
+    cp L1_WAVE_30_START
+    ret z
+    cp L1_WAVE_31_START
+    ret z
+    cp L1_WAVE_38_START
+    ret z
+
+    push hl
+    ld hl,enemysprite_sperm
+    ld (current_enemy_spritetype),hl
+    pop hl
+    ld a,h
+    cp L1_WAVE_24_START
+    ret z
+    cp L1_WAVE_25_START
+    ret z
+    cp L1_WAVE_26_START
+    ret z
+    cp L1_WAVE_27_START
+    ret z
+
+    push hl 
+    ld hl,enemysprite_wing
+    ld (current_enemy_spritetype),hl
+    pop hl
+    cp L1_WAVE_20_START
+    ret z
+    cp L1_WAVE_39_START
+    ret z
+    cp L1_WAVE_40_START
+    ret z
+
+
+    push hl
+    ld hl,enemysprite_invader
+    ld (current_enemy_spritetype),hl
+    pop hl
+    ld a,h
+    cp L1_WAVE_1_START
+    ret z
+    cp L1_WAVE_2_START
+    ret z
+    cp L1_WAVE_3_START
+    ret z
+    cp L1_WAVE_21_START
+    ret z
+    cp L1_WAVE_34_START
     ret z
 
     ld hl,enemysprite_arrow

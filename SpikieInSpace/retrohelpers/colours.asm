@@ -622,6 +622,104 @@ paint_sprite_2_4:
 
 
 
+;origin addr=attrmem+(y*4)+x
+;DE=xy
+;B=ink only colour
+paint_sprite_2_5:
+    ld a,d
+    cp BUFFER_SIDE_EXTRA
+    ret c
+    ld a,d
+    cp BUFFER_WINDOW_WIDTH-2
+    ret nc
+    push de
+    srl e
+    srl e
+    srl e
+    ld hl,0
+    ld l,e
+    add hl,hl ;x2
+    add hl,hl ;x4
+    add hl,hl 
+    add hl,hl 
+    add hl,hl ;x32
+    ld a,d
+    sub BUFFER_SIDE_EXTRA
+    ld d,0
+    ld e,a
+    add hl,de ;+=x
+    ld de,ATTRIBUTE_MEMORY_START
+    add hl,de ;sprite origin cell
+
+    pop de
+
+    call do_paint
+    inc hl
+    call do_paint
+
+    push de
+    ld de,31
+    add hl,de
+    pop de
+
+    call do_paint
+    inc hl
+    call do_paint
+
+    push de
+    ld de,31
+    add hl,de
+    pop de
+
+    call do_paint
+    inc hl
+    call do_paint
+
+    push de
+    ld de,31
+    add hl,de
+    pop de
+
+    call do_paint
+    inc hl
+    call do_paint
+
+    push de
+    ld de,31
+    add hl,de
+    pop de
+
+    call do_paint
+    inc hl
+    call do_paint
+
+    ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
