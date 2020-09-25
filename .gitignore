@@ -1,4 +1,4 @@
-
+/.tmp/*
 *.list
 *.sna
 *.labels
