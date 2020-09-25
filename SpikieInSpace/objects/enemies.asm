@@ -187,6 +187,11 @@ upd_start:
     ld e,(ix+3) ;d=current step
     add hl,de ;move HL forward number of steps
     
+    push hl
+    call check_collision_enemy_bullet
+    call check_collision_enemy_player
+    pop hl
+
     ld d,(hl) ;d=x pos from flightpattern
     push hl
     inc hl
@@ -197,8 +202,7 @@ upd_start:
     ld (ix+1),d ;store x pos
     ld (ix+2),e ;store y pos
     
-    call check_collision_enemy_bullet
-    call check_collision_enemy_player
+    
 
     pop hl
     ld a,(hl)

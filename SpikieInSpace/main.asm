@@ -6,7 +6,7 @@
 
 program_start:
     call 0xDAF
-    ld a,1
+    ld a,GAME_BORDER_COLOUR
     call 0x229B
     call mainmenu_start
     jp mainmenu_update
@@ -15,18 +15,13 @@ begin_game:
     call 0xDAF
     ld a,1
     ld (current_level),a
-    call 0x229B
+    call ui_init
     call starfield_paint
-    call init_ui_labels
-    call refresh_ui_numbers
     call player_game_start
 
     ;start of game jingle...
     call sound_B_0_25
-    call sound_A_0_25
-    
-
-    
+    call sound_A_0_25    
     jp main
 
 
@@ -34,9 +29,8 @@ begin_shop:
     call 0xDAF
     ld a,6
     call 0x229B
+    call ui_init
     call starfield_paint
-    call init_ui_labels
-    call refresh_ui_numbers
     call shopmenu_start
     jp shopmenu_update
     
@@ -61,7 +55,7 @@ main:
 
 
 main_update:
-    ld a,3
+    ld a,GAME_BORDER_COLOUR
     call 0x229b
     call player_update
     call bullets_update
@@ -129,8 +123,6 @@ stack_top:  defb 0  ; WPMEM
 
 
 program_end:
-    ld a,2
-    call 0x229b
     call sound_A_0_25
     call sound_B_0_25
     call sound_GSharp_0_25

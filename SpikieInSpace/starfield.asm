@@ -1,5 +1,4 @@
-STARFIELD_COLOURS_L1 equ %01000110
-STARFIELD_COLOURS_L2 equ %01000110
+STARFIELD_COLOUR equ %01000110
 
 NEW_STAR equ %00000001
 
@@ -50,20 +49,18 @@ stars:
 STARS_DATA_LENGTH equ 4
 
 starfield_paint:
+    ld iyl,STARFIELD_COLOUR
     ld hl,0x5800
-    ld a,(current_level)
-    cp 1 
-    jp z,sfpaint_l1
-    cp 2
-    jp z,sfpaint_l2
-sfpaint_l1:
-    ld b,STARFIELD_COLOURS_L1
-    call paint_base_attributes
+sfpaint_start:
+    ld b,GAME_WINDOW_WIDTH
+    call paint_line
+    ld de,SCREEN_WIDTH-GAME_WINDOW_WIDTH
+    add hl,de
+    ld a,h
+    cp 0x5B
+    jp c, sfpaint_start
     ret
-sfpaint_l2:
-    ld b,STARFIELD_COLOURS_L2
-    call paint_base_attributes
-    ret
+
 
 
 

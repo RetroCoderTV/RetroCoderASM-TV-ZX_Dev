@@ -6,28 +6,39 @@ SQUID_SPAWN_BOTTOM_Y equ 170
 squid_is_alive db FALSE
 squid_y db 0
 squid_x db 0
+
+squid_speed_x db 1
+squid_speed_y db 4
 squid_direction_updown db DOWN
 
 squid_spawn_mode db TOP
 squid_hp db ENEMY_HP_SQUID
 
 enemysprite_squid:
-    db %00000011, %10000000
-    db %00000111, %11000000
-    db %00001111, %11100000
-    db %00011011, %10110000
-    db %00011111, %11110000
-    db %00000100, %01000000
-    db %00001011, %10100000
-    db %00010100, %01010000
+    db %00000111, %11100000
+    db %00011111, %11111000
+    db %00111001, %10011100
+    db %01111001, %10011110
+    db %11111111, %11111111
+    db %10011001, %10011001
+    db %00010001, %10001000
+    db %00101010, %01010100
 ;
-
+squid_colour db 4
 
 
 spawn_squid:
     ld a,(squid_is_alive)
     cp TRUE
     ret z
+spawnsquid_randcolour:
+    call rand
+    and 7
+    cp 0
+    jp z, spawnsquid_randcolour
+    cp 7
+    jp z, spawnsquid_randcolour
+    ld (squid_colour),a
     call rand
     cp FIFTY50
     push af
@@ -71,6 +82,9 @@ squid_update:
     cp TRUE
     ret nz
 
+    call check_collision_squid_player
+
+
     ld a,(squid_direction_updown)
     cp UP
     push af
@@ -96,7 +110,7 @@ squid_update:
     cp b
     call c,squid_move_right
 
-    call check_collision_squid_player
+    
 
 
     ret
@@ -106,33 +120,41 @@ squid_update:
 
 
 squid_move_up:
+    ld a,(squid_speed_y)
+    ld b,a
     ld a,(squid_y)
-    dec a
+    sub b
     ld (squid_y),a
-    cp SQUID_SPAWN_TOP_Y
-    call z,destroy_squid
+    cp SQUID_SPAWN_TOP_Y+4
+    call c,destroy_squid
     ret
 
 
 squid_move_down:
+    ld a,(squid_speed_y)
+    ld b,a
     ld a,(squid_y)
-    inc a
+    add a,b
     ld (squid_y),a
     cp SQUID_SPAWN_BOTTOM_Y
-    call z,destroy_squid
+    call nc,destroy_squid
     ret
 
 squid_move_right:
+    ld a,(squid_speed_x)
+    ld b,a
     ld a,(squid_x)
-    inc a
+    add a,b
     ld (squid_x),a
     cp MAX_X
     call nc,destroy_squid
     ret
 
 squid_move_left:
+    ld a,(squid_speed_x)
+    ld b,a
     ld a,(squid_x)
-    dec a
+    sub b
     ld (squid_x),a
     cp MIN_X
     call c,destroy_squid
@@ -163,8 +185,13 @@ squid_draw:
 
 
     ld de,(squid_y)
+    push de
     ld bc,enemysprite_squid
     call drawsprite16_8
+    ld a,(squid_colour)
+    ld b,a
+    pop de
+    call paint_sprite_2_2
     ret
 
 

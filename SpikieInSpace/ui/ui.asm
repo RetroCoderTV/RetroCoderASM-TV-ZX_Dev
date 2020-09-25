@@ -1,3 +1,15 @@
+UI_COLOURS equ %01011110
+
+ui_init:
+    ld hl,0x5800
+    ld b,UI_COLOURS
+    call paint_base_attributes
+
+    call init_ui_labels
+    call refresh_ui_numbers
+    ret
+
+
 init_ui_labels:
     ld bc,15616
     ld d,CASH_LABEL_Y

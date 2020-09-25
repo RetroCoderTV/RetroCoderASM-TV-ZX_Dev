@@ -960,11 +960,15 @@ drawsprite16_8:
     ;start drawing bytes...
     ;0,0
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,0
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -972,11 +976,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer by wwidth
     ;0,1
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,1
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -984,11 +992,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer 
     ;0,2
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,2
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -996,11 +1008,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer 
     ;0,3
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,3
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1008,11 +1024,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer 
     ;0,4
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,4
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1020,11 +1040,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer 
     ;0,5
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,5
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1032,11 +1056,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer 
     ;0,6
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,6
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     inc bc
     
@@ -1044,11 +1072,15 @@ drawsprite16_8:
     add hl,de ;increment HL pointer 
     ;0,7
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a 
     inc bc
     inc hl
     ;1,7
     ld a,(bc)
+    ld d,(hl)
+    or d
     ld (hl),a
     ret
 ;

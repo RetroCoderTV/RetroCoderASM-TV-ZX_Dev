@@ -1,4 +1,4 @@
-
+GAME_BORDER_COLOUR equ 1
 ;Colours
 ;FBPPPIII
 COLOUR_BLACK equ 0  ;%000
