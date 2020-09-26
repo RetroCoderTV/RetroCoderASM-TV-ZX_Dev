@@ -1,5 +1,4 @@
 /.tmp/*
-*.tap
 *.list
 *.sna
 *.labels
