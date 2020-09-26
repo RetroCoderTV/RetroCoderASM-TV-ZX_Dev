@@ -6,6 +6,9 @@ ENTRY_POINT equ 0x9800
     DEVICE ZXSPECTRUM48
     
 
+;screen transitions are broken....
+
+
 program_start:
     call 0xDAF
     ld a,GAME_BORDER_COLOUR
