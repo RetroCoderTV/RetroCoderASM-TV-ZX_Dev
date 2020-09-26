@@ -44,4 +44,5 @@ BOTTOM equ 1
 
 
 
+GRAVITY equ 200
 
